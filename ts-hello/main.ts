@@ -1,12 +1,8 @@
-//Section 2 - Tutorial 12 - Access Modifiers:
-//What if we want to change it so the coordinated can never be changed?
-//Task 1 - Apply Access Modifiers
+//Section 2 - Tutorial 13 - Access Modifiers in Construcors
+//Task 1 - Remove instantiation & Assignment of X & Y
+//Task 2 - Apply Access Modifiers on Constructor Directly
 class Point {
-    private x: number;
-    private y: number;
-    constructor(x?: number, y?: number) {
-        this.x = x;
-        this.y = y;
+    constructor(private x?: number, private y?: number) {
     }
     draw()
     {
@@ -14,5 +10,5 @@ class Point {
     }
 }
 
-let point = new Point(5, 6);
+let point = new Point(1, 2);
 point.draw();
