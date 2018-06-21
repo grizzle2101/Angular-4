@@ -1,24 +1,15 @@
+//Section 2 - Tutorial 11 - Constructors:
+//Task 1 - Create Constructor Method
 var Point = /** @class */ (function () {
-    function Point() {
+    function Point(x, y) {
+        this.x = x;
+        this.y = y;
     }
     Point.prototype.draw = function () {
         console.log('Draw: X - ' + this.x + ', Y -' + this.y);
     };
-    Point.prototype.getDistance = function (another) {
-        //Distance Function
-        console.log('GetDistance: X - ' + this.x + ', Y -' + this.y);
-        console.log('GetDistance: X - ' + another.x + ', Y -' + another.y);
-    };
     return Point;
 }());
-//Section 2 - Tutorial 10 - Objects:
-//Task 1 - Create Point Object
-var point = new Point();
-point.x = 1;
-point.y = 2;
-var secondPoint = new Point();
-secondPoint.x = 5;
-secondPoint.y = 6;
-//Task 2 - Call Methods
+//Task 2 - Supply Values to Constructor
+var point = new Point(5, 6);
 point.draw();
-point.getDistance(secondPoint);
