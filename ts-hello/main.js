@@ -1,23 +1,24 @@
-//Section 2 - Tutorial 9 - Classes:
-//Cohesion: Our MyDraw Function, should be INSIDE the Interface. There should be cohesion between the related elements.
-//These functions are probabaly going to be a series of related functions like getDistance DrawPoint etc.
-//Task 1 - Move Methods into Interface
-/*
-interface Point{
-    x: number,
-    y: number,
-    draw: () => void
-}
-*/
-//Task 2 - Create Class to Contain Functions
 var Point = /** @class */ (function () {
     function Point() {
     }
     Point.prototype.draw = function () {
-        //Draw Function
+        console.log('Draw: X - ' + this.x + ', Y -' + this.y);
     };
     Point.prototype.getDistance = function (another) {
         //Distance Function
+        console.log('GetDistance: X - ' + this.x + ', Y -' + this.y);
+        console.log('GetDistance: X - ' + another.x + ', Y -' + another.y);
     };
     return Point;
 }());
+//Section 2 - Tutorial 10 - Objects:
+//Task 1 - Create Point Object
+var point = new Point();
+point.x = 1;
+point.y = 2;
+var secondPoint = new Point();
+secondPoint.x = 5;
+secondPoint.y = 6;
+//Task 2 - Call Methods
+point.draw();
+point.getDistance(secondPoint);
