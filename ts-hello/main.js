@@ -1,5 +1,6 @@
-//Section 2 - Tutorial 11 - Constructors:
-//Task 1 - Create Constructor Method
+//Section 2 - Tutorial 12 - Access Modifiers:
+//What if we want to change it so the coordinated can never be changed?
+//Task 1 - Apply Access Modifiers
 var Point = /** @class */ (function () {
     function Point(x, y) {
         this.x = x;
@@ -10,6 +11,5 @@ var Point = /** @class */ (function () {
     };
     return Point;
 }());
-//Task 2 - Supply Values to Constructor
 var point = new Point(5, 6);
 point.draw();
