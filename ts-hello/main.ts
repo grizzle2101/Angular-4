@@ -1,32 +1,26 @@
-//Section 2 - Tutorial 8 - Interfaces:
-//How would we make this more modular and clean?
-let drawPoint = (x ,y) =>
-{
 
-}
-drawPoint(5, 4);
-
-//Method 1 - Method that Takes Point Object with X & Y Properties.
-let maDraw = (point: {x: number, y: number}) =>
-{
-
-}
-
-maDraw ({
-    x: 1,
-    y: 2
-})
-
-
-//Method 2 - OO way, Method Using Interface
-//Notice Naming Convention Pascal Case.
-//Delcare Interface
+//Section 2 - Tutorial 9 - Classes:
+//Cohesion: Our MyDraw Function, should be INSIDE the Interface. There should be cohesion between the related elements.
+//These functions are probabaly going to be a series of related functions like getDistance DrawPoint etc.
+//Task 1 - Move Methods into Interface
+/*
 interface Point{
     x: number,
-    y: number
+    y: number,
+    draw: () => void
 }
+*/
 
-let myDraw = (point: Point) =>
-{
-    //Draw Stuff...
+//Task 2 - Create Class to Contain Functions
+class Point{
+    x: number;
+    y: number;
+    draw()
+    {
+        //Draw Function
+    }
+    getDistance(another: Point)
+    {
+        //Distance Function
+    }
 }

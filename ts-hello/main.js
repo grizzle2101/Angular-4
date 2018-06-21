@@ -1,15 +1,23 @@
-//Section 2 - Tutorial 8 - Interfaces:
-//How would we make this more modular and clean?
-var drawPoint = function (x, y) {
-};
-drawPoint(5, 4);
-//Method 1 - Method that Takes Point Object with X & Y Properties.
-var maDraw = function (point) {
-};
-maDraw({
-    x: 1,
-    y: 2
-});
-var myDraw = function (point) {
-    //Draw Stuff...
-};
+//Section 2 - Tutorial 9 - Classes:
+//Cohesion: Our MyDraw Function, should be INSIDE the Interface. There should be cohesion between the related elements.
+//These functions are probabaly going to be a series of related functions like getDistance DrawPoint etc.
+//Task 1 - Move Methods into Interface
+/*
+interface Point{
+    x: number,
+    y: number,
+    draw: () => void
+}
+*/
+//Task 2 - Create Class to Contain Functions
+var Point = /** @class */ (function () {
+    function Point() {
+    }
+    Point.prototype.draw = function () {
+        //Draw Function
+    };
+    Point.prototype.getDistance = function (another) {
+        //Distance Function
+    };
+    return Point;
+}());
