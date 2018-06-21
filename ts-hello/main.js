@@ -1,9 +1,15 @@
-//Section 2 - Tutorial 7 - Arrow Functions:
-//Task 1 - JavaScript Way:
-var log = function (message) {
-    console.log();
+//Section 2 - Tutorial 8 - Interfaces:
+//How would we make this more modular and clean?
+var drawPoint = function (x, y) {
 };
-//Task 2 - TypeScript Way
-var doLog = function (message) { return console.log(message); };
-//Task 3 - Arrow Function w No Parameters
-var myLog = function () { return console.log("No Parameters in this Method"); };
+drawPoint(5, 4);
+//Method 1 - Method that Takes Point Object with X & Y Properties.
+var maDraw = function (point) {
+};
+maDraw({
+    x: 1,
+    y: 2
+});
+var myDraw = function (point) {
+    //Draw Stuff...
+};

@@ -1,12 +1,32 @@
-//Section 2 - Tutorial 7 - Arrow Functions:
-//Task 1 - JavaScript Way:
-let log = function(message)
+//Section 2 - Tutorial 8 - Interfaces:
+//How would we make this more modular and clean?
+let drawPoint = (x ,y) =>
 {
-    console.log();
+
+}
+drawPoint(5, 4);
+
+//Method 1 - Method that Takes Point Object with X & Y Properties.
+let maDraw = (point: {x: number, y: number}) =>
+{
+
 }
 
-//Task 2 - TypeScript Way
-let doLog = (message) => console.log(message);
+maDraw ({
+    x: 1,
+    y: 2
+})
 
-//Task 3 - Arrow Function w No Parameters
-let myLog = () => console.log("No Parameters in this Method");
+
+//Method 2 - OO way, Method Using Interface
+//Notice Naming Convention Pascal Case.
+//Delcare Interface
+interface Point{
+    x: number,
+    y: number
+}
+
+let myDraw = (point: Point) =>
+{
+    //Draw Stuff...
+}
