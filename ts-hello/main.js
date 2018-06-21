@@ -1,10 +1,9 @@
-//Task 1 - Demonstrating String Functions
-var message = 'abc';
-var lastChar = message.endsWith('c');
-//Task 2 - Breaking IntelliSense Types:
-var newMessage;
-newMessage = 'abc';
-var finalChar = newMessage.endsWith('c'); //We Lose All String Functions
-//Task 3 - Use Type Assertions to Fix:
-var endsWithC = newMessage.endsWith('c');
-var alternativeWay = newMessage.endsWith('c');
+//Section 2 - Tutorial 7 - Arrow Functions:
+//Task 1 - JavaScript Way:
+var log = function (message) {
+    console.log();
+};
+//Task 2 - TypeScript Way
+var doLog = function (message) { return console.log(message); };
+//Task 3 - Arrow Function w No Parameters
+var myLog = function () { return console.log("No Parameters in this Method"); };
