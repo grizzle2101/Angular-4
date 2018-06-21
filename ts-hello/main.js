@@ -1,9 +1,9 @@
 "use strict";
-exports.__esModule = true;
-//Section 2 - Tutorial 15 - Modules:
+Object.defineProperty(exports, "__esModule", { value: true });
+//Section 2 - Excerise
 //Task 1 - Create File & Move Class
-//Task 2 - Turn Point into a Module.
-//Task 3 - Import Module
-var point_1 = require("./point");
-var point = new point_1.Point(1, 2);
-point.draw();
+//Task 2 - Add Logic for Liking
+//Task 3 - Use/Test
+var like_1 = require("./like");
+var like = new like_1.Like(true, 10);
+like.clickLike();
