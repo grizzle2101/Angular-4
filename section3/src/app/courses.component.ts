@@ -1,5 +1,7 @@
-//Section 3 - Tutorial 8 - Dependency Injection
-//Task 1 - Create Construcor
+//Section 3 - Tutorial 10 - Finals Excercise
+//Implment an Authors Page & Setup
+//Task 1 - Rework HTML
+//Task 2 - Rework Components & Services w Dependency Injection
 import {Component} from '@angular/core'
 import { CoursesService } from './courses.service';
 
