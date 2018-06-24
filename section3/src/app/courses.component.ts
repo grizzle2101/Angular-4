@@ -1,7 +1,7 @@
-//Section 3 - Tutorial 6 - Directives
-//Task 1 - Return List of Courses
-
+//Section 3 - Tutorial 7 - Services
+//Task 1 - Create Service
 import {Component} from '@angular/core'
+import { CoursesService } from './courses.service';
 
 @Component({
     selector: 'courses',
@@ -14,6 +14,7 @@ import {Component} from '@angular/core'
 })
 export class CoursesComponent {
     title = "List of Courses:";
-    courses = ["courseOne", "courseTwo", "courseThree"];
+    courses;
 
+    //Logic for Calling API Service
 }
