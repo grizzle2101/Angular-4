@@ -4,8 +4,9 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { CoursesComponent } from './courses.component';
 import { CourseComponent } from './course/course.component';
+import { CoursesService } from './courses.service';
 
-//Task 4 - Reigster Courses Component in Module
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -15,7 +16,10 @@ import { CourseComponent } from './course/course.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  //Task 2 - Register CourseService Dependency
+  providers: [
+    CoursesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

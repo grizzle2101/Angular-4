@@ -1,5 +1,5 @@
-//Section 3 - Tutorial 7 - Services
-//Task 1 - Create Service
+//Section 3 - Tutorial 8 - Dependency Injection
+//Task 1 - Create Construcor
 import {Component} from '@angular/core'
 import { CoursesService } from './courses.service';
 
@@ -16,5 +16,9 @@ export class CoursesComponent {
     title = "List of Courses:";
     courses;
 
-    //Logic for Calling API Service
+    //Task 1 - Inject Dependency as Parameter
+    constructor(service: CoursesService)
+    {
+        this.courses = service.getCourses();
+    }
 }

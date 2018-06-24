@@ -1,4 +1,3 @@
-//Task 1 - Create Service
 export class CoursesService
 {
     getCourses()
