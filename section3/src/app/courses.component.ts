@@ -1,20 +1,23 @@
-//Section 4 - Tutorial 9 - Template Variables:
-//How can we get the value from the input field?
-//Task 1 - Get Value through event object
-//Task 2 - Angular Version - template Variables
+//Section 4 - Tutorial 10 - Two Way Data Binding:
+//In OO, we should be objects, not variables & properties like we have been doing.
+//Task 1 - Use Property Binding to set Email.
+//Task 2 - 2 Way Bind to NGModel
+//Task 3 - Import NgModel
 import {Component} from '@angular/core'
 import { CoursesService } from './courses.service';
 
 @Component({
     selector: 'courses',
     template: `
-                <input #email (keyup.enter)="onKeyUp(email.value)" />` 
+                <!--<input [value]="email" (keyup.enter)="email= $event.target.value; onKeyUp()" />-->
+                <input [(ngModel)]="email" (keyup.enter)="onKeyUp()" />` 
 })
+
 export class CoursesComponent {
-    isActive = true;
+    email="me@example.com";
     
     onKeyUp(email)
     {
-        console.log(email);        
+        console.log(this.email);        
     }
 }
