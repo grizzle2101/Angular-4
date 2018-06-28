@@ -1,30 +1,20 @@
-//Section 4 - Tutorial 7 - Event Binding
-//Task 1 - Bind Click Event to OnSave Method
-//Tasl 2 - Implment onSave Method.
-//Task 3 - Pass Event Object. 
-//Task 4 - Demonstrate Event Bubbling
-//Task 5 - Stop Event Bubbling with stopPropagation
+//Section 4 - Tutorial 8 - Event Filtering
+//Task 1 - Demonstrate Traditional Event Filtering
+//Task 2 - Angular Version
+//Much nicer, no need to do Event Filtering in the Component.
 import {Component} from '@angular/core'
 import { CoursesService } from './courses.service';
 
 @Component({
     selector: 'courses',
     template: `
-                <div (click)="onDivClick()">
-                <button (click)="onSave($event)">Save</button>
-                </div>` 
+                <input (keyup.enter)="onKeyUp()" />` 
 })
 export class CoursesComponent {
     isActive = true;
     
-    onDivClick()
+    onKeyUp()
     {
-        console.log("Div was clicked Saved");
-    }
-    onSave($event)
-    {
-        $event.stopPropagation();
-        
-        console.log("Data Saved",  $event);
+        console.log("Enter was Pressed");        
     }
 }
