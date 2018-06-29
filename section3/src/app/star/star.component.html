@@ -1,0 +1,7 @@
+<h2>Starred Item: {{isActive}}</h2>
+<span 
+class="glyphicon"
+[class.glyphicon-star]="isActive"
+[class.glyphicon-star-empty]="!isActive"
+(click)="onClick()"
+></span>
