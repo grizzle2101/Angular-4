@@ -1,9 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-//Section 5 - Tutorial 5 - Output Properties
-//Task 1 - Import Output & create change Output variable of type Event Emitter.
-//Task 2 - Emit Event(output)
-
+//Section 5 - Tutorial 6 - Passing Event Data:
+//Task 1 - Pass isActive in Emit.
+//Task 2 - Take in Boolean in onFavouriteChange
+//Task 3 - Pass $Event in HTML
+//Task 4 - Refactor send Annoymous Object
+//Task 5 - Refactor to Interface
 @Component({
   selector: 'app-star',
   templateUrl: './star.component.html',
@@ -20,6 +22,11 @@ export class StarComponent
     this.isActive = !this.isActive;
 
     //publish Event
-    this.change.emit();
+    this.change.emit({newValue: this.isActive});
   }
+}
+
+export interface FavouriteChangedEventArgs
+{
+  newValue : boolean
 }
