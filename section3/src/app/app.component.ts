@@ -10,4 +10,8 @@ export class AppComponent {
     title: "Title",
     isFavourite: false
   }
+  onFavouriteChange()
+  {
+    console.log("Favourite Changed, Toaster Pop Up!");
+  }
 }
