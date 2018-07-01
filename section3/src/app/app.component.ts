@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 export class AppComponent {
   post = {
     title: "Title",
-    isFavourite: true
+    isFavourite: false
   }
 }

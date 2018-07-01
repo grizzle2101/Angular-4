@@ -1,19 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-
-//Section 5 - Tutorial 2 - Component API:
-//Task 1 - Return some Data in app.component
-//Task 2 - Attempt to Bind Post data to StartSelected property
-//Problem - Even though both post and Star have the property, its impossible to bind.
-//Solution - We need a Output Property
+import { Component, OnInit, Input } from '@angular/core';
+//Section 5 - Tutorial 3 - Input Properties:
+//Option 1 - Mark as Input Property
+//Option 2 - MetaData - Magic Strings
 
 @Component({
   selector: 'app-star',
   templateUrl: './star.component.html',
   styleUrls: ['./star.component.css']
+  //inputs: ['isActive']
 })
 export class StarComponent
  {
-  isActive: boolean;
+  @Input() isActive: boolean;
+  //isActive: boolean;
 
   onClick()
   {
