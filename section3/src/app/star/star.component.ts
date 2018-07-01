@@ -1,11 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 
-//Section 5 - Tutorial 7 - Aliasing Output Properties
-//Task 1 - Set Ouput alias for change
+//Section 5 - Tutorial 10 - View Encapsulation:
+
 @Component({
   selector: 'app-star',
   templateUrl: './star.component.html',
-  styleUrls: ['./star.component.css']
+  styleUrls: ['./star.component.css'],
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class StarComponent
  {
