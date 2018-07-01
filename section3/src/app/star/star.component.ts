@@ -1,18 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
-//Section 5 - Tutorial 3 - Input Properties:
-//Option 1 - Mark as Input Property
-//Option 2 - MetaData - Magic Strings
+
+//Section 5 - Tutorial 4 - Aliasing Input Properties:
+//Task 1 - Use Input Parameter - Alias
 
 @Component({
   selector: 'app-star',
   templateUrl: './star.component.html',
   styleUrls: ['./star.component.css']
-  //inputs: ['isActive']
 })
 export class StarComponent
  {
-  @Input() isActive: boolean;
-  //isActive: boolean;
+  @Input('is-Active') isActive: boolean;
 
   onClick()
   {
