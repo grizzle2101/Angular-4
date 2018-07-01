@@ -1,11 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-//Section 5 - Tutorial 6 - Passing Event Data:
-//Task 1 - Pass isActive in Emit.
-//Task 2 - Take in Boolean in onFavouriteChange
-//Task 3 - Pass $Event in HTML
-//Task 4 - Refactor send Annoymous Object
-//Task 5 - Refactor to Interface
+//Section 5 - Tutorial 7 - Aliasing Output Properties
+//Task 1 - Set Ouput alias for change
 @Component({
   selector: 'app-star',
   templateUrl: './star.component.html',
@@ -14,7 +10,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class StarComponent
  {
   @Input('is-Active') isActive: boolean;
-  @Output() change = new EventEmitter();
+  @Output("change") changed = new EventEmitter();
 
   onClick()
   {
@@ -22,7 +18,7 @@ export class StarComponent
     this.isActive = !this.isActive;
 
     //publish Event
-    this.change.emit({newValue: this.isActive});
+    this.changed.emit({newValue: this.isActive});
   }
 }
 
