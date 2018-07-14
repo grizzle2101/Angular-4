@@ -1,0 +1,7 @@
+<span 
+class="glyphicon glyphicon-heart"
+[class.highlighted]="isActive"
+[class.glyphicon-heart-empty]="!isActive"
+(click)="onClick()">
+</span>
+<h3>Likes - {{LikesCount}}</h3>

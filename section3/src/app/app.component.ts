@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FavouriteChangedEventArgs } from './star/star.component';
+import { LikeEventArgs } from './like/like.component';
 
 
 @Component({
@@ -8,12 +9,13 @@ import { FavouriteChangedEventArgs } from './star/star.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  post = {
-    title: "Title",
-    isFavourite: false
+  tweet = {
+    title: "Tweet Title",
+    isLiked: true,
+    likeCount: 10
   }
-  onFavouriteChange(eventArgs: FavouriteChangedEventArgs)
+  onLike(eventArgs : LikeEventArgs)
   {
-    console.log("Favourite Changed - " , eventArgs);
+    console.log("Toastr Message: Tweet Liked!" , eventArgs.newValue);
   }
 }

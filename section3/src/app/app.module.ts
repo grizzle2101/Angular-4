@@ -13,6 +13,7 @@ import { StarComponent } from './star/star.component';
 import { TitlecaseComponent } from './titlecase/titlecase.component';
 import { TitleCasePipe } from './title-case.pipe';
 import { PanelComponent } from './panel/panel.component';
+import { LikeComponent } from './like/like.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { PanelComponent } from './panel/panel.component';
     TitleCasePipe,
     StarComponent,
     TitlecaseComponent,
-    PanelComponent
+    PanelComponent,
+    LikeComponent
   ],
   imports: [
     BrowserModule,

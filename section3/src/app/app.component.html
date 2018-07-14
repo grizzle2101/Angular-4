@@ -1,3 +1,11 @@
+<app-like
+ [isActive]="tweet.isLiked"
+ [likesCount]="tweet.likeCount"
+ (change)="onLike($event)">
+</app-like>
+
+
+
 <bootstrap-panel>
     <div class="heading">Newly Created Heading</div>
     <div class="body">Newly Created Body

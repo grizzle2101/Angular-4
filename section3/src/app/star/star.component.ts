@@ -19,7 +19,7 @@ export class StarComponent
     this.isActive = !this.isActive;
 
     //publish Event
-    this.changed.emit({newValue: this.isActive});
+    this.changed.emit({});
   }
 }
 
