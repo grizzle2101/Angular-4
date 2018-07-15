@@ -1,8 +1,11 @@
 <!--Task 3 - Clean Approach-->
-<div [hidden]="courses.length == 0">
-  List of Courses...
-</div>
+<ul class="nav nav-pills">
+  <li [class.active]="viewMode == 'map'"><a (click)="changeViewMode(viewMode='map')"> Map View </a></li>
+  <li [class.active]="viewMode == 'list'"><a (click)="changeViewMode(viewMode='list')"> List View </a></li>
+</ul>
 
-<div [hidden]="courses.length > 0">
-  No Courses...
+<div [ngSwitch]="viewMode">
+    <div *ngSwitchCase="'map'">Map View Content</div>
+    <div *ngSwitchCase="'list'">List View Content</div>
+    <div *ngSwitchDefault>No View Selected</div>
 </div>

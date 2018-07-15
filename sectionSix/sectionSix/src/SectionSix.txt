@@ -1,0 +1,44 @@
+---Tutorial 2 - NG IF:---
+Showing or Hiding certain HTML elements using NG IF.
+
+Structural V Attribute Directives
+-Structural directives modify the DOM structure. & require *ngIf syntax.
+-Attribute directives modify DOM attributes.
+
+Task 1 - Traditional NGIF on each DIV.
+Task 2 - Using ngif & ng-template.
+Task 3 - Clean approach, using Template on both Sections, and encapsulating logic in one NGIF.
+
+
+---Tutorial 3 - Hidden Property---
+So carrying on from the last lecture, we have another approach for Showing & Hiding elements.
+In HTML we have the Hidden Attribute which exists in our DOM, we can use this to hide elements.
+So instead of a Structural directive, we want to use a Attribute Directive to modify this element.
+
+Task 1 - Binding Hidden Propert
+Depending on the value of Courses.length we will hide the various sections.
+
+Note: Performance NGIF vs Hidden Property
+If we check in the browser, we can see the HTML exists, but has the hidden property applied so we can't see it.
+This is the main difference between NgIf & Template VS Hiden property.
+NGIF will remove the DOM element altogther, hidden will render still build the DOM, but apply the hidden style.
+For performance it is better to use NGIF, especially when working with big data sets.
+
+Angular will also keep track of changes in the DOM elements, even the hidden ones. So again a waste of
+resources.
+However if there is a user toggle to hide and unhide elements, using NGIF may cause performance overhead
+trying to rebuild the DOM, could be better to have it on pageLoad, but keep them hidden.
+
+---Tutorial 4 - NgSwitchCase
+We have multiple Data Views like Map & List View, being rendered dynamically.
+We could use NGIf, but that only works for true or false. For Logic hiding & Showing
+multiple pages we need NGSwitchCase.
+
+Task 1 - Create Initial HTML, Map View & List View.
+Task 2 - Create ViewMode variable to store value.
+Task 3 - Implment Case Switch in Front End.
+Task 4 - Change the ViewMode onClick of of either button.
+
+Note:
+If we want to Compare the value of a field or property against values, use the NgSwitchCase Directive.
+It also seems to Remove the DOM elements like NgIF, so be aware of the same performance overheads.

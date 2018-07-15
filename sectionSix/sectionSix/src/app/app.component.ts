@@ -6,8 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  viewMode = 'somethingelse'; //Set Default View
 
-  //Array of Posts
-  courses = [1, 2];
+  changeViewMode()
+  {
+    console.log("View Mode Changed", this.viewMode)
+  }
 }
