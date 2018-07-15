@@ -1,0 +1,32 @@
+<!--Task 3 - Clean Approach-->
+<div *ngIf="courses.length > 0; then courseList else noCourses"></div>
+
+<ng-template #courseList>
+  List of Courses
+</ng-template>
+
+<ng-template #noCourses>
+  No Courses yet...
+</ng-template>
+
+
+
+<!-- Task 1 - Traditional Approach
+<div *ngIf="courses.length > 0">
+  List of courses
+</div>
+
+<div *ngIf="courses.length == 0">
+  No Courses yet...
+</div>
+-->
+
+<!-- Task 2 - Using NgIf & ng-template:
+<div *ngIf="courses.length > 0; else noCourses">
+  List of Courses
+</div>
+
+<ng-template #noCourses>
+  No Courses yet...
+</ng-template>
+-->
