@@ -42,3 +42,17 @@ Task 4 - Change the ViewMode onClick of of either button.
 Note:
 If we want to Compare the value of a field or property against values, use the NgSwitchCase Directive.
 It also seems to Remove the DOM elements like NgIF, so be aware of the same performance overheads.
+
+
+Tutorial 5 - NgFor:
+So we know NgFor is used as a generic For loop to iterate over a list of items.
+What we probably aren't aware of is the built in variables & properties.
+We can for example apply styles on the Even or ODD table rows, index or check first & list.
+
+Task 1 - Return a List of Courses
+Task 2 - NgFor Iterate Course Names
+Task 3 - Demo built in NgFor Properties
+-Index Variable
+-Even, First & Last Variables
+-For a Complete list variables for the NgFor directive, 
+check out https://angular.io/api/common/NgForOf

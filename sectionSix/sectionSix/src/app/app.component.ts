@@ -5,11 +5,12 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  viewMode = 'somethingelse'; //Set Default View
 
-  changeViewMode()
-  {
-    console.log("View Mode Changed", this.viewMode)
-  }
+//Task 1 - Return List of Courses
+export class AppComponent {
+  courses = [
+    {id: 1, name: 'CourseOne'},
+    {id: 2, name: 'CourseTwo'},
+    {id: 3, name: 'CourseThree'}
+  ];
 }
