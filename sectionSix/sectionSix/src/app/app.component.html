@@ -1,7 +1,10 @@
-<!--Task 2 - NgFor Iterate Course Names-->
-<!--Task 3 - Demo built in NgFor Properties-->
+<!--Task 1 - Add Course Button-->
+<!--Task 2 - Remove Course Button-->
+<button (click)="onAdd()">Add Course</button>
 <ul>
   <li *ngFor="let course of courses; index as i; even as isEven">
-    {{i}} - {{course.name}} <span *ngIf="isEven">(EVEN)</span>
+    {{i}} - {{course.name}} 
+    <button (click)="onRemove(course)">Remove Course</button>
+    <button (click)="onChange(course)">Change Course</button>
   </li>
 </ul>

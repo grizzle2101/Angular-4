@@ -44,7 +44,7 @@ If we want to Compare the value of a field or property against values, use the N
 It also seems to Remove the DOM elements like NgIF, so be aware of the same performance overheads.
 
 
-Tutorial 5 - NgFor:
+---Tutorial 5 - NgFor:---
 So we know NgFor is used as a generic For loop to iterate over a list of items.
 What we probably aren't aware of is the built in variables & properties.
 We can for example apply styles on the Even or ODD table rows, index or check first & list.
@@ -56,3 +56,18 @@ Task 3 - Demo built in NgFor Properties
 -Even, First & Last Variables
 -For a Complete list variables for the NgFor directive, 
 check out https://angular.io/api/common/NgForOf
+
+
+
+---Tutorial 6 - NgFor & Change Detection---
+Carrying on from the previous lecture, we are going to demonstrate how NgFor keeps track of
+the course objects.
+
+Task 1 - Create Add Course Button & Logic
+Task 2 - Create Remove Course Button & Logic
+Task 3 - Create Update Course Button & Logic.
+
+Morale of the Story:
+So if we Add, Remove or Edit data contained in the NgFor, Angulars change detection mechanism
+will be able to track & update the DOM accordingly.
+In the next section we will talk about the performance overhead for this kind of feature.
