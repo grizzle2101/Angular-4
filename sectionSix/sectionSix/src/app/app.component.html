@@ -1,10 +1,8 @@
-<!--Task 1 - Add Course Button-->
-<!--Task 2 - Remove Course Button-->
-<button (click)="onAdd()">Add Course</button>
+<!--Task 1 - Load Courses-->
+<!--Task 2 - Add TrackBy & Point to Method-->
+<button (click)="onLoad()">Load Courses</button>
 <ul>
-  <li *ngFor="let course of courses; index as i; even as isEven">
-    {{i}} - {{course.name}} 
-    <button (click)="onRemove(course)">Remove Course</button>
-    <button (click)="onChange(course)">Change Course</button>
+  <li *ngFor="let course of courses; trackBy:trackCourse">
+    {{course.name}} 
   </li>
 </ul>

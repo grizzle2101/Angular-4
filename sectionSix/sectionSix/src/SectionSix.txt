@@ -71,3 +71,36 @@ Morale of the Story:
 So if we Add, Remove or Edit data contained in the NgFor, Angulars change detection mechanism
 will be able to track & update the DOM accordingly.
 In the next section we will talk about the performance overhead for this kind of feature.
+
+
+---Tutorial 7 - NgFor & TrackBy---
+Lets do some tidy up, we only need a single button to load courses.
+
+Task 1 - OnLoad method to populate the courses list.
+
+Why this is Bad:
+So each time we click the Get Courses button, we can see in Chrome Developer tools
+that the entire DOM tree is being rebuilt.
+(Purple HTML means new)
+
+Even though the objects in the Array are the exact same objects,
+angular treats them as entirely new, assigns them space in memory then constracts the DOM tree.
+If we have lots of Data or complex DOM elements, this can be a big performance hit.
+As Diarmuid mentioned, in Angular 4 must be very careful with the lifecycle of Objects in memory.
+Lets optimize this
+
+Solution:
+Use TrackBy, rather than using Angulars default tracking mechanism the Memory Address.
+We can use TrackBy and proivde another property to avoid duplication.
+Eg our Course ID.
+
+Task 2 - Add TrackBy with NgFor
+Add the trackBy: methodName syntax to point angular to a method on how how to better track objects.
+
+Task 3 - Create trackCourse Method
+Return a Course if it has a CourseId, else undefined.
+
+Morale of the Story:
+If we are working with large or complex datasets, TrackBy can provide some performance benefits
+and stop uneccessary creation of in memory objects. 
+
