@@ -1,1 +1,21 @@
-<app-favourite></app-favourite>
+<!--Task 1 - Style Binding Button
+<button
+  [style.background.color]="canSave ? 'blue': 'grey'"
+  [style.color]="canSave ? 'white': 'black'"
+  [style.fontweight]="canSave ? 'bold': 'normal'"
+  >
+  Save
+</button>
+-->
+
+<!--Task 2 - Refactor with NgStyle-->
+<button
+  [ngStyle]="{
+    'backgroundColor' : canSave ? 'red': 'blue',
+    'color' : canSave ? 'white': 'black',
+    'fontweight' : canSave ? 'bold': 'normal'
+  }"
+  (click)="onClick()"
+  >
+  Save
+</button>
