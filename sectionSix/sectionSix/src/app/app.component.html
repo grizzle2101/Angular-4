@@ -1,21 +1,6 @@
-<!--Task 1 - Style Binding Button
-<button
-  [style.background.color]="canSave ? 'blue': 'grey'"
-  [style.color]="canSave ? 'white': 'black'"
-  [style.fontweight]="canSave ? 'bold': 'normal'"
-  >
-  Save
-</button>
--->
+<!--Task 1 - Retrive Data from Complex Object-->
+<!--Option 1 - Wrap in NgIF
+<span *ngIf="task.assignee">{{task.assignee.name}}</span>-->
 
-<!--Task 2 - Refactor with NgStyle-->
-<button
-  [ngStyle]="{
-    'backgroundColor' : canSave ? 'red': 'blue',
-    'color' : canSave ? 'white': 'black',
-    'fontweight' : canSave ? 'bold': 'normal'
-  }"
-  (click)="onClick()"
-  >
-  Save
-</button>
+<!--Option 2 - Safe Traversal Operator-->
+<span>{{task.assignee?.name}}</span>

@@ -132,3 +132,29 @@ This is an example of a Attribute directive, which is we don't have the leading 
 That is only for structural directives.
 
 ---Tutorial 10 - NgStyle---
+So lets start by creating a button with 3 style bindings.
+
+Task 1 - Create HTML & Style bindings for Save Button.
+Task 2 -Refactor with NgStyle
+Just like using NgClass to simplify multiple class bindings, we have the same for styles.
+Obviously we should be encapsulating the style into a class, then binding this to canSave.
+That we we have much cleaner code.
+
+Morale of the Story:
+Use NgStyle when dealing with multuple style bindings.
+
+
+---Tutorial 11 - Safe Traversal Operator---
+So when dealing with complex data, like tasks & assignee, possibly from different endpoints in an API,
+it can lead to some problems with concurrency where objects are null for a fraction of a second, then
+our display blows up because we don't have that property.
+
+Task 1 - Create Complex Object & Retrive in HTML
+To simulate this, we need to make the name property null.
+
+Solution 1 - Wrapping in NgIF
+We can wrap the Data inside an NgIf to fix this...
+The problem with the NgIf, is that it exludes the entire code block if the condition is not met.
+
+Solution 2 - Safe Traversal Operator:
+Safe Traveral Operator lets Angular know the value could be null. Similar to Nullable in C#.

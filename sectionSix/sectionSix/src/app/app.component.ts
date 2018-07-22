@@ -8,10 +8,10 @@ import { Component } from '@angular/core';
 
 export class AppComponent 
 {
-  canSave = true;
-
-  onClick()
-  {
-    this.canSave = !this.canSave;
-  }
+  task = {
+    title: 'Review Applications',
+    assignee: null /*{
+      name: 'John Smith'
+    }*/
+  };
 }
