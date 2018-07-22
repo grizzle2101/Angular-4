@@ -1,8 +1,19 @@
-<!--Task 1 - Load Courses-->
-<!--Task 2 - Add TrackBy & Point to Method-->
-<button (click)="onLoad()">Load Courses</button>
-<ul>
-  <li *ngFor="let course of courses; trackBy:trackCourse">
-    {{course.name}} 
-  </li>
-</ul>
+<!--Task 1 - Simple NgIf
+<div *ngIf="courses.length > 0; else noCourses">
+  List of Courses...
+</div>
+<ng-template>
+  No Courses...
+</ng-template>
+-->
+
+<!--Task 2 - Demo Angular Generated Markup-->
+<ng-template [ngIf]="courses.length > 0">
+  <div>
+    List of Courses...
+  </div>
+</ng-template>
+
+<ng-template [ngIf]="!courses.length > 0">
+      No Courses...
+  </ng-template>

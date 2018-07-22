@@ -7,18 +7,11 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  courses;
+  courses = [
+    {id: 1, name: 'CourseOne'},
+    {id: 2, name: 'CourseTwo'},
+    {id: 3, name: 'CourseThree'}];
 
-  //Task 1 - Load Courses
-  onLoad()
-  {
-    this.courses = [
-      {id: 1, name: 'CourseOne'},
-      {id: 2, name: 'CourseTwo'},
-      {id: 3, name: 'CourseThree'}];
-  }
-
-  //Task 3 - TrackCourse Method
   trackCourse(index, course: Course)
   {
     return course ? course.id : undefined;
