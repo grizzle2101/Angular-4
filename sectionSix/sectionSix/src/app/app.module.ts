@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { FavouriteComponent } from './favourite/favourite.component';
+import { InputFormatDirective } from './input-format.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FavouriteComponent
+    FavouriteComponent,
+    InputFormatDirective
   ],
   imports: [
     BrowserModule

@@ -158,3 +158,50 @@ The problem with the NgIf, is that it exludes the entire code block if the condi
 
 Solution 2 - Safe Traversal Operator:
 Safe Traveral Operator lets Angular know the value could be null. Similar to Nullable in C#.
+
+---Tutorial 12 - Creating Custom Directives---
+There are scenarios where you want more control over your DOM elements. For example taking a moile
+number, we might want to format the input with +353 and the rest of the number.
+
+Task 1 - Generate Directive with Angular CLI
+command - ng g d input-format
+
+Task 2 - Build Up Input-Format-Directive.
+We need to create methods to handle the Blur & Focus Events. So when we exit from the input, we know
+the user has finished and then to begin formatting the phone number.
+
+Task 3 - Use Custom Directive.
+If we Click into the Input, we see the OnFocus method being triggered. Then once we click away
+we see the OnBlur method being used, this is exactly what we want.
+
+Task 4 - Access DOM
+So lets begin to format the Data inside the Input field. In the contructor, we if we pass in ElementRef
+we get access to the DOM element & the value inside it.
+
+Task 5 - Implment Logic:
+Now that we have access to the Value, its a piece of cake to format it!
+
+Hold UP:
+Thats nice and all, but it only does one operation? How can we make this more generic and thus more useful.
+Would be nice if we could take in Lower, Upper or any other combination to format out data. We can then
+use this directive all over the application!
+
+Solution 1 - Input Properties:
+We can use Input properties, this will allow the consumer to pass a value for how they want to use
+the directive!
+
+The problem with this is we have to apply the directive as an attribute, then use property binding
+to set the value. Would be nicer if we could use it like a normal directive.
+
+Solution 2 - Using the Directive itself as Input Alias:
+Why have the format input property when we can pass the directive itself?
+    @Input('appInputFormat')format: string;
+Will allow us to directly use the Directive & pass the format. This only works if we have a single parameter.
+
+Morale of the Story:
+-Use ng g d directive name to a directive.
+-Decorate the Methods with HostListener to bind to DOM events.
+-Use ElementRef to get access to the value inside the DOM
+-Create Logic to manipulate data inside the DOM.
+-Make your Directive more useful with Input Parameters.
+-Use the Directive Name as an Input to simplify usage.
