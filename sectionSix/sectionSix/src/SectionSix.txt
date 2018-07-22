@@ -104,3 +104,30 @@ Morale of the Story:
 If we are working with large or complex datasets, TrackBy can provide some performance benefits
 and stop uneccessary creation of in memory objects. 
 
+---Tutorial 8 - Leading Asterix---
+So what is this leading Asterix all about? Where we have an NgIf with the leading asterix,
+and a template holding the ELSE case. Angular will under the hood build another NgTemplate that contains
+our div & Course List.
+
+Task 1 - Demo Simple NgIf
+Task 2 - Demo Generated Code
+
+Morale of the Story:
+When we use the Leading Asterix, Angular will auto generate an NgTemplate for each If & Else block.
+We could do this ourselves of course, but its easier to let Angular do it for us.
+* with NgIf, NgFor & NgSwitch will behind the scenes generate the template logic.
+
+
+---Tutorial 9 - NgClass---
+So in a previous lecture we created the Favourite Component using style class binding.
+There is another, even better directive called NgClass to help us do the same.
+
+Task 1 - Create Favoute Component 
+Task 2 - Refactor using NgClass
+
+Morale of the Story:
+So rather than using Class binding twice, we can use NgClass, provide key value pairs to bind
+the CSS selector glyphicons to values in our component, much less repetition!
+This is an example of a Attribute directive, which is we don't have the leading asterix.
+That is only for structural directives.
+
