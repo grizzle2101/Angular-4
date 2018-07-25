@@ -4,12 +4,14 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { FavouriteComponent } from './favourite/favourite.component';
 import { InputFormatDirective } from './input-format.directive';
+import { PanelComponent } from './panel/panel.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FavouriteComponent,
-    InputFormatDirective
+    InputFormatDirective,
+    PanelComponent
   ],
   imports: [
     BrowserModule
