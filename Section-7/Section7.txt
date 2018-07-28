@@ -62,7 +62,7 @@ Problem:
 With the Last Section could not bind NgModel to Template variable, this was because it was not added to App Module.these
 import { FormsModule } from '@angular/forms'; Works now!
 
----Tutorial 4 - Adding Validation:---
+---Tutorial 5 - Adding Validation:---
 Now that we know vaguely how NgModel works, we can begin to validate the data in our form.
 
 Task 1 - Make FirstName field required.
@@ -72,3 +72,21 @@ Angular NgModel builds the Form control onto our firstName input, which also con
 
 Task 2 - Add Alert for Invalid Data.
 Using a combination of NgIF & the data in NgModel, we can prompt the user to enter a Name!
+
+---Tutorial 6 - Specific Validation---
+Angular uses the built in HTML5 validtion properties, in this section we're going to go over a few of them.
+
+Task 1 - Apply some Specific Validation attributes
+minLength
+maxLength
+pattern - Makes sure the Input complies with a given Regex.
+There are plenty more out there, so make sure to google them! or Explore the NgModel properties for a full list.
+
+
+Task 2 - Create Seperate Validation Error for Each Rule
+For each of the HTML error properties, we have NgModel.error, we can add an NgIF
+for each of the possible errors, with its own custom error message.
+
+Task 3 - Display the NgModel Errors in our Custom Errors:
+Say the value of our MinLength may change at any time, and we want to make sure the message reflects the new value.
+This can be done by directly accessing the error.minLength property.
