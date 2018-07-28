@@ -90,3 +90,19 @@ for each of the possible errors, with its own custom error message.
 Task 3 - Display the NgModel Errors in our Custom Errors:
 Say the value of our MinLength may change at any time, and we want to make sure the message reflects the new value.
 This can be done by directly accessing the error.minLength property.
+
+Morale of the Story:
+Use the NgModel Errors to create custom Validation errors, and also make the Message dynamic with string interpolation
+of the Errors properties eg required length. 
+
+----Tutorial 7 - Styling Invalid Input Fields---
+As a best practice we should highlight the invalid field.
+If we look at the invalid input box, we can see the extra classes angular appends to form-control.
+We can take this new class & apply some styling to highlight the invalid field.
+
+Task 1 - Add Style for Invalid Input Fields.
+After looking at the angular classes applied when the field goes is invalid, just add this custom style for that class and voila!
+.form-control.ng-invalid.ng-touched
+
+
+
