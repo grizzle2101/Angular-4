@@ -37,3 +37,23 @@ Template Driven:
 -Simple Validation (required fields)
 -Easier to Create
 -Less Code
+
+
+---Tutorial 4 - ngModel:---
+So carrying on from our basic bootstrap form, we want to add validation with a template driven form.
+So we need to use the ngModel directive, and allow angular to create a control object on our input fields.
+
+Task 1 - Add ngModel to Form
+Note that the Name field is required for Angular to create a control object.
+
+Task 2 - Pass NgModel data to Log method.
+If we bind to the Change event of our input, we can pass the NgModel and display it to get a better idea of whats happening under the hood.
+(change)="log(firstName)"
+
+Task 3 - Log the ngModel to Console
+It Seems assigning ngModel to a template model does not wor anymore, NgModel not exportable anymore.
+But the idea is not lost, we can pass the model and print out its data to get a better understanding.
+
+Morale of the Story:
+So we can pass the value of NgModel and see the various internal propeties NgModel uses to keep track of the data inside the Form-Control/Group.
+We can use these values to dynamically validate our forms & data.

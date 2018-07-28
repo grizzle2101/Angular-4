@@ -1,7 +1,10 @@
 <form>
   <div class="form-group">
     <label for="firstName">First Name</label>
-    <input id="firstName" type ="text" class="form-control"> 
+    <!--Task 1 - Apply NgModel on our Input-->
+    <!--Task 2 - Pass NgModel data to Log method-->
+    <!--input ngModel name="firstName" #value="ngModel" (change)="log()" id="firstName" type ="text" class="form-control">-->
+    <input ngModel name="firstName"  (change)="log(ngModel)" id="firstName" type ="text" class="form-control"> 
   </div>
 
   <div class="form-group">
