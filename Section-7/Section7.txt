@@ -57,3 +57,18 @@ But the idea is not lost, we can pass the model and print out its data to get a 
 Morale of the Story:
 So we can pass the value of NgModel and see the various internal propeties NgModel uses to keep track of the data inside the Form-Control/Group.
 We can use these values to dynamically validate our forms & data.
+
+Problem:
+With the Last Section could not bind NgModel to Template variable, this was because it was not added to App Module.these
+import { FormsModule } from '@angular/forms'; Works now!
+
+---Tutorial 4 - Adding Validation:---
+Now that we know vaguely how NgModel works, we can begin to validate the data in our form.
+
+Task 1 - Make FirstName field required.
+Simply use the HTML attribute required.
+
+Angular NgModel builds the Form control onto our firstName input, which also contains the requied value now.
+
+Task 2 - Add Alert for Invalid Data.
+Using a combination of NgIF & the data in NgModel, we can prompt the user to enter a Name!
