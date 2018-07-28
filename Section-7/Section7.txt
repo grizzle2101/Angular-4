@@ -132,3 +132,26 @@ So this would allow us to listen for changes in the NgSubmit and hook it into th
 Task 2 - Pass NgForm on NGSubmit
 So now when we click the submit form button, we can see the NgSubit Event is triggerd and we can see some of the properties.
 Prestine, Dirty etc which tells us if the form as a WHOLE and the entire Form-Group is okay.
+
+Also if we look inside the Form Group, we see a dictionary list of values, the name of the values being the name we set in the HTML.
+name: value, basically it is a JSON representation of our form, so if we get f.value it is a straight forward process
+to send out JSON to a server for processing.
+
+---Tutorial 10 ngModelGroup---
+Sometimes when working on complex forms, we might have multiple Form Groups.
+So just as we have NgModel to hold simple data, we have NgModelGroup to allow us to store Form Groups like address, billing details etc.
+
+
+Task 1 - Create NgModelGroup
+So we've just crated a DIV containing the various input fields the make up the contact details section.
+Now if we check out the Console, we can see this complex object represented in our NgModel, Contact details with the person input fields.
+
+Note:
+If our API's expect a complex nested structure like this, this is the way to go! NgModelGroup.
+
+Task 2 - Bind NgModel Group to Validate entire sections.
+So this is a nice feature, if we have really massive forms, we can tell you which section is invalid and allow the user to correct this.
+
+Take Home:
+Use NgModelGroup to build collections of data under certain sections like Contacts & Billing. This will make it easier to integrate with
+API's and also mark entire sections of forms as invalid.

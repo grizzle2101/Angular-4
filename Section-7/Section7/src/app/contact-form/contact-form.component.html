@@ -1,36 +1,39 @@
-<!--Task 1 - Pass NgForm & Log.-->
-<!--<form #maForm="ngForm" (change)="log(maForm)">-->
-<!--Task 2 - Pass NgForm on NgSubmit-->
   <form #maForm="ngForm" (ngSubmit)="submit(maForm)">
-  <div class="form-group">
-    <label for="firstName">First Name</label>
 
-    <input 
-      required 
-      minlength="3" 
-      maxlength="10" 
-      pattern="banana" 
-      ngModel name="firstName" 
-      #firstName="ngModel" 
-      id="firstName" 
-      type ="text" 
-      class="form-control">
-  
+  <!--Task 1 - Create ModelGroup for Contact Details-->
+  <!--Task 2 - Bind NgModel Group-->
+  <div ngModelGroup="contact" #contact="ngModelGroup">
+    <div *ngIf="!contact.valid">Every Validation Error...</div>
+    <div class="form-group">
+      
+      <label for="firstName">First Name</label>
+      <input 
+        required 
+        minlength="3" 
+        maxlength="10" 
+        pattern="banana" 
+        ngModel name="firstName" 
+        #firstName="ngModel" 
+        id="firstName" 
+        type ="text" 
+        class="form-control">
+    
 
-    <div 
-      class="alert alert-danger" 
-      *ngIf="!firstName.valid && firstName.touched">
-      <div *ngIf="firstName.errors.required">
-        First Name is Required!
-      </div>
-      <div *ngIf="firstName.errors.minlength">
-        Min Length > {{firstName.errors.minlength.requiredLength}}
-      </div>
-      <div *ngIf="firstName.errors.pattern"> 
-        Must Follow the Required Pattern!
+      <div 
+        class="alert alert-danger" 
+        *ngIf="!firstName.valid && firstName.touched">
+        <div *ngIf="firstName.errors.required">
+          First Name is Required!
+        </div>
+        <div *ngIf="firstName.errors.minlength">
+          Min Length > {{firstName.errors.minlength.requiredLength}}
+        </div>
+        <div *ngIf="firstName.errors.pattern"> 
+          Must Follow the Required Pattern!
+        </div>
       </div>
     </div>
-  </div>
+</div>
 
   <div class="form-group">
       <label for="comment">Comment</label>
