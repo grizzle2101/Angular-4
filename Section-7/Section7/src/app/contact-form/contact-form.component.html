@@ -1,8 +1,10 @@
-<form>
+<!--Task 1 - Pass NgForm & Log.-->
+<!--<form #maForm="ngForm" (change)="log(maForm)">-->
+<!--Task 2 - Pass NgForm on NgSubmit-->
+  <form #maForm="ngForm" (ngSubmit)="submit(maForm)">
   <div class="form-group">
     <label for="firstName">First Name</label>
 
-    <!--Huge Lines Should be Broken down, Validation Parameters First(most important), bindings then general HTML Properties -->
     <input 
       required 
       minlength="3" 
@@ -10,12 +12,11 @@
       pattern="banana" 
       ngModel name="firstName" 
       #firstName="ngModel" 
-      (change)="log(firstName)" 
       id="firstName" 
       type ="text" 
       class="form-control">
   
-    <!--Again breaking up these massive lines into smaller, more manageable chunks. -->
+
     <div 
       class="alert alert-danger" 
       *ngIf="!firstName.valid && firstName.touched">

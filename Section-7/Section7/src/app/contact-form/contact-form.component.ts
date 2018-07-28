@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactFormComponent  
 {
-  //Task 3 - Log the ngModel to Console
   log(x)
   {
     console.log(x);
+  }
+
+  submit(f)
+  {
+    console.log(f);
+
+    //Form Data Stored as JSON, API ready.
+    console.log(f.value);
   }
 }

@@ -112,3 +112,23 @@ So lets clean that up.
 
 Task 1 - Clean Up template Html.
 General Housekeeping, breaking up big lines into smaller more manageable chunks
+
+
+---Tutorial 9 - NgForm---
+So we have learned by using NgModel, Angular will create a HTML5  Form-Control under the hood.
+What we have not seen yet is a Form Group, this is because where have a FORM in HTML, angular knows that this is form group, and everything
+inside is a form control. 
+
+If we lookup NGForm on the Angular site, we can see the selectors are any kind of form, EXCEPT when using ngNoForm or NOT FORM GROUP.
+To help our understanding of this process, lets save NgForm to a template variable then pass it into a console.log.
+
+Task 1 - Pass NgForm & Log
+Now we can check out all of the various parts in the NgForm object.
+
+NGSubmit Output Property:
+If we look into the Property we can see NgSubmit, this is an output property of the NgForm.
+So this would allow us to listen for changes in the NgSubmit and hook it into the input of another component like a toaster message.
+
+Task 2 - Pass NgForm on NGSubmit
+So now when we click the submit form button, we can see the NgSubit Event is triggerd and we can see some of the properties.
+Prestine, Dirty etc which tells us if the form as a WHOLE and the entire Form-Group is okay.
