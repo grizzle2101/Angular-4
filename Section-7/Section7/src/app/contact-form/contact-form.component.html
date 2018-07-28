@@ -1,15 +1,33 @@
 <form>
   <div class="form-group">
-    <!-- Task 1 - Adding Specific Validation -->
     <label for="firstName">First Name</label>
-    <input required minlength="3" maxlength="10" pattern="banana" ngModel name="firstName" #firstName="ngModel" (change)="log(firstName)" id="firstName" type ="text" class="form-control">
-    
-    <!-- Task 2 - Create Seperate Validation Error for Each Rule. -->
-    <div class="alert alert-danger" *ngIf="!firstName.valid && firstName.touched">
-      <div *ngIf="firstName.errors.required">First Name is Required!</div>
-      <!-- Task 3 - Display the NgModel Errors in our Custom Errors: -->
-      <div *ngIf="firstName.errors.minlength">Min Length > {{firstName.errors.minlength.requiredLength}}</div>
-      <div *ngIf="firstName.errors.pattern"> Must Follow the Required Pattern!</div>
+
+    <!--Huge Lines Should be Broken down, Validation Parameters First(most important), bindings then general HTML Properties -->
+    <input 
+      required 
+      minlength="3" 
+      maxlength="10" 
+      pattern="banana" 
+      ngModel name="firstName" 
+      #firstName="ngModel" 
+      (change)="log(firstName)" 
+      id="firstName" 
+      type ="text" 
+      class="form-control">
+  
+    <!--Again breaking up these massive lines into smaller, more manageable chunks. -->
+    <div 
+      class="alert alert-danger" 
+      *ngIf="!firstName.valid && firstName.touched">
+      <div *ngIf="firstName.errors.required">
+        First Name is Required!
+      </div>
+      <div *ngIf="firstName.errors.minlength">
+        Min Length > {{firstName.errors.minlength.requiredLength}}
+      </div>
+      <div *ngIf="firstName.errors.pattern"> 
+        Must Follow the Required Pattern!
+      </div>
     </div>
   </div>
 

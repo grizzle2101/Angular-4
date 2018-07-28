@@ -106,3 +106,9 @@ After looking at the angular classes applied when the field goes is invalid, jus
 
 
 
+---Tutorial 8 - Cleaner Templates---
+So by now our template has got a bit messy, a general software rule is that another developer should not have to scroll left or right.
+So lets clean that up.
+
+Task 1 - Clean Up template Html.
+General Housekeeping, breaking up big lines into smaller more manageable chunks
