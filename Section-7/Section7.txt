@@ -1,0 +1,39 @@
+----Section 7 - Template Driven Forms----
+---Tutorial 1 - Inroduction---
+In this section we're going to look at building forms with Angular.
+-Implement Forms with different kinds of input fields.
+-Display Validation Errors
+-Disable Submit Button until form is valid.
+
+---Tutorial 2 - Building a Basic Bootstrap Form---
+We're just going to setup the form for this section, then iterate over it in each tutorial.
+Forgot to install boostrap & add boostrap to style.css, but all sorted.
+
+Task 1 - Build Really Simple BootStrap Form.
+
+
+---Tutorial 3 - Types of Forms---
+In Angular we have the concept of Form-Groups and Form-Controls. Form Group is a collection of Form Controls, and provides much of the same 
+functionality like touched, valid, prestine etc allow us to validate the data in our form. Form-Group just allows us to apply this on every element,
+where as Form Control is for a specific field.
+
+In Angular there are 2 ways to achieve this, Directives & Code.
+
+Template Driven forms:
+We can apply some directives in our template, which allows Angular to build these Form Groups & Controls under the hood. 
+We call these Template driven forms, where we generate the markup directly from the template.
+
+Reactive/Model Driven Forms:
+Explicity creating the control objects into our Markup or manually, is called Reactive forms or Model Driven Formns.
+
+Whats the Difference?
+Reactive:
+-More Control over Validate Logic
+-Good for Complex Forms
+-Unit Testable
+
+Template Driven:
+-Good for Simple forms
+-Simple Validation (required fields)
+-Easier to Create
+-Less Code
