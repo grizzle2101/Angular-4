@@ -169,3 +169,10 @@ to better seperate it into logical section & structures that match out API.
 Whats the Difference between ngForm & ngModelGroup?
 NgForm Exposes the Output property ngSubmit which we use to bind to Submit event for forms, whereas NgModel Group does not.
 IE we don't submit part of a form.
+
+
+---Tutorial 12 - Disabling the Submit Button---
+So now that we have a good grasp on the form compoments, lets start by disabling the Submit button until the form is filled out.
+
+Task 1 - Disable Submit Button
+As we already declared the template variable holding the ngForm, we can just disable the submit button until the form is complete.

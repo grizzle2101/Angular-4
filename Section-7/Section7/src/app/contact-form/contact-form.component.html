@@ -1,7 +1,4 @@
   <form #maForm="ngForm" (ngSubmit)="submit(maForm)">
-
-  <!--Task 1 - Create ModelGroup for Contact Details-->
-  <!--Task 2 - Bind NgModel Group-->
   <div ngModelGroup="contact" #contact="ngModelGroup">
     <div *ngIf="!contact.valid">Every Validation Error...</div>
     <div class="form-group">
@@ -39,5 +36,6 @@
       <label for="comment">Comment</label>
       <textarea ngModel name="comment" id="comment" cols="30" rows="10" class="form-control"> </textarea>
     </div>
-    <button class="btn btn-primary">Submit</button>
+      <!--Task 1 - Disable Submit Button-->
+    <button class="btn btn-primary" [disabled]="!maForm.valid">Submit</button>
 </form>
