@@ -51,24 +51,6 @@
     </select>
   </div>
 
-  <!--Task 1 - Create some Basic Radio Buttons -->
-  <!--Hard Coded Way
-  <div class="radio">
-    <label>
-      <input ngModel type="radio" name="contactMethodRadio" value="1">
-      Email
-    </label>
-  </div>
-
-  <div class="radio">
-      <label>
-        <input ngModel type="radio" name="contactMethodRadio" value="2">
-        Phone
-      </label>
-  </div>
-  -->
-
-  <!--Task 2 - Dynamically Generated Radio Buttons-->
   <div *ngFor="let method of contactMethods" class="radio">
       <label>
         <input ngModel type="radio" name="contactMethodRadio" [value]="method.id">
@@ -80,3 +62,4 @@
   <P>{{maForm.value | json}}</P>
   <button class="btn btn-primary" [disabled]="!maForm.valid">Submit</button>
 </form>
+
