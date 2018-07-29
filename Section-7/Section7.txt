@@ -225,3 +225,23 @@ So what if the User wants to Select Multiple elements in the dropdown? We use
 Morale of the Story:
 We looked at creating a dropdown list & populating it with values from out Component. We then moved on to Saving the Contact values as JSON Objects and not simple IDs.
 Then we looked at using select multiple, to add multiple selected items into the form and bam done.
+
+
+---Tutorial 15 - Working with Radio Buttons---
+Finally lets see how we can add a group of radio buttons.
+Radio buttons allow only a single value selection, so we need to assign the radio buttons to a group, and this group will have only 1 selection.
+
+Task 1 - Create HardCoded Radio Buttons:
+Fairly Straight forward, just need use the bootstrap convention, div class of type radio, Label & a name.
+
+Task 2 - Use Dynamic Radio Buttons
+Simliar to how we did DropDown lists, NgFor to iterate through the list then assign the value to method.id and the Text to method.name
+
+div *ngFor="let method of contactMethods" class="radio">
+      <label>
+        <input ngModel type="radio" name="contactMethodRadio" [value]="method.id">
+        {{method.name}}
+
+
+Morale of the Story:
+To create Dynamic Forms, use NgFor to insert the array & values into HTML Id's and Text.

@@ -43,20 +43,39 @@
     </label>
   </div>
 
-  <!--Task 1 - Create Select Dropdown-->
   <div class="form-group">
     <label for="contactMethod"> Contact Method: </label>
-    <!--Task 5 - Select Multiple-->
     <select multiple ngModel name="contactMethod" id="contactMethod" class="form-control">
-      <!--Task 3 - Create Blank Value-->
       <option value=""></option> 
-      <!--Task 2 - Iterate over Contact Methods-->
       <option *ngFor="let method of contactMethods" [value]="method.id">{{method.name}}</option>
-
-      <!--Task 4 - Use NgValue to send Complex Object
-      <option *ngFor="let method of contactMethods" [ngValue]="method">{{method.name}}</option>-->
     </select>
   </div>
+
+  <!--Task 1 - Create some Basic Radio Buttons -->
+  <!--Hard Coded Way
+  <div class="radio">
+    <label>
+      <input ngModel type="radio" name="contactMethodRadio" value="1">
+      Email
+    </label>
+  </div>
+
+  <div class="radio">
+      <label>
+        <input ngModel type="radio" name="contactMethodRadio" value="2">
+        Phone
+      </label>
+  </div>
+  -->
+
+  <!--Task 2 - Dynamically Generated Radio Buttons-->
+  <div *ngFor="let method of contactMethods" class="radio">
+      <label>
+        <input ngModel type="radio" name="contactMethodRadio" [value]="method.id">
+        {{method.name}}
+      </label>
+    </div>
+  
 
   <P>{{maForm.value | json}}</P>
   <button class="btn btn-primary" [disabled]="!maForm.valid">Submit</button>
