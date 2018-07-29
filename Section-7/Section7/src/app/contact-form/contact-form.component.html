@@ -36,13 +36,28 @@
       <label for="comment">Comment</label>
       <textarea ngModel name="comment" id="comment" cols="30" rows="10" class="form-control"> </textarea>
   </div>
-  <!--Task 1 - Create CheckBox-->
+  
   <div class="checkbox">
     <label>
       <input type="checkbox" ngModel name="isSubscribed"> Subscribe to Mailing List
     </label>
   </div>
-  <!--Print Form Contents for Debugging-->
+
+  <!--Task 1 - Create Select Dropdown-->
+  <div class="form-group">
+    <label for="contactMethod"> Contact Method: </label>
+    <!--Task 5 - Select Multiple-->
+    <select multiple ngModel name="contactMethod" id="contactMethod" class="form-control">
+      <!--Task 3 - Create Blank Value-->
+      <option value=""></option> 
+      <!--Task 2 - Iterate over Contact Methods-->
+      <option *ngFor="let method of contactMethods" [value]="method.id">{{method.name}}</option>
+
+      <!--Task 4 - Use NgValue to send Complex Object
+      <option *ngFor="let method of contactMethods" [ngValue]="method">{{method.name}}</option>-->
+    </select>
+  </div>
+
   <P>{{maForm.value | json}}</P>
   <button class="btn btn-primary" [disabled]="!maForm.valid">Submit</button>
 </form>

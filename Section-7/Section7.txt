@@ -179,3 +179,49 @@ As we already declared the template variable holding the ngForm, we can just dis
 
 
 ---Tutorial 13 - Working with Checkboxes---
+So far we have only used Input & text area as input, lets add some checkboxes.
+
+Task 1 - Add a checkbox
+For Bootstrap we have to wrap the Textbox is a Div class checkbox & Label.
+Then it works just the same as any other Input field, add NgModel, provide a name for the input field and voila!
+ngModel name="isSubscribed"> Subscribe to Mailing List
+
+To validate this worked, lets print the contents of our Form using <P>{{maForm.value | json}}</P>
+
+
+---Tutorial 14 - Working with Drop-Down lists:---
+Next lets create a Dropdown for the various contact methods a user can select.
+
+Task 1 - Create Dropdown
+Fairly Straight forward again, just create the Select HTML & bind ngModel to the name of Select which is contactMethod.
+
+Problem:
+The problem with this is we are hardcoding the list of contact methods, this is never done! Its always dynamically created from an API.
+
+Task 2 - Create contactMethods & Iterate.
+In the Component, create an Array of Objects, with ID & Name being the contact method.
+Then in the HTML, we can use NgFor to iterate & display each item in the list.
+
+Problem - Items are Selected by Default...
+
+Task 3 - Make sure Default Value is nothing.
+<option value=""></option> <!--Blank Value-->
+
+In Most applications we only want to sent the ID of the selected item, not the entire JSON object.
+Sometimes however, you might want to add the Contact method JSON to the Form, as it may be submitted as one very big/complex object.
+
+Task 4 - Use NgValue to send Complex Object:
+So in HTML, the value can only be string. So if we want to store a complex object like the Contact Object, we need to use
+another Angular attribute directive called ngValue.
+[ngValue]="method">{{method.name}}</option>
+
+Result:
+Now if we look at the NgForm data, we can see the Contact Method object! 
+
+Task 5 - Select Multiple
+So what if the User wants to Select Multiple elements in the dropdown? We use 
+<select multiple ngModel name="contactMethod" 
+
+Morale of the Story:
+We looked at creating a dropdown list & populating it with values from out Component. We then moved on to Saving the Contact values as JSON Objects and not simple IDs.
+Then we looked at using select multiple, to add multiple selected items into the form and bam done.
