@@ -176,3 +176,6 @@ So now that we have a good grasp on the form compoments, lets start by disabling
 
 Task 1 - Disable Submit Button
 As we already declared the template variable holding the ngForm, we can just disable the submit button until the form is complete.
+
+
+---Tutorial 13 - Working with Checkboxes---

@@ -35,7 +35,14 @@
   <div class="form-group">
       <label for="comment">Comment</label>
       <textarea ngModel name="comment" id="comment" cols="30" rows="10" class="form-control"> </textarea>
-    </div>
-      <!--Task 1 - Disable Submit Button-->
-    <button class="btn btn-primary" [disabled]="!maForm.valid">Submit</button>
+  </div>
+  <!--Task 1 - Create CheckBox-->
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" ngModel name="isSubscribed"> Subscribe to Mailing List
+    </label>
+  </div>
+  <!--Print Form Contents for Debugging-->
+  <P>{{maForm.value | json}}</P>
+  <button class="btn btn-primary" [disabled]="!maForm.valid">Submit</button>
 </form>
