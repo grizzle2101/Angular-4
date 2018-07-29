@@ -155,3 +155,17 @@ So this is a nice feature, if we have really massive forms, we can tell you whic
 Take Home:
 Use NgModelGroup to build collections of data under certain sections like Contacts & Billing. This will make it easier to integrate with
 API's and also mark entire sections of forms as invalid.
+
+
+---Tutorial 11 - Control Classes & Directives---
+It seems like in this section there is a lot of overlap in the various directives.
+Just remember we have Form Control & Form Groups, for Form Control we use ngModel, and bind to the name of that input field.
+For Form Groups we have ngForm, which is a directive automatically applied to ANY form, unless it contains ngNoFormgroup or a few other 
+specific selectors.
+
+NgModelGroup is a container of many OPTIONAL form controls. We can bind the NGModelGrouop diretive to various parts of the form
+to better seperate it into logical section & structures that match out API.
+
+Whats the Difference between ngForm & ngModelGroup?
+NgForm Exposes the Output property ngSubmit which we use to bind to Submit event for forms, whereas NgModel Group does not.
+IE we don't submit part of a form.
