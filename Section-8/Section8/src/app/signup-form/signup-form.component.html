@@ -7,14 +7,11 @@
             type="text" 
             class="form-control">
     </div>
-    <!--Task 2 - Create Validator Error Display Box
-    <div *ngIf="form.get('username').touched && form.get('username').invalid"
-    class="alert.alert-danger">UserName is Required!
-    </div>-->
-
-    <!--Task 4- Refactor-->
-    <div *ngIf="username.touched && username.invalid"
-    class="alert.alert-danger">UserName is Required!
+    
+    <!--Task 2 - Add Multiple Validation Error Boxes-->
+    <div *ngIf="username.touched && username.invalid" class="alert alert-danger">
+        <div *ngIf="username.errors.required">UserName is Required!</div>
+        <div *ngIf="username.errors.minlength">Minimum Length is {{username.errors.minlength.requiredLength}}</div>
     </div>
     
     <div class="form-group">

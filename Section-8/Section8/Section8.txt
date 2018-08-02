@@ -71,3 +71,23 @@ Morale of the Story:
 When creating a FormControl object to reference an input, we can also pass the built in Validator methods and voila we have validation!
 We can also store these form control objects to make it easier to implment dynamic validation content like alerts.
 
+---Tutorial 5 - Specific Validation Errors---
+So keeping on the topic of validators, we also have the option of passing an array of validators.
+This would allow us to apply multiple rules on a given input field.
+
+Task 1 - Apply Multiple Validators
+We can apply multiple validators, in the array.
+username: new FormControl('', [Validators.required, Validators.minLength(3)])
+
+Task 2 - Create Warnings for Different Errors.
+Just like we did for the Template Driven forms, we can accomodate multiple error types inside the alert danger tab.
+Expect insteado of the Template variable, holding the NgModel reference, we bind to the Exposer Username getter we created in a previous tutorial.
+
+    <div *ngIf="username.touched && username.invalid" class="alert alert-danger">
+        <div *ngIf="username.errors.required">UserName is Required!</div>
+        <div *ngIf="username.errors.minlength">minLength {{username.errors.minlength.requiredLength}}</div>
+    </div>
+
+
+Morale of the Story:
+Pass Arrays of Validators to the Function Control object, this is how have multiple rules on a single field.
