@@ -11,6 +11,17 @@ They also have the additional benefit of being Unit Testable. By the end of this
 -Build Forms that include array of Objects that are added or removed dynamically.
 
 
----Tutorial 2---
+---Tutorial 2 - Building a bootstrap form---
 To speed things up, Mosh has included a zip file with the form component we are going to use for this section.
 Added the signup-form, updated app.module.ts & added bootstrap.
+
+
+---Tutorial 3 - Creating Controls Programatically ---
+So lets begin, we have the sign-up form which is now just a bootstrap form. To turn this into a Angular form, using the Template driven approach we would have 
+applied NgModel to the input fields, Which angular would internally create an instance of the form control class and associated it with the input field.
+However doing in the reactive way is a little different, we need to create these form control objects explicitly in the code.
+
+
+Task 1 - Create Form Group
+Task 2 - Insert Key Value Pairs
+Form Group Take a Dictionary of Form Control Values, so for each input in the form, we need a key value pair here.

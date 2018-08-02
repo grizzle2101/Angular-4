@@ -1,14 +1,18 @@
-<form>
+<!--Task 3 - Bind out Form Object to HTML Form -->
+<form [formGroup]="form">
     <div class="form-group">
         <label for="username">Username</label>
-        <input 
+        <!--Task 4 - Bind Input Field to Properties in our Class -->
+        <input
+            formControlName="username"
             id="username" 
             type="text" 
             class="form-control">
     </div>
     <div class="form-group">
         <label for="password">Password</label>
-        <input 
+        <input
+            formControlName="password"
             id="password" 
             type="text" 
             class="form-control">
