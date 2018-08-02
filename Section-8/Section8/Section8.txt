@@ -127,3 +127,25 @@ Morale of the Story:
 To Create a validator follow the signature for ValidationFn. This means taking in Abstract Control & returning validtion errors or null.
 Validation Errors are simply the Key(methodName) and true, meaning it does contain space.
 We can return more complex objects to help troubleshooting for the end user.
+
+
+---Tutorial 7 - Async Operations---
+There are times when validating our data needs to communicate with a server, like validating a Username dosen't already exist.
+So lets start this my implmenting another validator for this.
+
+Task 1 - Create New Validator
+To keep things simple, as we have not yet covered how to make API calls, is just do a simple name check for 'Mosh'
+A call to a server is an Asynchronous Operation, meaning non blocking or fire & forget. 
+
+Asynchronous Examples:
+-Calling the Server(AJAX)
+-Set Timeout
+
+Task 2 - Simulate Asynchronous Operation
+So if we create a simple SetTimeout method, and move the logic for validating our data inside it.
+We can we get errors. This is because my encapsulating our validation inside the Asynchronous action, we don't have any return type.
+This is why in Angular, there is a new signature for us to use, something like a Async & Await in C#
+We need to Await the result before performing & returning the validation, this will be covered more in the next section.
+
+Morale of the Story:
+Asynchronous Validations require a new ValidationFn type, which will be done in the next section.
