@@ -1,0 +1,16 @@
+-----Section 8 - Reactive Forms-----
+---Tutorial 1 - Introduction---
+In the last section we learned about Template Driven Forms, now we're going to cover a different approach, reactive forms.
+Rather than let angular create the form controls for us, we're going to explicitly create them, which gives us more control over the strcuture & behavior of the form.
+When we create forms based on data returned from an API, reactive is are our best apporoach to dyanamically create the forms.
+They also have the additional benefit of being Unit Testable. By the end of this section we should know how to...
+-Create Controls Programatically
+-Add Validation
+-Implement Custom Validation
+-Implment Asynchronous Validation(Usernames & Emails)
+-Build Forms that include array of Objects that are added or removed dynamically.
+
+
+---Tutorial 2---
+To speed things up, Mosh has included a zip file with the form component we are going to use for this section.
+Added the signup-form, updated app.module.ts & added bootstrap.
