@@ -1,14 +1,22 @@
-<!--Task 3 - Bind out Form Object to HTML Form -->
 <form [formGroup]="form">
     <div class="form-group">
         <label for="username">Username</label>
-        <!--Task 4 - Bind Input Field to Properties in our Class -->
         <input
             formControlName="username"
             id="username" 
             type="text" 
             class="form-control">
     </div>
+    <!--Task 2 - Create Validator Error Display Box
+    <div *ngIf="form.get('username').touched && form.get('username').invalid"
+    class="alert.alert-danger">UserName is Required!
+    </div>-->
+
+    <!--Task 4- Refactor-->
+    <div *ngIf="username.touched && username.invalid"
+    class="alert.alert-danger">UserName is Required!
+    </div>
+    
     <div class="form-group">
         <label for="password">Password</label>
         <input

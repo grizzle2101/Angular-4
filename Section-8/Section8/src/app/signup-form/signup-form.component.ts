@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {FormGroup, FormControl} from '@angular/forms'; //Import Forms
+import {FormGroup, FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'signup-form',
@@ -8,13 +8,15 @@ import {FormGroup, FormControl} from '@angular/forms'; //Import Forms
 })
 export class SignupFormComponent 
 {
-  //Task 1 - Create Form Group
-  //Task 2 - Insert Key Value Pairs
-  //Form Group Take a Dictionary of Form Control Values, so for each input in the form, we need a key value pair here.
+  //Task 1 - Create Form Control Validators:
   form = new FormGroup({
-    username: new FormControl,
-    password: new FormControl
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required)
   });
 
-  //form = new FormGroup({username: new FormControl});
+  //Task 3 - Create Getter
+  get username()
+  {
+    return this.form.get('username');
+  }
 }

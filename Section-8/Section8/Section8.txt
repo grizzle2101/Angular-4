@@ -16,7 +16,7 @@ To speed things up, Mosh has included a zip file with the form component we are 
 Added the signup-form, updated app.module.ts & added bootstrap.
 
 
----Tutorial 3 - Creating Controls Programatically ---
+---Tutorial 3 - Creating Controls Programatically---
 So lets begin, we have the sign-up form which is now just a bootstrap form. To turn this into a Angular form, using the Template driven approach we would have 
 applied NgModel to the input fields, Which angular would internally create an instance of the form control class and associated it with the input field.
 However doing in the reactive way is a little different, we need to create these form control objects explicitly in the code.
@@ -24,4 +24,50 @@ However doing in the reactive way is a little different, we need to create these
 
 Task 1 - Create Form Group
 Task 2 - Insert Key Value Pairs
-Form Group Take a Dictionary of Form Control Values, so for each input in the form, we need a key value pair here.
+The Form Group object takes a Dictionary of Form Control Values, so for each input in the form, we need a key value pair here.
+
+Task 3 - Bind out Form Object to HTML Form
+Task 4 - Bind Input Field to Properties in our Class
+Task 5 - Import Reactive Forms to AppModule
+
+Morale of the Story:
+Reactive VS Template Forms, with Reactive we Build the Component first, create a form group, with form controls representing each field in the form.
+We then bind the Form Object to the HTML Form, then the KeyValue Pairs to the Inputs. We basically just do what angular does under the hood in template driven forms.
+If representing complex objects, we can contain Form Groups, which also contain Form Controls. This allows us to create complex JSON.
+
+
+---Tutorial 4 - Adding Validation ---
+So if we remember template driven forms, we know that to add validation we used the built in HTML 5 validation attributes like Required, MinLength etc.
+When using the reactive approach we don't use this anymore, we create custom validators to work on our form control objects.
+
+Task 1 - Create a validator
+So Import the Validator class from the Forms Module, and pass them to the FormControl objects we created earlier.
+
+Parameters:
+FormState is the Initial Value of the Input.(empty for us)
+Validator, a build in Validator Class for Reactive forms.
+username: new FormControl('', Validators.required),
+
+Other Options:
+Required
+MinLength
+MaxLength
+pattern(regex)
+email
+Custom Validators(Will go over later.)
+& More (make sure to explore options)
+
+Task 2 - Create Validator Error Display Box.
+Previously when doing template driven forms, we would store the NgModel in a template variable, then use this to check the validation state of various inputs.
+With the reactive approach, we have to take another apporach.
+
+Task 3 - Create Getter in Component
+To simplify the front end, we can create a method to return the form control object, so don't have to consistently do this in the front end.
+
+Task 4 - Refactor
+So rather than accessing the form object multiple times, we can store it once in the component then use the username method instead.
+
+Morale of the Story:
+When creating a FormControl object to reference an input, we can also pass the built in Validator methods and voila we have validation!
+We can also store these form control objects to make it easier to implment dynamic validation content like alerts.
+
