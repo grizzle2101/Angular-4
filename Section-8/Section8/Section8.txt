@@ -91,3 +91,39 @@ Expect insteado of the Template variable, holding the NgModel reference, we bind
 
 Morale of the Story:
 Pass Arrays of Validators to the Function Control object, this is how have multiple rules on a single field.
+
+
+---Tutorial 6 - Implmenting Custom Validation---
+So far we have only looked at the built in validators, Required MinLength and so on. Its about time we create our own.
+Looking at ValidatorFn function in the angular.io website, we can see the ValidationFn interface and signature we will have to follow.
+
+Input                       Output
+(C: AbstractControl) ValidationErrors | null
+So in order for us to build a customer validator we're gonna have to follow this procedure.
+
+Task 1 - Create a Validator Class
+Make sure to follow the Convention for naming validator, username.validator.ts
+
+Task 2 - Create Validator Method:
+So after looking at the Angular IO we know the signature a Validator must follow. Take in a AbstractControl(the form control parent obj)
+and return some ValidationErrors or null.
+
+Task 3 - Return Validation Error
+If we again look at Angular.io for ValidationErrors, we can see it is justa KeyValuePair of the key and value. They Key being the identifier for the method.
+So if we were creating Required, it would be Required: true.
+For the value, we can return more complex objects and error data.
+
+Task 4 - Use Validator:
+-Make sure to make the Validation Method, that way we don't have to instansiate them all over the place.
+-Add Validator to Component UsernameValidators.cannotContainSpace
+-Add Case to AlertBox.
+
+Note:
+For this tutorial we added the Validator directly into the signup-form compoment folder. If we're working on an Enterprise Application,
+we should be all the validators into a common place to be used in various places in the application.
+App > Common > Validators
+
+Morale of the Story:
+To Create a validator follow the signature for ValidationFn. This means taking in Abstract Control & returning validtion errors or null.
+Validation Errors are simply the Key(methodName) and true, meaning it does contain space.
+We can return more complex objects to help troubleshooting for the end user.
