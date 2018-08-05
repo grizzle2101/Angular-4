@@ -149,3 +149,29 @@ We need to Await the result before performing & returning the validation, this w
 
 Morale of the Story:
 Asynchronous Validations require a new ValidationFn type, which will be done in the next section.
+
+
+---Tutorial 8 - Async Validators---
+So as we dicussed in the previous tutorial, to make an Asychronous method, we need something with a different signature.
+If we check Angular.io for AsyncValidatorFn, we can see it takes either a Promise<ValidationErrors> or Observerable<ValidationErrors> and
+returns null, this is the new signature we need to follow.
+We will go over the difference of a Promise & Over in a later section, but just know they are generally used with Asychronous actions.
+
+Task 1 - Refactor shouldBeUnique with Asychronous Signature:
+-Using the new signature as noted in the Angular.io site, Promise<ValidationErrors> | null
+-The Parameters for a Promise Object is Resolve & Reject, which are methods.
+-These Methods take in a optional value(or another Promise), and returns void.
+-Basically we use Resolve as a Success & reject as the failure case.
+-We can return complex error objects in the Reject to help troubleshooting
+
+
+Task 2 - Add Asynchronous Validation to Form Control.
+-The 3rd Optional Parameter for Form Control is for Asychronous validators. So make sure to close the Array of regular validators.
+
+Task 3 - Create Error Div for shouldBeUnique.
+-Same as before, just make sure to wait the 2 seconds(timeout).
+
+Morale of the Story:
+Asychronous Validators follow a Promise Object signature, which included a Promise of ValidationErrors or null.
+This is how we can have a method with no return type, as we often won't until the action is complete.
+We use resolve to notify the consumer/observer the action has finished, and reject to pass errors.

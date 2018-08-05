@@ -9,13 +9,14 @@ import { UsernameValidators } from './username.validators';
 })
 export class SignupFormComponent 
 {
-  //Task 4 - Use Validator
+  //Task 2 - Add Asynchronous Validation to Form Control.
   form = new FormGroup({
     username: new FormControl('', [
       Validators.required,
        Validators.minLength(3),
-       UsernameValidators.cannotContainSpace
-      ]),
+       UsernameValidators.cannotContainSpace],
+       UsernameValidators.shouldBeUnique
+      ),
     password: new FormControl('', Validators.required)
   });
 

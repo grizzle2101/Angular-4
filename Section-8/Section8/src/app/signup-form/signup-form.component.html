@@ -8,10 +8,12 @@
             class="form-control">
     </div>
     
+    <!--Task 3 - Add Div for shouldBeUnique Error-->
     <div *ngIf="username.touched && username.invalid" class="alert alert-danger">
         <div *ngIf="username.errors.required">UserName is Required!</div>
         <div *ngIf="username.errors.minlength">Minimum Length is {{username.errors.minlength.requiredLength}}</div>
         <div *ngIf="username.errors.cannotContainSpace">There can be NO WHITESPACE!</div>
+        <div *ngIf="username.errors.shouldBeUnique">Username MUST be Unique!!</div>
     </div>
     
     <div class="form-group">
