@@ -12,7 +12,7 @@ export class UsernameValidators
         return null; 
     }
 
-    //Task 1 - Refactor shouldBeUnique to return Promise Object.
+    //Asynchronous Validation
     static shouldBeUnique(control: AbstractControl) : Promise<ValidationErrors | null>
     {
         return new Promise((resolve, reject) => { //Resolve & Reject go to THIS code block.

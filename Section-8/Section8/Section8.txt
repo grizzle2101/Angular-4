@@ -175,3 +175,15 @@ Morale of the Story:
 Asychronous Validators follow a Promise Object signature, which included a Promise of ValidationErrors or null.
 This is how we can have a method with no return type, as we often won't until the action is complete.
 We use resolve to notify the consumer/observer the action has finished, and reject to pass errors.
+
+---Tutorial 9 - Showing a Loader Image---
+When working with Async Validators, we might want to add a Loader Image, until the data we need is retrieved.
+Angular makes this very easy.
+
+Task 1 - Add Loading Text DIV
+So we know username is a Form Control object in the Component, FormControl objects have this handy field called pending.
+Pending will remail true as long as their is an Asynchronous action in the background.
+So if we do an *ngIf on username.pending, we will get the temporary message we required.
+
+Morale of the Story:
+Use Form Control built in property Pending to check if an action is in progress.

@@ -9,7 +9,6 @@ import { UsernameValidators } from './username.validators';
 })
 export class SignupFormComponent 
 {
-  //Task 2 - Add Asynchronous Validation to Form Control.
   form = new FormGroup({
     username: new FormControl('', [
       Validators.required,
