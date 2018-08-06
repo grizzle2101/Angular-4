@@ -213,3 +213,23 @@ Morale of the Story:
 Bind NgSubmit to a method to trigger the Submit Action & Validation.
 In this Action, we make a call to the service, then use the setErrors property on AbstractControl to trigger validtion on every input.
 We then return an Array of ValidationErrors to the front end to render the errors to the end user.
+
+
+---Tutorial 11 - Nested Formgroups---
+So just like in the Template Driven Forms, we want to have Nested FormGroups inside a form. Say we have an account creation page,
+we want the password & username in one section, then your general account information before.
+
+Task 1 - Create Nested FormGroup
+Add another FormGroup, and place UserName & Password FormControls inside it.
+
+Task 2 - Refactor Get Methods
+In our component we expose username to the various Errors Labels to bind to. Our username binds to the form object directly, which won't work
+anymore because we have nested it. So we have to add the path to this value account.username and voila it becomes accessible again,
+
+Task 3 - Bind to Nested FormGroup using FormGroupName:
+Another problem is how our input fields bind to the new nested FormGroup. We do this through the use of a new directive, FormGroupName.
+This lets us specificy the precise FormGroup we wish to access, then we can carry on using username & password like before.
+
+Morale of the Story:
+Nested FormGroups are simple to implment, just need to make sure to specificy the path/name of the new Form Group to consumers of the FormsGroups/Controls.
+This just means using FormGroupName in our Markup, and Getters need to reference the Account Object which contains the username/password.

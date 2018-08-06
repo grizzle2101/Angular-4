@@ -1,21 +1,24 @@
-<!--Task 1 - Bind NgSubmit to Login Method -->
 <form [formGroup]="form" (ngSubmit)="login()">
 
-    <!--Task 3 - Add Submit Error Box-->
     <div *ngIf="form.errors" class="alert alert-danger">
         The Username or Password is Invalid.
         <div *ngIf="form.errors.thisSmells">Smelly Form</div>
     </div>
 
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input
-            formControlName="username"
-            id="username" 
-            type="text" 
-            class="form-control">
+    <!--Task 3 -  Bind to Specific Nested FormGroup using FormGroupName-->
+    <div formGroupName="account">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input formControlName="username" id="username" type="text" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input formControlName="password" id="password" type="text" class="form-control">
+        </div>
     </div>
-    
+
+
     <div *ngIf="username.pending">Checking if Username Exists...</div>
 
     <div *ngIf="username.touched && username.invalid" class="alert alert-danger">
@@ -24,14 +27,6 @@
         <div *ngIf="username.errors.cannotContainSpace">There can be NO WHITESPACE!</div>
         <div *ngIf="username.errors.shouldBeUnique">Username MUST be Unique!!</div>
     </div>
-    
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input
-            formControlName="password"
-            id="password" 
-            type="text" 
-            class="form-control">
-    </div>
+
     <button class="btn btn-primary" type="submit">Sign Up</button>
 </form>

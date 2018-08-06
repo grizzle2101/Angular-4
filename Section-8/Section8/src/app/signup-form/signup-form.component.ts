@@ -9,22 +9,16 @@ import { UsernameValidators } from './username.validators';
 })
 export class SignupFormComponent 
 {
+  //Task 1 - Create Nested FormGroup
   form = new FormGroup({
-    username: new FormControl('', [
-      Validators.required,
-       Validators.minLength(3),
-       UsernameValidators.cannotContainSpace],
-       UsernameValidators.shouldBeUnique
-      ),
-    password: new FormControl('', Validators.required)
+    account : new FormGroup({
+      username: new FormControl(''),
+      password: new FormControl('')
+    })
   });
 
-  //Task 2 - Implment login Method
   login()
   {
-    //let isValid = LoginServier.Login(form.value)
-    //if(!isvalid)
-
     //Set Errors on Form
     this.form.setErrors({ //Set Errors takes a ValidationFn
       invalidLogin: true, //Can Return Complex Error Object
@@ -34,8 +28,9 @@ export class SignupFormComponent
     console.log("Logging In...")
   }
 
+  //Task 2 - Refactor Getter to new Path
   get username()
   {
-    return this.form.get('username');
+    return this.form.get('account.username');
   }
 }
