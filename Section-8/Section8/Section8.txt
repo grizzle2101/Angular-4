@@ -187,3 +187,29 @@ So if we do an *ngIf on username.pending, we will get the temporary message we r
 
 Morale of the Story:
 Use Form Control built in property Pending to check if an action is in progress.
+
+---Tutorial 10 - Valdition Upon Submiting---
+So while the individual validation is cool, there are cases when validation should happen at the time of submission, like a Username & Password field.
+
+Task 1 - Add NgSubmit to Form:
+If we remember much about Forms, is that Angular applies the Form Directive on any HTML Form, unless you use NotFormGroup keyword.
+We should also remember that Forms, have the NgSubmit output property which we can bind to, so lets do that.
+<form [formGroup]="form" (ngSubmit)="login()">
+
+Task 2 - Implment login Method:
+So in an ideal world we would have a LoginService to extact that noise, then it would return true is the login was successful.
+If Not, we would THEN throw all validation Errors. So the AbstractControl class has a common set of Errors that its child elements
+FormGroup & Form Control have, form.setErrors, we can now set errors at a form level.
+
+Task 3 - Add Alert Error Container
+Logging these errors is simple, just a div with form.errors for all Errors.
+And Invidual Valdiation Errors depending on the number of validators we have in the component.
+form.errros.thisSmells
+
+Note:
+Because we have no Logic for LoginService, setErrors will always be called.
+
+Morale of the Story:
+Bind NgSubmit to a method to trigger the Submit Action & Validation.
+In this Action, we make a call to the service, then use the setErrors property on AbstractControl to trigger validtion on every input.
+We then return an Array of ValidationErrors to the front end to render the errors to the end user.

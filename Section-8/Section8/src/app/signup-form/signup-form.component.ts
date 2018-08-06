@@ -19,6 +19,21 @@ export class SignupFormComponent
     password: new FormControl('', Validators.required)
   });
 
+  //Task 2 - Implment login Method
+  login()
+  {
+    //let isValid = LoginServier.Login(form.value)
+    //if(!isvalid)
+
+    //Set Errors on Form
+    this.form.setErrors({ //Set Errors takes a ValidationFn
+      invalidLogin: true, //Can Return Complex Error Object
+      thisSmells : false
+    });
+
+    console.log("Logging In...")
+  }
+
   get username()
   {
     return this.form.get('username');

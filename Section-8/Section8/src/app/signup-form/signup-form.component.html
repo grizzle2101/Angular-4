@@ -1,4 +1,12 @@
-<form [formGroup]="form">
+<!--Task 1 - Bind NgSubmit to Login Method -->
+<form [formGroup]="form" (ngSubmit)="login()">
+
+    <!--Task 3 - Add Submit Error Box-->
+    <div *ngIf="form.errors" class="alert alert-danger">
+        The Username or Password is Invalid.
+        <div *ngIf="form.errors.thisSmells">Smelly Form</div>
+    </div>
+
     <div class="form-group">
         <label for="username">Username</label>
         <input
@@ -8,7 +16,6 @@
             class="form-control">
     </div>
     
-    <!--Task 1 - Add DIV Loading Text -->
     <div *ngIf="username.pending">Checking if Username Exists...</div>
 
     <div *ngIf="username.touched && username.invalid" class="alert alert-danger">
