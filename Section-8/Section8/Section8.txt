@@ -284,3 +284,23 @@ Morale of the Story:
 We use the FormArray object to work with an Array of FormControl objects.
 We use Getters to access the Topics FormArray, cast as FormArray, then we have no problem adding & removing as if its a normal array.
 We might want to use this down the line for adding non-complex string arrays of data.
+
+--Tutorial 13 - FormBuilder---
+We've started this section by removing all the noise from the previous tutorial, only the FormArray left.
+The purpose of this section is to demonstrate the FormBuilder, and see how it can save us time when creating complex forms.
+
+Task 1 - Add Each of of the AbstractFormControl derivatives.
+We want to have a comprehensive form, with FormGroups, FormControls & FormArray.
+This should demonstrate how futile the process of manually creating forms is.
+
+
+Task 2 - Introduction to FormBuilder:
+-Create Construcor, that takes in FormBuilder Object.
+-Create FormGroups with fb.group()
+-Simple FormControl objects are created like so name: ['', Validators.required],
+-Just using an Array insteaf of () to contain the arguments like validators & Asychronous Validators etc.
+-Create Nested Groups like before simply with fb.group(containing more FormControls)
+-Create FormArrays with fb.arrray([])
+
+Morale of the Story:
+We can use the FormBuilder make our Form Objects slighly more tidy, and if we come across it online we know how it works now.

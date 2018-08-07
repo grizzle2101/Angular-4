@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormArray, FormControl } from '../../../node_modules/@angular/forms';
+import { FormGroup, FormArray, FormControl, FormBuilder, Validators } from '../../../node_modules/@angular/forms';
 
 @Component({
   selector: 'new-course-form',
@@ -8,29 +8,32 @@ import { FormGroup, FormArray, FormControl } from '../../../node_modules/@angula
 })
 export class NewCourseFormComponent
 {
-  //Task 2 - Create Form Group w FormArray
+  form;
+  /*
   form = new FormGroup ({
+    name: new FormControl('', Validators.required),
+    contact: new FormGroup({
+      email: new FormControl(),
+      phone: new FormControl()
+    }),
     topics: new FormArray([])
   });
-
-
-  //Task 3 - AddTopic to Array
-  addTopic(topic: HTMLInputElement)
+  */
+  constructor(fb: FormBuilder)
   {
-    this.topics.push(new FormControl(topic.value));
-    topic.value='';
+    this.form = fb.group({
+      name: ['', Validators.required],
+      contact: fb.group({
+        email: [],
+        phone: []
+      }),
+      topics: fb.array([])
+    });
   }
 
-  //Task 5 - Refactor - add Getter
+  //Fix Build Errors
   get topics()
   {
-    return this.form.get('topics')  as FormArray;
-  }
-
-  //Task 6 - Remove Topics
-  removeTopic(topic: FormControl)
-  {
-    let index = this.topics.controls.indexOf(topic);
-    this.topics.removeAt(index);
+    return this.form.get('topics') as FormArray;
   }
 }
