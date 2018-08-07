@@ -304,3 +304,11 @@ Task 2 - Introduction to FormBuilder:
 
 Morale of the Story:
 We can use the FormBuilder make our Form Objects slighly more tidy, and if we come across it online we know how it works now.
+
+
+---Tutorial 14 - Quick Recap---
+With Reactive Forms we:
+-Build our Form explicitly in the Component.
+-We saw how to create the Various AbstractFormControl derivatives like FormGroup, FormControl & FormArray.
+-We then use the Directive formGroup(form object), formGroupName & formControlName to bind these control objects to HTML input fields.
+-We Looked at taking in an Array of FormControls, and spitting them back out with *ngFor.
