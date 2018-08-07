@@ -1,0 +1,15 @@
+<!--Task 1 - Create Input Box-->
+<form>
+  <input type="text" class="form-control"
+  (keyup.enter)="addTopic(topic)" #topic>
+
+  <!--Task 4 - Iterate over Form Control Array-->
+  <ul class="list-group">
+    <li
+    *ngFor="let topic of topics.controls"
+    class="list-group-item"
+    (click)="removeTopic(topic)">
+    {{topic.value}}
+    </li>
+  </ul>
+</form>

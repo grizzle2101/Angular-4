@@ -233,3 +233,54 @@ This lets us specificy the precise FormGroup we wish to access, then we can carr
 Morale of the Story:
 Nested FormGroups are simple to implment, just need to make sure to specificy the path/name of the new Form Group to consumers of the FormsGroups/Controls.
 This just means using FormGroupName in our Markup, and Getters need to reference the Account Object which contains the username/password.
+
+
+---Tutorial 12 - FormArray---
+Sometimes we need to work with an Array of Objects in a form, imagine we're creating a form for Udemy Intructors to create a course.
+As part of the form, we want the instructor to add Tags or Sections of the course like Angualar - Directives, Templates, Services components etc.
+
+Task 1 - Create Input Box:
+Fairly basic, we just want to add the KeyUp.Enter to trigger the pushing of data.
+
+
+Task 2 - Create Form Group w FormArray:
+So we create a FormGroup as before, but the data we want to contain is a FormArray.
+
+
+Task 3 - AddTopic to Array
+-Take Topic in as HTMLInputElement so consumer knows this is not a JSON Object.
+-Get the FormData as before, with form.get(FormGroup/Control Name)
+-Cast this as a FormArray, so we can push data to it.
+-Pass the Topic Value as another AbstractFormControl Object.
+
+
+Note:
+This does sound a bit complex, just remember that all FormControls derive from AbstractFormControl and to treat them like complex variables.
+They just provide some helper & tracking functionality to track the values inside the FormControls.
+We create a FormArray to hold an Array of Data, we push each object from the Input field, cast each value as a indivual FormControl Object & Voila,
+We've added FormContols to our FormArray.
+
+
+Task 4 - Iterate over Form Control Array:
+We want to Display each item, this is easily done with the *ngFor directive.
+We also want to clear the input field after the user has pressed enter, we just add  topic.value=''; to clear the value.
+
+
+Task 5 - Refactor - add Getter
+We've made several repetitions of getting the form (this.form.get('topics')) in the Component & the *ngFor in the front end.
+Lets clean this up.
+ return this.form.get('topics')  as FormArray; then make changes in the consumers, template & Comonent.
+
+
+Task 6 - Remove Items OnClick
+-Create an OnClick Event in the template & pass the topic variable.
+-(click)="removeTopic(topic)">
+-In the Component, we only need to do the following:
+-let index = this.topics.controls.indexOf(topic);
+-this.topics.removeAt(index);
+
+
+Morale of the Story:
+We use the FormArray object to work with an Array of FormControl objects.
+We use Getters to access the Topics FormArray, cast as FormArray, then we have no problem adding & removing as if its a normal array.
+We might want to use this down the line for adding non-complex string arrays of data.
