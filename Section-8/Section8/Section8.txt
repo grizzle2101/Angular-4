@@ -312,3 +312,30 @@ With Reactive Forms we:
 -We saw how to create the Various AbstractFormControl derivatives like FormGroup, FormControl & FormArray.
 -We then use the Directive formGroup(form object), formGroupName & formControlName to bind these control objects to HTML input fields.
 -We Looked at taking in an Array of FormControls, and spitting them back out with *ngFor.
+
+
+---Final Excericse---
+Task 1 - Get Front End Design Sorted.
+Task 2 - Create Basic Component & Map to front end.
+Task 3 - Create Custom Validator for checking the Password.
+Task 4 - Validate New Password & Confirm Password are the same,
+
+Lessons Learned:
+-Getters are weird.
+Attempting to access the FormContol objects from the front end was a bit weird, needed to make lots of getters for them.
+Perhaps there is a better way to access these? Will check from Moshes Video. Moshes video uses same approach, we must create thie many getters
+else we have to use this.form.get('newPassword'); for every element we dynamically render, so flip that noise!
+
+
+-Binding Asychronous Errors to FormControl can be tricky.
+After Creating the PasswordValidator, addomg to the oldPassword FormControl then not seeing it appear in the Warning PopUp.
+I realized that the form.errors which i was using to check if there were errors beinds to the return value of the checkPassword method.
+So the Data retnred by this validation eg isUnique: true needed to be changed to passwordExists: true
+
+
+-Password Matching
+In this approach we have to change it up, we pass the Abstract Control object, however this time the we will be working with a FormGroup, not a individual FormComponent
+like before.
+We then have to apply this validation on a FORM level, this way the method has access to the newPassword & confirmPassword Fields.
+-Form Builder has a field called EXTRA, this is where we can add more Validators that get applied to the entire form.
+-Be Careful what you return with the Validator, I was setting Errors like we do in Async method, spent loads of time wondering why my errors were not popping up.
