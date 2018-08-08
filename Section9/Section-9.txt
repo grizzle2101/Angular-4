@@ -1,0 +1,10 @@
+-----Section 9 - Consuming HTTP Services-----
+---Tutorial 1 - Introduction---
+So far we've looked at a lot of Angular Fundamentals, in this section we're going to look at consuming HTTP services.
+By the end of this section, we're going to be able to connect our Components to the backend API's.
+-Perform CRUD Operations(Create, Read, Update & Delete)
+-Extrace a reuseable data services
+-Properly Handle different kinds of Errors
+-Building Applications with proper serperation of concerns.
+
+This section is quite long, so make sure not to take breaks and follow along the code examples in each section.
