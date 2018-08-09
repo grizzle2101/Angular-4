@@ -6,14 +6,20 @@ import { Http } from '../../../node_modules/@angular/http';
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.css']
 })
-export class PostsComponent
+export class PostsComponent implements OnInit
 {
   public posts: any[];
   private url = "http://jsonplaceholder.typicode.com/posts";
 
-  constructor(private http: Http)
+  constructor(private http : Http)
   {
-    http.get(this.url)
+    
+  }
+
+  //Task 1 - Move Get Logic into NgOnInit:
+  ngOnInit()
+  {
+    this.http.get(this.url)
     .subscribe(response => {
       this.posts = response.json();
     });
@@ -33,14 +39,13 @@ export class PostsComponent
 
   updatePost(post)
   {
-    //this.http.put(this.url,JSON.stringify(post));
     this.http.patch(this.url + '/' + post.id,JSON.stringify({isRead: true}))
     .subscribe(response => {
       console.log(response.json());
     });
   }
 
-  //Task 2 - Delete Method
+
   deletePost(post)
   {
     this.http.delete(this.url + '/' + post.id)

@@ -103,3 +103,35 @@ Very similar to the previoud CRUD methods, we just use the DELETE verb instead.
 We only send the ID of the element we wish to delete, no object to be sent.
 Once thats is complete, in the response, we find the index of our selected post, then splice it from our collection.
 Voila we can now delete items from our list.
+
+
+---Tutorial 7 - OnInit Interface---
+So in the constructor we have our GET which loads the initial list of Posts for our application.
+As a best practice, constructors should be very small and lightweight, we shouldn't perform expensive operations like Getting the posts.
+
+When Should we GET this data?
+Components in Angular have "LifeCycle Hooks", special methods that we add to our components then at a specific time Angular will call these methods at specific times.
+
+LifeCycle Hooks:
+-Creates a Component
+-Renders It
+-Creates & Renders its Children
+-Destroys a Component
+
+If we created components using the Angular CLI, we saw they automatically use OnInit, this is one such lifecycle hook.
+So we have to implment OnInit, and complete the method defined there.
+
+LifeCycle Hooks:
+-OnInit
+-OnChanges
+-DoCheck
+-AfterContentInit
+...
+Each of these LifeCycle hooks is a class, with a method of the same name prefixed with Ng. Eg NgOnInit, NgOnChanges etc.
+
+Task 1 - Move Get Logic into NgOnInit:
+So we just need to move the logic for getting posts into NgOnInit.
+
+Morale of the Story:
+If we want to NewUp objects or data, use NgOnInit instead of the constructor.
+We also don't have to inherit from OnInit, just by having the NgOnInit method in our component, Angular will know. Its just by inheriting it we get compile time checking.
