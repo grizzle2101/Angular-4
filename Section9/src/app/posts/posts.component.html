@@ -11,5 +11,8 @@
    *ngFor="let post of posts"
    class="list-group-item">
    {{post.title}}
+   <button
+   (click)="updatePost(post)"
+   class="btn btn-default btn-sm">Update</button>
   </li>
 </ul>

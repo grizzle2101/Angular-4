@@ -61,7 +61,34 @@ Task 2 - CreatePost Method in Component:
 -Http.Post, takes 2 parameters the URL & JSON object to be posted.
 -Every Http method in Angular has the subscribe method, this allows us to write the response to console.
 
-
 Task 3 - Add Newly Created Item to List:
 Because our API is a mock, it does not create the returned data like it should. Once given the Object, it should return it with a new ID, and additional details as
 as needed. To Simulate this, we can use the response data, append this to our post Object, and throw it back to our Post List & voila!
+
+
+---Tutorial 5 - Updating Data---
+Next step, lets update some existing data!
+
+Task 1 - Create Update Button for Each Post:
+Create a simple button, bind the click event to CreatePost() and pass the post object.
+
+Task 2 - Create CreatePost Method in Component:
+We can use either POST or PATCH to send the updated Posts. In General though, PATCH is used when only sending part of object, like when ready an email you might only patch
+the IsRead field, as opposed to send a entirely new post. so PUT is used to whole objects, PATCH is for partial data.
+
+Post Usage:
+this.http.post(this.url, JSON.stringify(post));
+
+Patch Usage:
+this.http.patch(this.url, JSON.stringify({isRead: true}));
+
+Task 3 - Provide API ID:
+We are getting errors when we kick off the Patch, that is because we do not have an ID for the post we wish to udpate.
+By Adding the / and post.id we can now target the specific element we wish to update.
+this.http.patch(this.url + '/' + post.id,JSON.stringify({isRead: true}))
+
+Note:
+If we check the Network Tab, find the PATCH call and check the request payload. We can see the payload is ONLY the isRead: true.
+If we tried a PUT instead, we would see the entire object being sent.
+Make sure to check an API supports PATCH before implementing something like this. This can however make our footprint much smaller,
+and cut down on a lot of data & operations if we have complex objects.
