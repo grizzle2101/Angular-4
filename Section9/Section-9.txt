@@ -8,3 +8,8 @@ By the end of this section, we're going to be able to connect our Components to 
 -Building Applications with proper serperation of concerns.
 
 This section is quite long, so make sure not to take breaks and follow along the code examples in each section.
+
+
+---Tutorial 2 - JSON Placeholder---
+So as we know Angular is a front end framework, we built it to use client applications. In most real world applications however we need a bunch of HTTP services
+to get or save data. We are not going to be building backends in this section, but instead using http://jsonplaceholder.typicode.com/
