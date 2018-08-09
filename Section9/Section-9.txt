@@ -135,3 +135,15 @@ So we just need to move the logic for getting posts into NgOnInit.
 Morale of the Story:
 If we want to NewUp objects or data, use NgOnInit instead of the constructor.
 We also don't have to inherit from OnInit, just by having the NgOnInit method in our component, Angular will know. Its just by inheriting it we get compile time checking.
+
+
+---Tutorial 8 - Seperation of Concerns:---
+So the problem with our current implmentation is the Component takes on the responsibility for the API & manipulating the presentation layer.
+This violated the Seperation of Concerns rule, where our classes should have a single responsibility.
+There are several key benefits to refactoring, and moving our API to a Service including;
+-Less Duplicate API code
+-Changes to API are centralized
+-More Unit Testable (not reliant on sevrver data, & can mock HTTP Service)
+-Service is reuseable
+
+In the next section we're going to extract the API responsibility to a service!
