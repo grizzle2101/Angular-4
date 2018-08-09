@@ -147,3 +147,26 @@ There are several key benefits to refactoring, and moving our API to a Service i
 -Service is reuseable
 
 In the next section we're going to extract the API responsibility to a service!
+
+---Tutorial 9 - Extracting a Service---
+
+Task 1 - Create a Service
+ng g s post
+
+Task 2 - Add a reference in Providers;
+Add PostService into the providers. This will help the dependency injection framework figure out where the service is.
+
+Task 3 - Create Services Folder:
+For better organization, we should not just dump everything into app like the CLI does by default, lets move the service files into the Service folder.
+
+Task 4- Refactor:
+-Remove Http imports & Variable declaration
+-Rework Constructor, use PostService instead of Http
+-Move every Http.get, .put, .update into the service.
+-use the newly created service methods to get the promise object returned from the Http Module.
+-Carry on adding & removing objects from the DOM as normal.
+-Check for the Various Imports in AppModule, Component & service to make sure looking in correct location.
+
+Morale of the Story:
+Extract the HTTP requests to a Service, this provided a centralized place for all service calls, which we can reuse and maintain in a single file.
+Return the Observeable, so the consumers can still access the response data as needed.
