@@ -13,3 +13,36 @@ This section is quite long, so make sure not to take breaks and follow along the
 ---Tutorial 2 - JSON Placeholder---
 So as we know Angular is a front end framework, we built it to use client applications. In most real world applications however we need a bunch of HTTP services
 to get or save data. We are not going to be building backends in this section, but instead using http://jsonplaceholder.typicode.com/
+
+---Tutorial 3 - Getting Data---
+So lets try get some data from JSON Placeholder.
+
+Task 1 - Import HttpModule to app.module.
+By importing HttpModule, we're importing a list of HTTP Modules, and their dependencies as providers.
+
+
+Task 2 - Create Constructor:
+So in the Constructor, we take in HTTP, make a GET request then subscribe.
+Remember when dealing with Asynchronous Validation, we said a Promise or Observeable is a command to tell the Thread to come back to this once we get data from the Endpoint.
+Subscribe is an Observeable method, we subscribe to get notified when this GET has finished.
+
+constructor(http: Http)
+  {
+    http.get("http://jsonplaceholder.typicode.com/posts")
+    .subscribe(response => {
+      console.log(response);
+    });
+  }
+
+The Subscribe method has a few overloads, one of which allows us to take in a response and return void.
+We can use this to manipulate data in the subscriber, so the response data from our GET.
+
+Task 3 - Convert Response to JSON:
+So we can see the Response, which contains lots of data like the Headers, MetaData & the actual posts.
+So format this into something actually useable, we need response.json()
+
+Task 4 - Render API Data in HTML:
+Quite Straight forward, just need to Create a list, iterate over the posts using *ngFor, use string interpolation to inject post.title and bam we got a list of data.
+
+Note:
+When creating a new project, make sure to use the command - npm install bootstrap, then also make sure tue global style sheet is there.
