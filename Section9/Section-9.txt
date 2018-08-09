@@ -46,3 +46,22 @@ Quite Straight forward, just need to Create a list, iterate over the posts using
 
 Note:
 When creating a new project, make sure to use the command - npm install bootstrap, then also make sure tue global style sheet is there.
+
+
+---Tutorial 4 - Creating Data---
+Let see how to take this to the next level, and create some posts.
+
+Task 1 - Create an Input Field. 
+-Create a Template Variable to Store Input #title then pass this to createPost method.
+
+
+Task 2 - CreatePost Method in Component:
+-Add the CreatePost method
+-Http in our constructor, append private to make this a private variable in our component.
+-Http.Post, takes 2 parameters the URL & JSON object to be posted.
+-Every Http method in Angular has the subscribe method, this allows us to write the response to console.
+
+
+Task 3 - Add Newly Created Item to List:
+Because our API is a mock, it does not create the returned data like it should. Once given the Object, it should return it with a new ID, and additional details as
+as needed. To Simulate this, we can use the response data, append this to our post Object, and throw it back to our Post List & voila!

@@ -9,15 +9,27 @@ import { Http } from '../../../node_modules/@angular/http';
 export class PostsComponent
 {
   public posts: any[];
+  private url = "http://jsonplaceholder.typicode.com/posts";
 
-  //Task 2 - Create Constructor
-  constructor(http: Http)
+  constructor(private http: Http)
   {
-    http.get("http://jsonplaceholder.typicode.com/posts")
+    http.get(this.url)
     .subscribe(response => {
-      //console.log(response);
-      //Task 3 - Response as JSON
       this.posts = response.json();
+    });
+  }
+
+  createPost(input: HTMLInputElement)
+  {
+    let post: any = {title: input.value};
+    input.value = "";
+
+
+    //Post & Append Response to List.
+    this.http.post(this.url, JSON.stringify(post))
+    .subscribe(response => {
+      post.id = response.json().id;
+      this.posts.splice(0, 0, post);
     });
   }
 }

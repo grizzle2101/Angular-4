@@ -12,7 +12,7 @@ import { PostsComponent } from './posts/posts.component';
   ],
   imports: [
     BrowserModule,
-    HttpModule //Task 1 - Add HttpModule
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]
