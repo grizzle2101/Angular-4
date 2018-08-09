@@ -92,3 +92,14 @@ If we check the Network Tab, find the PATCH call and check the request payload. 
 If we tried a PUT instead, we would see the entire object being sent.
 Make sure to check an API supports PATCH before implementing something like this. This can however make our footprint much smaller,
 and cut down on a lot of data & operations if we have complex objects.
+
+---Tutorial 6 - Deleteing Data---
+
+Task 1 - Add Delete Button
+Same as before, just copy the update button and edit it to Delete & DeletePost method.
+
+Task 2 - Implment DeletePost Method:
+Very similar to the previoud CRUD methods, we just use the DELETE verb instead.
+We only send the ID of the element we wish to delete, no object to be sent.
+Once thats is complete, in the response, we find the index of our selected post, then splice it from our collection.
+Voila we can now delete items from our list.
