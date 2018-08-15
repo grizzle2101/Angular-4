@@ -186,3 +186,19 @@ Not Found(404) - A User Deleted a record, shortly after another user tries the s
 Bad Request(400) - Attempt to create an account with a Username that already exists.
 
 So in the next tutorials we need to handle these Errors.
+
+
+---Tutorial 11 - Handling Unexpected Errors---
+So lets start by looking at the Subscribe method, previously we only take the response data and displa in the front end.
+Subscribe has a 2nd optional parameter for errors which we need to implment.
+
+Task 1 - Add Error Method to ngOnInit():
+So we now know Subscribe has Response & Error parameters, which are functions. These methods are subscribed to the response & error events.
+So we just want to print a really generic message.
+error => {
+      alert('An Unpected Error occured.');
+
+Task 2 - Handle Unecpted Errors for All Subscribe Events in Component
+
+Result:
+Now if we malform the link, we can see instead of just a blank list, the user is prompted and we can see the Error in the console.
