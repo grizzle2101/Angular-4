@@ -22,12 +22,14 @@ export class PostsComponent implements OnInit
     this.service.getPosts()
     .subscribe(response => {
       this.posts = response.json();
-    }, error => {
+    }, 
+    error => {
       alert('Unpected Error occured.');
       console.log(error);
     });
   }
 
+  //Task 2 - Attempting to Create Post w Bad Data:
   createPost(input: HTMLInputElement)
   {
     let post: any = {title: input.value};
@@ -37,9 +39,18 @@ export class PostsComponent implements OnInit
     .subscribe(response => {
       post.id = response.json().id;
       this.posts.splice(0, 0, post);
-    }, error => {
-      alert("Unexpected Error occured.");
-      console.log(error);
+    }, 
+    (error: Response) => {
+      if(error.status === 400)
+      {
+        alert("Bad Data!")
+        //this.form.setErrors(error.json);
+      }
+      else
+      {
+        alert("Unexpected Error occured.");
+        console.log(error);
+      }
     });
   }
 
@@ -48,13 +59,14 @@ export class PostsComponent implements OnInit
     this.service.updatePosts(post)
     .subscribe(response => {
       console.log(response.json());
-    }, error => {
+    }, 
+    error => {
       alert("Unecpted Error occured.");
       console.log(error);
     });
   }
 
-
+  //Task 1 - Attempting to Delete a Post that does not exist:
   deletePost(post)
   {
     this.service.deletePosts(post.id)
@@ -63,9 +75,15 @@ export class PostsComponent implements OnInit
 
       let index = this.posts.indexOf(post);
       this.posts.splice(index, 1);
-    }, error => {
-      alert("Unexpected Error occured.");
-      console.log(error);
+    }, 
+    (error: Response) => {
+      if(error.status === 404)
+        alert("This post has already been Deleted.")
+      else
+      {
+        alert("Unexpected Error occured.");
+        console.log(error);
+      }
     });
   }
 }

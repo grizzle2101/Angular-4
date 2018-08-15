@@ -202,3 +202,21 @@ Task 2 - Handle Unecpted Errors for All Subscribe Events in Component
 
 Result:
 Now if we malform the link, we can see instead of just a blank list, the user is prompted and we can see the Error in the console.
+
+
+---Tutorial 12 - Handling Expected Errors---
+So lets start work on the Expected Errors
+
+Task 1 - Attempting to Delete a Post that does not exist:
+If we get the error object, we can check what the status code is, then throw the correct warning.
+First we need to fix something, error is of type ANY, we need to cast this to Response to get access to the status codes.
+-Error : Response
+(error: Response) => {
+      if(error.status === 404)
+
+
+Task 2 - Attempting to Create Post w Bad Data:
+So just a basic copy of the previous task, just need to check for status 400(bad data).
+Hopefully our would be API is smart enough to return a list of KeyValue pairs that cause the errors in the backend.
+We can then bind the errors as json to the Form.SetErrors method and voila our input fields will be automatically marked as invalid.
+this.form.setErrors(error.json);
