@@ -170,3 +170,19 @@ Task 4- Refactor:
 Morale of the Story:
 Extract the HTTP requests to a Service, this provided a centralized place for all service calls, which we can reuse and maintain in a single file.
 Return the Observeable, so the consumers can still access the response data as needed.
+
+
+---Tutorial 10 - Handling Errors---
+So far we've assumed the call to the server always succeeds, that is not always the case.
+When it comes to handling erorrs we have 2 types, Unexpected & Expected. 
+
+Unexpected:
+Server if Offline
+Network is down
+Unhandled Excpetions
+
+Expected:
+Not Found(404) - A User Deleted a record, shortly after another user tries the same.
+Bad Request(400) - Attempt to create an account with a Username that already exists.
+
+So in the next tutorials we need to handle these Errors.
