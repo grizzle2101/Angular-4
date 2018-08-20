@@ -5,6 +5,9 @@ import { AppError } from '../common/app.error';
 import { NotFoundError } from '../common/not-found-error';
 import { BadRequest } from '../common/bad-request-error';
 
+//import 'rxjs/operator/catch';
+//import 'rxjs/observable/throw';
+
 @Component({
   selector: 'posts',
   templateUrl: './posts.component.html',
@@ -47,7 +50,7 @@ export class PostsComponent implements OnInit
       if(error instanceof BadRequest)
       {
         alert("Bad Data!");
-        //this.form.setErrors(error.originalError);
+        //this.form.setErrors(error.json);
       }
       else
       {

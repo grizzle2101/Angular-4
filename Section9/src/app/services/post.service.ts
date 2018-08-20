@@ -6,6 +6,9 @@ import { AppError } from '../common/app.error';
 import { NotFoundError } from '../common/not-found-error';
 import { BadRequest } from '../common/bad-request-error';
 
+import 'rxjs/Operator/catch/'
+import 'rxjs/add/observable/throw'
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,20 +21,20 @@ export class PostService {
 
   }
 
+  //Return Observeable, Consumers decided what to do with Response Data.
   getPosts()
   {
     let source = this.http.get(this.url);
     let obj = source.pipe(catchError(error => {
       if(error === 400)
-        return Observable.throw(new BadRequest(error.json()));
-      return Observable.throw(new AppError(error.json()));
+        return Observable.throw(new BadRequest(error));
+      return Observable.throw(new AppError());
     }));
     return obj;
   }
 
   createPosts(post)
   {
-    this.http.post(this.url, JSON.stringify(post));
     let source = this.http.post(this.url, JSON.stringify(post));
     let obj = source.pipe(catchError(error => {
       if(error.status === 400)
@@ -50,7 +53,7 @@ export class PostService {
     return obj;
   }
 
-
+  //Task 1 - Catch Error & Send Application Domain Data.
   deletePosts(id: number)
   {
     let source = this.http.delete(this.url + '/' + id);
@@ -61,5 +64,13 @@ export class PostService {
     }));
 
     return obj;
+
+    /*Old Code
+    return this.http.delete(this.url + '/' + id);
+    .catch((error: Response) => {
+      if(error.status === 404)
+        return Observeable.throw(new NotRoundError());
+      Observable.throw(new AppError(error));
+    }); */
   }
 }

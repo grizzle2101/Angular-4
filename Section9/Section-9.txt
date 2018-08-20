@@ -242,3 +242,16 @@ Task 4 - Complete the HTTP Error Migration to Services.
 ---Tutorial 14 - Code Review----
 So lets start code review & improving our design.
 
+
+---Tutorial 15 - Importing Observeable Operators & Factory Methods---
+So by now we've noticed the TypeError when we try to operate on our newly created Observeables.
+Observeable is not a function, so lets check this out.
+
+Task 1 - Import Operators:
+We were getting warnings about the usage of throw. We need to be very careful to import the correct packages & modules.
+import 'rxjs/operator/catch';
+import 'rxjs/observable/throw';
+
+Note:
+Finally we resolved these silly errors we've been getting for the last 3 lessons. UnBlocked!!!
+Observeable can really be its own course, but for now we only need to know about Catch & Throw for 90% of the time.
