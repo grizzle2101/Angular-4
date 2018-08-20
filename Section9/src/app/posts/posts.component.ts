@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../services/post.service';
+import { catchError } from 'rxjs/operators';
+import { AppError } from '../common/app.error';
+import { NotFoundError } from '../common/not-found-error';
+import { BadRequest } from '../common/bad-request-error';
 
 @Component({
   selector: 'posts',
@@ -16,20 +20,19 @@ export class PostsComponent implements OnInit
     
   }
 
-  //Task 1 - Add Error Method to ngOnInit():
   ngOnInit()
   {
     this.service.getPosts()
     .subscribe(response => {
       this.posts = response.json();
     }, 
-    error => {
-      alert('Unpected Error occured.');
+    (error: AppError) => {
+      alert('Unexpected Error occured.');
       console.log(error);
     });
   }
 
-  //Task 2 - Attempting to Create Post w Bad Data:
+
   createPost(input: HTMLInputElement)
   {
     let post: any = {title: input.value};
@@ -40,10 +43,10 @@ export class PostsComponent implements OnInit
       post.id = response.json().id;
       this.posts.splice(0, 0, post);
     }, 
-    (error: Response) => {
-      if(error.status === 400)
+    (error: AppError) => {
+      if(error instanceof BadRequest)
       {
-        alert("Bad Data!")
+        alert("Bad Data!");
         //this.form.setErrors(error.json);
       }
       else
@@ -60,13 +63,13 @@ export class PostsComponent implements OnInit
     .subscribe(response => {
       console.log(response.json());
     }, 
-    error => {
+    (error: AppError) => {
       alert("Unecpted Error occured.");
       console.log(error);
     });
   }
 
-  //Task 1 - Attempting to Delete a Post that does not exist:
+  //Task 3 - Consume Application Specific Errors
   deletePost(post)
   {
     this.service.deletePosts(post.id)
@@ -76,9 +79,14 @@ export class PostsComponent implements OnInit
       let index = this.posts.indexOf(post);
       this.posts.splice(index, 1);
     }, 
-    (error: Response) => {
-      if(error.status === 404)
-        alert("This post has already been Deleted.")
+    (error: AppError) => {
+      console.log(error.originalError);
+      if(error instanceof NotFoundError)
+      {
+        alert("This post has already been Deleted.");
+        console.log(error instanceof NotFoundError);
+      }
+
       else
       {
         alert("Unexpected Error occured.");

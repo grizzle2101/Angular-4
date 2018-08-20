@@ -220,3 +220,20 @@ So just a basic copy of the previous task, just need to check for status 400(bad
 Hopefully our would be API is smart enough to return a list of KeyValue pairs that cause the errors in the backend.
 We can then bind the errors as json to the Form.SetErrors method and voila our input fields will be automatically marked as invalid.
 this.form.setErrors(error.json);
+
+
+---Tutorial 13 - Throwing Application Specific Errors---
+So you've probaly noticed the problem with our current implmentation, we have violated the seperation of concern principle.
+Everything to do with HTTP should be contained inside the service.
+
+Task 1 - Move Http Error Handling to Service:
+Observeable is a type from Reactive Extensions, there are other methods/operators that can help us with this task.
+We need to Catch this Error, then send a Application Specific Error.
+
+Task 2 - Create Application Specific Errors:
+Create App.Error & Found-Found Errors, just a application specific wrapper on the HTTP errors.
+
+Task 3 - Consume Application Specific Errors:
+Now that our Service handles the HTTP Errors, we need to rework the component so we check for the Application specific errors.
+
+Task 4 - Complete the HTTP Error Migration to Services.
