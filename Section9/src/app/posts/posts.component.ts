@@ -47,7 +47,7 @@ export class PostsComponent implements OnInit
       if(error instanceof BadRequest)
       {
         alert("Bad Data!");
-        //this.form.setErrors(error.json);
+        //this.form.setErrors(error.originalError);
       }
       else
       {

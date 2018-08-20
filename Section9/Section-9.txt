@@ -237,3 +237,8 @@ Task 3 - Consume Application Specific Errors:
 Now that our Service handles the HTTP Errors, we need to rework the component so we check for the Application specific errors.
 
 Task 4 - Complete the HTTP Error Migration to Services.
+
+
+---Tutorial 14 - Code Review----
+So lets start code review & improving our design.
+
