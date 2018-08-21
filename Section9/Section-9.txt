@@ -272,3 +272,19 @@ Task 3 - Removing Error Handling from Posts Component:
 So everywhere we handle Unexpected Errors, we need to remove because this is handled globally now.
 -Keep the Application Specific Error Checks.
 -Rethrow in Else blocks to avoid getting stuck there.
+
+
+---Tutorial 17 - A Reuseable Error Handling Model---
+So we have some more opportunity for refactoring here, in the Post Service we have duplication in Update & Create,
+where we check the Error Status, and then return the application specific errors.
+We could extract this logic into a private method, then call it in each API function.
+
+Task 1 - Extract Duplicate Code to Private Method:
+-Move the Status Code to Application Error into a centralized method.
+-This should be private, as we don't want the Consumer to know our implmentation detail.
+
+Task 2 - Clean Up API Methods:
+-Now that handleError exists, we just call handleError(error) inside the catch block and voila we've extracted all that nastyness.
+
+Result:
+Our API Methods are much smaller & cleaner!

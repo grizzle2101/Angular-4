@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PostService } from '../services/post.service';
 import { AppError } from '../common/app.error';
 import { NotFoundError } from '../common/not-found-error';
-import { BadRequest } from '../common/bad-request-error';
+import { BadData } from '../common/bad-request-error';
 
 @Component({
   selector: 'posts',
@@ -18,7 +18,6 @@ export class PostsComponent implements OnInit
     
   }
 
-  //Task 3 - Remove Error Handling from PostsComponent
   ngOnInit()
   {
     this.service.getPosts()
@@ -40,12 +39,11 @@ export class PostsComponent implements OnInit
       this.posts.splice(0, 0, post);
     }, 
     (error: AppError) => {
-      if(error instanceof BadRequest)
+      if(error instanceof BadData)
       {
         alert("Bad Data!");
         //this.form.setErrors(error.json);
       }
-      //Need to Rethrow to Escape.
       else throw error; 
     });
   }

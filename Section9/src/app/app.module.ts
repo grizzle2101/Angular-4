@@ -18,7 +18,6 @@ import { MyErrorHandler } from './common/app-error-handler';
   ],
   providers: [
     PostService,
-    //Task 2 - Replace Stock ErrorHandler w Custom
     {provide: ErrorHandler, useClass: MyErrorHandler}
   ],
   bootstrap: [AppComponent]
