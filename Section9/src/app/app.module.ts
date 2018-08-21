@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { PostsComponent } from './posts/posts.component';
 import { PostService } from './services/post.service';
+import { MyErrorHandler } from './common/app-error-handler';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,9 @@ import { PostService } from './services/post.service';
     HttpModule
   ],
   providers: [
-    PostService
+    PostService,
+    //Task 2 - Replace Stock ErrorHandler w Custom
+    {provide: ErrorHandler, useClass: MyErrorHandler}
   ],
   bootstrap: [AppComponent]
 })

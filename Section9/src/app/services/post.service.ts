@@ -53,7 +53,6 @@ export class PostService {
     return obj;
   }
 
-  //Task 1 - Catch Error & Send Application Domain Data.
   deletePosts(id: number)
   {
     let source = this.http.delete(this.url + '/' + id);
@@ -64,13 +63,5 @@ export class PostService {
     }));
 
     return obj;
-
-    /*Old Code
-    return this.http.delete(this.url + '/' + id);
-    .catch((error: Response) => {
-      if(error.status === 404)
-        return Observeable.throw(new NotRoundError());
-      Observable.throw(new AppError(error));
-    }); */
   }
 }

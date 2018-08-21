@@ -255,3 +255,20 @@ import 'rxjs/observable/throw';
 Note:
 Finally we resolved these silly errors we've been getting for the last 3 lessons. UnBlocked!!!
 Observeable can really be its own course, but for now we only need to know about Catch & Throw for 90% of the time.
+
+
+---Tutorial 16 - Global Error Handling---
+So as you can see in our Posts Component we have repeated the Altert & Logging errors to the console.
+What if we could do this globally?
+Lets take a look at the ErrorHandler class in angular.io, we can see it takes and error & returns void.
+
+Task 1 - Create ErrorHandler Class:
+We need to inherit from ErrorHandler, implment the common functionality like Alert or logging to console.
+
+Task 2 - Replace Stock ErrorHandler w MyErrorHandler:
+We can use {provide: ErrorHandler, useClass: MyErrorHandler} to replace the built in ErrorHandler with our own.
+
+Task 3 - Removing Error Handling from Posts Component:
+So everywhere we handle Unexpected Errors, we need to remove because this is handled globally now.
+-Keep the Application Specific Error Checks.
+-Rethrow in Else blocks to avoid getting stuck there.
