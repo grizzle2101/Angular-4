@@ -288,3 +288,27 @@ Task 2 - Clean Up API Methods:
 
 Result:
 Our API Methods are much smaller & cleaner!
+
+---Tutorial 18 - Extracting a Reuseable Data Service---
+So in a real world application we're not going to be working with one service, but probaly a few dozen.
+This would give us a lot of Duplicate code, how would we go about making this more generic and reuseable?
+
+Task 1 - Move Posts Service into a new DataService. Do some light refactoring to make the names more generic.
+-Take in Http & Url in the Constructor
+-Make Create, Delete & Update mmore generic using resource not Posts or Course.
+-Keep the Error Handling Method as is, may even add more more down the line.
+
+Task 2 - Refactor Posts Service:
+Now that we've extracted the bulk of the work into DataService we just need to.
+-Extend Data Service.
+-Provide a HTTP Client for Base Class (using super keyword)
+-Provide URL
+-Remove all unneccessary references and whatnot.
+
+Task 3 - Refactor Post Component:
+-We just need to make sure they're calling the newly named methods.
+So create instead of CreatePosts etc.
+
+In Summary:
+So in the previous lecture we moved HTTP Error Handling from the component to the Service for better seperation of concern.
+In THIS tutorial we extracted the HTTP into a data service, to make it more reuseable to accomodate other endpoints like courses, or movies.
