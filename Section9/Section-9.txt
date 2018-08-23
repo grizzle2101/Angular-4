@@ -312,3 +312,24 @@ So create instead of CreatePosts etc.
 In Summary:
 So in the previous lecture we moved HTTP Error Handling from the component to the Service for better seperation of concern.
 In THIS tutorial we extracted the HTTP into a data service, to make it more reuseable to accomodate other endpoints like courses, or movies.
+
+
+---Tutorial 19 - The Map Operator---
+So we could still do even more cleanup. Out Component, shouldn't really be working response objects, what if we could return it an Array instead?
+We can use the Map Operator to transform the items inside an Observeable.
+
+Task 1 - Map Resonse Json:
+return source.pipe(map(response => response.json()),catchError(this.handleError));
+
+Task 2 - Populate Posts:
+Now that we're returning the data as JSON, we can directly add this to our posts list.
+Much cleaner, our component has no reference to responses or HTTP, true seperation of concerns.
+
+Task 3 - Refactor Remaining Methods:
+Create, Update & Delete also need to be refactored.
+
+Task 4 - Final Cleanup of Post Component
+Everyplace we transform response.json has to go, we need only clear language of the component.
+
+Note:
+Again the RXJS library has changed since this tutorial, so just a little figuring out needed. Not extactlly the same as Moshes code but it works.
