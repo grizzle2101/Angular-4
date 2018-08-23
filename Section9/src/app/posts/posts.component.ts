@@ -18,26 +18,27 @@ export class PostsComponent implements OnInit
     
   }
 
-  //Task 2 - Populate Posts Arra
   ngOnInit()
   {
     this.service.getAll()
     .subscribe(posts => this.posts = posts);
   }
 
-
-  //Tak 4 - Final Cleanup
+  //Task 1 - Create Posts Optimistic Style
   createPost(input: HTMLInputElement)
   {
     let post: any = {title: input.value};
+    this.posts.splice(0, 0, post);
+
     input.value = "";
 
    this.service.create(post)
     .subscribe(newPost => {
       post.id = newPost.id;
-      this.posts.splice(0, 0, post);
     }, 
     (error: AppError) => {
+      this.posts.splice(0, 1);
+
       if(error instanceof BadData)
       {
         alert("Bad Data!");
@@ -53,14 +54,16 @@ export class PostsComponent implements OnInit
     .subscribe(updatedPost => console.log(updatedPost));
   }
 
+  //Task 2 - Delete Post Optimistic Style
   deletePost(post)
   {
+    let index = this.posts.indexOf(post);
+    this.posts.splice(index, 1);
+
     this.service.delete(post.id)
-    .subscribe(() => {
-      let index = this.posts.indexOf(post);
-      this.posts.splice(index, 1);
-    }, 
+    .subscribe(null, //Do Nothing for Subscribe
     (error: AppError) => {
+      this.posts.splice(index, 0, post); //Adding the Post Object back
       console.log(error.originalError);
       if(error instanceof NotFoundError)
       {

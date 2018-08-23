@@ -20,19 +20,19 @@ export class DataService {
 
   }
 
-  //Task 1 - Map Responce JSON
   getAll()
   {
     let source = this.http.get(this.url);
     return source.pipe(map(response => response.json()), catchError(this.handleError));
   }
 
-  //Task 3 - Refactor Remaining Methods
   create(resource)
   {
+    //return Observable.throw(new AppError("Fail")); //Test Server Fail
     let source = this.http.post(this.url, JSON.stringify(resource));
     return source.pipe(map(response => response.json()), catchError(this.handleError));
   }
+
 
   update(resource)
   {

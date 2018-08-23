@@ -333,3 +333,27 @@ Everyplace we transform response.json has to go, we need only clear language of 
 
 Note:
 Again the RXJS library has changed since this tutorial, so just a little figuring out needed. Not extactlly the same as Moshes code but it works.
+
+
+---Tutorial 20 - Optimistic V Pessimistic Updates---
+So there comes a time when we have to decide our approach on handling updates. So currently when adding posts to the list,
+we wait for the success response from the API before updating our UI.
+Many more websites do the opposite, where they update the UI first as the update happens in the background. This gives the illusion of speed to the user.
+
+Task 1 - Create Posts Optimistic Style:
+-Move the Adding of Posts to the List before the API Call.
+-In the Error Handlding, include a line to remove the element.
+-Test this by Making Create Post Immediately Throw an AppError.
+
+
+Task 2 - Delete Post Optimistic Style:
+Carrying on from the previous example, try to implment this for Deleting a post.
+-Delete the select post with splice
+-When the Deletion fails use splice again to readd.
+-this.posts.splice(index, 0, post);
+-To Test this we don't don't need to return Observeable Error, just create a post & delete it as the API doesn't store it, so deletion will always fail.
+
+Morale of the Story:
+The main take home from this is the Optimistic approach, interact with the UI first, then find ways to correct in the event of Errors.
+It gives the user a better impression of 'speed' on the site.
+Unless of course this is mission critical functionality, then it is best to take the defensive approach.
