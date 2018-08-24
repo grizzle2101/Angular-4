@@ -44,6 +44,7 @@ export class DataService {
   {
     let source = this.http.delete(this.url + '/' + id);
     return source.pipe(map(response => response.json()), catchError(this.handleError));
+    //return source.pipe(map(response => response.json()), catchError(this.handleError)).toPromise(); //Returning a Promise
   }
 
 

@@ -357,3 +357,48 @@ Morale of the Story:
 The main take home from this is the Optimistic approach, interact with the UI first, then find ways to correct in the event of Errors.
 It gives the user a better impression of 'speed' on the site.
 Unless of course this is mission critical functionality, then it is best to take the defensive approach.
+
+
+---Tutorial 21 - Observeables VS Promises---
+So as we have seen when working with backend services we use Observeables. This is the approach Angular team has taken, but in this section
+we will demonstrate the difference between Observeables & Promises.
+
+Experiment 1 - Calling Delete Service without Subscribe():
+What happens if we Don't subscribe to this delete post action? Lets just leave this single line in our Component.
+this.service.delete(post.id);
+.subscribe()
+Result:
+We can see that nothing is sent to the API, until we do a .subscribe.
+
+Note:
+This is the Main difference between Observeables & Promises.
+Observeables are Lazy, Promises are Eager.
+Ie as soon as we create a promise, the action is triggered, regardless if we are subscribed to it or not.
+
+
+Experiment 2 - Covert Observeables to Promises:
+-Return Promise
+RXJS has a built in operator to cast this object as a Promise, called toPromise()
+Using this we return a Promise Object instead of the Observeable.
+return source.pipe(map(response => response.json()), catchError(this.handleError)).toPromise();
+
+
+-Use Promise Object:
+In the Component, we can call the service like so, and see the resulting API call.
+this.service.delete(post.id);
+
+If your interested in using promises though, you can see they have then and catch, similar to Response Function & Error Function of Observeables.
+.then().catch();
+
+Note:
+There are many powerful operators than toPromise which make life much easier. Like Retry(3), which would be at least 4 lines of code if we wrote it ourselves.
+There are many more operators in the Reactive Programming Libraries, but they are beyond the scope of this series.
+
+Take Home:
+With Observeables we have lots of powerful operators available to us, that allow us to write much less code.
+Observeable functions are only executed when the are explicitly Subscribed to.
+-You can always convert observables to promises
+-Prefer Observeables
+-They allow Reactive Programming
+-They provide useful operators
+-Observeables are lazy

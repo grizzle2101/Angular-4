@@ -24,7 +24,6 @@ export class PostsComponent implements OnInit
     .subscribe(posts => this.posts = posts);
   }
 
-  //Task 1 - Create Posts Optimistic Style
   createPost(input: HTMLInputElement)
   {
     let post: any = {title: input.value};
@@ -54,9 +53,11 @@ export class PostsComponent implements OnInit
     .subscribe(updatedPost => console.log(updatedPost));
   }
 
-  //Task 2 - Delete Post Optimistic Style
+
   deletePost(post)
   {
+    //this.service.delete(post.id).then().catch(); //Working with Promise
+
     let index = this.posts.indexOf(post);
     this.posts.splice(index, 1);
 
