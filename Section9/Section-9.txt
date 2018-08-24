@@ -402,3 +402,27 @@ Observeable functions are only executed when the are explicitly Subscribed to.
 -They allow Reactive Programming
 -They provide useful operators
 -Observeables are lazy
+
+
+---Turorial 22 - Final Excercise---
+Build a Component for Followers, Renders a box with their Photo, Name & Github account.
+-Followers Endpoint: - https://api.github.com/users/mosh-hamedani/followers
+avatar_url = pic
+html_url - GitHUb account
+login - Usernane
+
+Task 1 - Create Basic HTML
+Task 2 - Create Followers class from DataService
+-Inherit from DataService, pass in new URL.
+-Add Follow Service to App Module
+-Instantiate in Constructor for Followers Component.
+
+Task 3 - Implment Component Logic
+-Nice and simple because we're only populating a list.
+-this.service.getAll()
+    .subscribe(data => this.followers = data);
+
+
+Note:
+Came into some issues with the styling, thats definitly a weak point for me.
+Should be able to structure the divs so the phot is left, the url & Name stick left.
