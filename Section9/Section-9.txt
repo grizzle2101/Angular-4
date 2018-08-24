@@ -426,3 +426,8 @@ Task 3 - Implment Component Logic
 Note:
 Came into some issues with the styling, thats definitly a weak point for me.
 Should be able to structure the divs so the phot is left, the url & Name stick left.
+
+---Tutorial 23 - Code Review---
+Pretty much everything was the same as myself, however he uses a Bootstrap MediaObject to make it look nicer.
+-BootStrap Media object
+-Custom CSS for Avatar Image class & Voila done!
