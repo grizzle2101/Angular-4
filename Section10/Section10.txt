@@ -60,3 +60,32 @@ Take Home:
 -path:'route/:variable' is used to declare variables inside the route.
 -Routes are ordered in Sequence, so be careful when ordering, go from MOST specific to least.
 -To Define Routes we just import RouterModule, use forRoot() and provide keyvalue pairs of Path & Components.
+
+
+
+---Tutorial 4 - Router Outlet---
+So after the previous section we added the Routes for Paths to Components, which should allow us to navigate between the various components.
+The problem right now is we get an error "Cannot find primary outlet to load HomeComponent"", this is because we haven't done step 2 yet.
+We need to add a Route Outlet, so we have an area for the Routed Component to appear.
+
+-Task 1 - Add a Router Outlet:
+This is how Angular is going to display the component associated with the current route.
+
+App Component HTML:
+<navbar></navbar>
+<router-outlet></router-outlet>
+<!--Area For Routed Component-->
+
+Note:
+This directive tells Angular to insert the Current Routed compoment on the Page.
+If we use developer tools we can now see the HomeComponent in the main page.
+
+Tests:
+So now we should test the Routes to see if we get the correct Components:
+localhost/ - HomePage with HomeComponent
+localhost/followers - Followers Page
+localhost/followers/1 - Individual Follower Page
+localhost/posts - Posts
+localhost/invalid - Custom Invalid Url Page
+
+Next on the list is the links, we need action links to move us from Posts to Followers etc.
