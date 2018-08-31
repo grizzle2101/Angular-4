@@ -89,3 +89,32 @@ localhost/posts - Posts
 localhost/invalid - Custom Invalid Url Page
 
 Next on the list is the links, we need action links to move us from Posts to Followers etc.
+
+---Tutorial 5 - Router Link---
+So now that we've added the Router Outlet, we have 1 more thing to do.... Adding Links in the Navigation.
+In HTML we use <a href> as links, but in Angular we do not use this.
+
+-Task 1 - Add /followers & /posts into NavBar:
+This does work, however you notice the whole page redirected & flickering, this is because we we loaded the entire page.
+As the application grows, the cost of this startup is going to more noticeable, we should only be loading what we need.
+
+-Task 2 - Replace HREF with RouterLink:
+So lets look at the Angular alternative RouterLink, just replace href with routerLink in the HTML.
+Much faster! Now only the content in the component gets loaded, not the entire page.
+If we check the network stab we can see only the service data for getting followers, no initialization of our javascript packages or anything.
+
+Note:
+The Router Outlet is the section for the currently selected route to appear, when we change the Route using routerLinks, only the content in the Component is loaded and placed
+into the Router Outlet. This is how single page applications are commonly done.
+Much more effiecent to only load the content needed for a small part of the application, while the rest remains, very cool!
+
+-Task 3 - Add a link for Each Follower:
+So this one is a little different, we are not sending the User to a static page we need to use the Login Name or ID to render a Unique page.
+
+We use routerLink not a an attribute but with property binding. we bind the value of routerLink to a dynamic array including the path eg /followers
+and any additional parameters, we only need one parameter though, the ID so this works for us.
+<a [routerLink]="['followers', follower.id]">{{ follower.login }}</a>
+
+In Summary:
+-For Simple (static) routes use routerLink="/followers"
+-For Rout Parameters use property binding syntax, passing a path & additional parameters as needed.
