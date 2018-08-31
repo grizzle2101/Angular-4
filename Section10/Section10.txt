@@ -18,3 +18,45 @@ There are 3 steps to Implmenting Routing:
 -Add Links
 
 In the upcoming tutorials we are going to go over each of these steps in detail.
+
+---Tutorial 3 - Configuring Routes---
+So remember in the previous tutorials we made the Followers and the Posts component, in this section we're going to try configure a route between the pages.
+
+So We're going to open up this more into a traditional webpage where we have a list of followers, then we can click to get more details on the follower.
+-Creting a Route localhost/followers
+-Creating a Route to Individual Followers eg localhost/profile/Username/ID?QueryParam
+-Creating another Route localhost/Posts
+-Linking between Followers & Posts with a link.
+
+Task 1 - Import the Package Project supplied by Mosh
+So by now we've noticed all the new components in the SRC folder. We are going to use these components to provide a NavBar which we can route to the various components.
+In the NavBar component we have 2 links, Followers & Posts.
+
+Task 2 - Add Router Details into Module.TS
+-import { RouterModule } from '@angular/router';
+-RouterModule.forRoot() = Static Method for Defineing Routes of our application
+-RouterModule.forChild() = For Breaking up the application into child elements.
+
+Task 3 - Define our Routes:
+So we use the forRoot to hold an array of Path & Component, this is how we point locations eg localhost/persons to a PersonsComponent.
+-RouterModule.forRoot([{path: '',component: HomeComponent}]) 
+-Notice there is no trailing / for the Home Component.
+
+The Rest of the Paths:
+      {path: '',component: HomeComponent},
+      {path: 'followers/:username', component: GithubProfileComponent},
+      {path: 'followers', component: GithubFollowersComponent},
+      {path: 'posts', component: PostsComponent},
+      {path: '**', component: NotFoundComponent} //WildCard Catches any other Route the User may give.
+      
+
+Note:
+-we use :variablename to declare a variable inside the route, this will let us pass values to the comonent and so we can serve Unique profiles.
+-Make sure to arrange these Routes from MOST specific to LEAST. Because the are executed sequentially, and we could get the WildCard route before anything else.
+the same also applies for Using followers and followers:id, we will be servred the followers component first which could throw us off.
+
+Take Home:
+-** Wildcard basically means ANYTHING else. We use this for when a user types a not defined route.
+-path:'route/:variable' is used to declare variables inside the route.
+-Routes are ordered in Sequence, so be careful when ordering, go from MOST specific to least.
+-To Define Routes we just import RouterModule, use forRoot() and provide keyvalue pairs of Path & Components.
