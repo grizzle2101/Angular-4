@@ -6,3 +6,15 @@ in depth knowledge of the following:
 -Implmententing Single Page Applications
 -Working with Route & Query Parameters
 -Programatic Navigation
+
+
+---Tutorial 2 - Routing in a Nutshell---
+So far we have seen a few of the built in Modules like Forms, ReactiveForms & Http Module.
+Now we have the router module, which has directive & service for Implmententing Navigation.
+
+There are 3 steps to Implmenting Routing:
+-Configure the Routes (Mapping of Path to Component)
+-Add a Router Outlet (Displaying of a Component when route becomes active)
+-Add Links
+
+In the upcoming tutorials we are going to go over each of these steps in detail.
