@@ -118,3 +118,11 @@ and any additional parameters, we only need one parameter though, the ID so this
 In Summary:
 -For Simple (static) routes use routerLink="/followers"
 -For Rout Parameters use property binding syntax, passing a path & additional parameters as needed.
+
+---Tutorial 6 - RouterLink Active---
+So by now you've noticed that the Followers link is always highlighted, even when we
+aren't on that page. So fix this we need to only apply this style with the link is active..
+
+Task 1 - Rework  Link Highlighting:
+The Router Module has a built in directive to handle this called routerLinkActive.
+We provide the CSS classes to be applied when the link is active.
