@@ -161,3 +161,48 @@ service.getProfile(id); //Example Call to service.
 
 So you're probabaly wondering why we deal with Route Params as Observeables, surely that makes it more complex?
 Why not have a simple API where we can just access the routes key value pairs.... coming up in the next tutorial.
+
+
+---Tutorial 8 - Why Route Parameters are Observeables---
+So before we go into detail on why Route Parameters are Observeables we have to understand what is happening with the routes.
+
+Example 1 - Navigating from A to B:
+-As we navigate from Component A to Component B, A is Destoryed and we initialize Component B.
+-OnInit, OnDestroy are examples of Component LifeCycle hooks. If we want to be notified when a component is destoryed, we can implment OnDestroy as we do with OnInit.
+
+Example 2 - Same Component with different Route Parameters:
+-If we have a table of Transactions, when we click next, we don't destoryed the component, we just reload the data inside.
+-We have the same Component Instance with different route parameters.
+-This is exactly the reason Route Parameters are Observeable.
+
+Note:
+Observerables are simply a collection of asycronous data that arrives over time, we can use Observeable to model streams of asycronous data, and anyone whole
+is subscribed will be notified.
+
+Task 1 - Experiment - Demonstrate the Follower Profile initialization:
+So Lets remove all the Code where we access the params and test a few things.
+console.log("GithubProfileComponent OnInit");
+
+So if we Click from the followers page, to a follower we can see the component is initialized each time.
+
+Task 2 - Experiment - Changing Route Params:
+-Add a Button to Profile to go Next or Previous between the follower profiles.
+<button [routerLink]="['/followers', 1234]" class="btn btn-primary">Next</button>
+
+-So by creating some new route route parameters, we can see the when we click next, we only get 1 OnInit, the component is being recycled with new data!
+-This Verifies Angular did NOT destory this component!
+
+Task 3 - Revert Changes Made:
+-Undo the Logging, just Subscribe to RouteParams as normal.
+
+Morale of the Story:
+-Where we have Single Page Applications, the component may not be re-initialized, so RouteParams exist as Observeable Streams of data outside of the components
+-That way we can have the same Profile Component, just different data or RouteParams inside it.
+
+Other Method to Access Route Parameters:
+So if you are 100% sure, you are never going to have Permant Components like Transactions or Profiles, there is another way to access the Route Parameters.
+
+Task 4 - Accesing Route Param w Snapshots:
+So rather than using Observeable, we can use snapshot and get the value from the newly initialized components.
+ let id = this.route.snapshot.paramMap.get('id');
+-Again this should only be used if we're 100% sure that we're not going to reuse Components, but must create new ones each time.
