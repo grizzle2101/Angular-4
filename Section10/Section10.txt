@@ -126,3 +126,38 @@ aren't on that page. So fix this we need to only apply this style with the link 
 Task 1 - Rework  Link Highlighting:
 The Router Module has a built in directive to handle this called routerLinkActive.
 We provide the CSS classes to be applied when the link is active.
+
+
+---Tutorial 7 - Accessing Route Parameters---
+So if we remember our Route Setup we created a route that takes in a parameter
+{path: 'followers/:username', component: GithubProfileComponent}
+In the real world we would have a list of Users, then select to call a service which serves the selected user account.
+
+
+Task 1 - Import Activated Route:
+In the GithubProfile.ts component we want access to the data passed by the route, so to do this we must import ActivatedRoute in our constructor.
+
+Task 2 - Subscribe to paramMap:
+So the routing data is stored in this.route.paramMap, and if we check the type we can see this is Observeable.
+So just like HTTP Services, we can probabaly Subscribe to this and get our Route Data...
+
+Note:
+So if we log at the param map we logged to the console, we can see the param map object, how we we can interact with it.
+The most useful of these is GET, GETALL, HAS & KEYS. We can use this to select route parameters.
+
+Task 3 - Getting Parameters:
+Now that we know the ParamMap object we can use params.get('username') to get the Username value and pass this to our ProfileService.
+
+Note:
+Be careful when naming these routes & variables, make sure they are named correctly. Carrying on with this, we will rename username to ID, becasue thats what it is.
+
+TopTip:
+So when accessing the Route Parameters, they are normally set as strings. To Convert then to Numbers, use the + operator.
+let id = +params.get('id');
+
+Task 4 - Cast Param & Pass to Service:
+let id = +params.get('id');
+service.getProfile(id); //Example Call to service.
+
+So you're probabaly wondering why we deal with Route Params as Observeables, surely that makes it more complex?
+Why not have a simple API where we can just access the routes key value pairs.... coming up in the next tutorial.
