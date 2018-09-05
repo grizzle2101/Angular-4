@@ -2,8 +2,11 @@
   <div class="container-fluid">
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <!--Task 1 - Rework Link Highlighting w RouterLinkActive-->
-        <li routerLinkActive="active current"><a routerLink="/followers">Followers</a></li>
+        <!--Task 1 - Add Additional Query Params in NavBar-->
+        <li routerLinkActive="active current">
+          <a routerLink="/followers"
+          [queryParams]="{page: 1, order: 'newest'}">
+          Followers</a></li>
         <li routerLinkActive="active current"><a routerLink="/posts">Posts</a></li>
       </ul>
     </div>

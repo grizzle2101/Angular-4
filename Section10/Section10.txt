@@ -228,3 +228,54 @@ Task 2 - Add User Login to Route:
 
 Morale of the Story:
 This is how we have a route with multiple parameters.
+
+
+---Tutorial 10 - Query Parameters---
+So there are times when we want to include optional parameters in our Routes.
+For example the followers list, we might have our data in pages, and we might orderby latest whatever.
+
+
+Task 1 - Add Additional Query Params in NavBar:
+So our first task is to add these Additional Query Parameters into our navigation.
+li routerLinkActive="active current">
+          <a routerLink="/followers"
+          [queryParams]="{page: 1, order: 'newest'}">
+          Followers</a></li>
+
+We could of course add these values dynamically.
+
+Task 2 - Accept these Additional Route Params:
+So now when we click the Followers Page, we get the additional Query Params in our Route.
+We need to take these values, pass them onto our service to make sure we get the requested page & order.
+-Add Currently selected route using ActivatedRoute module, this will give us access to the route params & data.
+ constructor(
+    private route : ActivatedRoute
+
+
+Task 3 - Access Route Data:
+So just like getting Required params from the Param Map, instead we use QUeryParamMap. This work in the same way, we have Observeable or Snapshots
+incase we aren't going to be keeping Components alive.
+-Subscribe V Snapshot
+this.route.queryParamMap.subscribe(params => {
+      console.log(params);
+    });
+    let page = this.route.snapshot.queryParamMap.get('page');
+
+Note:
+For us however, we are going to have the same followers component so we need to access these as an Observeable.
+Our Componet is going to stay alive, but the Route Params will change as we click through the pages.
+
+Task 4 - Subscribe to Multiple Parameters:
+So we have the page parameter through the use of queryParamMap, lets get the order variable too.
+If we're going to use ParamMap to get the Required Params & QueryParamMap to get the additional ones, this seems like a duplication to get basically the same thing?
+
+    this.route.paramMap.subscribe(params => {
+      console.log(params);
+    });
+
+    //Task 3 - Use Additional Parameters(Much Like Required Parameters)
+    this.route.queryParamMap.subscribe(params => {
+      console.log(params);
+    });
+
+This is the topic for the next tutorial, how to simplify ParamMap & QueryMap, while getting multiple values from each.

@@ -62,7 +62,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
     HttpModule,
     RouterModule.forRoot([
       {path: '',component: HomeComponent},
-      //Task 1 - Include Followers Username in Route:
       {
         path: 'followers/:id/:username',
         component: GithubProfileComponent
