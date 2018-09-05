@@ -279,3 +279,45 @@ If we're going to use ParamMap to get the Required Params & QueryParamMap to get
     });
 
 This is the topic for the next tutorial, how to simplify ParamMap & QueryMap, while getting multiple values from each.
+
+
+
+---Tutorial 11 - Subscribing to Multiple Observers---
+So we have the ParamMap we use for the Required Route Paramters, and QueryParamMap for the optional ones.
+How could we simplify this so we don't duplicate code?
+
+Solution:
+Instead of having 2 seperate subscriptions to 2 seperate Observeables, why don't we combine them
+into a new type of Observeable then subscribe to that.
+
+
+Task 1 - Imports
+import {Observable} from 'rxjs/Observable'
+import 'rxjs/add/observable/combineLatest'
+
+Task 2 - Combine Observables:
+So the RXJS library has a method for us to combine multiple observable data streams.
+combineLatest takes an Array of Observables to a single Observable which can then use.
+Observable.combineLatest([
+      this.route.paramMap, this.route.queryParamMap
+
+
+Task 3 - Access the Combined Observerables Data:
+So now that we've gone down that route, how do we get that Data back out?
+Simple, because like I said it combined the Observable into an array, we just use combined[0].
+
+.subscribe(combined => {
+      let id = combined[0].get('id'); //0 = ParamMap
+      let page = combined[1].get('page');
+
+Morale of the Story:
+-Use combineLatest to take combine multiple Observables.
+-To Access the Data again, just subscribe, iterate over the Observables and use .get like before.
+
+
+Now we still have one thing to clean up, we got rid of the duplication for QueryParamMap & ParamMap,
+but we still have this other subscription for initializing the followers...
+In the next tutorial we're going to demonstrate some even more powerful RXJS extensions.
+ this.service.getAll()
+      .subscribe(followers => this.followers = followers);
+  }

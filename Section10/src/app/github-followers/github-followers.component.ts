@@ -1,6 +1,9 @@
 import { GithubFollowersService } from './../services/github-followers.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+//Task 1 - Imports
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/combineLatest';
 
 @Component({
   selector: 'github-followers',
@@ -10,21 +13,31 @@ import { ActivatedRoute } from '@angular/router';
 export class GithubFollowersComponent implements OnInit {
   followers: any[];
 
-  //Task 2 - Take Additional Query Parameters:
   constructor(
-    private route : ActivatedRoute //Access this through Activated Route Module
+    private route : ActivatedRoute 
     ,private service: GithubFollowersService) { }
 
   ngOnInit() {
-    //How can we Simplfy multiple ParamMap & QueryParam map into one?
+    //Task 2 - Combine Latest
+    Observable.combineLatest([
+      this.route.paramMap, this.route.queryParamMap
+      //Task 3 - Access the Combined Observerables Data
+    ]).subscribe(combined => {
+      let id = combined[0].get('id'); //0 = ParamMap
+      let page = combined[1].get('page');
+
+      //this.service.get({id:id, page:page}); Then Call Service w Our Route Data.
+    });
+    
+    /* //No Need for Multiple Subscriptions anymore.
     this.route.paramMap.subscribe(params => {
       console.log(params);
     });
 
-    //Task 3 - Use Additional Parameters(Much Like Required Parameters)
     this.route.queryParamMap.subscribe(params => {
       console.log(params);
     });
+    */
 
     this.service.getAll()
       .subscribe(followers => this.followers = followers);
