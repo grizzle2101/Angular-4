@@ -6,7 +6,8 @@
   </div>
   <div class="media-body">
     <h4 class="media-heading">
-      <a [routerLink]="[follower.id]">{{ follower.login }}</a>
+      <!--Task 2 - Add User Login to Route-->
+      <a [routerLink]="[follower.id, follower.login]">{{ follower.login }}</a>
     </h4>
     <a href="follower.html_url">{{ follower.html_url }}</a>
   </div>

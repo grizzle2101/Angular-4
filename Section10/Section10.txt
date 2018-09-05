@@ -206,3 +206,25 @@ Task 4 - Accesing Route Param w Snapshots:
 So rather than using Observeable, we can use snapshot and get the value from the newly initialized components.
  let id = this.route.snapshot.paramMap.get('id');
 -Again this should only be used if we're 100% sure that we're not going to reuse Components, but must create new ones each time.
+
+
+---Tutorial 9 - Routes with Multiple Parameters---
+So if we look at the followers Route we can see only 1 parameter.
+To make the content on our website for Search Engine friendly, they often include more items in the route.
+
+For Example StackOverflow uses questions/213123/how-to-install-bootstrap to make it easier to correlate a question in google with the question
+on stackoverflow. Very nice little trick.
+
+
+Task 1 - Include Followers Username in Route:
+Just add another :variable to the route.
+      {
+        path: 'followers/:id/:username',
+        component: GithubProfileComponent
+      },
+
+Task 2 - Add User Login to Route:
+<a [routerLink]="[follower.id, follower.login]">{{ follower.login }}</a>
+
+Morale of the Story:
+This is how we have a route with multiple parameters.
