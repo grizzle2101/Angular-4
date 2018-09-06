@@ -1,0 +1,14 @@
+Authentication & Authorization
+---Tutorial 1 - Introduction---
+Most if all not ALL apps need some kind of Authentication & Authorization.
+In this section we're going to go over some of the core components like.
+
+In This Section:
+-JSON WebTokens
+-Stateless Authentication
+-Protect Routes
+-Redirect Users to a Login or Acces Denied Page
+-Show/Hide Elements
+-Get the Current User
+-Consume Protected API Endpoints
+
