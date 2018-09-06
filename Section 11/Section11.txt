@@ -22,3 +22,22 @@ Great start the Application proivded won't build.
 -Cannot simply type the route to get past the authentication, we get redirect to login page.
 
 So this just demonstrates some of the core functionality we are going to cover the in the upcoming tutorials.
+
+
+---Tutorial 3 - Architecture---
+-On the Client we build a Login Page & on the Server an API endpoint to recieve the credentials.
+-api/authenticate
+--Server Returns JSON Web Token (JWT)
+-The Client then persists the Token incase the tab is closed.
+-The Client Browsers users folders per website to hold this token.
+-The Client Browser provides an API to retrieve key value pairs from this token.
+
+JWT on the Client:
+-Display current user's name.
+-Show/Hide parts of a page.
+-Prevent Access to Certain Routes
+
+API Orders:
+Say we have a secured route api/orders that is only accessible to admins.
+To do this we send a request and include the JWT Token as the request header.
+Else return a 401 unauthorized.
