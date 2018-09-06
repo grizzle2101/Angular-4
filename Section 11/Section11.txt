@@ -41,3 +41,45 @@ API Orders:
 Say we have a secured route api/orders that is only accessible to admins.
 To do this we send a request and include the JWT Token as the request header.
 Else return a 401 unauthorized.
+
+
+---Tutorial 4 - JSON Web Tokens---
+So head over to https://jwt.io/ the official JSON Web Token site.
+We can see all the libraries in many different languages for working with JWT, and even some samples.
+
+Encoded Token:
+This is a sample token that would be send to the client when they successfully authticate.
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+
+
+On the site its seperated into 3 sections denoted by colour.
+red = Header
+purple = Payload
+blue = Digital Signature
+
+Note:
+This Data is not enctrpyed, it is only encryped. If we take this to any base 64 decoder we will get the message. Just after google base 64 decoder we can see what it contains
+{"alg":"HS256","typ":"JWT"}{"sub":"1234567890","name":"John Doe","iat":1516239022}pD䌸⅙迊Lx編㤫"UiԬ㎜
+
+Again we can break down the decoded JSON to Header, Payload(the good shit) and our signature that is not readable.
+
+
+Double Note:
+The Values returned in the token are a great way of storing details we're going to commonly use.
+Storing the username for example avoids us having to make any database calls. So we should keep 
+some basic details here for quick access.
+The signature section is used to verify that the data in the payload has not been changed by a malicious user.
+
+
+How this Guarentees Security:
+So the Alghoritgm for creating the JWT takes our Header & payload, then signs it with a secret stored only on the server. So if you attempt to edit the value, you won't now what secret was used to create the signature, and thus you have an invalid request.
+
+HMACSHA256(
+  base64UrlEncode(header) + "." +
+  base64UrlEncode(payload),
+  
+your-256-bit-secret
+
+) secret base64 encoded
+
+Next step we're going to start implmenting Authentciation & Authorization.
