@@ -321,3 +321,45 @@ In the next tutorial we're going to demonstrate some even more powerful RXJS ext
  this.service.getAll()
       .subscribe(followers => this.followers = followers);
   }
+
+
+  ---Tutorial 12 - The SwitchMap Operator---
+  So we did some nice work condenseing ParamMap & QueryParamMap into an array. We still have 2 subscribes, so we can probabaly clean that up again.
+
+
+  Task 1 - Explore Data Service Types:
+  So to help our understanding lets take a look at getAll();
+  If we check the return type it is Observable<Any>, but if we remove the Map Operator its actually Observable<Response>.
+  Because this is a Http Class, it works with responses, but by using map we have tranformed this into a new Observable.
+
+  getAll() {
+    return this.http.get(this.url) //Observerable <Response>
+      .map(response => response.json()) //Mapping turns this to Observeable<any>
+      .catch(this.handleError);
+  }
+
+Task 2 - Explore ParamMap & QueryParamMap Types:
+So we can see that the Combined data we subscribe to ParamMap & QueryParamMap is just an arran of ParamMaps.
+What if like in example 1 we could Map our Combined ParamMap Array to the Followers Array, we could then subscribe to everything just once?
+
+
+Task 3 - Map Comibed:
+By Using the SwitchMap operator we can combine the Combined Observables with our Followers Service.
+Ideally we would be passing the values inside the QueryParams to the Service & Returning a unique list of values, but thats beyond the scope for now.
+Now we only have a single subscription where the followers list is added to the UI.
+ .switchMap(combined => {
+      let id = combined[0].get('id');
+      let page = combined[1].get('page');
+      
+      return this.service.getAll();
+    })
+    .subscribe(followers => this.followers = followers);
+  }
+
+Morale of the Story:
+-Use  [queryParams]="{page: 1, order: 'newest'}"> to Send Additional Parameters
+-Access these Query Params with ActivatedRoute => this.route.paramMap.get('page')
+-Combine ParamMap & QueryParamMap using the RXJS operator CombineLatest.
+-Make Sure all the Observables we wish to work with are of the same type eg Observable<any>
+-Consolidate these Observables & Followers(Response) into a collection using SwitchMap Opertor
+-We only have a single Subscribe event to stream all of this data, no duplication very nice!

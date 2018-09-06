@@ -12,10 +12,12 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class DataService {
   constructor(private url: string, private http: Http) { }
-
+  
+  //Task 1 - Expore Data Service Types:
+  //Return Type is Observeable<Any>
   getAll() {
-    return this.http.get(this.url)
-      .map(response => response.json())
+    return this.http.get(this.url) //Observerable <Response>
+      .map(response => response.json()) //Mapping turns this to Observeable<any>
       .catch(this.handleError);
   }
 
