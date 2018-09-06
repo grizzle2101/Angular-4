@@ -12,3 +12,13 @@ In This Section:
 -Get the Current User
 -Consume Protected API Endpoints
 
+
+---Tutorial 2 - Application Overview---
+Great start the Application proivded won't build.
+-Login Page Email & Password
+-There is no backend API for this, just a dummy service that returns true if my email & password are used.
+-Once we login we then get a HomePage with your name, AdminPage Link Login & Logout.
+-If we log out, the Admin & Logout links disappear.
+-Cannot simply type the route to get past the authentication, we get redirect to login page.
+
+So this just demonstrates some of the core functionality we are going to cover the in the upcoming tutorials.
