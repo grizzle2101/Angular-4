@@ -1,0 +1,73 @@
+---Final Excercise---
+Create an Archiving Application, a website with a Homepage detailing a few Archives as a list eg
+2017/1
+2017/2
+2017/3
+
+TaskList:
+Task 1 - Using Command Line Generate home, not-found & archive components:
+HomeComponent
+ArchiveComponent
+NotFoundComponent
+
+Task 2 - Create Routes:
+ BrowserModule,
+    //Task 2 - Add Routes
+    RouterModule.forRoot([
+      {path:'', component: HomeComponent},
+      {path:'archive/:year/:month', component: ArchiveComponent},
+      {path:'**', component: NotFoundComponent}
+    ])
+  ],
+
+Task 3 - Add Router Outlet:
+The Container for our Components.
+<router-outlet></router-outlet>
+
+Task 4 - Test the Routes:
+ / - Home
+/archives/2017/1 - Specific ArchiveComponent
+/archives/2017 - not found (required params not met.)
+
+
+Task 5 - Create the Archive List:
+-Create Array of Objects in component
+-Iterate over them with NgFor
+
+
+Task 6 - Add routerLink:
+Create the Route from Archive in a list to the Arhive page.
+Make sure to include the required parameters year & month that the route needs.
+
+
+Task 7 - Get Route parameters into ArchiveComponent:
+-Import ActivatedRoute
+-Use SnapShot ParamMap to get value.
+-let params = this.route.snapshot.paramMap;
+-Set Component Value to paramMap Values. (Use + to cast as INT)
+    this.year = +params.get('year');
+    this.month = +params.get('month');
+
+
+Task 8 - Pass Values from component to Template:
+<h1>Archive for - {{year + '/' + month}}</h1>
+
+
+Task 9 - Navigate from Archive to Home with Programatic Link:
+-So need to Create a function that diverts us back to Home, using the Router Module, router.navigate.
+-this.router.navigate(['/']);
+-<button (click)="viewAll()">View All</button>
+
+
+Morale of the Story:
+So the Mosh workflow for creating Routes is well layed out, had some trouble decideing where to draw the link eg creating a service.
+But in general the workflow goes like
+-Generate the Components
+-Add the Routes & Parameters in App.Module
+-Add the Router Outlet(area for Routed Components to render)
+-Test the Routes serve correct pages.
+-Create the Array & Render List
+-Add routeLink to each rendered Archive
+-Accept the Router Params in the ArchiveComponent
+-Pass them to ArchiveTemplate
+-Create Button & use method with router.navigate to programatically navigate.

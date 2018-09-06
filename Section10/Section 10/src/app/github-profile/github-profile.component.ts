@@ -8,11 +8,8 @@ import { Router } from '@angular/router';
 })
 export class GithubProfileComponent {
 
-
-  //Task 2 - Import Router Module
   constructor(private router: Router) { }
 
-  //Task 3 - Create Route Programatically
   submit() {
     this.router.navigate(['/followers'], {
       queryParams: { page: 1, order: 'newest'}

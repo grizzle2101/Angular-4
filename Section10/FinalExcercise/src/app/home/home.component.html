@@ -1,0 +1,9 @@
+<!--Task 5 - Create the Archive List:-->
+<h1>Home Page</h1>
+<ul>
+  <li *ngFor="let archive of archives">
+    <!--Task 6 - Add routerLink:-->
+    <a [routerLink]="['/archive', archive.year, archive.month]">
+      {{archive.year + '/' + archive.month}}</a>
+  </li>
+</ul>

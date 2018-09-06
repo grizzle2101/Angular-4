@@ -388,3 +388,14 @@ We just write a simple Submit function, and use Navigate in a similar way to rou
 
 Morale of the Story:
 Rather than using routerLink in the HTML, we can write functions to programatically route users, including required & optional parameters.
+
+
+---Final Excercise---
+Archiving Application, A homepage with a list of months in a year eg.
+2017/1
+2017/2
+2017/3
+
+-Clicking on a link will nagivate you to /archive/year/month (Require Parameters)
+-Failing to Provide year & month will give you not found page.
+-The Archive page itself has a button with a Programatic link to return to Homepage. (/)
