@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-github-profile',
   templateUrl: './github-profile.component.html',
   styleUrls: ['./github-profile.component.css']
 })
-export class GithubProfileComponent implements OnInit {
+export class GithubProfileComponent {
 
 
-  constructor(private route: ActivatedRoute) { }
+  //Task 2 - Import Router Module
+  constructor(private router: Router) { }
 
-  ngOnInit() {
-
-    let id = this.route.snapshot.paramMap.get('id');
-    console.log(id)
+  //Task 3 - Create Route Programatically
+  submit() {
+    this.router.navigate(['/followers'], {
+      queryParams: { page: 1, order: 'newest'}
+    });
   }
 }

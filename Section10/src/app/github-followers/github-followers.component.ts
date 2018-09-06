@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/combineLatest';
-import 'rxjs/add/Operator/map';
+//import 'rxjs/add/Operator/map';
 import 'rxjs/add/Operator/switchMap';
 
 @Component({

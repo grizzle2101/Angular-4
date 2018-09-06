@@ -363,3 +363,28 @@ Morale of the Story:
 -Make Sure all the Observables we wish to work with are of the same type eg Observable<any>
 -Consolidate these Observables & Followers(Response) into a collection using SwitchMap Opertor
 -We only have a single Subscribe event to stream all of this data, no duplication very nice!
+
+
+---Tutorial 13 - Programatic Navigation---
+So far we have been using the RouterLink directive to add links, but what if we want to navigate the user programatically?
+On the Profile page, what if we click the submit button to update a profile then navigate back to the list of followers.
+
+Task 1 - Create Submit Button:
+Notice we are not going to use RouterLink or any directives in the HTML itself.
+<button (click)="submit()" class="btn btn-primary">Submit</button>
+
+
+Task 2 - Import Router Module:
+Fairly simple, we just need access to the RouterModule if we're going to Programatically Route.
+constructor(private router: Router)
+
+
+Task 3 - Create Route Programatically:
+We just write a simple Submit function, and use Navigate in a similar way to routerLink, provide a path, any required & oprtional parameters.
+  submit() {
+    this.router.navigate(['/followers'], {
+      queryParams: { page: 1, order: 'newest'}
+    });
+
+Morale of the Story:
+Rather than using routerLink in the HTML, we can write functions to programatically route users, including required & optional parameters.
