@@ -83,3 +83,33 @@ your-256-bit-secret
 ) secret base64 encoded
 
 Next step we're going to start implmenting Authentciation & Authorization.
+
+
+
+---Tutorial 5 - Starter Code---
+So basically this project has been provided to us so we can avoid spending so much time creating the components, routes and everything else. The important things to note in the application are as follows:
+
+
+fakeBackendFactory:
+This is a fake implmentation of the JWT backend. It basically just checks the uername & password, then returns a JWT token for the client to use. It looks quite complex, but we don't have to know much for the moment.
+
+
+API Orders:
+We have some similar code for dealing with orders, returning a status 200 and an array of orders.
+This only happens if we have a valid authorization header which contains a valid token, 
+else we're going to get 401 or unauthorized.
+
+Note:
+All this code is inside a SetTimeout function, which allows us to simulate a real request.
+
+
+fakeBackEndProvider:
+This is how we intercept HTTP Requests. Remember when used Provider objects to change the Global Error Handling, we are essentially doing the same thing just instead we have useFactory, which points to factory that generates the class.
+
+export let fakeBackendProvider = {
+    provide: Http,
+    useFactory: fakeBackendFactory,
+    deps: [MockBackend, BaseRequestOptions]
+};
+
+In the next section we'll get started writing some code for this bad boy.
