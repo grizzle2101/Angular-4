@@ -4,8 +4,9 @@
   Welcome [NAME]
 </p>
 <ul>
-  <li><a routerLink="/admin">Admin</a></li>
-  <li><a routerLink="/login">Login</a></li>
-  <!--Task 1 - Bind Link to Logout Method-->
-  <li><a (click)="authService.logout()">Logout</a></li>
+  <!--  Task 3 - Render Admin & Login only if the user is logged in.-->
+  <!--Task 6 - Finish Showing/Hiding Components:-->
+  <li *ngIf="authService.isLoggedIn()"><a routerLink="/admin">Admin</a></li>
+  <li *ngIf="!authService.isLoggedIn()"><a routerLink="/login">Login</a></li>
+  <li *ngIf="authService.isLoggedIn()"><a (click)="authService.logout()">Logout</a></li>
 </ul>

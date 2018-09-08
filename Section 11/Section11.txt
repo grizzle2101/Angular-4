@@ -185,3 +185,65 @@ To logout all we really need to do is delete the token.
     console.log("Logging Out");
     localStorage.removeItem('token');
   }
+
+
+  ---Tutorial 8 - Showing/Hiding Elements:---
+  So now that we have some Login functionality, we want to show or hide things depending on your status.
+  -Already Logged in Users should not see option to Login
+  -Logged out Users should not see Admin & Logout
+
+
+  Task 1 - Install JWT:
+  To Work with JWT Tokens we need the JWT library installed.
+  npm install angular2-jwt --save
+
+
+ Task 2 - Implment IsLoggedIn Method:
+ So after we import JWT we can use JWT helper to work with the data in our token. It comes with some really handy methods for us to work with tokens.
+-getTokenExpirationDate
+-isTokenExpired
+
+  isLoggedIn() { 
+    let jwtHelper = new JwtHelper();
+    let token = localStorage.getItem('token');
+
+    let expirationDate = jwtHelper.getTokenExpirationDate(token);
+    let isExpired = jwtHelper.isTokenExpired(token);
+
+    console.log("Expiration: " , expirationDate);
+    console.log("IsExpired: " , isExpired);
+
+  }
+  }
+
+  
+  Task 3 - Render Admin & Login only if the user is logged in:
+  Again we can use the authService directly in the template because we have it in the component constructor.
+  <li *ngIf="authService.isLoggedIn()"><a routerLink="/admin">Admin</a></li>
+
+Task 4 - Fixing Errors:
+So we get a couple errors in the front end, because we haven't decoded the token, or returned true or false in the Service.
+    jwtHelper.decodeToken(token);
+
+    let expirationDate = jwtHelper.getTokenExpirationDate(token);
+    let isExpired = jwtHelper.isTokenExpired(token);
+
+    return !isExpired;
+
+
+Task 5 - The Simple Way:
+So now that we have an idea on how the JWT tokens work, there is actually a simple built in method for checking isLoggedIn.
+This method does all the things we just did including:
+-Getting Token from Storage.
+-Decodeing
+-Checking expirationDate
+-Return True/False
+
+return tokenNotExpired();
+
+Task 6 - Finish Showing/Hiding Components:
+So just some simple IF blocks to render our various links if the user logged in or not.
+  <li *ngIf="authService.isLoggedIn()"><a routerLink="/admin">Admin</a></li>
+  <li *ngIf="!authService.isLoggedIn()"><a routerLink="/login">Login</a></li>
+  <li *ngIf="authService.isLoggedIn()"><a (click)="authService.logout()">Logout</a></li>
+</ul>
