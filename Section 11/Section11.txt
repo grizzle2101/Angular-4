@@ -113,3 +113,55 @@ export let fakeBackendProvider = {
 };
 
 In the next section we'll get started writing some code for this bad boy.
+
+
+---Tutorial 6 - Implmenting the Login---
+So lets start implmenting the Login Component.
+
+The Important Parts:
+-Login Form, Template Driven form which passes Username & Password to the Component.
+-Login Component, has a Sign in method which uses the AuthService.login.
+-Login Component Subscribes to Observeable, then Redirects or Triggers Validation Errors.
+
+
+-Task 1 -Expore AuthService.Login:
+So with our current implmentation of AuthSerivce.Login, we post the credentials to /api/authenticate then return the response object.
+This really doesn't make sense, we want to return true or false, that way our component doesn't have to work with HTTP response objects,
+thus keeping our code cleaner, but also safer that we don't give away any security implmentation.
+
+-Test Valid credentials - Get JWT Token
+If we print the Output we can get a good idea how this works, on successful login using mosh@domain.com password 1234, we get a response object
+with the JWT token, pretty cool!
+ .map( response =>{
+        console.log(response);
+      });
+
+-Test Invalid credentials - Get Null
+
+
+-Task 2 - Map Responses to True/False:
+Using our new favourite method Map, we can Map the response object to return true or false.
+Parse result to josn, check the result is true and contains a token, then store using localStorage.setItem.
+let result = response.json();
+        if(result && result.token)
+        {
+          console.log("true");
+          localStorage.setItem('token', result.token);
+          return true
+        }
+        return false;
+
+
+Task 3 - Test Results:
+So now on successful login we should have a saved JWT token, in chrome developer tools open application > local storage
+Then we should see our stored token and the encoded token like we saw on the JWT website.
+
+token
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ik1vc2ggSGFtZWRhbmkiLCJhZG1pbiI6dHJ1ZX0.iy8az1ZDe-_hS8GLDKsQKgPHvWpHl0zkQBqy1QIPOkA
+
+Morale of the Story:
+-Login Form passes values to Component.
+-Component passes the values to the AuthService
+-AuthService makes a request to api/authenticate
+-We map the response to True or false, and finally save the token using localStorage.
+-Finally the Component recieves true/false then either triggers validation errors or routes to next page.
