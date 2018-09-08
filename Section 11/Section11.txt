@@ -165,3 +165,23 @@ Morale of the Story:
 -AuthService makes a request to api/authenticate
 -We map the response to True or false, and finally save the token using localStorage.
 -Finally the Component recieves true/false then either triggers validation errors or routes to next page.
+
+
+---Tutorial 7 - Implmenting the Logout---
+So now that we can save the token, and route to the main page we also need a way to logout.
+Again the process is very similar, we have the logout link, we want to trigger a method in the component, which uses authservice.logout.
+
+
+Task 1 - Bind Link to Logout Method
+In Our HomeComponent we take the authService into our constructor, which makes it available in the Template.
+So we can call the AuthSerivce directcly from the Template, which is nice.
+<li><a (click)="authService.logout()">Logout</a></li>
+
+Task 2 - Implement Logout Method:
+To logout all we really need to do is delete the token.
+
+  logout()
+  { 
+    console.log("Logging Out");
+    localStorage.removeItem('token');
+  }

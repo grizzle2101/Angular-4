@@ -6,5 +6,6 @@
 <ul>
   <li><a routerLink="/admin">Admin</a></li>
   <li><a routerLink="/login">Login</a></li>
-  <li><a>Logout</a></li>
+  <!--Task 1 - Bind Link to Logout Method-->
+  <li><a (click)="authService.logout()">Logout</a></li>
 </ul>

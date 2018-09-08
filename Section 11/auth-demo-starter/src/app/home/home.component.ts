@@ -8,5 +8,7 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {
+
+   }
 }
