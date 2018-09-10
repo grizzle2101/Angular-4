@@ -289,3 +289,42 @@ Task 1 - Display AuthService.currentUser.name:
 <p *ngIf="authService.isLoggedIn()">
   Welcome {{authService.currentUser.name}}
 </p>
+
+
+---Tutorial 11 - CanActivate Interface---
+So we've got some nice work done so far, but there is still some security vulnerabilities. Namely we can still login to the localhost/admin
+by navigating to the URL. So we need to check credentials before granting access to Routes.
+
+In Angular we have the concept of Route Guards, which we use to restrict access to certain routes.
+
+Task 1 - Create Route Guard:
+Create a Service called AuthGuard. This is the class we will use to verify the user is authenticated before providing a route.
+
+Task 2 - Implement canActivate:
+By implmenting CanActivate, we have to create the canActivate method.
+-Add AuthService & RouterModules into constructor
+-If user is logged in return true.
+-Else Navigate to Login
+
+  canActivate()
+  {
+    if(this.authService.isLoggedIn()) return true;
+
+    this.router.navigate(['login']);
+    return false;
+
+  }
+
+
+Task 3 - Add RouteGuard to AppModule:
+So when declaring Routes in App Module, we have another field called canActivate, which takes an array of route guards.
+We can have a list of checks needed to take place before providing the admin route.
+The nice thing about this, is we can reuse it for any and all routes in the application.
+{ path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
+
+
+Morale of the Story:
+To protect routes, create a Service that implments canActivate.
+-Create a Service
+-Implment CanActivate
+-Add Authguard service to Routes in APP.module
