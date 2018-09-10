@@ -328,3 +328,55 @@ To protect routes, create a Service that implments canActivate.
 -Create a Service
 -Implment CanActivate
 -Add Authguard service to Routes in APP.module
+
+
+
+---Tutorial 12 - Redirecting Users after Login---
+So another problem with our current implmentation is that we get redirected to login from /admin, but after we login we don't get sent back.
+From a Users Perspective this makes no sense.
+How we fix this is when being directed to the Login, we provide an optional query parameter like a return url.
+
+Task 1 - Add Additional Query Parameters to CanActivate:
+So earlier after lookin at CanActivate on the Angular website, we saw some additional parameters route & snapshot.
+If we add these into the method, we can access the route(the originating route) and the state, and using both of these we can append this to
+our route, and send addtional data like the originating route, which would be handy as a RedirectUrl.
+
+  canActivate(route, state: RouterStateSnapshot)
+  {
+    if(this.authService.isLoggedIn()) return true;
+
+    this.router.navigate(['login'], {queryParams: {returnUrl: state.url}});
+    return false;
+  }
+
+
+Task 2 - Adapt Login Component to use Additional Query Params:
+-Inject ActivatedRoute into LoginComponent(to access route data)
+-Check Snapshot Query Params for the Return URL
+-If exists, navigate to return url.
+
+signIn(credentials) {
+    this.authService.login(credentials)
+      .subscribe(result => { 
+        if (result)
+        {
+          //Check Query Params
+          let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+
+          //Redirect to ReturnUrl if Provided.
+          this.router.navigate([returnUrl || '/']);
+        }
+
+
+Task 3 - Test:
+If we try access the Admin route now, we can see the additional Query Params in our link!
+http://localhost:4200/login?returnUrl=%2Fadmin
+
+Then once we login, we get sent right back to the admin page we were trying to access.
+
+Morale of the Story:
+To Redirect users back to the correct location;
+-use state.url to get originating location.
+-Pass this to the route
+-In Login Component, check for additional query parameter using ActivateRoute Module.
+-If returnurl exists, use this in route.

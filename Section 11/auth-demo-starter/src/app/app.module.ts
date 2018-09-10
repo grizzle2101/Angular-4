@@ -36,7 +36,6 @@ import { AuthGuard } from './services/auth-guard.service';
     //Some Routes
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
-      //Task 3 - Add RouteGuard to AppModule:
       { path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
       { path: 'login', component: LoginComponent },
       { path: 'no-access', component: NoAccessComponent }
