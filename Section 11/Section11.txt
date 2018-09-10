@@ -472,3 +472,18 @@ This will automatically get the token, append it to our header and then create t
 Note:
 Some messing about the get the AuthService to work, needed to fix some of the dependency injection stuff in app.module.
 But yeah now you should have a good idea of how to access secure API resources.
+
+
+---Tutorial 15 - Recap---
+So lets have a recap the key points of this section:
+-We use JWT to implement Authorization & Authentciation
+-JWT's have a header, a payload & digital signature
+-JWT.io for debugging & libraries on Server & Client Side.
+
+Client Side:
+-Show/Hide Elements using NgIF & AuthService
+-Never use hidden for confidential data, as a malicious user can manipulate the DOM to get this.
+-Protecting Routes with RouteGuards
+
+Server:
+-Protect API Endpoints(Using JWT Tokens, check the Request header for token & role data)
