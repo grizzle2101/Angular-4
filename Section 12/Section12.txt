@@ -94,3 +94,42 @@ Example - AOT Compilation:
 -Don't need to Include Angular, Smaller Bundle Size
 -Catch Template Errors Earlier(Bugs found at runtime no longer a thing)
 -Better Security(Hiding some of implmentation detail, harder for injection attacks)
+
+
+---Tutorial 4 - Angular Compiler---
+If we look in the package.json we can see     "@angular/compiler-cli": "^4.0.0".
+From the Node_modules folder we can interact with the compiler.
+
+
+Task 1 - Compile Project:
+The .bin contains the binaries we need to compile.
+node_modules/.bin/ngc
+
+
+Result:
+So now we have a load of files created by the complier, files like.
+
+-Home Component Style:
+home.component.css.shim.ngstyle.ts
+If we take a look we can see its looking to collect all the styles associated with the component like so
+export const styles:any[] = ['']; (Its empty coz we don't have any styles)
+
+-Home Component Factory:
+home.component.ngfactory.ts
+This is what a Minified, uglified version of our component that gets sent to the browser. This is not designed to be Human readable, its just a the smallest version
+of the compoent, that gets transpiled from TypeScript to JavaScript to then be served to the user.
+  return i1.ɵvid(0,[(_l()(),i1.ɵeld(0,0,(null as any),(null as any),6,'div',[['style',
+      'text-align:center']],(null as any),(null as any),(null as any),(null as any),
+
+
+Compile Time Checking Example:
+If we go into the HomeComponent and change {{title2}} we should see some compile time checking.
+ 
+Result:
+Property 'title2' does not exist on type 'HomeComponent'. So just to see the advantages of AOT compilation, we catch the errors earlier.
+
+Morale of the Story:
+-node_modules/.bin/ngc to run the Compiler.
+-Compilation produced a Shim NGStyle & Factory, which are Minified versions of our components.
+-Compile time checking is awesome
+-This is one of the steps taken by the Angular CLI when we build for production.
