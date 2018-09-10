@@ -247,3 +247,34 @@ So just some simple IF blocks to render our various links if the user logged in 
   <li *ngIf="!authService.isLoggedIn()"><a routerLink="/login">Login</a></li>
   <li *ngIf="authService.isLoggedIn()"><a (click)="authService.logout()">Logout</a></li>
 </ul>
+
+
+---Tutorial 9 - Showing/Hiding Elements based on User Role---
+So we can take this application to the next level, and restrict certain UI elements based on role.
+Luckily for us JWT tokens make this very easy, if we look at the properties inlucded in the JWT Payload we have Sub, name & admin.
+
+Note:
+The Current Token is configured to have a boolean for isAdmin, in the real world would generally return an array of roles assigned to the user.
+
+Task 1 - Create Get CurrentUser Method:
+Simple method, just get the token from localStorage & pass
+  get currentUser()
+  {
+    let token = localStorage.getItem('token');
+    if(!token) return null;
+
+    return new JwtHelper().decodeToken(token);
+  }
+
+
+Task 2 - Add Additional Check for Admin == true:
+So adding another check, if User is logged in and if the currentUser admin == true.
+  <li *ngIf="authService.isLoggedIn() && authService.currentUser.admin"><a routerLink="/admin">Admin</a></li>
+
+Task 3 - Generate & Use New Token:
+On the JWT website we can edit the payload to make admin == false, then copy this encoded token into our fakeBackend.
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJCaWdNYWMiLCJuYW1lIjoiSm9obiBEb2UiLCJhZG1pbiI6ZmFsc2V9.9ncclmkWeNaPC2B-eqByxwMIHSmN8re595r8F_pekgA
+
+
+Result:
+Now we no longer have Admin access.

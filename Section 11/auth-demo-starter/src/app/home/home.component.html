@@ -4,9 +4,8 @@
   Welcome [NAME]
 </p>
 <ul>
-  <!--  Task 3 - Render Admin & Login only if the user is logged in.-->
-  <!--Task 6 - Finish Showing/Hiding Components:-->
-  <li *ngIf="authService.isLoggedIn()"><a routerLink="/admin">Admin</a></li>
+  <!--Task 2 - Add Additional Check for Admin == true:-->
+  <li *ngIf="authService.isLoggedIn() && authService.currentUser.admin"><a routerLink="/admin">Admin</a></li>
   <li *ngIf="!authService.isLoggedIn()"><a routerLink="/login">Login</a></li>
   <li *ngIf="authService.isLoggedIn()"><a (click)="authService.logout()">Logout</a></li>
 </ul>

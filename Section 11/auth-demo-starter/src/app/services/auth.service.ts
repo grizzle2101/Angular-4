@@ -29,28 +29,18 @@ export class AuthService {
     localStorage.removeItem('token');
   }
 
-  //Task 2 - Implment IsLoggedIn Method
+
   isLoggedIn() { 
-    //Task 5 - The Simple Way:
     return tokenNotExpired();
+  }
 
-    /*
-    let jwtHelper = new JwtHelper();
+  //Task 1 - Create Get CurrentUser Method:
+  get currentUser()
+  {
     let token = localStorage.getItem('token');
+    if(!token) return null;
 
-    if(!token)
-      return false;
-
-    jwtHelper.decodeToken(token);
-
-    let expirationDate = jwtHelper.getTokenExpirationDate(token);
-    let isExpired = jwtHelper.isTokenExpired(token);
-
-    console.log("Expiration: " , expirationDate);
-    console.log("IsExpired: " , isExpired);
-
-    return !isExpired;
-    */
+    return new JwtHelper().decodeToken(token);
   }
 }
 
