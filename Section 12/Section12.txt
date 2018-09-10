@@ -1,0 +1,66 @@
+---Deployment---
+---Tutorial 1 - Introduction---
+So we've learned the essentials of Angular, but every application needs to be deploy at some point.
+So thats the topic of this section:
+-How to Optimize our applications for Deployment
+-Build Deployable Packages
+-Work with Different Environments
+-Lint your code, to keep it clean & consistent
+-Deploy your apps to Github, Firebase & Heroku.
+
+
+
+---Tutorial 2 - Prepareing for Deployment---
+So lets download the example attatched to this lecture, run npm install and ng serve to make sure it all works.
+
+
+Method 1 - Copy & Paste Source Files:
+So the easiest way to deploy an application is simple copy and paste the entire project onto a server, then run ng serve.
+However there are several drawbacks with that approach.
+-File Size - All the Files & classes in their raw form and quite big
+-Large Bundles - We have a huge amount of bundles, that are not neccessary for our small application.
+
+
+Optimization Techniques:
+-Minification - Remove All Comments & Whitespace
+//MyCommands
+public class HomeComponent()
+{
+    onClick()
+    {
+        //Do Something
+    }
+}
+
+Becomes...
+public class HomeComponent(){onClick(){}}
+
+-Uglfication - Renaming Components & Variables
+
+Public class MyLongAssVariableName
+
+Becomes...
+public class HC
+
+-Bundling:
+Each bundle is a combination of multiple javascipt files. If we serve our application as its strctured, the client has to make hundreds of requests.
+Instead we bundle, the client can get a large part of the applications code with 1 HTTP request, and it can serve other clients at the same time.
+
+-Dead Code Elimination:
+Removing Any and All unused code in the application, so any experiments we made in the code, should probabaly get rid of them.
+This includes our Packages.json
+
+-Ahead of Time Compilation(AOT):
+Precompiling Angular Components and their Templates, we're going to talk about this more in the next section.
+
+Command:
+So the good news is that we can do all this with a single command in the Angular CLI.
+ng build -prod
+
+
+In Summary:
+-Minification
+-Uglfication
+-Bundling
+-Dead Code Elimination
+-Ahead of Time Compilation (AOT)
