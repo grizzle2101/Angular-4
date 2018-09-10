@@ -173,3 +173,41 @@ Note:
 See that each filename gets a random hash after it, this is to stop browser caching. Becase the file name is always different,
 we can be sure we have the latest version of the files on production.
 But the files we now have can be copy and pasted, FTP'd onto a server or intergrated in a CI/CD workflow.
+
+
+---Tutorial 6 - Environment---
+In Real development projects we often have multiple environments including Development, Test & Production.
+
+In SRC < Environment we have environment.ts & environment.prod.ts, we can change the configuration of out environments here.
+Including change the URL, maybe adding a banner for each environment, our target different API's depending on the environment.
+
+Task 1 - Add Some Environment Properties:
+We can add a backgroundcolour for production & testing.
+Red = Production
+Blue = testing
+
+export const environment = {
+  production: false,
+  navBarBackgroundColor: 'red'
+};
+
+Task 2 - Take Config Value into Component:
+
+Task 3 - Use Style Binding to Display:
+<nav
+[style.backgroundColor]="backgroundColor"
+class="navbar navbar-default">
+
+
+Task 4 - Serve Production Build:
+ng serve --prod is the same as ng serve --environment=prod
+
+Result:
+Now we can see the values from our Config are taken depending on how we build the application.
+
+Morale of the Story:
+-Create Variables in environment Config.
+-Use them in Components with environment.propertyName;
+-Use Style Binding the change the NavBar depending on the value in config.
+-Build your config with ng serve --environment=prod or just ng serve.
+-Can also run ng build prod to produce .dist
