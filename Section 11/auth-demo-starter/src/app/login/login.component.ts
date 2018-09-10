@@ -10,7 +10,6 @@ import { Router, ActivatedRoute } from "@angular/router";
 export class LoginComponent {
   invalidLogin: boolean; 
 
-  //Task 2 - Adapt Login Component to use Additional Query Params:
   constructor(
     private router: Router,
     //Import Activated Route
@@ -19,7 +18,6 @@ export class LoginComponent {
   ) { }
 
 
-  //Task 2 - Adapt Login Component to use Additional Query Params:
   signIn(credentials) {
     this.authService.login(credentials)
       .subscribe(result => { 

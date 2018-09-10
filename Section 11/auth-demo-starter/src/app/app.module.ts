@@ -29,6 +29,7 @@ import { AdminAuthGuard } from './services/admin-auth-guard.service';
     HomeComponent,
     NotFoundComponent,
     NoAccessComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -46,10 +47,12 @@ import { AdminAuthGuard } from './services/admin-auth-guard.service';
   providers: [
     //Some Services
     OrderService,
-
     AuthService,
     AuthGuard,
     AdminAuthGuard, //Add to Providers for DI
+    AuthService,
+    AuthHttp,
+    {provide: AuthConfig, useValue: new AuthConfig()},
 
     // For creating a mock back-end. You don't need these in a real app. 
     fakeBackendProvider,

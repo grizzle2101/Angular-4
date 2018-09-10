@@ -420,3 +420,55 @@ Fairly simple to Protect routes based on Role.
 -Implement CanActivate
 -Use the AuthService.isAdmin to verify token.
 -Add this AuthGuard to Admin route in App.module
+
+
+---Tutorial 14 - Accessing Protected API Resources---
+So far we've done some good work on the front end hiding/showing elements and protecting our routes.
+However one thing we've missed is securing our backend, in general it is a good practice to require the token as part of any request.
+We do this by appending our token to any GET requests we make.
+
+
+Task 1 - Understand token Check Logic:
+We need to make sure we get into the 2nd if block here, so just need to have the Authorization header with the token and
+the mock should return our Data.
+*Had problems getting data, turns our the space with 'Bearer ' is important.
+
+       if (connection.request.url.endsWith('/api/orders') && 
+           connection.request.method === RequestMethod.Get) {
+         if (connection.request.headers.get('Authorization') === 'Bearer ' + token) {
+            connection.mockRespond(new Response(
+              new ResponseOptions({ status: 200, body: [1, 2, 3] })
+         ));
+
+
+Task 2 - Pass Token to Backend:
+-Get Token from Local Storage
+-Append an Authorization header with this token.
+-Add this header to the request
+-Make the HTTP Resource Call.
+
+getOrders() { 
+    let headers = new Headers();
+    let token = localStorage.getItem('token');
+    
+    headers.append('Authorization', 'Bearer ' + token);
+
+    let options = new RequestOptions({headers: headers});
+
+    return this.http.get('/api/orders', options)
+      .map(response => response.json());
+  }
+
+
+Task 3 - Refactor using AuthHttp
+So we've done some nice work now, but there is a much simpler and cleaner way to do this, using the JWT library.
+JWT provides its own implmentation of AuthHttp, that is compatible with Angular HTTP.
+This will automatically get the token, append it to our header and then create the request option.
+-We can provide 2 parameters, incase other methods wants to use the normal http
+
+  constructor(private authHttp: AuthHttp, private http: Http) 
+
+
+Note:
+Some messing about the get the AuthService to work, needed to fix some of the dependency injection stuff in app.module.
+But yeah now you should have a good idea of how to access secure API resources.
