@@ -133,3 +133,43 @@ Morale of the Story:
 -Compilation produced a Shim NGStyle & Factory, which are Minified versions of our components.
 -Compile time checking is awesome
 -This is one of the steps taken by the Angular CLI when we build for production.
+
+
+---Tutorial 5 - Building Applications with Angular CLI---
+So lets start by removing any of the compiler files we created in the previous lecture.
+
+
+Task 1 - ng build:
+So to demonstrate the difference between a normal build & production build, lets try a normal.
+ng build
+
+If we look in the resulting index.html we get this script tag which doesn't exist in our source index.html. This points to a distributed bundle with all the javascript...
+<body>
+  <app-root></app-root>
+<script type="text/javascript" src="inline.bundle.js"></script><script type="text/javascript" src="polyfills.bundle.js"></script><script type="text/javascript" src="styles.bundle.js"></script><script type="text/javascript" src="vendor.bundle.js"></script><script type="text/javascript" src="main.bundle.js"></script></body>
+</html>
+
+-Inline.bundle.js & inline.bundle.js.map we have 2 files for in the inline styles, one is the bundled version and the map is for mapping the bundled version
+to classes & components in your application, which makes it easier for debugging.
+
+Important Note:
+-No Minification
+-No Uglification
+-No Removal of DeadCode
+-no Ahead of Time Compilation(AOT)
+
+
+Task 2 - ng build prod:
+So what happens if we try the production version... After looking at the resulting files we can see some improvements
+ng build --prod
+
+Important Note:
+-Minification
+-Uglification
+-Removal of DeadCode
+-Ahead of Time Compilation(AOT)
+
+Note:
+See that each filename gets a random hash after it, this is to stop browser caching. Becase the file name is always different,
+we can be sure we have the latest version of the files on production.
+But the files we now have can be copy and pasted, FTP'd onto a server or intergrated in a CI/CD workflow.
