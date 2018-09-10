@@ -8,7 +8,6 @@ import { environment } from '../../environments/environment'; //Always import fr
 })
 export class NavbarComponent implements OnInit {
 
-  //Task 2 - Take Config Value into Component:
   backgroundColor = environment.navBarBackgroundColor;
 
   constructor() { }

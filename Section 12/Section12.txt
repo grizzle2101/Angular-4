@@ -211,3 +211,20 @@ Morale of the Story:
 -Use Style Binding the change the NavBar depending on the value in config.
 -Build your config with ng serve --environment=prod or just ng serve.
 -Can also run ng build prod to produce .dist
+
+
+---Tutorial 7 - Adding a Custom Environment---
+So before we just used the out of the box environments, what if we want to create our own for Staging or Testing?
+
+Task 1 - Create environment.test.ts:
+Copy & Paste the production config, just rename the file, set production to false & change color.
+
+Task 2 - Register new file with Angular-cli.json:
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts",
+        "test": "environments/environment.test.ts"
+
+
+Task 3 - Serve:
+ng serve --environment=test
