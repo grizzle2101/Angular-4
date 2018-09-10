@@ -278,3 +278,14 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJCaWdNYWMiLCJuYW1lIjoiSm9obiBEb2U
 
 Result:
 Now we no longer have Admin access.
+
+
+---Tutorial 10 - Getting the Current User---
+This is probabaly one of the easier tutorials. Say we want to display the currently logged in user.
+We are already returning the token data in the Get CurrentUser method, so in theory we can also access  the username?
+
+
+Task 1 - Display AuthService.currentUser.name:
+<p *ngIf="authService.isLoggedIn()">
+  Welcome {{authService.currentUser.name}}
+</p>
