@@ -64,3 +64,33 @@ In Summary:
 -Bundling
 -Dead Code Elimination
 -Ahead of Time Compilation (AOT)
+
+
+---Tutorial 3 - JIT vs AOT Compilation---
+Every Angular application includes a compilation, but we haven't seen it because it happens behind the scenes.
+With traditional compilation like with C++ we have C++ code that gets translated into machine code. With Angular however its JavaScript code that gets
+compiled to.... JavaScript code again : )
+
+Example - JIT:
+Say we have a HomePage with {{title}}, if we serve the page do we see {{title}}? Of course not.
+There is a compilation step where angular compiler goes through our Tree of copmonents, reads the templates and translated this to something it needs.
+Something like...
+
+var div = document.createElement('div');
+var h1 = document.createElement('h1');
+div.appendChild(h1);
+
+This is what we call Just In Time Compilation, as in the values are compiled just in time for us to use them!
+This is perfectly fine for local development, but terrible for production. Every time a user lands on the application, they trigger the JIT compilation.
+This wouldn't work so well if there were multiple users on at the same time : )
+-Inefficent for production
+-Happens for Every user
+-More Components, slower.
+-We Also have to ship angular with our application.
+
+
+Example - AOT Compilation:
+-Faster Startup
+-Don't need to Include Angular, Smaller Bundle Size
+-Catch Template Errors Earlier(Bugs found at runtime no longer a thing)
+-Better Security(Hiding some of implmentation detail, harder for injection attacks)
