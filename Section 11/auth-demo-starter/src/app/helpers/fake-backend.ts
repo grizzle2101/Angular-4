@@ -6,8 +6,7 @@ export function fakeBackendFactory(
     options: BaseRequestOptions) {
         
   let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ik1vc2ggSGFtZWRhbmkiLCJhZG1pbiI6dHJ1ZX0.iy8az1ZDe-_hS8GLDKsQKgPHvWpHl0zkQBqy1QIPOkA';
-  //Task 3 - Generate & Use New Token:
-  //let nonAdminToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJCaWdNYWMiLCJuYW1lIjoiSm9obiBEb2UiLCJhZG1pbiI6ZmFsc2V9.9ncclmkWeNaPC2B-eqByxwMIHSmN8re595r8F_pekgA';  
+  //let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJCaWdNYWMiLCJuYW1lIjoiSm9obiBEb2UiLCJhZG1pbiI6ZmFsc2V9.9ncclmkWeNaPC2B-eqByxwMIHSmN8re595r8F_pekgA';  
   
   backend.connections.subscribe((connection: MockConnection) => {
     // We are using the setTimeout() function to simulate an 

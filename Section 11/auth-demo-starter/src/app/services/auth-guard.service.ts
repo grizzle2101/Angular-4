@@ -7,7 +7,6 @@ export class AuthGuard implements CanActivate {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  //Task 1 - Add Additional Query Parameters to CanActivate:
   canActivate(route, state: RouterStateSnapshot)
   {
     if(this.authService.isLoggedIn()) return true;

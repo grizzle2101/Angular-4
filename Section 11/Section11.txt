@@ -380,3 +380,43 @@ To Redirect users back to the correct location;
 -Pass this to the route
 -In Login Component, check for additional query parameter using ActivateRoute Module.
 -If returnurl exists, use this in route.
+
+
+---Tutorial 13 - Protecting Routes Based on Users Role---
+So we've Hiden & Shown elements based on a users role before, but what about protected the routes based on a users role.
+
+I imagine this is quite simple, adding another AuthGuard, but checking the token, then returning true/false
+
+
+Task 1 - Create AdminAuthGuard:
+So just like before, we generate the Service AdminAuthGuard.
+-Get Current User from AuthService.
+-If Current User is set & the user is admin, return true. (grant access to route).
+-Else navigate to the NoAccess page.
+
+ canActivate()
+  {
+    let user = this.authService.currentUser;
+    
+    if (user && user.admin) return true;
+
+    this.router.navigate(['/no-access']);
+    return false;
+  }
+
+
+Task 2 - Add RouteGuard to Admin Route:
+  -Really simple just add the new Authguard to the array of CanActivate in App.Module.
+   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+
+
+Task 3 - Test:
+-Scenario 1 - Admin Token - Attempt to Access Login, redirect to Login page, then sent back to Admin, should work fine.
+-Scenario 2 - Non Admin - Attempt to Access Login, redirect to Login page, redirect to Admin is blocked with a Access denied page.
+
+Morale of the Story:
+Fairly simple to Protect routes based on Role.
+-Create AdminAuthGuard service.
+-Implement CanActivate
+-Use the AuthService.isAdmin to verify token.
+-Add this AuthGuard to Admin route in App.module

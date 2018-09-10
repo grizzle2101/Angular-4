@@ -34,7 +34,7 @@ export class AuthService {
     return tokenNotExpired();
   }
 
-  //Task 1 - Create Get CurrentUser Method:
+
   get currentUser()
   {
     let token = localStorage.getItem('token');
