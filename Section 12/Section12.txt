@@ -267,3 +267,15 @@ Morale of the Story:
 -ng lint - Runs Linting process
 -ng lint --fix - Runs Linting Process & Fixes errors.
 -Should run lintint before every commit to make sure your code is consistent.
+
+
+---Tutorial 9 - Linting in VSCode---
+So the command line tool is nice and all, but there is a TSLint extenion for VS Code which gives us intellisense for linting issues.
+
+Task 1 - Install TSLint Extention
+In the VSCode Extensions Tab, search & install TSLint.
+
+Result:
+Now we get Syntax Highlighting for common linting issues. We can solve each of these issues manually, or using this trick.
+-CTRL + SHIFT + P - Open Command Pallete
+-Select TsLint: Fix All auto-fixable problems.
