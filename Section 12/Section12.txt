@@ -279,3 +279,13 @@ Result:
 Now we get Syntax Highlighting for common linting issues. We can solve each of these issues manually, or using this trick.
 -CTRL + SHIFT + P - Open Command Pallete
 -Select TsLint: Fix All auto-fixable problems.
+
+
+---Tutorial 10 - Other Deployment Options---
+So earlier we looked at the Angular CLI build/deployment tools. There are some cool alternatives.
+
+-Github Pages - No Backend(Only hosts HTML, CSS & JavaScript), however you can use 3rd party APIs
+-Firebase - Is a Google provided Cloud platform, which provides a Fast, Scaleable & realtime database. It also provides a library for interfacing with the Double
+so we don't have to write all that API  code ourself, which cuts down on time dramatically.
+-Heroku - Custom Cloud Hosting to build our entire application. 
+-Azure - More Sophisticated but more complex
