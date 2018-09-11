@@ -27,3 +27,31 @@ Firebase Benefits:
 
 
 ---Tutorial 3 - Your First Firebase Application---
+
+Task 1 - Create Application:
+Head on over to firebase & create a project named FirebaseDemo
+https://console.firebase.google.com/
+
+
+---Tutorial 4 - Working with Firebase Database---
+So lets get to know some of the Firebase functions.
+
+Databases:
+Databases are where we are going to store the Application data. There are Relational & NoSQL databases also known as document databases.
+Relational - Tables, Relationship, Schema
+NoSQL - NoSchema, No Tables & Columns, Trees of Nodes(key value pairs), Example MongoDB.
+So just a heads up Firebase Databaes are NoSQL Databases.
+
+Task 1 - Create a Realtime DB:
+-Click Create in Databae Tab.
+-Click + and Create a node called Courses.
+-Add some child elementsto Courses eg course1 & course2
+-Create a complex child object inside course3.
+-This should demonstrate the differences between Relational Databases & NoSQL. Notice we create nodes & child elements, but there are NO Rules or relations between the child elements.
+Some can be simple strings and other complex objects, this is a bit different to the traditional databases.
+-Our values can be key value pairs, or complex objects.
+-This is really quick get up and running, not is not optimized for reporting. So if you need reports & complex joins NoSQL probabaly isn't the best idea.
+Unless you want to create a job that takes the data from our NoSQL database and imports it to a traditional Relational DB for reporting.
+
+Morale of the Story:
+NoSQL Databases use a node like structure for representing data as KeyValuePairs or even more complex nested objects.
