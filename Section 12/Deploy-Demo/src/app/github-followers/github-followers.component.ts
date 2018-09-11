@@ -1,7 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { GithubFollowersService } from './github-followers.service';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable'; 
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
@@ -24,8 +24,8 @@ export class GithubFollowersComponent implements OnInit {
       this.route.queryParamMap
     ])
     .switchMap(combined => {
-      let id = combined[0].get('id');
-      let page = combined[1].get('page');
+      const id = combined[0].get('id');
+      const page = combined[1].get('page');
 
       return this.service.getFollowers();
     })

@@ -228,3 +228,42 @@ Task 2 - Register new file with Angular-cli.json:
 
 Task 3 - Serve:
 ng serve --environment=test
+
+
+Note:
+Hot Module Replacement only works in development mode, so if we make any changes it will not be reflected in the application until we Restart the server.
+
+
+---Tutorial 8 - Linting with Angular---
+A Linter is basically a program that can be configured with various rules, then it performs a static analysis of your code using these rules.
+This is very important when working with teams, that everyone has a consistent approach for coding, things like
+-Double v Single quotes.
+-Terminating javascipt lines with ;
+-Variable names etc.
+
+A popular tool in the TypeScript world is TSLint, which comes packaged with angular projects.
+If we take a look in package.json we can see "tslint": "~5.3.2", also we have in the root folder tslint.json, this is the file which contains all our rules.
+
+
+Task 1 - Run Lint:
+Using the angular CLI we can kick off the linting process which will perform analysis on our code using the rules in tslint.json
+Command - ng lint
+
+Kinds of Errors:
+-Trailing Whitespace - Not so important, just some whitespace.
+-Identifier 'id' is never reassigned. (This is actually useful, we could use constant instead of let if the value doesn't change.)
+
+
+Task 2 - Automatically Fix Linting Issues:
+So as part of the linting process, there is actually a mechanism for Automatically fixing the errors raised in linting.
+Command - ng lint --fix
+This fixed most of the issues previously raised except one which needs manual intervention, the angular convention of using the app-component selector.
+We took a design choice to remove the app- prefix, so lets leave that in.
+
+
+Morale of the Story:
+-Check lint Version in package.json.
+-Configuration for Linting is in tslint.json
+-ng lint - Runs Linting process
+-ng lint --fix - Runs Linting Process & Fixes errors.
+-Should run lintint before every commit to make sure your code is consistent.
