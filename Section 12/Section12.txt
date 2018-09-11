@@ -401,3 +401,11 @@ Just like before for Github pages, add a keyvalue pair for the multiple commands
 
 Then to Run Simply Use:
 npm run deploy:firebase
+
+
+---Tutorial 13 - Heroku---
+Our third deployment option and absolute favourite is Heroku. Heroku is a Cloud Platform as a service (Paas) that lets your build, monitor & scale apps.
+Its suitable when you want to build the backend of the application yourself in Node or ASP.Net.
+
+In the root of the project you should see server.js, this a super simple node application.
+Download & install the heroku CLI, and lets move on to the next lecture.
