@@ -55,3 +55,56 @@ Unless you want to create a job that takes the data from our NoSQL database and 
 
 Morale of the Story:
 NoSQL Databases use a node like structure for representing data as KeyValuePairs or even more complex nested objects.
+
+
+---Tutorial 5 - Installing Firebase---
+
+Task 1 - Create Project:
+-ng new firebase-demo
+
+Task 2 - Install Dependencies:
+-npm install firebase angularfire2 --save
+
+Task 3 - Copy Firebase Settings into Environment.ts:
+In the Firebase WebApp, go go overiew to get the configuration settings.
+https://console.firebase.google.com/project/fir-demo-fd737/overview
+
+Generated this:
+<script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBJPQz0nOog8jzjcxBARVvlthS530K6wSo",
+    authDomain: "fir-demo-fd737.firebaseapp.com",
+    databaseURL: "https://fir-demo-fd737.firebaseio.com",
+    projectId: "fir-demo-fd737",
+    storageBucket: "fir-demo-fd737.appspot.com",
+    messagingSenderId: "35878365766"
+  };
+  firebase.initializeApp(config);
+</script>
+
+-Place the Properties into Environment.ts
+export const environment = {
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyBJPQz0nOog8jzjcxBARVvlthS530K6wSo',
+    authDomain: 'fir-demo-fd737.firebaseapp.com',
+    databaseURL: 'https://fir-demo-fd737.firebaseio.com',
+    projectId: 'fir-demo-fd737',
+    storageBucket: 'fir-demo-fd737.appspot.com',
+    messagingSenderId: '35878365766'
+  }
+};
+
+Task 3 - App.Module:
+So now that we have the settings in our config, we can boostrap Fire & FireDB into our application & pass the credentials stored here.
+
+  imports: [
+    BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule
+
+
+Result:
+Now we have the database hooked up, next we're going to try reading data from our database.
