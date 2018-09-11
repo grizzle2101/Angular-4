@@ -8,3 +8,19 @@ We could also use something like Firebase for building Web & Mobile backends. By
 -Update Objects
 -Delete Objects
 
+---Tutorial 2 - What is Firebase?---
+Architecture:
+In a traditional application we have the Client, built in Angular.
+The Backend built in Node.js or ASP.Net, which communicated with the front end with HTTP Services.
+The Data is often persisted in a database like SQL Server, MongoDB or Raven
+
+The process of building all this is very time consuming, and thats where firebase shines.
+
+Firebase Benefits:
+-Fast, Scaleable & Real-time database in the cloud.
+-Authentication
+-Cloud Messaging
+-Storage
+-Analytics
+-Supports Multiple Platforms - IOS, Android, JavaScript & C++
+-Firebase provides libraries to for accessing data in all the above languages, So its a pinch to develop for multiple platforms with the same backend!
