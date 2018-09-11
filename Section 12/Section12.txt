@@ -289,3 +289,43 @@ So earlier we looked at the Angular CLI build/deployment tools. There are some c
 so we don't have to write all that API  code ourself, which cuts down on time dramatically.
 -Heroku - Custom Cloud Hosting to build our entire application. 
 -Azure - More Sophisticated but more complex
+
+
+---Tutorial 11 - Deploying to Github Pages---
+So the application we currently have is a perfect candidate for Github Pages, because we don't have a backend or alternativly we consume the GitHub one,
+we can deploy to Github Pages.
+
+Task 1 - Create GitHub Repository & Upload:
+-Create Empty Github Repository
+-Move Project into its own folder
+-git init
+-git add .
+-git commit -m "my first commit"
+-git add remote origin "link from github"
+-git push origin master
+-Now our code should be hosted on Github.
+
+Task 2 - Install GithubPages Globally:
+In order to deploy to Pages, we need this ghpages package.
+-npm install -g angular-cli-ghpages
+
+Task 3 - Build & Deploy:
+So make sure to build the link to our Github Page correctly here.
+https://username.github.io/repository
+https://grizzle2101.github.io/followers-app/
+
+Run the Following Commands, to Build then Deploy our application to Github Pages:
+-ng build --prod --base-href="https://grizzle2101.github.io/followers-app/"
+-ngh --no-silent
+
+Result:
+Now if we visit the link, we can see our deployed application! https://grizzle2101.github.io/followers-app/
+
+
+Task 3 - The Simple Way:
+Of course there is going to be an easier way to do this, without having to type in all the commands manually.
+We can create & combine commands into our package.json, like this we can perform both operations in 1.
+"deploy:gh": "ng build --prod --base-href='https://grizzle2101.github.io/followers-app/' && ngh"
+
+To use this command:
+npm run deploy:gh
