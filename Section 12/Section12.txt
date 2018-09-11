@@ -409,3 +409,59 @@ Its suitable when you want to build the backend of the application yourself in N
 
 In the root of the project you should see server.js, this a super simple node application.
 Download & install the heroku CLI, and lets move on to the next lecture.
+
+
+---Tutorial 14 - Deploying to Heroku---
+So lets get started by checking that we've correctly installed Heroku...
+-heroku --version
+
+
+Task 1 - Login & Create Application:
+-Create Account on Heroku site
+-heroku login w username & Password
+-heroku create followers-app2101
+
+Results:
+Generate a Site & Git Repository for us
+https://followers-app2101.herokuapp.com/
+https://git.heroku.com/followers-app2101.git
+-heroku open - will open the site for us.
+
+
+Task 2 - Rework package.json for Heroku:
+So we have to a couple things so we can build the angular application on Heroku. Heroku will look at our dependencies in packages.json
+-Move Angular & TypeScript from DevDeps to dependencies.
+ "dependencies": {
+    "@angular/cli": "1.2.4",
+    "@angular/compiler-cli": "^4.0.0",
+    "typescript": "~2.3.3",
+
+-Create PostInstall Script:
+"postinstall": "ng build --prod",
+
+
+Task 3 - Rework server.js for Heroku:
+We can see that in serve.js the first thing it needs is express. So we need to add this as a dependency for the project.
+const express = require('express');
+
+Install Express:
+-npm install express --save
+
+Task 4 - Change Start Script:
+Now that we have express installed, we need to change the start our node server.
+"start": "node server.js",
+We need this to start the Node application on Heroku, should enable us to run the site.
+
+
+Task 5 - Push to Heroku:
+So remember when we created the the App, we got a WebLink & Git repository. To deploy to Heroku we add the GIT as a remote origin, then push to it.
+This will then deploy to the site.
+
+https://thisbetterwork2101.herokuapp.com/
+https://git.heroku.com/thisbetterwork2101.git
+
+-git push heroku
+
+Result:
+Once our code is pushed to the Heroku remote, it will install all the requirements for our application like Node, anglar-cli & TypeScript and serve the application.
+This is the last setup we will have to do in theory, each commit to the heroku repo will trigger its internal CI/CD pipeline & application.
