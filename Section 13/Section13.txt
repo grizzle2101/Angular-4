@@ -1,0 +1,10 @@
+---Building Real Time Apps with Firebase---
+---Tutorial 1 - Introduction---
+So far our focus has been purely on the front end, but most or all applications need a backend.
+Building a backend from scratch requires a tottally different set of tools & frameworks, that are really beyond the scope of this tutorial.
+We could also use something like Firebase for building Web & Mobile backends. By the end of this section we should be able to do CRUD operations.
+-Create Objects
+-Read Objects
+-Update Objects
+-Delete Objects
+
