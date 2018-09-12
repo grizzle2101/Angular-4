@@ -7,20 +7,21 @@ import { Observable, Subscription } from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnDestroy {
-  courses: any[];
-  subscription: Subscription;
+export class AppComponent {
+  //Task 1 - Send Data as Observerables:
+  //Dollar Sign means Observeable(by convention):
+  courses$;
+  //Alternative Method = courses: Observable;
 
   constructor(db: AngularFireDatabase) {
-    this.subscription = db.list('/Courses').valueChanges().subscribe(courses => {
-      this.courses = courses;
-      console.log(courses);
-    });
+    this.courses$ = db.list('/Courses').valueChanges();
   }
 
-  //Task 1 - Implment ngOnDestroy:
+  /*
+  //Don't Need this anymore.
   ngOnDestroy() {
     console.log('Gone');
     this.subscription.unsubscribe();
   }
+  */
 }

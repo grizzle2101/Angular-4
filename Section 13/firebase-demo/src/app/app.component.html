@@ -1,6 +1,6 @@
 <h1>Courses:</h1>
 <ul>
-  <li *ngFor="let course of courses">{{course}}</li>
+  <li *ngFor="let course of courses$ | async">{{course}}</li>
 </ul>
 <!--Task 2 - Simulate Navigation:-->
 <button (click)="ngOnDestroy()">Go Offline</button>

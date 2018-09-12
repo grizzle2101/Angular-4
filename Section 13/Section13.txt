@@ -210,3 +210,25 @@ Test:
 -Click "Go Offline" then delete the course from firebase.
 -See the List is not updated anymore because we have successfully unsubscribed from the data.
 This code is quite bulky, and there are better ways to go about this that we will do in the next tutorial.
+
+
+---Tutorial 10 - Async Pipes---
+Earlier in the course we learned about Pipes, we used pipes for formatting data in the UI like username | lowercase.
+We have another kind of pipe called async, we can Pipe Observerables so that we subscribe and get the latest value.
+-Subscribes
+-Gets Latests Value
+-Unsubscribes
+
+Task 1 - Send Data as Observerables:
+We can greatly simplfy our code by doing a couple things.
+-Create Course Observerable variable.
+-Assign Observerables Response to Variable.
+This means we no longer need to worry about lifecycle hooks, observing the data & assigning to variable for template.
+
+courses$;
+
+  constructor(db: AngularFireDatabase) {
+    this.courses$ = db.list('/Courses').valueChanges();
+  }
+
+

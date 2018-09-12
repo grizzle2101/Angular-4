@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import {AngularFireModule} from 'angularfire2';
 //Firebase DB
 import {AngularFireDatabaseModule} from 'angularfire2/database';
-
 import { AppComponent } from './app.component';
 //Environment for Config
 import { environment } from '../environments/environment';
