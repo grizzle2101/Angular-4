@@ -155,3 +155,15 @@ Simple ngFor to display the courses from our list.
 
 Result:
 We are accessing data from the DB and displaying to UI, nice!
+
+
+---Tutorial 7 - A Real Time Database---
+One of my favourite features with Firebase databases is that they're realtime. That means any time we modify data, the changes are reflected in the client App
+immediately.
+
+Task 1 - Edit Data in Firebase:
+-Add a single Course
+-Delete a Single Course
+We can see any changes we do in Firebase are reflected immediately in the Angular application, even without refreshing!
+
+Firebase is really suited for real time application, something like a chat messenger where you need instant communication.
