@@ -167,3 +167,22 @@ Task 1 - Edit Data in Firebase:
 We can see any changes we do in Firebase are reflected immediately in the Angular application, even without refreshing!
 
 Firebase is really suited for real time application, something like a chat messenger where you need instant communication.
+
+
+---Tutorial 8 - Observerables & Memory Leaks---
+So we learned that Firebase databaes are realtime, lets take a closer look at this feature.
+
+
+Scenario 1 - Clear Network Console & Add New Course:
+Notice that if we edit the course list in firebase, we get the entire list of courses again.
+Normally this a big overhead, having to send all the couses and not just one. Firebase is optimized for loads like this, so its not really that bad.
+
+
+The Problem:
+One thing to really look for out for is when we are routing, these lists are still stored in memory.
+We have no need to have these lists in memory when we are not even looking at them.
+
+Http Response V Firebase:
+So when we used HTTP Services, we don't have to worry about this because once the response is recieved they are terminated.
+Because Firebase is real time, the connection will be constant so we have to terminate this manually.
+Perhaps the Firebase Response should be tied to the lifecycle of the component? We will be going over this more in the next lecture.
