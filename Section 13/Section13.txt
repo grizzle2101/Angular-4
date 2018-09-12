@@ -232,3 +232,37 @@ courses$;
   }
 
 
+Task 2 - Pipe Observerables:
+So now our data is being returned as Observerable we let the Async Operator unwrap, track & destroy the data.
+  <li *ngFor="let course of courses$ | async">{{course}}</li>
+
+
+---Tutorial 11 - Reading an Object---
+So now that we have our list of courses, how would we go about filtering our data, so we only return course 3?
+
+Task 1 - Filter Data for Specific Object:
+So say we want to get a single object from our DB, we use db.Object and provide the node & ID.
+this.course$ = db.object('/Courses/3').valueChanges();
+
+
+Task 2 - Display Selected Course as Json
+<p>
+  Course: {{course$ | async | json}}
+</p>
+
+
+Task 3 - Create Complex Object:
+So Lets Create a really complex object to display in the front end.
+Create a new Code called Authors, child node of 1, Child node inside that with isPremium, name & students.
+This is going to table for course authors on the site.
+
+Task 4 - Create & Display Author Object:
+-Component Code:
+this.author$ = db.object('/authors/1').valueChanges();
+
+Front End Code: 
+-Author: {{ author$ | async | json}}
+
+Result:
+We can see the Author Object we created with all the properties, really cool eh!
+Author: { "isPremium": true, "name": "Proffessor BigMac", "students": 1000 }

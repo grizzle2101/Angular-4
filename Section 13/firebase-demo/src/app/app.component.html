@@ -2,5 +2,12 @@
 <ul>
   <li *ngFor="let course of courses$ | async">{{course}}</li>
 </ul>
-<!--Task 2 - Simulate Navigation:-->
-<button (click)="ngOnDestroy()">Go Offline</button>
+
+<!--Task 2 - Display Selected Course as Json-->
+<p>
+  Course: {{course$ | async | json}}
+</p>
+
+<p>
+  Author: {{ author$ | async | json}}
+</p>

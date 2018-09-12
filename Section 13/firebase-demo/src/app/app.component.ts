@@ -8,20 +8,16 @@ import { Observable, Subscription } from 'rxjs';
 })
 
 export class AppComponent {
-  //Task 1 - Send Data as Observerables:
-  //Dollar Sign means Observeable(by convention):
   courses$;
-  //Alternative Method = courses: Observable;
+  course$;
+  author$;
 
   constructor(db: AngularFireDatabase) {
     this.courses$ = db.list('/Courses').valueChanges();
-  }
+    //Task 1 - Filter Data for Specific Object:
+    this.course$ = db.object('/Courses/3').valueChanges();
 
-  /*
-  //Don't Need this anymore.
-  ngOnDestroy() {
-    console.log('Gone');
-    this.subscription.unsubscribe();
+    //Task 4 - Create & Display Author Object:
+    this.author$ = db.object('/authors/1').valueChanges();
   }
-  */
 }
