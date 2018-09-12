@@ -108,3 +108,50 @@ So now that we have the settings in our config, we can boostrap Fire & FireDB in
 
 Result:
 Now we have the database hooked up, next we're going to try reading data from our database.
+
+
+---Tutorial 6 - Reading Lists---
+So in the previous lecture we created a list of courses, 2 being key value pairs and the other a complex object.
+This is a great strength that we don't have to define a schema, but if you don't manage your collections you will run into problems.
+
+Task 1 - Get Courses from Database:
+-import {AngularFireDatabase} from 'angularfire2/database';
+-Instansiate DB in Constructor.
+-We can then access db.list, which takes the node we wish to target (courses), and returns Observerable.
+
+  constructor(db: AngularFireDatabase) {
+    db.list('/Courses').valueChanges().subscribe(courses => {
+      this.courses = courses;
+      console.log(courses);
+    });
+
+
+Task 2 - Disable Security:
+We are getting errors when trying to iterate over the DB items, this is because we don't have Authentication configured correctly.
+So in firebase, the rules section change Read & Write values to true, that way anyway can read and write. There is much more to this section
+but it is beyond the scope of this lecture.
+
+  {
+  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}
+
+
+Result:
+So now we can see that our component is recieving the data from Firebase. There is a problem with our data, as mentioned we have 2 simple objects which just value
+the course as a value, then a complex object that has a title field which contains the name. So we don't have 1 property we can display, so remember to always
+be careful how you format your nodes!
+
+Task 3 - Fix Data:
+Delete Course 3 the complext object, and replace with copy of course2.
+Should Only have ID:3 & Value:Course3
+
+Task 4 - Display on UI:
+Simple ngFor to display the courses from our list.
+<li *ngFor="let course of courses">{{course}}</li>
+
+Result:
+We are accessing data from the DB and displaying to UI, nice!

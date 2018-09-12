@@ -1,10 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {AngularFireModule} from 'angularfire2';//FireBase
-import {AngularFireDatabaseModule} from 'angularfire2/database';//Firebase DB
-import { AppComponent } from './app.component';
-import { environment } from '../environments/environment';//Environment for Config
+//FireBase
+import {AngularFireModule} from 'angularfire2';
+//Firebase DB
+import {AngularFireDatabaseModule} from 'angularfire2/database';
 
+import { AppComponent } from './app.component';
+//Environment for Config
+import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent
