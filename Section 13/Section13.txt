@@ -172,7 +172,6 @@ Firebase is really suited for real time application, something like a chat messe
 ---Tutorial 8 - Observerables & Memory Leaks---
 So we learned that Firebase databaes are realtime, lets take a closer look at this feature.
 
-
 Scenario 1 - Clear Network Console & Add New Course:
 Notice that if we edit the course list in firebase, we get the entire list of courses again.
 Normally this a big overhead, having to send all the couses and not just one. Firebase is optimized for loads like this, so its not really that bad.
@@ -186,3 +185,28 @@ Http Response V Firebase:
 So when we used HTTP Services, we don't have to worry about this because once the response is recieved they are terminated.
 Because Firebase is real time, the connection will be constant so we have to terminate this manually.
 Perhaps the Firebase Response should be tied to the lifecycle of the component? We will be going over this more in the next lecture.
+
+
+---Tutorial 9 - Unsubscribing from Subscriptions---
+As expteced, we need create a lifecycle hook for our component, and make sure to terminate the real time connection there.
+
+
+Task 1 - Implment ngOnDestroy:
+Add LifeCycle Hook & unsubscribe from data stream.
+-Implments OnDestroy
+ngOnDestroy() {
+    console.log('Gone');
+    this.subscription.unsubscribe();
+  }
+
+
+Task 2 - Simulate Navigation:
+We don't want to waste time with setting up Routeing, so lets just call the method directly from a button.
+<button (click)="ngOnDestroy()">Go Offline</button>
+
+
+Test:
+-Update Firebase with a new Course, see the list get immediately updated.
+-Click "Go Offline" then delete the course from firebase.
+-See the List is not updated anymore because we have successfully unsubscribed from the data.
+This code is quite bulky, and there are better ways to go about this that we will do in the next tutorial.
