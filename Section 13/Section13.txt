@@ -266,3 +266,37 @@ Front End Code:
 Result:
 We can see the Author Object we created with all the properties, really cool eh!
 Author: { "isPremium": true, "name": "Proffessor BigMac", "students": 1000 }
+
+
+---Tutorial 12 - As Keyword---
+So lets say we're going to create a page that displays the profile of an Author.
+
+
+Task 1 - Get Author Data:
+    this.author$ = db.object('/authors/1').valueChanges();
+
+
+Task 2 - Display Author Details:
+Displaying the Author Data is just the same as the previous tutorial, if we wrap the async data we can access the properties.
+<ul>
+  <li>{{(author$ | async).name}}</li>
+  <li>{{(author$ | async).students}}</li>
+  <li>{{(author$ | async).isPremium}}</li>
+</ul>
+
+Task 3 - Using As Keyword:
+We were getting many errors trying to access properties that were not loaded.
+This is in part fixed by implmenting the AS keyword, AS lets us assign the output of our Observerables AS a variable.
+We can then access the variable, and its properties in a much cleaner way!
+-AS created variable.
+-Variable can be used all over the template
+-Simplifies & Centralizes our code!
+<ul *ngIf="author$ | async as author">
+    <li>{{author.name}}</li>
+    <li>{{author.students}}</li>
+    <li>{{author.isPremium}}</li>
+  </ul>
+  
+
+Morale of the Story:
+If you have used the pipe operator in multiple locations, use the AS keyword to simplfy things.

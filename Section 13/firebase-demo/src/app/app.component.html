@@ -1,13 +1,17 @@
-<h1>Courses:</h1>
+<!--Task 2 - Display Author Details-->
+<!--Lots of Errors Attempting to Read Data that is not available.
 <ul>
-  <li *ngFor="let course of courses$ | async">{{course}}</li>
+  <li>{{(author$ | async).name}}</li>
+  <li>{{(author$ | async).students}}</li>
+  <li>{{(author$ | async).isPremium}}</li>
 </ul>
+-->
 
-<!--Task 2 - Display Selected Course as Json-->
-<p>
-  Course: {{course$ | async | json}}
-</p>
 
-<p>
-  Author: {{ author$ | async | json}}
-</p>
+<!--Task 3 - Using As Keyword-->
+<ul *ngIf="author$ | async as author">
+    <li>{{author.name}}</li>
+    <li>{{author.students}}</li>
+    <li>{{author.isPremium}}</li>
+  </ul>
+  
