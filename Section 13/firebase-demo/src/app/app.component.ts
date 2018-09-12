@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { Observable, Subscription } from 'rxjs';
+import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
+
 
 @Component({
   selector: 'app-root',
@@ -9,15 +9,36 @@ import { Observable, Subscription } from 'rxjs';
 })
 
 export class AppComponent {
-  courses$;
-  course$;
-  author$;
+  courses;
+  author;
 
-  constructor(db: AngularFireDatabase) {
-    this.courses$ = db.list('/Courses').valueChanges();
-    this.course$ = db.object('/Courses/3').valueChanges();
 
-    //Task 1 - Get Author Data
-    this.author$ = db.object('/authors/1').valueChanges();
+  //Instansiate DB from Config
+  constructor(private db: AngularFireDatabase) {
+    this.db.list('/Courses').valueChanges().subscribe(courses => this.courses = courses);
+    this.author = this.db.object('/authors/1').valueChanges();
+    console.log(this.courses);
   }
+
+
+  //Task 2 - Impment Adding to Firebase:
+  add(course: HTMLInputElement) {
+    //this.courses.push(course.value);
+    //this.db.list('/Courses').push(course.value);
+    //Task 4 - Try Passing a Complex Object:
+    this.db.list('/Courses').push({
+      name: course.value,
+      price: 150,
+      isLive: true,
+      sections: [
+        {title: 'Components'},
+        {title: 'Directives'},
+        {title: 'Templates'},
+      ]
+    });
+    console.log('Added', course.value);
+    //Clear Input
+    course.value = '';
+  }
+
 }

@@ -146,7 +146,7 @@ the course as a value, then a complex object that has a title field which contai
 be careful how you format your nodes!
 
 Task 3 - Fix Data:
-Delete Course 3 the complext object, and replace with copy of course2.
+Delete Course 3 the complex object, and replace with copy of course2.
 Should Only have ID:3 & Value:Course3
 
 Task 4 - Display on UI:
@@ -300,3 +300,64 @@ We can then access the variable, and its properties in a much cleaner way!
 
 Morale of the Story:
 If you have used the pipe operator in multiple locations, use the AS keyword to simplfy things.
+
+
+
+---Tutorial 13 - Adding an Object---
+So now that we've looked at getting data from Firebase, lets try adding.
+
+
+Task 1 - Create UI:
+We just need to create the Input field.
+<input type="text" (keyup.enter)="add(course)" #course>
+
+
+Task 2 - Impment Adding to Firebase:
+-To Add a Course simply use Push.
+add(course: HTMLInputElement) {
+    this.courses.push(course.value);
+    console.log('Added', course);
+    //Clear Input
+    course.value = '';
+  }
+
+
+Task 3 - Make Sure Security Permissions are Set:
+Now we should be able to write no problem!
+{
+  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}
+
+Task 4 - Try Passing a Complex Object:
+So if we create a few nested sets of Objects, create course5 in the UI and hit enter.
+
+this.db.list('/Course').push({
+      name: course.value,
+      price: 150,
+      isLive: true,
+      sections: [
+        {title: 'Components'},
+        {title: 'Directives'},
+        {title: 'Templates'},
+      ]
+    });
+
+
+This is some of the beauty of Firebase, we don't have to worry about Tables & Reltionships, its just JSON in and JSON out.
+
+
+Task 5 - Displaying Different Courses:
+So now that we've added this complex Course Object to the database, we can't see it in the UI because it doesn't follow our naming convention/schema.
+We shouldn't normally do this, our data should be somewhat consistent but here is a trick for getting around that.
+- || operator lets us use the .name property for complex object & course for any normal objects.
+  <li *ngFor="let course of courses">{{ course.name  || course}}</li>
+
+
+Morale of the Story:
+-Use .push to add items to the array, which in turn updates the database.
+-Can Pass Complex Objects aswel as simple ones.
+-Use || Operator to display both complex and simple objects.

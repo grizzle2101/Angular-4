@@ -1,17 +1,14 @@
-<!--Task 2 - Display Author Details-->
-<!--Lots of Errors Attempting to Read Data that is not available.
+<!--Task 1 - Create UI:-->
+<input type="text" (keyup.enter)="add(course)" #course>
+
+<h1>Courses:</h1>
 <ul>
-  <li>{{(author$ | async).name}}</li>
-  <li>{{(author$ | async).students}}</li>
-  <li>{{(author$ | async).isPremium}}</li>
+  <li *ngFor="let course of courses">{{ course.name  || course}}</li>
 </ul>
--->
 
-
-<!--Task 3 - Using As Keyword-->
-<ul *ngIf="author$ | async as author">
+<h1>Author:</h1>
+<ul *ngIf="author | async as author">
     <li>{{author.name}}</li>
     <li>{{author.students}}</li>
     <li>{{author.isPremium}}</li>
-  </ul>
-  
+</ul>
