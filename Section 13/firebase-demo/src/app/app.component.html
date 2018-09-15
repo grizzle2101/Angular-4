@@ -2,9 +2,10 @@
 
 <h1>Courses:</h1>
 <ul>
-  <li *ngFor="let course of courses; let i = index;">{{ course.title ||course.name  || course}}
-  <!--Task 1 - Add Button to Courses-->
+  <li *ngFor="let course of courses; let i = index">{{course}}
   <button (click)="update(i, course)">Update</button>
+  <!--Task 1 - Add Delete Button-->
+  <button (click)="delete(i, course)">Delete</button>
 </li>
 </ul>
 

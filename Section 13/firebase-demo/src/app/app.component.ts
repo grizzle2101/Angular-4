@@ -9,7 +9,7 @@ import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 })
 
 export class AppComponent {
-  courses;
+  courses: any[];
   author;
 
 
@@ -24,32 +24,24 @@ export class AppComponent {
     this.author = this.db.object('/authors/1').valueChanges();
   }
 
-
   add(course: HTMLInputElement) {
-    this.db.list('/Courses').push({
-      name: course.value,
-      price: 150,
-      isLive: true,
-      sections: [
-        {title: 'Components'},
-        {title: 'Directives'},
-        {title: 'Templates'},
-      ]
-    });
+    this.db.list('/Courses').set((this.courses.length + 1).toString(), course.value);
     console.log('Added', course.value);
     course.value = '';
   }
 
-  //Task 2  - Implment Update Method:
   update(courseID: string, course: HTMLInputElement){
     courseID = courseID + 1;
+    console.log('ID:' + courseID + ' Course:' + course);
 
     //Get Objec & Set Value
-    this.db.object('/Courses/' + courseID)
-    //.set(course + '-Updated');
-    .set({
-      title: course + 'updated',
-      price: 150
-    });
+    this.db.object('/Courses/' + courseID).set(course + '-Updated');
+
+  }
+
+  //Task 2 - Implment Delete Method
+  delete(courseID: string, course: HTMLInputElement) {
+    this.db.list('/Courses/' + (courseID + 1 )).remove()
+    .then(response => {console.log('Deleted', response)});
   }
 }

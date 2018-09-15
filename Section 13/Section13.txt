@@ -408,3 +408,27 @@ In that case we would want to use UPDATE, so each page didnt replace the data in
 would be a big problem!
 But if you have 1 form, and all properties are going to be set there, it doesn't matter if we use
 Update or Set.
+
+
+---Tutorial 14 - Delete an Object---
+So we've covered Addition & Updating of Firebase Lists, what about Delete?
+
+
+Task 1 - Add Delete Button:
+Just as before, we can copy the Update Button & Point to new method.
+<button (click)="delete(i, course)">Delete</button>
+
+
+Task 2 - Implment Delete Method:
+Deletion is quite simple, however had some complications working with Firebase Lists,
+need to Create List Items with a unique ID.
+
+  delete(courseID: string, course: HTMLInputElement) {
+    this.db.list('/Courses/' + (courseID + 1 )).remove()
+    .then(response => {console.log('Deleted', response)});
+  }
+
+Note:
+Had to adapt Add Method quite a bit because Firebase created a UniqueID, that I needed
+in order to select an item for deletion. So basically now rather than Unique Ids we use the count
+of the Corse List, bit hacky but it should work for now.
