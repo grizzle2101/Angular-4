@@ -1,9 +1,11 @@
-<!--Task 1 - Create UI:-->
 <input type="text" (keyup.enter)="add(course)" #course>
 
 <h1>Courses:</h1>
 <ul>
-  <li *ngFor="let course of courses">{{ course.name  || course}}</li>
+  <li *ngFor="let course of courses; let i = index;">{{ course.title ||course.name  || course}}
+  <!--Task 1 - Add Button to Courses-->
+  <button (click)="update(i, course)">Update</button>
+</li>
 </ul>
 
 <h1>Author:</h1>

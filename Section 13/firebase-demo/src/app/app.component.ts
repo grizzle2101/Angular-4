@@ -15,17 +15,17 @@ export class AppComponent {
 
   //Instansiate DB from Config
   constructor(private db: AngularFireDatabase) {
-    this.db.list('/Courses').valueChanges().subscribe(courses => this.courses = courses);
+    this.db.list('/Courses').valueChanges()
+    .subscribe(courses => {
+      this.courses = courses;
+      console.log(courses);
+    });
+
     this.author = this.db.object('/authors/1').valueChanges();
-    console.log(this.courses);
   }
 
 
-  //Task 2 - Impment Adding to Firebase:
   add(course: HTMLInputElement) {
-    //this.courses.push(course.value);
-    //this.db.list('/Courses').push(course.value);
-    //Task 4 - Try Passing a Complex Object:
     this.db.list('/Courses').push({
       name: course.value,
       price: 150,
@@ -37,8 +37,19 @@ export class AppComponent {
       ]
     });
     console.log('Added', course.value);
-    //Clear Input
     course.value = '';
   }
 
+  //Task 2  - Implment Update Method:
+  update(courseID: string, course: HTMLInputElement){
+    courseID = courseID + 1;
+
+    //Get Objec & Set Value
+    this.db.object('/Courses/' + courseID)
+    //.set(course + '-Updated');
+    .set({
+      title: course + 'updated',
+      price: 150
+    });
+  }
 }

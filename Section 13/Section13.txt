@@ -361,3 +361,50 @@ Morale of the Story:
 -Use .push to add items to the array, which in turn updates the database.
 -Can Pass Complex Objects aswel as simple ones.
 -Use || Operator to display both complex and simple objects.
+
+
+---Tutorial 14 - Updating an Object---
+So next after Viewing & Adding Data to firebase is editing existing data.
+We can do a real simple feature, where we add a button to each course, and onclick
+we will append -Update to the course.
+
+
+Task 1 - Add Button to Courses:
+  <button (click)="update(i, course)">Update</button>
+
+
+Task 2  - Implment Update Method:
+-Get ID from Selected items
+-Get Selected Item using .set then provide the new course object.
+
+-Simple Update
+  update(courseID: string, course: HTMLInputElement){
+    courseID = courseID + 1;
+
+    //Get Objec & Set Value
+    this.db.object('/Courses/' + courseID)
+    .set(course + '-Updated');
+  }
+
+-Complex Object Update:
+.set({
+      title: course + 'updated',
+      price: 150
+    });
+
+
+-Update V Set:
+Set will replace any values existing in the selected object, whereas update will only add or Edit, not remove.
+Take this example, will edit the title but Add isLive, we still have price @ 150.
+    .update({
+      title: course + 'updated',
+      isLive: false
+    });
+
+Note:
+So when working on a Users profile for example we might have different pages for the different profile
+settings like Identity, Security, Permissions etc.
+In that case we would want to use UPDATE, so each page didnt replace the data inserted by another,
+would be a big problem!
+But if you have 1 form, and all properties are going to be set there, it doesn't matter if we use
+Update or Set.
