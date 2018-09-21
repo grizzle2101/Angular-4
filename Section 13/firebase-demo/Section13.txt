@@ -1,0 +1,454 @@
+---Building Real Time Apps with Firebase---
+---Tutorial 1 - Introduction---
+So far our focus has been purely on the front end, but most or all applications need a backend.
+Building a backend from scratch requires a tottally different set of tools & frameworks, that are really beyond the scope of this tutorial.
+We could also use something like Firebase for building Web & Mobile backends. By the end of this section we should be able to do CRUD operations.
+-Create Objects
+-Read Objects
+-Update Objects
+-Delete Objects
+
+---Tutorial 2 - What is Firebase?---
+Architecture:
+In a traditional application we have the Client, built in Angular.
+The Backend built in Node.js or ASP.Net, which communicated with the front end with HTTP Services.
+The Data is often persisted in a database like SQL Server, MongoDB or Raven
+
+The process of building all this is very time consuming, and thats where firebase shines.
+
+Firebase Benefits:
+-Fast, Scaleable & Real-time database in the cloud.
+-Authentication
+-Cloud Messaging
+-Storage
+-Analytics
+-Supports Multiple Platforms - IOS, Android, JavaScript & C++
+-Firebase provides libraries to for accessing data in all the above languages, So its a pinch to develop for multiple platforms with the same backend!
+
+
+---Tutorial 3 - Your First Firebase Application---
+
+Task 1 - Create Application:
+Head on over to firebase & create a project named FirebaseDemo
+https://console.firebase.google.com/
+
+
+---Tutorial 4 - Working with Firebase Database---
+So lets get to know some of the Firebase functions.
+
+Databases:
+Databases are where we are going to store the Application data. There are Relational & NoSQL databases also known as document databases.
+Relational - Tables, Relationship, Schema
+NoSQL - NoSchema, No Tables & Columns, Trees of Nodes(key value pairs), Example MongoDB.
+So just a heads up Firebase Databaes are NoSQL Databases.
+
+Task 1 - Create a Realtime DB:
+-Click Create in Databae Tab.
+-Click + and Create a node called Courses.
+-Add some child elementsto Courses eg course1 & course2
+-Create a complex child object inside course3.
+-This should demonstrate the differences between Relational Databases & NoSQL. Notice we create nodes & child elements, but there are NO Rules or relations between the child elements.
+Some can be simple strings and other complex objects, this is a bit different to the traditional databases.
+-Our values can be key value pairs, or complex objects.
+-This is really quick get up and running, not is not optimized for reporting. So if you need reports & complex joins NoSQL probabaly isn't the best idea.
+Unless you want to create a job that takes the data from our NoSQL database and imports it to a traditional Relational DB for reporting.
+
+Morale of the Story:
+NoSQL Databases use a node like structure for representing data as KeyValuePairs or even more complex nested objects.
+
+
+---Tutorial 5 - Installing Firebase---
+
+Task 1 - Create Project:
+-ng new firebase-demo
+
+Task 2 - Install Dependencies:
+-npm install firebase angularfire2 --save
+
+Task 3 - Copy Firebase Settings into Environment.ts:
+In the Firebase WebApp, go go overiew to get the configuration settings.
+https://console.firebase.google.com/project/fir-demo-fd737/overview
+
+Generated this:
+<script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBJPQz0nOog8jzjcxBARVvlthS530K6wSo",
+    authDomain: "fir-demo-fd737.firebaseapp.com",
+    databaseURL: "https://fir-demo-fd737.firebaseio.com",
+    projectId: "fir-demo-fd737",
+    storageBucket: "fir-demo-fd737.appspot.com",
+    messagingSenderId: "35878365766"
+  };
+  firebase.initializeApp(config);
+</script>
+
+-Place the Properties into Environment.ts
+export const environment = {
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyBJPQz0nOog8jzjcxBARVvlthS530K6wSo',
+    authDomain: 'fir-demo-fd737.firebaseapp.com',
+    databaseURL: 'https://fir-demo-fd737.firebaseio.com',
+    projectId: 'fir-demo-fd737',
+    storageBucket: 'fir-demo-fd737.appspot.com',
+    messagingSenderId: '35878365766'
+  }
+};
+
+Task 3 - App.Module:
+So now that we have the settings in our config, we can boostrap Fire & FireDB into our application & pass the credentials stored here.
+
+  imports: [
+    BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule
+
+
+Result:
+Now we have the database hooked up, next we're going to try reading data from our database.
+
+
+---Tutorial 6 - Reading Lists---
+So in the previous lecture we created a list of courses, 2 being key value pairs and the other a complex object.
+This is a great strength that we don't have to define a schema, but if you don't manage your collections you will run into problems.
+
+Task 1 - Get Courses from Database:
+-import {AngularFireDatabase} from 'angularfire2/database';
+-Instansiate DB in Constructor.
+-We can then access db.list, which takes the node we wish to target (courses), and returns Observerable.
+
+  constructor(db: AngularFireDatabase) {
+    db.list('/Courses').valueChanges().subscribe(courses => {
+      this.courses = courses;
+      console.log(courses);
+    });
+
+
+Task 2 - Disable Security:
+We are getting errors when trying to iterate over the DB items, this is because we don't have Authentication configured correctly.
+So in firebase, the rules section change Read & Write values to true, that way anyway can read and write. There is much more to this section
+but it is beyond the scope of this lecture.
+
+  {
+  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}
+
+
+Result:
+So now we can see that our component is recieving the data from Firebase. There is a problem with our data, as mentioned we have 2 simple objects which just value
+the course as a value, then a complex object that has a title field which contains the name. So we don't have 1 property we can display, so remember to always
+be careful how you format your nodes!
+
+Task 3 - Fix Data:
+Delete Course 3 the complex object, and replace with copy of course2.
+Should Only have ID:3 & Value:Course3
+
+Task 4 - Display on UI:
+Simple ngFor to display the courses from our list.
+<li *ngFor="let course of courses">{{course}}</li>
+
+Result:
+We are accessing data from the DB and displaying to UI, nice!
+
+
+---Tutorial 7 - A Real Time Database---
+One of my favourite features with Firebase databases is that they're realtime. That means any time we modify data, the changes are reflected in the client App
+immediately.
+
+Task 1 - Edit Data in Firebase:
+-Add a single Course
+-Delete a Single Course
+We can see any changes we do in Firebase are reflected immediately in the Angular application, even without refreshing!
+
+Firebase is really suited for real time application, something like a chat messenger where you need instant communication.
+
+
+---Tutorial 8 - Observerables & Memory Leaks---
+So we learned that Firebase databaes are realtime, lets take a closer look at this feature.
+
+Scenario 1 - Clear Network Console & Add New Course:
+Notice that if we edit the course list in firebase, we get the entire list of courses again.
+Normally this a big overhead, having to send all the couses and not just one. Firebase is optimized for loads like this, so its not really that bad.
+
+
+The Problem:
+One thing to really look for out for is when we are routing, these lists are still stored in memory.
+We have no need to have these lists in memory when we are not even looking at them.
+
+Http Response V Firebase:
+So when we used HTTP Services, we don't have to worry about this because once the response is recieved they are terminated.
+Because Firebase is real time, the connection will be constant so we have to terminate this manually.
+Perhaps the Firebase Response should be tied to the lifecycle of the component? We will be going over this more in the next lecture.
+
+
+---Tutorial 9 - Unsubscribing from Subscriptions---
+As expteced, we need create a lifecycle hook for our component, and make sure to terminate the real time connection there.
+
+
+Task 1 - Implment ngOnDestroy:
+Add LifeCycle Hook & unsubscribe from data stream.
+-Implments OnDestroy
+ngOnDestroy() {
+    console.log('Gone');
+    this.subscription.unsubscribe();
+  }
+
+
+Task 2 - Simulate Navigation:
+We don't want to waste time with setting up Routeing, so lets just call the method directly from a button.
+<button (click)="ngOnDestroy()">Go Offline</button>
+
+
+Test:
+-Update Firebase with a new Course, see the list get immediately updated.
+-Click "Go Offline" then delete the course from firebase.
+-See the List is not updated anymore because we have successfully unsubscribed from the data.
+This code is quite bulky, and there are better ways to go about this that we will do in the next tutorial.
+
+
+---Tutorial 10 - Async Pipes---
+Earlier in the course we learned about Pipes, we used pipes for formatting data in the UI like username | lowercase.
+We have another kind of pipe called async, we can Pipe Observerables so that we subscribe and get the latest value.
+-Subscribes
+-Gets Latests Value
+-Unsubscribes
+
+Task 1 - Send Data as Observerables:
+We can greatly simplfy our code by doing a couple things.
+-Create Course Observerable variable.
+-Assign Observerables Response to Variable.
+This means we no longer need to worry about lifecycle hooks, observing the data & assigning to variable for template.
+
+courses$;
+
+  constructor(db: AngularFireDatabase) {
+    this.courses$ = db.list('/Courses').valueChanges();
+  }
+
+
+Task 2 - Pipe Observerables:
+So now our data is being returned as Observerable we let the Async Operator unwrap, track & destroy the data.
+  <li *ngFor="let course of courses$ | async">{{course}}</li>
+
+
+---Tutorial 11 - Reading an Object---
+So now that we have our list of courses, how would we go about filtering our data, so we only return course 3?
+
+Task 1 - Filter Data for Specific Object:
+So say we want to get a single object from our DB, we use db.Object and provide the node & ID.
+this.course$ = db.object('/Courses/3').valueChanges();
+
+
+Task 2 - Display Selected Course as Json
+<p>
+  Course: {{course$ | async | json}}
+</p>
+
+
+Task 3 - Create Complex Object:
+So Lets Create a really complex object to display in the front end.
+Create a new Code called Authors, child node of 1, Child node inside that with isPremium, name & students.
+This is going to table for course authors on the site.
+
+Task 4 - Create & Display Author Object:
+-Component Code:
+this.author$ = db.object('/authors/1').valueChanges();
+
+Front End Code: 
+-Author: {{ author$ | async | json}}
+
+Result:
+We can see the Author Object we created with all the properties, really cool eh!
+Author: { "isPremium": true, "name": "Proffessor BigMac", "students": 1000 }
+
+
+---Tutorial 12 - As Keyword---
+So lets say we're going to create a page that displays the profile of an Author.
+
+
+Task 1 - Get Author Data:
+    this.author$ = db.object('/authors/1').valueChanges();
+
+
+Task 2 - Display Author Details:
+Displaying the Author Data is just the same as the previous tutorial, if we wrap the async data we can access the properties.
+<ul>
+  <li>{{(author$ | async).name}}</li>
+  <li>{{(author$ | async).students}}</li>
+  <li>{{(author$ | async).isPremium}}</li>
+</ul>
+
+Task 3 - Using As Keyword:
+We were getting many errors trying to access properties that were not loaded.
+This is in part fixed by implmenting the AS keyword, AS lets us assign the output of our Observerables AS a variable.
+We can then access the variable, and its properties in a much cleaner way!
+-AS created variable.
+-Variable can be used all over the template
+-Simplifies & Centralizes our code!
+<ul *ngIf="author$ | async as author">
+    <li>{{author.name}}</li>
+    <li>{{author.students}}</li>
+    <li>{{author.isPremium}}</li>
+  </ul>
+  
+
+Morale of the Story:
+If you have used the pipe operator in multiple locations, use the AS keyword to simplfy things.
+
+
+
+---Tutorial 13 - Adding an Object---
+So now that we've looked at getting data from Firebase, lets try adding.
+
+
+Task 1 - Create UI:
+We just need to create the Input field.
+<input type="text" (keyup.enter)="add(course)" #course>
+
+
+Task 2 - Impment Adding to Firebase:
+-To Add a Course simply use Push.
+add(course: HTMLInputElement) {
+    this.courses.push(course.value);
+    console.log('Added', course);
+    //Clear Input
+    course.value = '';
+  }
+
+
+Task 3 - Make Sure Security Permissions are Set:
+Now we should be able to write no problem!
+{
+  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}
+
+Task 4 - Try Passing a Complex Object:
+So if we create a few nested sets of Objects, create course5 in the UI and hit enter.
+
+this.db.list('/Course').push({
+      name: course.value,
+      price: 150,
+      isLive: true,
+      sections: [
+        {title: 'Components'},
+        {title: 'Directives'},
+        {title: 'Templates'},
+      ]
+    });
+
+
+This is some of the beauty of Firebase, we don't have to worry about Tables & Reltionships, its just JSON in and JSON out.
+
+
+Task 5 - Displaying Different Courses:
+So now that we've added this complex Course Object to the database, we can't see it in the UI because it doesn't follow our naming convention/schema.
+We shouldn't normally do this, our data should be somewhat consistent but here is a trick for getting around that.
+- || operator lets us use the .name property for complex object & course for any normal objects.
+  <li *ngFor="let course of courses">{{ course.name  || course}}</li>
+
+
+Morale of the Story:
+-Use .push to add items to the array, which in turn updates the database.
+-Can Pass Complex Objects aswel as simple ones.
+-Use || Operator to display both complex and simple objects.
+
+
+---Tutorial 14 - Updating an Object---
+So next after Viewing & Adding Data to firebase is editing existing data.
+We can do a real simple feature, where we add a button to each course, and onclick
+we will append -Update to the course.
+
+
+Task 1 - Add Button to Courses:
+  <button (click)="update(i, course)">Update</button>
+
+
+Task 2  - Implment Update Method:
+-Get ID from Selected items
+-Get Selected Item using .set then provide the new course object.
+
+-Simple Update
+  update(courseID: string, course: HTMLInputElement){
+    courseID = courseID + 1;
+
+    //Get Objec & Set Value
+    this.db.object('/Courses/' + courseID)
+    .set(course + '-Updated');
+  }
+
+-Complex Object Update:
+.set({
+      title: course + 'updated',
+      price: 150
+    });
+
+
+-Update V Set:
+Set will replace any values existing in the selected object, whereas update will only add or Edit, not remove.
+Take this example, will edit the title but Add isLive, we still have price @ 150.
+    .update({
+      title: course + 'updated',
+      isLive: false
+    });
+
+Note:
+So when working on a Users profile for example we might have different pages for the different profile
+settings like Identity, Security, Permissions etc.
+In that case we would want to use UPDATE, so each page didnt replace the data inserted by another,
+would be a big problem!
+But if you have 1 form, and all properties are going to be set there, it doesn't matter if we use
+Update or Set.
+
+
+---Tutorial 15 - Delete an Object---
+So we've covered Addition & Updating of Firebase Lists, what about Delete?
+
+
+Task 1 - Add Delete Button:
+Just as before, we can copy the Update Button & Point to new method.
+<button (click)="delete(i, course)">Delete</button>
+
+
+Task 2 - Implment Delete Method:
+Deletion is quite simple, however had some complications working with Firebase Lists,
+need to Create List Items with a unique ID.
+
+  delete(courseID: string, course: HTMLInputElement) {
+    this.db.list('/Courses/' + (courseID + 1 )).remove()
+    .then(response => {console.log('Deleted', response)});
+  }
+
+Note:
+Had to adapt Add Method quite a bit because Firebase created a UniqueID, that I needed
+in order to select an item for deletion. So basically now rather than Unique Ids we use the count
+of the Corse List, bit hacky but it should work for now.
+
+
+---Tutorial 16 - Additional Resources:---
+So this was really only an introduction to Firebase, because the focus on this series is on the front-end and Angular,
+we cut out a lot of extra useful firebase stuff.
+And because many different companies tend to build their own backend, it can vary a lot so its not too important to
+get bogged down learning this particular one.
+There is another Mosh tutorial series called "Building Enterprise Apps with Angular", which goes over the following:
+-Joining
+-Checking for Existence of Object
+-Sorting
+-filtering
+-indexing
+-Limiting
+-Multiple Updates
+-Authentication
+-Facebook Login
+
+There is some slight variation with that series because it was recorded a while ago on an older version of Angular.
+But it is mostly the same, just might be some different way of packaging and using firebase.
