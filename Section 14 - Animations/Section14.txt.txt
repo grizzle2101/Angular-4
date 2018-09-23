@@ -118,3 +118,36 @@ So now that we have the Animation completed, we can apply it onto our HTML using
 -@fadeIn
 -Now we can apply this on each item in our to-do list.
 <div @fadein></div>
+
+
+---Tutorial 5 - Importing Animations Module & Polyfill---
+So lets get going with the setup and installation of everthing we need for this section.
+
+-Task 1 - Download Sample Solution:
+-Unzip & add to Course Work
+-NPM install
+-ng serve
+
+
+-Task 2 - Imports:
+Import the package, then add it to our imports statement.
+   imports: [
+    BrowserModule,
+    BrowserAnimationsModule
+
+Now this import is all we need for Chrome, Firefox & Opera. However to support the other browsers,
+we need the Polyfill package.
+
+**Polyfill allows us to run modern JavaScript features in older browsers**
+
+-Task 3 - Enable Polyfill:
+Open up the polyfill.ts file in the root directory, and uncomment the line for polyfill.
+
+/** IE10 and IE11 requires the following to support `@angular/animation`. */
+import 'web-animations-js';  // Run `npm install --save web-animations-js`.
+
+Then use NPM to install the package:
+-npm install --save web-animations-js
+
+
+Congratulations, now we have everything installed and ready to go!
