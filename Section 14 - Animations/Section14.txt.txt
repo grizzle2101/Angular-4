@@ -62,3 +62,59 @@ Take Home:
 -For More Flexible Animations, we use JavaScript and the Web Animations API.
 -In Angular we use @angular/animations which is built ontop of the Web Animations API.
 -By using @Angular/animation abstractions, we can use the Animations natively on other platforms, meaning code once, supported on all OS's.
+
+
+
+---Tutorial 4 - Angular Animations:---
+So lets get started with some Angular Animations. The Angular Animations Module includes some important methods,
+
+Animation Helper Functions:
+-trigger()
+-transition()
+-state()
+-animate()
+-etc
+
+On a basic level animations are just a transitions from state1 to state2, like this example.
+State 1                 >       transition                >      State 2
+Background-Color: Red                                               Background-color: Blue
+
+But what other States can we have for a DOM Element?
+-Void
+-Default(*)
+-Custom
+
+-Void State:
+The Void state is for an object BEFORE or AFTER being placed in the DOM. To in a To-Do list, we create the Object, then place it into the DOM.
+So the state of the List Item is VOID until it is placed in the DOM. The same happens if we remove an item from the list, we return the state to VOID.
+This is how we can do transitions for newly created & deleted items.
+
+-Default(*):
+The Default state is when it is active in the DOM. So using the previous example, when the List Item exists inside the DOM it is in its Default state.
+
+-Custom:
+Custom isn't used very often but there are scenarios for this. Say we have a collapseable panel, the content inside the container is there,
+it is just hidden using the HTML hidden state. So if we want to animate the hidden content we beed to use a Custom State.
+
+Sample Implmentation:
+So lets say we want to apply some animations to each item in a To-Do list.
+
+Task 1 - Create a Components Metadata:
+-Animation Property Takes Array.
+-In the array we create a Trigger, which has a corresponding Implmentation (States & Transtions on trigger)
+-Notice trigger, state & transition are the Angular Animations helpers we mentioned earlier.
+@Component({
+    animations: [
+        trigger:('fadeIn', [
+            state(...)
+            transition(...)
+        ])
+    ]
+})
+
+
+Task 2 - Apply Animation on Element:
+So now that we have the Animation completed, we can apply it onto our HTML using this custom notation.
+-@fadeIn
+-Now we can apply this on each item in our to-do list.
+<div @fadein></div>
