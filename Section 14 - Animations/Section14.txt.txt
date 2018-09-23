@@ -1,0 +1,11 @@
+---Section 14 - Animations---
+---Tutorial 1 - Introduction---
+Animations are getting a lot more common in modern applications, so in this section we're going to be able to add animations to your angular applications.
+
+In this section:
+-Understand the structure of an Animation
+-Animate various elements
+-Create reuseable animations
+-Use new animation functions in Angular 4.3
+-Write Clean Animation Code
+
