@@ -19,3 +19,46 @@ We have a to-do list, the Title slides down from the top and each element in the
 -Straggered Amimation
 -Change Colour & Slide Out
 -Text Box Expand & Content Fade In
+
+
+---Tutorial 3 - Different Ways to Create Animations---
+There are two primary ways to create Animations, CSS & JavaScript
+-CSS:
+With CSS we have Transition & Animation properties we can use to animate DOM elements.
+We can create custom CSS classes like so, and your browser will begin to apply these animations to your DOM elements.
+If you've been working with CSS for a while you've probably come across animate.css, google Animate.css to see how easy it is to apply some cool animatons.
+
+.stretch {
+    animation-name: stretch;
+    animation-duration: 1.5s;
+}
+
+Cons for CSS:
+We certainly can use just CSS for animations but there are a few drawbacks.
+-Limited Control over animation
+-Suitable for Simple, one-shot animations
+
+
+-JavaScript
+For JavaScript however we have much more control, and may more libraries for Animations.
+-JQuery
+-GSAP
+-Zepto
+-Web Animations API (Recommended & supported natively in Chrome, Firefox & IE)
+
+What does the code look like?
+Get  Reference to an element, then call the animate method.
+var element = document.querySelector('#myElement');
+element.animate(...);
+
+What about Angular?
+Angular has a module built on-top of the Web Animations API called @angular/animations.
+So instead of us working directly with the API, we use the abstractions provided by Angular.
+This makes our code much more tidy, and easier to Unit test and port to another platform. So if we move to IOS or Android
+we can use the native animations in that system without much effort.
+
+Take Home:
+-Use CSS for Simple Animations
+-For More Flexible Animations, we use JavaScript and the Web Animations API.
+-In Angular we use @angular/animations which is built ontop of the Web Animations API.
+-By using @Angular/animation abstractions, we can use the Animations natively on other platforms, meaning code once, supported on all OS's.
