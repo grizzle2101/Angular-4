@@ -9,3 +9,13 @@ In this section:
 -Use new animation functions in Angular 4.3
 -Write Clean Animation Code
 
+
+---Tutorial 2 - Examples of Animations---
+First lets take a look at the kind of animations we're going to build in this section.
+We have a to-do list, the Title slides down from the top and each element in the list will load fade in using this animation.
+
+-Slide In
+-Fade In
+-Straggered Amimation
+-Change Colour & Slide Out
+-Text Box Expand & Content Fade In
