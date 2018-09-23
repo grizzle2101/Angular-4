@@ -1,19 +1,22 @@
 import { Component } from '@angular/core';
 import { trigger, transition, style, animate} from '@angular/animations';
 
-//Task 1 - Add Animations to MetaData:
 @Component({
   selector: 'todos',
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.css'],
   animations: [
-    trigger('fade', [ //Create Fade Annotation
-      transition('void => *', [ //On Change from Void to Default
-        style({opacity: 0}), //Styles to Apply
-        animate(2000) //Time & Style for Animated State
-      ])
+    trigger('fade', [
+
+      transition('void => *', [
+        style({opacity: 0}), 
+        animate(2000)
+      ]),
+      //Task 1 - Create New Animation
+      transition('* => void', [
+        animate(2000, style({opacity: 0}))
     ])
-  ]
+  ])]
 })
 export class TodosComponent {
   items: any[] = [

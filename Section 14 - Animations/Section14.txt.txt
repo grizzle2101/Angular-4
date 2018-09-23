@@ -218,3 +218,28 @@ and so will undo the style back to its orginal state.
 So we can remove this section where we set the colour back to white.
 
 So in summary, in this sectio we've created a Fade-In function.
+
+
+---Tutorial 7 - Implmenting FadeOut Animation---
+So now that we have a good grasp on FadeIn, lets work on implementing fadeout.
+
+Task 1 - Add Another Transition for FadeOut:
+So after we define the Trigger, we can also provide another transition, except for the reverse activity.
+Instead of void => * we do * => void, and then we have the deletion animation.
+
+animations: [
+    trigger('fade', [
+
+      transition('void => *', [
+        style({opacity: 0}), 
+        animate(2000)
+      ]),
+      //Task 1 - Create New Animation
+      transition('* => void', [
+        animate(2000, style({opacity: 0}))
+    ])
+  ])]
+
+
+Take Home:
+Trigger allow multiple transtions between Void, Default & Custom State.
