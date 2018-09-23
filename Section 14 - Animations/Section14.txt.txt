@@ -243,3 +243,27 @@ animations: [
 
 Take Home:
 Trigger allow multiple transtions between Void, Default & Custom State.
+
+
+---Tutorial 8 - States---
+So in our current Implmentation we have some duplication, rather than creating these styles twice,
+we can define a state for void with these properties. That way we only declare the void style once.
+
+
+Task 1 - Add State
+animations: [
+    trigger('fade', [
+      //Task 1 - Add State
+      state('void', style({opacity: 0})),
+
+      transition('void => *', [
+        animate(2000)
+      ]),
+      transition('* => void', [
+        animate(2000)
+    ])
+  ])]
+})
+
+Take Home:
+When working with styles, use a state to centralize all your style for a given state.
