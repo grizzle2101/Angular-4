@@ -151,3 +151,70 @@ Then use NPM to install the package:
 
 
 Congratulations, now we have everything installed and ready to go!
+
+
+
+---Tutorial 6 - Implementing a Fade-In Animation---
+So now that we have everything installed, we can go about implmenting the basics.
+The steps as mentioned are declare an Animation in Component MetaData, (this is how angular compiles
+animations what our desired component.), use the selector in the template, then use the Trigger, Style,
+Transition & animate helpers. 
+
+
+Task 1 - Add Animation to the Component MetaData:
+So lets start by adding in the section for Animation & the Trigger.
+-trigger('nameofSelector, [AdditionalProperties to be applied on selected item]')
+
+@Component({
+  selector: 'todos',
+  templateUrl: './todos.component.html',
+  styleUrls: ['./todos.component.css'],
+  animations: [
+    trigger('fade', []
+    ])
+  ]
+})
+
+
+Task 2 - Use the Selector:
+So now that we have a selector in our Component lets use it.
+Simple when we iterate over each item on the list, we want it to have our @fade animation.
+-@fade
+
+<button type="button"
+      @fade
+      *ngFor="let item of items"
+      (click)="removeItem(item)"
+      class="list-group-item"
+      >{{ item }}</button>
+</div> 
+
+Task 3 - Flesh out Animation:
+-trigger = HTML selector
+-transition = Provide a Lambda from state void to *(Default)
+State (State 1 void &  State 2 default) so from object creation to adding to DOM, onLoad basically.
+
+Style & Animate are what happens after the idenfitied state change has happend.
+-style = a style object to be applied at State 1.
+-animate = time in MS, style to be applied after 2 seconds, at State 2.
+
+@Component({
+  selector: 'todos',
+  templateUrl: './todos.component.html',
+  styleUrls: ['./todos.component.css'],
+  animations: [
+    trigger('fade', [ //Create Fade Annotation
+      transition('void => *', [ //On Change from Void to Default
+        style({backgroundColor: 'yellow', opacity: 0}), //Styles to Apply
+        animate(2000, style({backgroundColor: 'white', opacity: 1})) //Time & Style for Animated State
+      ])
+    ])
+  ]
+})
+
+Note:
+Angular is smart enough to know, the transition style is only temporary,
+and so will undo the style back to its orginal state.
+So we can remove this section where we set the colour back to white.
+
+So in summary, in this sectio we've created a Fade-In function.

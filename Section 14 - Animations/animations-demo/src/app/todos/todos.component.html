@@ -5,7 +5,9 @@
   (keyup.enter)="addItem(itemInput)">
 
 <div *ngIf="items" class="list-group" >
+  <!--Task 2 - Apply Selector on Item-->
   <button type="button"
+      @fade
       *ngFor="let item of items"
       (click)="removeItem(item)"
       class="list-group-item"
