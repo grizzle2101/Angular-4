@@ -310,3 +310,19 @@ export let fade =  trigger('fade', [
 Task 2 - Add Trigger into Animations:
 Then to use the Trigger we simple add it like so.
   animations: [fade]
+
+
+---Tutorial 11 - Excercise---
+Build a Slide In Animation.
+
+
+Task 1 - Create Slide Animation:
+So again we need to create a reuseable trigger, we just need to change the style on change to be
+transform: translateX then we can move the elements from left to right.
+export let slide =  trigger('fade', [
+    state('void', style({transform: 'translateX(-20px)'})),
+
+    transition(':enter, :leave', [ 
+      animate(1000)
+    ])
+]);

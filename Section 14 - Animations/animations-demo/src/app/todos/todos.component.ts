@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { fade } from '../animations';
+import { fade, slide } from '../animations';
 
 
 @Component({
   selector: 'todos',
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.css'],
-  //Task 2 - Add Trigger into Animations:
-  animations: [fade]
+  animations: [slide]
 })
 export class TodosComponent {
   items: any[] = [
