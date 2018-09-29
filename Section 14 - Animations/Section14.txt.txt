@@ -349,3 +349,49 @@ Difference 2 - Removing the Chrome Border:
 Another small styleing issue, elements moving in Chrome are given a border.
 To remove this we simply override the style outline and voila.
 button {outline: 0}
+
+
+---Tutorial 13 - Easings---
+So our SlideIn and SlideOut transitions move at a consistent speed.
+What if we want to stagger the animation make it more life like?
+
+Exploring Animate:
+So if we look at the animate helper method, we actually have a few options besides just time in ms.
+transition(':leave', [animate(500), style({transform: 'translateX(-100%)'})])
+
+Task 1 - Delay the Transition:
+We can insert time as a string in many differerent formats:
+'0.5s'
+'500ms'
+There is a second component to this animate timer which is delay, we can add a delay for the animation.
+transition(':leave', [animate('500ms 1s'), style({transform: 'translateX(-100%)'})])
+
+
+Task 2 - Get Easings values:
+So Easins are like a rate for the speed of the transition. By Default the easing is linear,
+so we have the consistent speed behavior we see. However there are other options like:
+-Ease In - Start Slowly & End Fast
+-Ease Out - Start Fast & End Slowly
+-Ease-In-Out - A Combination of the two.
+
+So to create a custom Easing we have to implment a Cubic Bezier, basically a math function for
+creating curves on a graph, prob should have paid more attention in math class.
+Luckily for us we don't have to calculate any of this because someone already did
+http://cubic-bezier.com/#.17,.67,.83,.67 Will give us some values to use.
+
+We created a custom easing using the tool. we now have our values.
+.17,.67,.56,.06
+
+
+Task 3 - Add Custom Easing:
+So we can simply add our values into a cubic-fezier function & voila.
+    transition(':leave', [animate('500ms cubic-bezier(.17,.67,.56,.06)'), style({transform: 'translateX(-100%)'})])
+]);
+
+Take Home:
+Easings are the rate in which the transition will be applied.
+By default our accelration in linear, but we could use the out of the box Easings
+-Ease-In
+-Ease-Out
+-Ease-In-Out
+Or create our own cubic-bezier function and voila, cool animations!

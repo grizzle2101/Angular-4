@@ -16,5 +16,9 @@ export let slide =  trigger('fade', [
       animate(1000)
     ]),
     //OnLeave
-    transition(':leave', [animate(500), style({transform: 'translateX(-100%)'})])
+    //Task 1 - Delay the Transition:
+    //transition(':leave', [animate('500ms 1s'), style({transform: 'translateX(-100%)'})])
+    
+    //Task 3 - Add Custom Easing:
+    transition(':leave', [animate('500ms cubic-bezier(.17,.67,.56,.06)'), style({transform: 'translateX(-100%)'})])
 ]);
