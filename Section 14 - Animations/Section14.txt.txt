@@ -267,3 +267,27 @@ animations: [
 
 Take Home:
 When working with styles, use a state to centralize all your style for a given state.
+
+
+---Tutorial 9 - Transitions---
+So we did some nice work with the FadeIn & FadeOut transitions.
+We do have some duplication in our code again though. Transitions has additional arguments
+to accomodate multiple state changes, we can use this to make our code more simple.
+
+Task 1 - Combine 2 Transitions:
+So by adding to the parameters we can accomodate both transitions in a single line.
+transition('void => *, * => void', [ 
+
+We can improve on this again by using bidirectional syntax.
+      transition('void <=> *', [ 
+        animate(2000)
+      ])
+  ])]
+
+
+Task 2 - Using Aliases:
+So this syntax for resprenting state is very common, so common that they have alias to make
+this more human readable.
+:enter and :leave basically just keywords for entering the DOM ie void to created in DOM, and from
+DOM to deletion.
+
