@@ -291,3 +291,22 @@ this more human readable.
 :enter and :leave basically just keywords for entering the DOM ie void to created in DOM, and from
 DOM to deletion.
 
+
+---Tutorial 10 - Creating Reuseable Triggers---
+So now that we've got the Fade effect working, we're probably going to use this in other parameters
+of the application, so how do we make this reuseable?
+
+
+Task 1 - Extract Trigger to Function:
+So we just create a variable to hold the trigger function & voila, reuseable function.
+export let fade =  trigger('fade', [
+    state('void', style({opacity: 0})),
+
+    transition(':enter, :leave', [ 
+      animate(2000)
+    ])
+])
+
+Task 2 - Add Trigger into Animations:
+Then to use the Trigger we simple add it like so.
+  animations: [fade]
