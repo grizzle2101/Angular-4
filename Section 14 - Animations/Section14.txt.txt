@@ -326,3 +326,26 @@ export let slide =  trigger('fade', [
       animate(1000)
     ])
 ]);
+
+
+---Tutorial 12 - Solution---
+So just to go over some of the improvments in Moshes code.
+He created 2 slighly Different transitions, just so items being removed are quickly transitioned away.
+
+Difference 1 - Seperate Transitions:
+So just to make the user experience better, we want to quickly remove items from the List.
+Therefore we create a seperate transition, instead of using States like we did before.
+export let slide =  trigger('fade', [
+    //OnCreation
+    transition(':enter', [style({transform: 'translateX(-20px)'}), 
+      animate(1000)
+    ]),
+    //OnLeave
+    transition(':leave', [animate(500), style({transform: 'translateX(-100%)'})])
+]);
+
+
+Difference 2 - Removing the Chrome Border:
+Another small styleing issue, elements moving in Chrome are given a border.
+To remove this we simply override the style outline and voila.
+button {outline: 0}
