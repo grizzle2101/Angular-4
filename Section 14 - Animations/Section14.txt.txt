@@ -430,3 +430,55 @@ KeyFrames([style1(), style2()])
 
 TakeHome:
 KeyFrames allow us to have multiple styles for a single transition.
+
+
+---Tutorial 15 - Creating Re-useable Animations---
+So we've made some nice animations, but if we want to reuse these styles on different things, nwe need to
+make them more reuseable.
+
+The Problem:
+Because we have created entire triggers, for us to reuse the animation part we need to extract it.
+export let slide =  trigger('slide', [
+    //OnEnter
+    transition(':enter', [style({transform: 'translateX(-20px)'}), 
+    animate(1000)
+  ]),
+
+Task 1 - Extract Animation:
+So some of our animations are quite complex, our BounceOut anmation has a few keyframes and multiple styles for each
+of the keyframes in the animation. We can extract this to avoid lots of duplication.
+-Create Exportable Function
+-Notice naming convention somethingsomethingAnimation.
+-Using animation method to create a Reuseable Animation.
+-Place everything in the animate method inside the animation.
+
+export let bounceOutLeftAnimation = animation(animate('0.5s ease-out', keyframes([
+    style({
+      //Rest of Animation Code.
+
+
+Task 2 - Use Extrated Animation:
+So now if we look at the Slide Trigger, we can use useAnimation & provide the extracted animation.
+
+export let slide =  trigger('slide', [
+    //OnEnter
+    transition(':enter', [style({transform: 'translateX(-20px)'}), 
+    animate(1000)
+  ]),
+  //Task 2 - Use Extracted Animation
+  transition(':leave', useAnimation(bounceOutLeftAnimation))
+]);
+
+
+
+Task 3 - Customize Extracted Animation:
+Now we finally get the additional benefits of being able to customize and reuse the animation.
+      transition(':leave', [
+        style({backgroundColor: 'red'}),
+        animate(1000),
+        useAnimation(bounceOutLeftAnimation)
+      ])
+
+Morale of the Story:
+Extract the Animation part into the animation() function.
+We can then reuse & customize this animation in other parts of the application.l
