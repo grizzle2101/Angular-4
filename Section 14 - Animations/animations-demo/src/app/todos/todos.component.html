@@ -5,8 +5,11 @@
   (keyup.enter)="addItem(itemInput)">
 
 <div *ngIf="items" class="list-group" >
+  <!--Task 1 - Task 1 - Bind to Animation Event-->
   <button type="button"
       @todoAnimation
+      (@todoAnimation.start)="animationStarted($event)"
+      (@todoAnimation.done)="animationDone($event)"
       *ngFor="let item of items"
       (click)="removeItem(item)"
       class="list-group-item"

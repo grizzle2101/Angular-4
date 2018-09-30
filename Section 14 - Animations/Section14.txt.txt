@@ -558,3 +558,39 @@ Morale of the Story:
 -Declare a function using animation() and place all the transition code in there.
 -Use this function in various triggers to avoid duplication & cetralize the code.
 -Use AnimationOptions object to pass values into the animation, making it more customizeable.
+
+
+---Tutorial 17 - Animation Callbacks---
+So Animations have a few callback functions we can use to tell a animation has started or completed.
+So where we have the Animation Annotation, we can bind to the output property of this event then
+create some cool functionality on start or onStop.
+
+Task 1 - Bind to Animation Event:
+So where we apply the Animation in our template, we just property binding to bind to the event output property.
+ <button type="button"
+      @todoAnimation
+      (@todoAnimation.start)="animationStarted($event)"
+      (@todoAnimation.done)="animationDone($event)"
+      *ngFor="let item of items"
+Then we can create these methods in our component and do some cool shit, like making an API call to delete or add items.
+
+
+Task 2 - Create Methods in Component:
+  //Task 2 - Create Methods in Component:
+  animationStarted($event) {
+    console.log("Started: ", $event)
+  }
+
+  animationDone($event) {
+    console.log("Done: ", $event)
+  }
+
+  Task 3 - Review $Events in Console:
+  So if we look at the objects printed in the console, we can see the properties we could access.
+  Properties like:
+  fromState
+  PhaseName
+  toState
+  totalTime
+  triggerName
+  All of these are very helpful for creating more complex animations and debugging. 

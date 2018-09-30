@@ -1,5 +1,6 @@
 import { trigger, transition, style, animate, state, keyframes, animation, useAnimation} from '@angular/animations';
 
+//Animations
 export let bounceOutLeftAnimation = animation(animate('0.5s ease-out', keyframes([
     style({
         offset: .2,
@@ -13,23 +14,22 @@ export let bounceOutLeftAnimation = animation(animate('0.5s ease-out', keyframes
        })
 ])));
 
-//Task 2 - Extract FadeIn Animation
-//Task 4 - Parameterize Animations
+
 export let fadeInAnimation = animation([
     style({opacity: 0}),
     animate('{{duration}} {{easing}}')],
-    //Add AnimationOptions
     {params: {
         duration: '2s',
         easing: 'ease-out'
     }
 });
 
-//Task 3 - Extract FadeOut Animation
+
 export let fadeOutAnimation = animation([
     animate(2000, style({opacity: 0}))]);
 
-//Task 1 - Refactor Fade Effect:
+
+//Triggers
 export let fade =  trigger('fade', [
     transition(':enter', [fadeInAnimation]),
     transition(':leave', [fadeOutAnimation])

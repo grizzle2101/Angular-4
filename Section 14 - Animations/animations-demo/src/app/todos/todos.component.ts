@@ -9,7 +9,6 @@ import { trigger, transition, style, animate, useAnimation} from '@angular/anima
   styleUrls: ['./todos.component.css'],
   animations: [
     trigger('todoAnimation', [
-      //Task 5 - Use Paramerized Animations
       transition(':enter', useAnimation(fadeInAnimation, {
         params:{
           duration:'10s'
@@ -37,5 +36,13 @@ export class TodosComponent {
   removeItem(item) {
     let index = this.items.indexOf(item);
     this.items.splice(index, 1);
+  }
+  //Task 2 - Create Methods in Component:
+  animationStarted($event) {
+    console.log("Started: ", $event)
+  }
+
+  animationDone($event) {
+    console.log("Done: ", $event)
   }
 }
