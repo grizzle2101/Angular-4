@@ -594,3 +594,47 @@ Task 2 - Create Methods in Component:
   totalTime
   triggerName
   All of these are very helpful for creating more complex animations and debugging. 
+
+
+---Tutorial 18 - Querying Child Elements---
+What if we want to apply a FadeIn animation for the title. How would we add 2 Trigger Annotations in the same 
+template? Rather than creating another trigger specifically for this, what if we could add a trigger to the template
+then apply it to any child elements inside?
+
+Task 1 - Wrap Template in DIV:
+So we're gonna apply the Trigger on the entire template wrapped in this DIV.
+<div @todosAnimation>
+<h1>Todos</h1>
+
+
+How to Select a Child Element:
+We use the Query Helper function to find certain elements inside the Template Container.
+We can use CSS selectors to query elements in the Template. (should do a CSS refresher.)
+query('h1')
+.className
+#id
+
+We also have Pseudo-Selector Tokens:
+query(":enter"), query(":leave") - When an Element is Entering or Leaving the container
+query(":animating") - Mid Animation
+query(":trigger") - When Triggered.
+query("@*") - All Triggered items
+query() - Container itself
+
+
+Task 2 - Apply some Animations:
+So now we just create the Trigger like before, except we query the container for the element we wish to animate.
+animations: [
+    trigger('todosAnimation', [
+      transition(':enter', [
+        query('h1', [
+          style({transform: 'translateY(-20px)'}),
+          animate(1000)
+        ])
+      ])
+
+
+Result:
+So now we can apply an Animation on a Container, then in the Component select which child elements to work on.
+There is a bug now where the initial list elements are not fading in, only new ones are. This is a bug we will address
+in the next section.

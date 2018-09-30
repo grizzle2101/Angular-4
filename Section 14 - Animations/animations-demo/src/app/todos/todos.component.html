@@ -1,3 +1,4 @@
+<div @todosAnimation>
 <h1>Todos</h1>
 
 <input #itemInput
@@ -5,7 +6,6 @@
   (keyup.enter)="addItem(itemInput)">
 
 <div *ngIf="items" class="list-group" >
-  <!--Task 1 - Task 1 - Bind to Animation Event-->
   <button type="button"
       @todoAnimation
       (@todoAnimation.start)="animationStarted($event)"
@@ -15,3 +15,4 @@
       class="list-group-item"
       >{{ item }}</button>
 </div> 
+</div>
