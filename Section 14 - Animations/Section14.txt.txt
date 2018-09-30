@@ -395,3 +395,38 @@ By default our accelration in linear, but we could use the out of the box Easing
 -Ease-Out
 -Ease-In-Out
 Or create our own cubic-bezier function and voila, cool animations!
+
+
+---Tutorial 14 - KeyFrames---
+So we've done a pretty good job so far with the animation, but we can do better.
+We we checkout animate css, we can see their version of SlideOut left.
+https://daneden.github.io/animate.css/
+
+
+Animate CSS uses keyframes to make their transtions more attractive. Keyframes are a way to specifiy
+multiple frames or stages for an animation. We can have some slide right, before sliding left.
+
+Animate CSS Bounce Left Sample:
+@keyframes bounceOutLeft {
+  20% {
+    opacity: 1;
+    transform: translate3d(20px, 0, 0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(-2000px, 0, 0);
+  }
+}
+
+.bounceOutLeft {
+  animation-name: bounceOutLeft;
+}
+
+Task 1 - Add Key Frames to Slide Effect:
+So using Angular KeyFrames we can combine multiple styles for various stages in the animation.
+KeyFrames([style1(), style2()])
+
+
+TakeHome:
+KeyFrames allow us to have multiple styles for a single transition.

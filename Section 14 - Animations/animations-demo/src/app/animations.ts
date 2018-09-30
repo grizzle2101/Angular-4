@@ -1,4 +1,4 @@
-import { trigger, transition, style, animate, state} from '@angular/animations';
+import { trigger, transition, style, animate, state, keyframes} from '@angular/animations';
 
 
 export let fade =  trigger('fade', [
@@ -9,16 +9,27 @@ export let fade =  trigger('fade', [
     ])
 ]);
 
+//Task 1 - Add Key Frames to Slide Effect:
 
 export let slide =  trigger('fade', [
-    //OnCreation
+    //OnEnter
     transition(':enter', [style({transform: 'translateX(-20px)'}), 
-      animate(1000)
-    ]),
+    animate(1000)
+  ]),
+
     //OnLeave
-    //Task 1 - Delay the Transition:
-    //transition(':leave', [animate('500ms 1s'), style({transform: 'translateX(-100%)'})])
-    
-    //Task 3 - Add Custom Easing:
-    transition(':leave', [animate('500ms cubic-bezier(.17,.67,.56,.06)'), style({transform: 'translateX(-100%)'})])
+    transition(':leave', [style({transform: 'translateX(-20px)'}), 
+      animate(1000, keyframes([
+          style({
+              offset: .2,
+              opacity: 1,
+              transform: 'translateX(20px)'
+             }),
+             style({
+                 offset: 1,
+                 opacity: 0,
+                 transform: 'translateX(-100%)'
+             })
+      ]))
+    ]) 
 ]);
