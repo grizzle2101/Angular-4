@@ -481,4 +481,80 @@ Now we finally get the additional benefits of being able to customize and reuse 
 
 Morale of the Story:
 Extract the Animation part into the animation() function.
-We can then reuse & customize this animation in other parts of the application.l
+We can then reuse & customize this animation in other parts of the application.
+
+
+---Tutorial 16 - Parameterizing Reuseable Animations---
+The problem with our Fade effect is that we used states, and animations only work with transitions, not states.
+So we need to refactor the Fade effect.
+
+Task 1 - Refactor Fade Effect:
+So again we want to make the fade affect reuseable, but animation() only takes transitions not state.
+-Replace State with 2 transitions.
+
+export let fade =  trigger('fade', [
+    transition(':enter', [
+        style({opacity: 0}),
+        animate(2000)
+    ]),
+    transition(':leave', [ 
+        animate(2000, style({opacity: 0}))
+      ])
+]);
+
+
+Task 2 - Extract Fade Effect:
+-Remember the Animation convention, this helps us differenciate Reuseable Animations & Reuseable Triggers.
+export let fadeInAnimation = animation([
+    style({opacity: 0}),
+    animate(2000)]);
+
+
+Task 3 - Extract FadeOut Animation
+export let fadeOutAnimation = animation([
+    animate(2000, style({opacity: 0}))]);
+
+
+Result:
+Our trigger is really simple and clean now, thats some nice code.
+export let fade =  trigger('fade', [
+    transition(':enter', [fadeInAnimation]),
+    transition(':leave', [fadeOutAnimation])
+]);
+
+
+So now that we've extracted the Animations, how do we let the consumers of these animations do some customization?
+The answer is Parameterizing of course.
+
+Task 4 - Parameterize Animation:
+So the Animation method actually contains a AnimationOptions object, which is what we use to take in extra parameters.
+-Create AnimationOption object & insert default values.
+-Consumer can override these values if needs be.
+
+
+export let fadeInAnimation = animation([
+    style({opacity: 0}),
+    animate('{{duration}} {{easing}}')],
+    //Add AnimationOptions
+    {params: {
+        duration: '2s',
+        easing: 'ease-out'
+    }
+});
+
+Task 5 - Use Paramerized Animations
+So now if we take a look at the ToDo component, we can take fadeInAnimation as like, but also use the 
+Animation Options object to customize it!
+trigger('todoAnimation', [
+      transition(':enter', useAnimation(fadeInAnimation, {
+        params:{
+          duration:'10s'
+        }
+      })),
+
+
+Morale of the Story:
+-Extract Transitions from Triggers so they can be reuse elsewhere.
+-Declare a function using animation() and place all the transition code in there.
+-Use this function in various triggers to avoid duplication & cetralize the code.
+-Use AnimationOptions object to pass values into the animation, making it more customizeable.

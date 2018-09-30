@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { fade, slide, bounceOutLeftAnimation } from '../animations';
+import { fade, slide, bounceOutLeftAnimation, fadeInAnimation } from '../animations';
 import { trigger, transition, style, animate, useAnimation} from '@angular/animations';
 
 
@@ -9,11 +9,12 @@ import { trigger, transition, style, animate, useAnimation} from '@angular/anima
   styleUrls: ['./todos.component.css'],
   animations: [
     trigger('todoAnimation', [
-      transition(':enter', [
-        style({opacity: 0}),
-        animate(2000)
-      ]),
-      //Task 3 - Customize Extracted Animation:
+      //Task 5 - Use Paramerized Animations
+      transition(':enter', useAnimation(fadeInAnimation, {
+        params:{
+          duration:'10s'
+        }
+      })),
       transition(':leave', [
         style({backgroundColor: 'red'}),
         animate(1000),
