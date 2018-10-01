@@ -638,3 +638,74 @@ Result:
 So now we can apply an Animation on a Container, then in the Component select which child elements to work on.
 There is a bug now where the initial list elements are not fading in, only new ones are. This is a bug we will address
 in the next section.
+
+
+---Tutorial 19 - Animating Child Elements---
+So we saw from the previous tutorial that the ToDo animation loads just fine, but the child elements in the list
+don't seem to work anymore...
+
+The Problem:
+Because we have 2 Animations Annotations, the second trigger never gets executed.
+<div @todosAnimation>
+<h1>Todos</h1>
+
+<input #itemInput
+  class="form-control"
+  (keyup.enter)="addItem(itemInput)">
+
+<div *ngIf="items" class="list-group" >
+  <button type="button"
+      @todoAnimation
+
+
+Solution:
+For this we need to adapt our trigger to allow the child elements, we do this manually by using the 
+Query method, then allowing the child elements to animate also.
+Because our bootstrap items are buttons with the class list-group-item, we can use this CSS selector
+or any other Pseudo selectors.
+
+Task 1 - Query Pseudo Selector:
+So from the previous lectures we talked about querying elements inside a section of the template.
+using the :Trigger selector, we can select the @todoAnimation not to be confused with @todosAnimation we use on the
+DIV.
+But we use this to select our area, then use animate child which fixes our issue.
+        query('@todoAnimation', animateChild())
+
+
+Note:
+By using animateChild() we are kicking the animations off in sequence, in the next lecture we will go over
+running animations in paralell.
+
+
+---Tutorial 20 - Running Paralell Animations---
+So the problem with the current implmentation is that we are running multiple queries, and these are being ran in
+sequence. To change this behavior we need to GROUP the queries. This ensures then run in paralell.
+
+The Problem:
+query('h1', [
+          style({transform: 'translateY(-20px)'}),
+          animate(1000)
+        ]),
+        query('@todoAnimation', animateChild())
+
+
+Task 1 - Group Queries:
+So Group takes in an array of queries, and makes sure they all run togther.
+        group([
+          query('h1', [
+            style({transform: 'translateY(-20px)'}),
+            animate(1000)
+          ]),
+          query('@todoAnimation', animateChild())
+
+
+Task 2 - Group Animations Example:
+This example perhaps makes it more clear, if we want to apply multiple animations at the same time.
+Group provides that functionality, now watch it change colour and move at the same time!
+        group([
+          animate(1000, style({background: 'red'})),
+          animate(2000, style({transform: 'translateY(50px)'}))
+        ])
+
+Morale of the Story:
+Use Group([]) to run animations in paralell!
