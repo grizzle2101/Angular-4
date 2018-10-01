@@ -709,3 +709,52 @@ Group provides that functionality, now watch it change colour and move at the sa
 
 Morale of the Story:
 Use Group([]) to run animations in paralell!
+
+
+---Tutorial 21 - Staggering Animations---
+So what if we were to implment staggered animation, one kicks off after the next.
+
+Task 1 - Stagger:
+So where we make the call to animateChild, we can point to another function which contains stagger before Animating
+each item.
+ query('@todoAnimation', stagger(200, animateChild()))
+
+
+Note:
+So the only reason we are doing animateChild() is because we have created a nested trigger.
+In the real world stagger is used to call an entire trigger/transition, not just call the child elements like we have.
+So lets write some good to make sense of this.
+
+Task 2 - Staggering useAnimation:
+      query('@todoAnimation', stagger(200, useAnimation(fadeInAnimation)))
+
+
+Task 3 - Stagger Function:
+So lets write a function for animating the List Items.
+-Comment Out Trigger
+-Comment out Animation Annotations
+          query('.list-group-item', 
+          stagger(200, [
+            style({transform: 'translateX(-20px)'}),
+            animate(1000)
+          ]))
+
+
+Result:
+So now our list items slide in one after the other, pretty cool effects.
+However when we add new items the effects are not applied. This is because all our code is contained inside the
+todosAnimation onTransition :enter, so once the template comes into the DOM, all animations is done!
+Explains why new items don't get triggered...
+
+
+
+Task 4 - Final Version:
+So because we staggered everything inside the Trigger & Transition, we need to revert back to using animate child.
+Which kicks off new items animation and the leave transition so we get the best of both worlds.
+      query('@todoAnimation', stagger(200, animateChild()))
+          
+
+
+Take Home:
+If we want to implment a curtain like effect, use the stagger function & the steps to animate.
+The stagger method is designed to only be used inside a query function.
