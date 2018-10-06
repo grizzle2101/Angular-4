@@ -11,7 +11,20 @@
       }"
     ></span>
   </div>
-  <div class="zippy-body" [hidden]="!isExpanded">
+  
+  <!--Task 4 - Dynamically Allocate Trigger-->
+  <div 
+  [@expandCollapse]="isExpanded ? 'expanded' : 'collapsed'"
+  class="zippy-body">
     <ng-content></ng-content>
   </div>
 </div>
+
+<!--Task 1 - Apply Animation Trigger-->
+<!-- 
+<div 
+@expandCollapse
+class="zippy-body" [hidden]="!isExpanded">
+  <ng-content></ng-content>
+</div>
+</div-->

@@ -758,3 +758,100 @@ Which kicks off new items animation and the leave transition so we get the best 
 Take Home:
 If we want to implment a curtain like effect, use the stagger function & the steps to animate.
 The stagger method is designed to only be used inside a query function.
+
+
+---Tutorial 22 - Working with Custom States---
+So in this section we're going to bring back in the Zippy Component and animate it. When we toggle
+the zippy element, it happens immediately because we are using the Hidden property, and we just
+hide and unhide things, so lets animate this make it more user friendly.
+
+
+Task 1 - Add Animation Trigger to Zippy Body:
+<div 
+  @expandCollapse
+  class="zippy-body" [hidden]="!isExpanded">
+    <ng-content></ng-content>
+
+
+Task 2 - Implement Trigger:
+Same as before, just add a trigger in the component metadata section.
+animations: [
+    trigger('expandCollapse', [
+
+
+Note:
+An important thing to note about the Zippy Component, is that we use the Hidden Property
+to show and hide the box. So how we trigger the animations will be different, as we are not
+going from void to default state, but instead we have a custom Hidden state.
+
+
+Task 3 - Create Custom State:
+So because we are not using Void & default, we have to create our own custom states.
+-Create 2 Custom States, collapsed & expanded.
+-Animate the transition from collapsed => expanded.
+
+trigger('expandCollapse', [
+      //Task 3 - Create Custom States
+      state('collapsed', style({
+        height: 0,
+        overflow: 'hidden'
+      })),
+      state('expanded',  style({
+        height: '*', //* Means Angular with compute @ runtime.
+        overflow: 'auto'
+      })),
+      transition('collapsed => expanded', [
+        animate('300ms ease-out')
+      ])
+    ])
+
+
+
+Task 4 - Dynamically Allocate Trigger:
+So we have the IsExpanded boolean, we can change the value of our trigger depending on if its
+selected or not.
+
+  <div 
+  [@expandCollapse]="isExpanded ? 'expanded' : 'collapsed'"
+  class="zippy-body" [hidden]="!isExpanded">
+    <ng-content></ng-content>
+  </div>
+</div>
+
+
+Task 5 - Implment expanded => collapsed Transition:
+Just a simple transition for the reverse events. Note that we have to remove the hidden property,
+because the zippy is hidden before we can animate it...
+
+      transition('expanded => collapsed', [
+        animate('300ms ease-in')
+      ])
+
+Task 6 - Fix Styleing Issues:
+-It seems the text is visible when the box is collapsed, just a minor CSS bug.
+ Fix for this is to set the padding to 0
+-Also our text shifts right when loding in.
+  Because we set padding to 0, this also means the left padding is 0, and so the expanded state
+  sets it back to 20, so we get the slide effect.
+
+
+
+Task 7 - Remove Style:
+Now remember because we used  animate('300ms ease-out'), this will automatically remove
+styles applied in the other transition.
+So we don't need to explicitly change the height & padding anymore!
+      state('expanded',  style({
+        height: '*', //* Means Angular with compute @ runtime.
+        padding: '*',
+        overflow: 'auto'
+      })),
+
+
+Take Home:
+If you need to animate elements that are ALWAYS in the view(like our hidden content)
+we have to create custom states(collapsed & expanded).
+
+We can then set our trigger depending on a value in the component & voila, custom states
+& transitions between them.
+  [@expandCollapse]="isExpanded ? 'expanded' : 'collapsed'"
+  class="zippy-body">
