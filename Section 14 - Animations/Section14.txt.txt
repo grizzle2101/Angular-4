@@ -888,3 +888,40 @@ Now we can start a second transition, where the text becomes revealed.
 Note:
 Remember that a Transition will undo the styleing for another state.
 So for the tranistion from expanded => collapsed, we don't have to reset anything, just your normal ease-in animation.
+
+
+---Tutorial 24 - Seperation of Concerns---
+So we have violated a grave sin, the seperation of concerns principle. We have so much noise in our code
+for animating, that we forgot all about the components implementation!
+We need to extract this out pronto!
+
+Task 1 - Export Trigger Function:
+-Create Zippy.component.animations.ts
+-Extract Trigger fron Component to new file.
+-Import Angulate Animations
+
+import { trigger, transition, style, animate, useAnimation, query, animateChild, group, stagger, state} from '@angular/animations';
+
+export const expandCollapse = trigger('expandCollapse', [
+    state('collapsed', style({
+      height: 0,
+      paddingTop: 0,
+      paddingBottom: 0,
+      opacity: 0
+    })),
+
+
+Task 2 - Use Trigger:
+So we simply just use the expandCollapse trigger & voila we cleaned up our component metadata!
+@Component({
+  selector: 'zippy',
+  templateUrl: './zippy.component.html',
+  styleUrls: ['./zippy.component.css'],
+  animations: [expandCollapse]
+})
+
+
+Note:
+Maybe someday Angular will take the Convention over configuration approach like in Entity Framework,
+we shouldn't have to specify all this metadata, this should be setup by default, but allow users to override 
+this custom configuration as needed.
