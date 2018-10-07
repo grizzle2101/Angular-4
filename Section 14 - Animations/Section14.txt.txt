@@ -855,3 +855,36 @@ We can then set our trigger depending on a value in the component & voila, custo
 & transitions between them.
   [@expandCollapse]="isExpanded ? 'expanded' : 'collapsed'"
   class="zippy-body">
+
+
+  ---Tutorial 23 - Multi Step Animations---
+  So we did some good work in the last section, we have the ease in animation & expansion of the box.
+  But what if we want to take this to the next level, multi step animations where the box expands, then
+  the text fades in.
+
+Task 1 - Hide Text:
+So to start off, lets make sure the Text is not visible.
+        opacity: 0
+      })),
+
+Task 2 - Expand Box:
+The First Transition, we're going to make the box expand.
+      transition('collapsed => expanded', [
+        animate('300ms ease-out', style({
+          height: '*',
+          paddingTop: '*',
+          paddingBottom: '*'
+        })),
+
+Task 3 - Reveal Text:
+Now we can start a second transition, where the text becomes revealed.
+        animate('1s', style({opacity: 1}))
+      ]),
+      transition('expanded => collapsed', [
+        animate('300ms ease-in')
+      ])
+    ])
+
+Note:
+Remember that a Transition will undo the styleing for another state.
+So for the tranistion from expanded => collapsed, we don't have to reset anything, just your normal ease-in animation.
