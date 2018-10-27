@@ -1,0 +1,58 @@
+----Section 15 - Angular Material----
+---Tutorial 1 - Introduction---
+In this section we're going to take a look at Angular Material, which is a collection of components
+that give our application a modern look and feel.
+
+In this section we're going go go over:
+-Working with Various Components
+    -Form Contol
+    -Icons
+    -Diaglog Boxes
+    -Progress Spinners
+    -ToolTips
+-Use Prebuilt themes
+-Crete a Custom theme
+-Use Angular Typography
+-Create Custom Typography
+
+
+---Section 2 - What is Angular Material---
+Angular Material is a library of high-quality UI components bulit with angular & typescript.
+
+They have the benefits of being:
+-Localized
+-Clean & Simple api
+-Well-tested
+-Customizable
+-Fast(minimal overhead)
+-Well Documented
+
+The Website:
+https://material.angular.io/
+Here we can see the Components in actions, really nice well designed forms with animations out of
+the box, we can access all of this by using Angular Material.
+
+BootStrap V Angular Material:
+But Mosh, why do we need Material if we already have BootStrap? BootStrap is plain vanilla javascript,
+so it has nothing to do with Anglar, and we cannot easily use them in our angular components.
+We have to create custom directives or components to actually use the bootstrap features.
+
+However material was written from the groud up for Angular & typescript, we can simply import
+the module and begin using Angular Material. It also complies with the google design language across
+Google plus & android where as bootstrap is off on its own.
+
+Pros & Cons:
+Angular Material:
+-Still New(immature)
+-Quality Standard
+-Common api
+-Easy to use
+
+BootStrap:
+-Very Mature - Has all the features we need.
+-Forced to use 3rd party components.
+-A lot of dependencies - Because of the 3rd parties, we have forced dependencies.
+
+Take Home:
+Angular Material is the new design library for google products, very new but reduces dependencies
+on 3rd parties.
