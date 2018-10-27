@@ -121,3 +121,72 @@ To use Angular Material in your application.
 -Import BrowserAnimationsModule
 -Use Angular Material Component with the selector mat-checkbox
 -Observe the slick new checkboxes.
+
+
+---Tutorial 4 - CheckBoxes---
+So lets get started looking under the hood at Angular Material checkboxes.
+
+-Whats the difference between HTML & Material Checkbox?
+The Material checkbox actually works in the same way as the HTML version, including
+the same attributes like type, checked, value change event etc.
+
+<mat-checkbox>Subscribe to NewsLetter:</mat-checkbox>
+<input type="checkbox" checked="checked" value="" change="">
+
+-Where to find these Attributes:
+If we head over the website, we can see all the properties available in the component,
+and in this section we're gonna go over a few of the most useful ones.
+https://material.angular.io/components/checkbox/api
+
+
+Task 1 - Using the Properties:
+So now that we know about the properties lets try using it.
+<mat-checkbox 
+    value="2"
+    checked="checked"
+    >
+    Subscribe to NewsLetter:</mat-checkbox>
+
+
+Task 2 - Use Propery Binding:
+Now that we can make the box checked by default, we can take it to the next level by
+using a variable in the component to dynamically set isChecked. Say if we had a to do list,
+and we want to pre check the done items, this is how it would work.
+
+2 Way property binding:
+<mat-checkbox 
+    [value]="2"
+    [checked]="isChecked"
+    (change)="onChange($event)"
+    >
+    Subscribe to NewsLetter:</mat-checkbox>
+
+
+export class AppComponent {
+  title = 'material-demo';
+
+  //Toggle Check Box.
+  isChecked = true;
+
+  //Display Event Obj
+  onChange($event){
+    console.log("Captured: ", $event);
+  }
+
+
+Task 3 - Dynamically Hide/Show Elements:
+-Declare a template variable for use with NgIf
+<mat-checkbox
+    #showDetails
+    [value]="2"
+    [checked]="isChecked"
+    (change)="onChange($event)"
+    >Show Details:
+</mat-checkbox>
+
+-Use the Checked property to Show/Hide
+<div *ngIf="showDetails.checked">Some details...</div>
+
+Note:
+In summary, we can still use Angular Material in the same way we interact with HTML,
+except these are properties in the Components, not HTML.
