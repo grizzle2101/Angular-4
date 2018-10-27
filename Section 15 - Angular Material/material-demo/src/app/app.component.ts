@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'material-demo';
+
+  //Task 2 - Create OptionsList
+  colors = [
+    {id: 1, name: 'Red'},
+    {id: 2, name: 'Blue'},
+    {id: 3, name: 'Green'}
+  ];
+
+  //Define Default Color
+  color = 3;
 }

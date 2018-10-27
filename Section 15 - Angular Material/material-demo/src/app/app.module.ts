@@ -1,12 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 
 import  {BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { MatCheckboxModule } from '@angular/material/checkbox';
-//Task 2 - Import Radio Module
-import {MatRadioModule} from '@angular/material/radio';
+import { MatCheckboxModule, MatRadioModule, MatSelectModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,8 +15,9 @@ import { AppComponent } from './app.component';
     BrowserModule,
     BrowserAnimationsModule,
     MatCheckboxModule,
-    //Task 2 - Import Radio Module
-    MatRadioModule
+    MatRadioModule,
+    MatSelectModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,15 @@
-<!--Task 3 - Set Default Value-->
-<mat-radio-group value="2">
-    <mat-radio-button value="1">Male</mat-radio-button>
-    <mat-radio-button value="2">Female</mat-radio-button>
-</mat-radio-group>
+<!--Task 3 - Display Options in Native HTML
+<select>
+    <option 
+    *ngFor="let color of colors" [value]="color.id">{{color.name}}</option>
+</select>
+-->
+
+
+<!--Task 4 - Display Options in Angular Material-->
+<mat-form-field>
+    <!--Task 5 - Select Default Color-->
+    <mat-select [(ngModel)]="color">
+        <mat-option *ngFor="let color of colors" [value]="color.id">{{color.name}}</mat-option>
+    </mat-select>
+</mat-form-field>
