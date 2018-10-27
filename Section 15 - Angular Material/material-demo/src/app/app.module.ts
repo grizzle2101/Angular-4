@@ -1,24 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
-//Task 6 - Import Browser Animations Module
-import  {BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import  {NoopAnimationsModule } from '@angular/platform-browser/animations' //No Animations
 
-//Import CheckBox Component:
+import  {BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatCheckboxModule } from '@angular/material/checkbox';
+//Task 2 - Import Radio Module
+import {MatRadioModule} from '@angular/material/radio';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
-    //Task 6 - Add Browser Animation Module
     BrowserAnimationsModule,
-    MatCheckboxModule
-
+    MatCheckboxModule,
+    //Task 2 - Import Radio Module
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]

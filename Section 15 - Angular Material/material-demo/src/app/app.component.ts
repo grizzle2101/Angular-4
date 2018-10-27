@@ -7,12 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'material-demo';
-
-  //Toggle Check Box.
-  isChecked = true;
-
-  //Display Event Obj
-  onChange($event){
-    console.log("Captured: ", $event);
-  }
 }

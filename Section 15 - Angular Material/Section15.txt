@@ -190,3 +190,37 @@ Task 3 - Dynamically Hide/Show Elements:
 Note:
 In summary, we can still use Angular Material in the same way we interact with HTML,
 except these are properties in the Components, not HTML.
+
+
+---Tutorial 5 - RadioButtons---
+So lets checkout the RadioButton, it works much the same as the CheckBox.
+The Angular Material website has some great info on how to use their components.
+https://material.angular.io/components/radio/overview
+
+
+Task 1 - Create Radio Group:
+Simply create a Radio Group & Radio Buttons with the mat-radio syntax.
+<mat-radio-group>
+    <mat-radio-button [value]="1">Male</mat-radio-button>
+    <mat-radio-button [value]="2" [checked]="isChecked">Female</mat-radio-button>
+</mat-radio-group>
+
+Note:
+Again we get the error, mat-radio-group now a known component, gotta add them imports!
+
+Task 2 - Import the RadioButtonModules:
+import {MatRadioModule} from '@angular/material/radio';
+
+And the @NgModule > Imports Section:
+    MatRadioModule
+
+
+Task 3 - Set Default Value:
+So rather than using the propery binding syntax & isChecked, RadioGroups have a nice
+proprty for setting the default value in a radio group.
+-set value at group level.
+
+<mat-radio-group value="2">
+    <mat-radio-button value="1">Male</mat-radio-button>
+    <mat-radio-button value="2">Female</mat-radio-button>
+</mat-radio-group>

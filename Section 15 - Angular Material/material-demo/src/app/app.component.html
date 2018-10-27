@@ -1,10 +1,5 @@
-<mat-checkbox
-    #showDetails
-    [value]="2"
-    [checked]="isChecked"
-    (change)="onChange($event)"
-    >Show Details:
-</mat-checkbox>
-
-<!--Task 3 - Dynamically Hide/Show Elements-->
-<div *ngIf="showDetails.checked">Some details...</div>
+<!--Task 3 - Set Default Value-->
+<mat-radio-group value="2">
+    <mat-radio-button value="1">Male</mat-radio-button>
+    <mat-radio-button value="2">Female</mat-radio-button>
+</mat-radio-group>
