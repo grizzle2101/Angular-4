@@ -56,3 +56,68 @@ BootStrap:
 Take Home:
 Angular Material is the new design library for google products, very new but reduces dependencies
 on 3rd parties.
+
+
+---Turorial 3 - Installing Angular Material---
+So lets get this installed then, a little bit of setup required just like boostrap.
+
+Task 1 - Create Project:
+ng new material-demo
+
+Task 2 - NPM Install Material:
+cd into the material-demo directory and install.
+npm install --save @angular/material @angular/cdk @angular/animations
+
+
+Task 3 - Install Hammer:
+Hammer is a JS library for gesture, controls its optional but may as well include it to make
+your site more accessible.
+npm install --save hammerjs
+
+
+Task 4 - Select Theme:
+In the prebuilt-themes we can take a look at the various out of the box themes, lets use indigo-ping.
+Node Modules > @angular > material > prebuilt-themes
+
+
+Task 5 - Apply theme:
+The same we added the bootstrap styles, into our global style.css, we need use the prebuild-theme here.
+@import "~@angular/material/prebuilt-themes/indigo-pink.css"
+
+Task 6 - Import Browser Animtions Module:
+In the App.module.ts we need to add animation support.
+import {BrowserAnimationsModule } from '@angular/platform-browser/animations'
+
+Also make sure to add it into the imports section.
+BrowserAnimationsModule
+
+
+Task 7 - Using Angular Material:
+So just to make sure its all working correctly, lets try create a checkbox.
+<md-checkbox>Subsribe to NewsLetter: </md-checkbox>
+
+
+Error:
+md-checknox is not a an Angular component, a common error because we are using a checkbox component,
+that we have not yet added to the app.module.
+
+
+How do we know where to find these Components?
+Every Angular Material Component we wish to use, has its own instructions on where to find it.
+https://material.angular.io/components/checkbox/api
+
+The Answer is...
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
+
+To Note:
+So from the tutorial the library has changed a little, no longer is it md-checkbox but mat-checkbox.
+All of the imports & usage must use the same name.
+
+Take Home:
+To use Angular Material in your application.
+-NPM Install
+-Add to Global style
+-Import BrowserAnimationsModule
+-Use Angular Material Component with the selector mat-checkbox
+-Observe the slick new checkboxes.
