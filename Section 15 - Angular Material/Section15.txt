@@ -444,3 +444,53 @@ mat-icon {
 Take Home:
 So now we can see that using Angular Material, is much cleaner than using bootstrap
 glyphicons.
+
+
+---Tutorial 11 - Buttons---
+Lets take a look at working with Buttons.
+
+Task 1 - Import Buttons Module:
+Make sure to add the MatIcoMatButtonModulenModule & @NgModule Imports.
+import { MatButtonModule } from '@angular/material';
+
+
+Task 2 - Create Basic HTML Button:
+Really simple button, looks a bit shit though.
+<button>Button 1</button>
+
+Task 3 - Create Angular Material Button:
+Now in Angular Material there are a variety of styles
+-mat-button
+    <button mat-button>Button 2</button>
+-mat-raised-button
+    <button color="primary" mat-raised-button>Primary</button> 
+
+Personally mat-raised-button looks a lot better, as we can see the outline easily.
+Now just as with Bootstrap, when applying color there are 3 types, Accent, Primary
+& warn.
+
+Task 4 - Display Primary, Accent & Warn themed Buttons:
+-3 Options for Color: Note that these are all based on our theme.
+<button color="primary" mat-raised-button>Primary</button> 
+<button color="accent" mat-raised-button>Accent</button> 
+<button color="warn" mat-raised-button>warn</button> 
+
+
+Note:
+So what if we don't like the style used in our theme, we have 2 options.
+Create css or at the theme level, but we will go over this in a later section.
+
+Task 5 - Add Fab Button:
+Fab buttons, Floatable Action Button is a container for things like checkboxes.
+Makes Icons really standout.
+<button color="primary" mat-fab><mat-icon>check</mat-icon></button> 
+
+Note:
+In a Previous tutorial we set the icon colour to purple, so explains why it looked weird!
+mat-icon {
+    color: purple;
+}
+
+Take Home:
+-Never override style with CSS, as it will affect style for kinds of things in your app.
+-Angular Material Uses Themes, make sure to encapsulate styles inside them.
