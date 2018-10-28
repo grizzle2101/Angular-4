@@ -1,15 +1,18 @@
-<!--Task 3 - Display Options in Native HTML
-<select>
-    <option 
-    *ngFor="let color of colors" [value]="color.id">{{color.name}}</option>
-</select>
--->
-
-
-<!--Task 4 - Display Options in Angular Material-->
-<mat-form-field>
-    <!--Task 5 - Select Default Color-->
-    <mat-select [(ngModel)]="color">
-        <mat-option *ngFor="let color of colors" [value]="color.id">{{color.name}}</mat-option>
-    </mat-select>
-</mat-form-field>
+<!--Task 2 - Use Material Input:-->
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <input
+      ngModel
+      name="username"
+      matInput
+      placeholder="Username" 
+      required>
+    <mat-hint>Must be a Unique UserName</mat-hint>
+    <span matPrefix>work.</span>
+    <span matSuffix>@domain.com</span>
+    <!--Task 3 - Add Validation:-->
+    <mat-error>
+      UserName Field is Required!
+    </mat-error>
+  </mat-form-field>
+</form>

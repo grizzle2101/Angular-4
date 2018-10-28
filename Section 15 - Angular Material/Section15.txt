@@ -268,3 +268,56 @@ To use NgModel, we need to import the FormsModule.
 
 Result:
 We have a sweet looking Dropdown, much better than the stock HTML one.
+
+
+---Tutorial 7 - Input---
+So lets take a look at the Angular Material Input field, ir provides some really nice
+functionality out of the box. As always lets checkout the documentation.
+https://material.angular.io/components/input/api
+
+
+Task 1 - Import Input Module:
+Make sure to add the Import & @NgModule > Imports section also.
+import {MatInputModule} from '@angular/material/input';
+
+
+Task 2 - Use Material Input:
+Now if we look at the example on the website, everything is within a container.
+This is because there can be lots of additional functionality added to Input Fields,
+like hints, error messages etc.
+
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Username">
+    <mat-hint>Must be a Unique UserName</mat-hint>
+    <span matPrefix>work.</span>
+    <span matSuffix>@domain.com</span>
+  </mat-form-field>
+</form>
+
+
+Task 3 - Add Validation:
+So adding an area for validtion is a breeze.
+-Make UserName Required.
+-Create Error Box
+    <mat-error>
+      UserName Field is Required!
+    </mat-error>
+
+
+Task 4 - Add Form Control:
+If we remember the template driven forms section, we know we need ngModel & name so Angular
+can create a form control object. That is why we can't get our validation to work currently.
+
+<mat-form-field class="example-full-width">
+    <input
+      ngModel
+      name="username"
+      matInput
+      placeholder="Username" 
+      required>
+
+
+Morale of the Story:
+Validation works the exact same way as before, instead of using HTML markup we are using
+properties in the Angular Material components. We can still do Template or Reactive validation.

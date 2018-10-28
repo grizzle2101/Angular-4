@@ -2,10 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import  {BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatCheckboxModule, MatRadioModule, MatSelectModule } from '@angular/material';
+//Task 1 - Import Input Module
+import {MatInputModule} from '@angular/material/input';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { FormsModule } from '@angular/forms';
     MatCheckboxModule,
     MatRadioModule,
     MatSelectModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
