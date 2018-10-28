@@ -494,3 +494,72 @@ mat-icon {
 Take Home:
 -Never override style with CSS, as it will affect style for kinds of things in your app.
 -Angular Material Uses Themes, make sure to encapsulate styles inside them.
+
+
+---Tutorial 12 - Chips---
+Chips are like buttons, but are commonly used as filters.
+Where you have a set of filters or Tags like C#, Java, DevOps, clicking these Chips
+would alter the list of courses you have.
+
+Task 1 - Import Chips Module:
+As always don't forget your imports & @NgModule > Import.
+import { MatChipsModule } from '@angular/material';
+
+Task 2 - Create Categories List:
+-Create a simple list, we're going to use this later in the chips.
+export class AppComponent {
+  categories = [
+    {name: 'Beginner'},
+    {name: 'Intermediate'},
+    {name: 'Advanced'}
+  ];
+}
+
+
+Task 3 - Use Chips:
+Okay so we have to write a little bit of code to get this working.
+-Iterate over the categories with NgFor.
+-Click Event to switch the Selected State.
+-Highlight the Selected Item
+-Display the Category.name
+
+<mat-chip-list>
+  <mat-chip 
+    *ngFor="let category of categories"
+    color="accent"
+    (click)="category.selected = !category.selected"
+    [selected]="category.selected">
+    {{category.name}}
+  </mat-chip>
+</mat-chip-list>
+
+
+Task 4 - Single Selection Only:
+Okay thats some nice work, but what if the boss asks for only a single selected value?
+
+<mat-chip 
+    *ngFor="let category of categories"
+    color="accent"
+    (click)="selectCategory(category)"
+    [selected]="category.selected">
+    {{category.name}}
+  </mat-chip>
+
+
+So now what we want to do is implment the logic for unticking everything else.
+-Deselect Other Items
+-Exclude out selected item from that process.
+  selectCategory(category: any)
+  {
+    this.categories
+    .filter(c => c != category)
+    .forEach(c => c['selected'] = false);
+    category.selected = !category.selected;
+  }
+
+Note:
+When using this Lambda C has no knowledge of c.selected, have to use [] brackets
+to indiciate this comes at runtime.
+
+Take Home:
+Chips are like buttons, but are commonly used for filters.

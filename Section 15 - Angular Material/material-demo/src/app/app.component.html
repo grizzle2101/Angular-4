@@ -1,14 +1,11 @@
-<!--Task 2 - Create Basic HTML Button:-->
-<button>Button 1</button>
-
-
-<!--Task 3 - Create Angular Material Button:-->
-<button mat-button>Button 2</button> 
-
-<!--Task 4 - Display Primary, Accent & Warn themed Buttons:-->
-<button color="primary" mat-raised-button>Primary</button> 
-<button color="accent" mat-raised-button>Accent</button> 
-<button color="warn" mat-raised-button>warn</button> 
-
-<!--Task 5 - Add Fab Button:-->
-<button color="primary" mat-fab><mat-icon>check</mat-icon></button> 
+<!--Task 3 - Use Chips-->
+<mat-chip-list>
+  <!--Task 4 - Single Selection Only:-->
+  <mat-chip 
+    *ngFor="let category of categories"
+    color="accent"
+    (click)="selectCategory(category)"
+    [selected]="category.selected">
+    {{category.name}}
+  </mat-chip>
+</mat-chip-list>
