@@ -1,18 +1,12 @@
-<!--Task 2 - Use Material Input:-->
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <input
-      ngModel
-      name="username"
-      matInput
-      placeholder="Username" 
-      required>
-    <mat-hint>Must be a Unique UserName</mat-hint>
-    <span matPrefix>work.</span>
-    <span matSuffix>@domain.com</span>
-    <!--Task 3 - Add Validation:-->
-    <mat-error>
-      UserName Field is Required!
-    </mat-error>
+<!--Task 1 - Create Traditional TextArea
+<textarea rows="2"></textarea>
+-->
+
+<!--Task 2 - Create Angular Material TextArea-->
+<mat-form-field class="example-full-width">
+  <!--Task 3 - Add AutoSize-->
+    <textarea
+    matTextareaAutosize
+    matInput 
+    placeholder="Leave a comment"></textarea>
   </mat-form-field>
-</form>

@@ -321,3 +321,27 @@ can create a form control object. That is why we can't get our validation to wor
 Morale of the Story:
 Validation works the exact same way as before, instead of using HTML markup we are using
 properties in the Angular Material components. We can still do Template or Reactive validation.
+
+
+---Tutorial 8 - Text Areas---
+So carrying on from Input fields, much of the same applies for TextAreas. Lets go
+through a quick example now.
+
+Task 1 - Create Traditional TextArea:
+<textarea rows="2"></textarea>
+
+
+Task 2 - Create Angular Material TextArea:
+So to create a simple TextArea its quite easy!
+<mat-form-field class="example-full-width">
+    <textarea matInput placeholder="Leave a comment"></textarea>
+  </mat-form-field>
+
+
+Task 3 - Auto Adjust Size:
+By using the matTextareaAutosize we can configure our Text Area to autosize, which
+saves us having to do all the vanilla javascript & JQuery ourselves.
+    <textarea
+    matTextareaAutosize
+    matInput 
+    placeholder="Leave a comment"></textarea>
