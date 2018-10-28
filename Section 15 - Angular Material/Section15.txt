@@ -563,3 +563,78 @@ to indiciate this comes at runtime.
 
 Take Home:
 Chips are like buttons, but are commonly used for filters.
+
+
+---Tutorial 13 - Progress Spinners---
+In many applications you've seen the progress spinner, in this section we're going to implment it.
+
+
+Task 1 - Import Progress Spinner Module:
+As always import & @NgModule > Import.
+import { MatProgressSpinnerModule} from '@angular/material';
+
+
+Task 2 - Use Progress Spinner:
+Before we implement this its important to know there are 2 modes.
+Determinate	- Standard progress indicator, fills from 0% to 100%
+Indeterminate - Indicates that something is happening without conveying a discrete progress
+
+Code:
+This will give us a simple 20% loaded progress spinner.
+<mat-progress-spinner mode="determinate" value="20"></mat-progress-spinner>
+
+
+Task 3 - Simulate Progress:
+So we're gonna create a simple function that increments  the progress every 20ms.
+export class AppComponent {
+  progress = 0;
+  timer;
+
+  constructor() {
+    this.timer = setInterval(() =>{
+      this.progress++;
+      if(this.progress == 100) clearInterval(this.timer)
+    }, 20);
+  }
+
+Task 4 - Bind Progess Spinnger to progress in Component:
+<mat-progress-spinner mode="determinate" [value]="progress"></mat-progress-spinner>
+
+
+Task 5 - Indeterminate Progress:
+For API's we can't tell how long they're gonna take, so we use Inderterminate progress
+so it keeps spinning until it completes.
+
+<mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+
+
+Task 6 - Simulate a API Service:
+Now obviously this should all be encapsulated inside a service, but its not part of this section.
+In the real world we would be setting the course list and doing all that, but for simplicity
+we are just toggleing the isLoading flag.
+
+  isLoading = false;
+  constructor()
+  {
+    this.isLoading = true;
+    this.getCourses()
+    .subscribe(x => this.isLoading = false);
+  }
+
+  getCourses()
+  {
+    return timer(2000);
+  }
+
+
+Task 7 - Use IsLoading in Progress Spinner:
+Really simple now, we just NgIf to show & hide the component
+<mat-progress-spinner 
+*ngIf="isLoading"
+mode="indeterminate"></mat-progress-spinner>
+
+
+Take Home:
+There are 2 modes for Progress Spinnger Inderminate(will spin over & over) or determinate
+where you have a percentage from 0 to 100 of completion.
+-Use variables in the component to progress the spinner, or hide the spinner on completion.

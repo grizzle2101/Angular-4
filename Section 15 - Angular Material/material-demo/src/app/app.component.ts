@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -6,23 +8,33 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  /*Task 3 - Simulate Progress
+  progress = 0;
+  timer;
 
-  //Task 2 - Create Categories List:
-  categories = [
-    {name: 'Beginner'},
-    {name: 'Intermediate'},
-    {name: 'Advanced'}
-  ];
+  
+  constructor() {
+    this.timer = setInterval(() =>{
+      this.progress++;
+      console.log(this.progress);
+      if(this.progress == 100) clearInterval(this.timer)
+    }, 20);
+  }
+  */
 
-  selectCategory(category: any)
+  //Task 6 - Simulate a API Service:
+  //Should be part of a service but not important for this.
+  isLoading = false;
+
+  constructor()
   {
-    //Filter Selected Item from Deselection process.
-    this.categories
-    .filter(c => c != category)
-    .forEach(c => c['selected'] = false); 
-    //C has no definition of Selected, need to use [magicstrings]
+    this.isLoading = true;
+    this.getCourses()
+    .subscribe(x => this.isLoading = false);
+  }
 
-    //Finally Set our Item.
-    category.selected = !category.selected;
+  getCourses()
+  {
+    return timer(2000);
   }
 }

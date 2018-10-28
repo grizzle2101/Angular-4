@@ -1,11 +1,13 @@
-<!--Task 3 - Use Chips-->
-<mat-chip-list>
-  <!--Task 4 - Single Selection Only:-->
-  <mat-chip 
-    *ngFor="let category of categories"
-    color="accent"
-    (click)="selectCategory(category)"
-    [selected]="category.selected">
-    {{category.name}}
-  </mat-chip>
-</mat-chip-list>
+<!--Task 2 - Use Progress Spinner:
+<mat-progress-spinner mode="determinate" value="20"></mat-progress-spinner>
+-->
+<!--Task 4 - Bind Progess Spinnger to progress in Component:
+<mat-progress-spinner mode="determinate" [value]="progress"></mat-progress-spinner>
+-->
+
+<!--Task 5 - Indeterminate Progress:-->
+<!--Task 7 - Indeterminate Progress Bind to IsLoading:-->
+<mat-progress-spinner 
+*ngIf="isLoading"
+mode="indeterminate"></mat-progress-spinner>
+
