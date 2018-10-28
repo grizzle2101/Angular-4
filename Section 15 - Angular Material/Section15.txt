@@ -411,3 +411,36 @@ There are still a few bugs with the DatePicker, but it provides some nice featur
 -Focus DatePicker on select
 -Enable TouchUi version
 And it all looks better than anything we could do with stock input fields.
+
+
+---Tutorial 10 - Icons---
+In Angular Material, just like we BootStrap we have a load of beautiful icons for us to use.
+Icons for Carts, Users, Expand Collapse and a whole host of others.
+
+
+Task 1 - Add the Icon Styles:
+Add this link into the global styles.
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+
+
+Task 2 - Import in App Module:
+Make sure to add the MatIconModule & @NgModule Imports.
+import { MatIconModule } from '@angular/material';
+
+
+Task 3 - Use Icon:
+Simply use the Selector mat-icon, then name the icon you wish to use.
+<mat-icon>add_alert</mat-icon>
+
+Note:
+There are 2 ways to change the color, we can write our own CSS or use a Theme.
+We will be going over creating a theme in a later tutorial, so for now lets do CSS.
+
+Task 4 - Change Color:
+mat-icon {
+    color: purple;
+}
+
+Take Home:
+So now we can see that using Angular Material, is much cleaner than using bootstrap
+glyphicons.

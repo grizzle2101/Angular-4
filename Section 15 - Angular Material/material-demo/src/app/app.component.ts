@@ -6,15 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'material-demo';
+  minDate = new Date(2017, 1, 1);
+  maxDate = new Date(2017, 2, 2);
 
-  //Task 2 - Create OptionsList
-  colors = [
-    {id: 1, name: 'Red'},
-    {id: 2, name: 'Blue'},
-    {id: 3, name: 'Green'}
-  ];
-
-  //Define Default Color
-  color = 3;
+  
 }
