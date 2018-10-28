@@ -1,12 +1,14 @@
-<!--Task 1 - Create Traditional TextArea
-<textarea rows="2"></textarea>
--->
-
-<!--Task 2 - Create Angular Material TextArea-->
-<mat-form-field class="example-full-width">
-  <!--Task 3 - Add AutoSize-->
-    <textarea
-    matTextareaAutosize
-    matInput 
-    placeholder="Leave a comment"></textarea>
-  </mat-form-field>
+<!--Task 2 - Use Date Picker-->
+<mat-form-field>
+  <!--Task 5 - Open Calendar by Default-->
+  <input 
+    matInput
+    (focus)="birthdate.open()" 
+    [min]="minDate" 
+    [max]="maxDate" 
+    [matDatepicker]="birthdate" 
+    placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="birthdate"></mat-datepicker-toggle>
+    <!--Task 3 - Resize DatePicker:-->
+    <mat-datepicker #birthdate touchUi="true"></mat-datepicker>
+</mat-form-field>

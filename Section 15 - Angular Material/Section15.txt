@@ -345,3 +345,69 @@ saves us having to do all the vanilla javascript & JQuery ourselves.
     matTextareaAutosize
     matInput 
     placeholder="Leave a comment"></textarea>
+
+
+---Tutorial 9 - Date Pickers---
+Lets take a look at the DatePicker Component.
+
+
+Task 1 - Import DataPicker Module:
+Add the Import & @NgModule Import too.
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
+Note:
+Had to include MatDatepickerModule & MatNativeDateModule, and also providers: [MatDatepickerModule], because the new DatePicker
+is designed to have any date implmentations, hence we need to do more setup.
+
+
+Task 2 - Start Using Date Picker:
+At first this looks very different to the previous examples, but its actually quite easy.
+Lets break it down...
+-Create the Input Object = matInput
+-Create the DatePicker Object & assign to template variable = mat-datepicker
+-Bind DatePicker to Input Field = [matDatepicker]="birthdate"
+-Include datapicker toggle button = mat-datepicker-toggle (the Calendar icon)
+
+<mat-form-field>
+    <input 
+    type="text"
+    matInput //Add input
+    [matDatepicker]="birthdate" //Link Input Field to the DatePicker
+    placeholder="Enter your BirthDate">
+    <mat-datepicker-toggle matSuffix [for]="birthdate"></mat-datepicker-toggle>
+    <mat-datepicker #birthdate></mat-datepicker> //Add DatePicker to Variable
+</mat-form-field>
+
+Task 3 - Resize DatePicker:
+So the default datepicker we have won't really fit on mobiles, so lets change this.
+We just enable touchUi to true & voila full screen date picker!
+    <mat-datepicker #birthdate touchUi="true"></mat-datepicker>
+
+Task 4 - Limit Date Selection:
+So in many business applications we would want to limit the possible years a user can select.
+This is very simple with the Angular Material DatePicker.
+
+-Set a Min & Max date in our component.
+export class AppModule {
+  minDate = new Date(2017, 1, 1);
+  maxDate = new Date(2018, 1, 1);
+ }
+
+ -Use Min & Max HTML Attributes & Bind to values in Component:
+     <input 
+    type="text"
+    [min]="minDate"
+    [max]="maxDate"
+    matInput
+
+Task 5 - Open Calendar by Default:
+So if we click anywhere in the input, we want to open to DatePicker. This is done by using
+the focus property on an Input, but then focusing on birhtdate.open.
+    (focus)="birthdate.open()" 
+
+Morale of the Story:
+There are still a few bugs with the DatePicker, but it provides some nice features like
+-limit the range of dates.
+-Focus DatePicker on select
+-Enable TouchUi version
+And it all looks better than anything we could do with stock input fields.
