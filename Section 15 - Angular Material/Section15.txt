@@ -861,7 +861,22 @@ We can pass Data to our dialogs using the 2nd argument in dialog.open().
 -Open a Dialog & Use 2nd Parameter to send Data.
 this.dialog.open(EditCourseComponent, {data: {courseId: 1}})
 
+-To Recieve Data in a Dialog/Component decorate the constructor with MAT_DIALOG_DATA.
+    constructor(@Inject(MAT_DIALOG_DATA) data: any) 
+
 -To Get Data back from Dialog, use afterClosed to get Observeable, and
 subscribe to get data back when its closed.
     .afterClosed()
     .subscribe(result => console.log(result));
+
+---Tutorial 18 - Other Components---
+I've covered most of the key components that we often use in real-world applications.
+There are a few simple toy components that I chose not to cover because it would just
+waste your time. With the materials you've learned so far, you can easily figure out 
+how to work with these components.
+
+
+The only exception is data tables. This component has been going under some changes 
+and I decided not to create a video for it yet because it is very likely that we'll 
+see breaking changes here. So, I'm waiting a bit longer until this component is stable
+ and simplified. Currently, it has a messy and complex API that I'm hoping to be simplified soon.
