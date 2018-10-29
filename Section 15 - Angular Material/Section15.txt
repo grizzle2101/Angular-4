@@ -775,3 +775,93 @@ To Open a Dialog use the MatDialog Service in the Constructor.
 In the OnClick event we open the dialog, then subscribe to return event to get our data
 that way we know the user completed or cancelled the action/dialog.
 In the next lecture we're going to over this more in detail.
+
+
+---Tutorial 17 - Passing Data to Dialogs---
+So now that we know how to open & close dialogs, the next step is passing data.
+
+
+Task 1 - Pass Data from AppComponent:
+Luckily this is very easy because Open has a 2nd parameter for the data you wish to pass.
+We can send simple or complex objects as needed.
+this.dialog.open(EditCourseComponent, 
+      {data: {courseId: 1}
+    })
+
+
+Task 2 - Use Data in EditComponent Dialog:
+We simply just need to add the parameter into our constrructor then it should
+be accessible to us.
+
+export class EditCourseComponent implements OnInit {
+  constructor(data: any) {console.log(data)}
+  
+
+Task 3 - Error - Can't resolve all parameters for EditCourseComponent:
+Because we added a parameter to EditCourseComponent, Dependency Injection
+has no idea what to inject into this.
+
+In a previous section on Dependency Injection we went over the 2 ways to inject,
+using the simple CourseService or the object with provide & useClass.
+  providers: [
+  CourseService,
+  {provide: CourseService, useClass: CourseService}
+
+  Basically we are telling angular, whenever we see a Parameter of CourseService, useClass
+  CourseService. This provide value is reffered to as a Injection Token, and for us
+  to use the ANY(primitive type not a class) type we need to create our own injection token.
+
+-Create Injection Token:
+export const DIALOG_DATA = new InjectionToken('DIALOG_DATA');
+
+-Use Injection Token:
+Because we don't have a concrete class we useValue instead of useClass.
+We are essentially telling Angular, whenever it sees DIALOG_DATA, send it empty string.
+  providers: [MatDatepickerModule, 
+  {provide: DIALOG_DATA, useValue: {}}
+
+-Switch Constructor parameters
+  constructor(@Inject(DIALOG_DATA) data: any) {console.log(data);}
+
+Big old side track there, but we had to configure EditCourseComponent to be injectable,
+by creating our own injection token, adding to DI then adding to EditCourseComponent
+constructor & voila.
+
+Task 4 - Print Dialog Data:
+So now on creation of the EditCourseComponent, we should have access to the data.
+  constructor(@Inject(DIALOG_DATA) data: any) 
+  {
+    console.log("Data:", data);
+  }
+
+Result:
+Everything looks like its working, but we have empty array. We're getting the
+dependency injection value not the AppComponent values...
+
+
+Task 5 - Use Injection Token from Dialog Module:
+It was all a ruse! Creating our own Injection token was not neccessary, as Dialog module
+provides one for us! This was purely to help our understanding of what happens under
+the hood!
+-Add Material Dialog Data
+  constructor(@Inject(MAT_DIALOG_DATA) data: any)
+
+-Remove Custom Injection Token from AppModule
+   //{provide: DIALOG_DATA, useValue: {}}
+When we import the MatDialogModule, this will automatically import the depenencies.
+
+-Remove Import from App.Module
+Now that we're not using it, we really don't need to import it.
+
+
+Take Home:
+We can pass Data to our dialogs using the 2nd argument in dialog.open().
+-Instansiate MatDialog in the component from which we want to open a dialogue.
+  constructor(private dialog: MatDialog){}
+-Open a Dialog & Use 2nd Parameter to send Data.
+this.dialog.open(EditCourseComponent, {data: {courseId: 1}})
+
+-To Get Data back from Dialog, use afterClosed to get Observeable, and
+subscribe to get data back when its closed.
+    .afterClosed()
+    .subscribe(result => console.log(result));

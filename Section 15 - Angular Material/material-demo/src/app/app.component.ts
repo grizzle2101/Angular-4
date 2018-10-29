@@ -9,15 +9,20 @@ import { EditCourseComponent } from './edit-course/edit-course.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
+
 export class AppComponent {
-  //Task 4 - Use openDialog to redirect to Component:
+
   constructor(private dialog: MatDialog)
   {}
+  
   openDialog()
   {
-    //Note Return type is DialogRef(EditCourseComponent)
-    this.dialog.open(EditCourseComponent)
-    .afterClosed() //Observeable
-    .subscribe(result => console.log(result));//Get Result
+    //Task 1 - Pass Data from AppComponent:
+    this.dialog.open(EditCourseComponent, 
+      {data: {courseId: 1}
+    })
+    .afterClosed()
+    .subscribe(result => console.log(result));
   }
 }

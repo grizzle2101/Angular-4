@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { DIALOG_DATA } from '../DIALOG_DATA';
+import { MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-edit-course',
@@ -7,7 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditCourseComponent implements OnInit {
 
-  constructor() { }
+  //Task 2 - Use Data in EditComponent Dialog:
+  //-Switch Constructor parameters
+  //Task 5 - Use Injection Token from Dialog Module:
+  constructor(@Inject(MAT_DIALOG_DATA) data: any) 
+  {
+    //Task 4 - Print Dialog Data:
+    console.log("Data:", data);
+  }
 
   ngOnInit() {
   }
