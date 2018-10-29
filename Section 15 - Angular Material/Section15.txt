@@ -644,12 +644,9 @@ where you have a percentage from 0 to 100 of completion.
 ---Tutorial 14 - ToolTips---
 In this lecture we're going to go over adding ToolTips to our application.
 
-
 Task 1 - Import ToolTip Module:
 As always import the Module & @NgModule > Imports
 import { MatTooltipModule } from '@angular/material';
-
-
 
 Task 2 - Use ToolTip:
 <span matTooltip="Here is my tooltip!">Some Text</span>
@@ -660,3 +657,32 @@ blocked. Luckily Angular Material lets us totally customize it.
 
 Take Home:
 Using the ToolTip is very simple, all we have to do is use MatTooltip directive.
+
+
+---Tutorial 15 - Tabs---
+Implmenting Tabs with Bootstrap requires some complex markup, Angular Material However
+is very simple.
+
+
+Task 1 - Import Tabs Module:
+As always import the Module & @NgModule > Imports
+import { MatTabsModule } from '@angular/material';
+
+
+Task 2 - Use Tabs:
+To Create Tabs, we create a Tab Group, then tabs within that group.
+<mat-tab-group>
+  <mat-tab label="Billing">Billng Content</mat-tab>
+  <mat-tab label="Shipping">Shipping Content</mat-tab>
+</mat-tab-group>
+
+
+Task 3 - Apply Style:
+The Text appears too close to the Tab, lets fix that in the global style.
+
+.mat-tab-body-content {
+    padding-top: 20px;
+}
+
+Take Home:
+Adding Tabs with Angular Material is very simple, create a Tab Group & Tabs.
