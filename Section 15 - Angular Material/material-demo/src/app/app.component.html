@@ -1,13 +1,13 @@
-<!--Task 2 - Use Progress Spinner:
-<mat-progress-spinner mode="determinate" value="20"></mat-progress-spinner>
--->
-<!--Task 4 - Bind Progess Spinnger to progress in Component:
-<mat-progress-spinner mode="determinate" [value]="progress"></mat-progress-spinner>
--->
+<!--Task 2 - Use ToolTip-->
+<!--Task 3 - Adjust ToolTip-->
+<span 
+matTooltip="Here is my tooltip!"
+matTooltipPosition="right"
+>Some Text</span>
 
-<!--Task 5 - Indeterminate Progress:-->
-<!--Task 7 - Indeterminate Progress Bind to IsLoading:-->
-<mat-progress-spinner 
-*ngIf="isLoading"
-mode="indeterminate"></mat-progress-spinner>
 
+<button mat-raised-button
+        matTooltip="Info about the action"
+        aria-label="Button that displays a tooltip when focused or hovered over">
+  Action
+</button>

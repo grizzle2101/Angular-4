@@ -638,3 +638,25 @@ Take Home:
 There are 2 modes for Progress Spinnger Inderminate(will spin over & over) or determinate
 where you have a percentage from 0 to 100 of completion.
 -Use variables in the component to progress the spinner, or hide the spinner on completion.
+
+
+
+---Tutorial 14 - ToolTips---
+In this lecture we're going to go over adding ToolTips to our application.
+
+
+Task 1 - Import ToolTip Module:
+As always import the Module & @NgModule > Imports
+import { MatTooltipModule } from '@angular/material';
+
+
+
+Task 2 - Use ToolTip:
+<span matTooltip="Here is my tooltip!">Some Text</span>
+
+Task 3 - Adjust ToolTip:
+There is a small problem with our tooltip because we have no padding, the tooltip is partially
+blocked. Luckily Angular Material lets us totally customize it.
+
+Take Home:
+Using the ToolTip is very simple, all we have to do is use MatTooltip directive.

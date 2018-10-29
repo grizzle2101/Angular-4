@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 
 import  {BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { MatCheckboxModule, MatRadioModule, MatSelectModule, MatInputModule,MatDatepickerModule, MatNativeDateModule, MatIconModule, MatButtonModule, MatChipsModule } from '@angular/material';
-//Task 1 - Import Progress Spinner Module:
-import { MatProgressSpinnerModule} from '@angular/material';
+import { MatCheckboxModule, MatRadioModule, MatSelectModule, MatInputModule,MatDatepickerModule, MatNativeDateModule, MatIconModule, MatButtonModule, MatChipsModule, MatProgressSpinnerModule } from '@angular/material';
+//Task 1 - Import ToolTip Module:
+import { MatTooltipModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -27,7 +27,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     MatButtonModule,
     MatChipsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTooltipModule
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
