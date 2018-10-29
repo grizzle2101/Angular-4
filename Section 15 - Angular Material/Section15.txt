@@ -924,3 +924,15 @@ export class MatComponentsModule { }
 Result:
 App Module only has to Import MatComponentModule to get every import in one line.
 App Module is wayyyy cleaner, and we have cetralized all of our Imports.
+
+
+---Tutorial 20 - Themes---
+In prevoius lectures we talked about Angular Material themes. We used
+Primary, Secondary & Warn when creating various buttons, and the color of which
+is derived from our theme.
+
+Task 1 - Create our own Color theme:
+Important to use the tool & note down the number 600.
+Using this color number, we can generate a custom theme in the next tutorial.
+https://material.io/collections/color/#
+
