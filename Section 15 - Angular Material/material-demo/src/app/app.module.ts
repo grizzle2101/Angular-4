@@ -1,14 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-
 import  {BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { MatCheckboxModule, MatRadioModule, MatSelectModule, MatInputModule,MatDatepickerModule, MatNativeDateModule, MatIconModule, MatButtonModule, MatChipsModule, MatProgressSpinnerModule, MatTooltipModule, MatTabsModule } from '@angular/material';
-import { MatDialogModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditCourseComponent } from './edit-course/edit-course.component';
-//import { DIALOG_DATA } from './DIALOG_DATA';
+import { MatComponentsModule } from './mat-components/mat-components.module';
 
 @NgModule({
   declarations: [
@@ -18,29 +15,15 @@ import { EditCourseComponent } from './edit-course/edit-course.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatCheckboxModule,
-    MatRadioModule,
-    MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatIconModule,
-    MatButtonModule,
-    MatChipsModule,
-    MatProgressSpinnerModule,
-    MatTooltipModule,
-    MatTabsModule,
-    MatDialogModule
+    MatComponentsModule,
+
   ],
   entryComponents: [
     EditCourseComponent
   ],
-  //-Use Injection Token:
-  providers: [
-    //{provide: DIALOG_DATA, useValue: {}}
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

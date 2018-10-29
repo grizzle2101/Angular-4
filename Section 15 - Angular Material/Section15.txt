@@ -880,3 +880,47 @@ The only exception is data tables. This component has been going under some chan
 and I decided not to create a video for it yet because it is very likely that we'll 
 see breaking changes here. So, I'm waiting a bit longer until this component is stable
  and simplified. Currently, it has a messy and complex API that I'm hoping to be simplified soon.
+
+
+---Tutorial 19 - Creating a Reuseable Module---
+So I think now is finally the time to tackle to growing list of imports in AppModule.
+
+In Software Development we have this concept of cohesion, where we group related items
+& seperate unrelated ones. 
+
+Task 1 - Generate Module:
+So on the note of cohesion, lets group all the imports into a single module.
+Create a new module.
+
+-Generate Module:
+ng g m Mat-Components
+
+
+Task 2 - Extract Imports:
+Now all we need to do is add the Imports from App Module, into the newly created class.
+import { NgModule } from '@angular/core';
+import { MatCheckboxModule, MatRadioModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, MatIconModule, MatButtonModule, MatChipsModule, MatProgressSpinnerModule, MatTooltipModule, MatTabsModule, MatDialogModule } from '@angular/material';
+
+@NgModule({
+  exports: [
+    MatCheckboxModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatIconModule,
+    MatButtonModule,
+    MatChipsModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule,
+    MatTabsModule,
+    MatDialogModule
+  ]
+})
+export class MatComponentsModule { }
+
+
+Result:
+App Module only has to Import MatComponentModule to get every import in one line.
+App Module is wayyyy cleaner, and we have cetralized all of our Imports.
