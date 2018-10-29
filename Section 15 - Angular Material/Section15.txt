@@ -686,3 +686,92 @@ The Text appears too close to the Tab, lets fix that in the global style.
 
 Take Home:
 Adding Tabs with Angular Material is very simple, create a Tab Group & Tabs.
+
+
+---Tutorial 16 - Dialogs---
+Lets take a look at adding Diaglogs into our application.
+
+
+Task 1 - Import Diaglog Module:
+As always Import the Module & @NgModule > Imports.
+import { MatDialogModule } from '@angular/material';
+
+
+Task 2 - Create a Dialog Button:
+We want to call a method in the component, to create this new Dialog.
+<button
+  (click)="openDialog()"
+  mat-raised-button>
+  Open Dialog
+</button>
+
+
+
+Task 3 - Create Edit Coruse Component:
+So lets imagine the dialog is for editing data in a course, we need to have a component
+to editing a course, then we can display in the router outlet(SPA) or display the component
+inside a dialog.
+ng g c edit-course
+
+
+Task 4 - Use openDialog to redirect to Component:
+Now that we have a component, we need to open in a dialog.
+-Import MatDialog into AppComponent
+-Take in MatDialog into constructor & use dialog.open w EditCourseComponent.
+this will redirect to a dialog with the component we want displayed.
+
+export class AppComponent {
+  constructor(private dialog: MatDialog)
+  {
+  }
+  openDialog()
+  {
+    this.dialog.open(EditCourseComponent);
+  }
+}
+
+
+Task 5 - Fix Reference to EditCourseComponent:
+So we're getting an error "No Component Factory found". In an earlier deployment section
+we went ovet the Application Tree, and mentioned it compiles each item on this tree &
+creates a NgFactory, this error is because our EditCourseComponent is not on the
+application tree.
+
+Becasue We are adding EditComponent Dynamically into the DOM, there is no Reference
+in any of the existing components, therefore it falls over.
+
+-Solution - Register EditCourseComponent as Entry Component.
+This EntryComponents Section is for anything that is used dynamically, 
+so add EditCourseComponent here.
+
+  entryComponents: [
+    EditCourseComponent
+  ],
+
+
+Task 6 - Close Dialog Buttons:
+-Create 2 Raised Buttons for Yes & No
+-Mat-Dialog-Close Directive is used for closing Dialogs, it has an optional parameter
+for sending data to the component, like which button a user pressed.
+
+In the EditCourseComponent we're gonna create some fancy buttons.
+<button mat-raised-button mat-dialog-close="yes">Yes</button>
+<button mat-raised-button mat-dialog-close="no">No</button>
+
+
+Task 7 - Rework openDialog to take Button Data:
+Note Return type is DialogRef(EditCourseComponent), which gives us access to .afterClosed()
+method.
+AfterClosed returns an Observeable, and we all know what we can do with them...
+ openDialog()
+  {
+    this.dialog.open(EditCourseComponent)
+    .afterClosed()
+    .subscribe(result => console.log(result));
+  }
+
+Summary:
+To Open a Dialog use the MatDialog Service in the Constructor.
+In the OnClick event we open the dialog, then subscribe to return event to get our data
+that way we know the user completed or cancelled the action/dialog.
+In the next lecture we're going to over this more in detail.
