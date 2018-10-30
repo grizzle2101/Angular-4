@@ -1,0 +1,41 @@
+/* Task 1 - Create theme.scss */
+/* Task 4 - Write some CSS: 
+
+-Traditional CSS Example:
+h1{ color: blue}
+h2{ color: blue} 
+*/
+/* -Import from Another SCSS File
+@import 'another.scss';
+*/
+
+/*- SCSS Example:
+h1, h2 {color: blue}
+
+/*-Declare Variables: 
+$color : green;
+
+h1 {
+    color: $color;
+    //Other Properties for H1
+   }
+
+h2 {
+    color: $color;
+   }
+*/
+
+@mixin soft-border($border-radius) {
+    border: 1px solid #ccc;
+    border-radius: $border-radius;
+    padding: 10px;
+}
+
+.box {
+    @include soft-border(5px);
+}
+
+.modern-box {
+    @include soft-border(10px);
+    //More Properties
+}

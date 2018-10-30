@@ -936,3 +936,114 @@ Important to use the tool & note down the number 600.
 Using this color number, we can generate a custom theme in the next tutorial.
 https://material.io/collections/color/#
 
+
+
+---Tutorial 21 - SASS---
+If you've ever worked with CSS in a large application, you know it can become a nightmare to maintain.
+The CSS we use today lacks a lot of features that make life easier. That is where a CSS pre processor comes into play.
+We can write future proof CSS then convert into standard CSS for our application.
+It works in a very similar way to TypeScript, we transpile to JavaScript for compatability.
+
+
+Common CSS Preprocessors:
+Angular by default supports SASS, Sytactically Awesome Style Sheets, but they all work in much the same way.
+-LESS
+-SASS
+-STYLUS
+
+
+Task 1 - Create Theme.scss:
+Create a new file called Theme.scss, this is the new SASS CSS template.
+SCSS means Sassy CSS.
+
+
+Task 2 - Register file in angular.json:
+We need to add a reference to the SASS file here.
+            "styles": [
+              "src/styles.css",
+              "src/theme.scss"
+            ],
+
+Task 3 - Add some HTML:
+<h1>Heading One</h1>
+<h2>Heading Two</h2>
+
+
+Task 4 - Write some CSS:
+-Traditional CSS:
+Traditionally we would write lots of CSS, have lots of duplication & lots of places to make changes.
+h1{ color: blue}
+h2{ color: blue}
+
+-Centralize Styles with SCSS:
+With SCSS however we can apply the same style on many HTML classes.
+h1, h2 {color: blue}
+
+-Declare Variables:
+We can also declare variables to use across various classes, very handy for consolidation.
+a single line of code.
+
+$color : green;
+h1 {
+    color: $color;
+    //Other Properties for H1
+   }
+
+h2 {
+    color: $color;
+   }
+
+Note:
+This SCSS file is given to the SASS pre processor, which turns this into standard CSS for our browser.
+So the Ouput is still the same, but we get to work on cleaner more maintainable SCSS.
+
+
+-Import Styles:
+We also have the added benefit of importing styles from other style sheets.
+@import 'another.scss';
+
+-Mixin:
+Another powerful feature of SASS is Mixin. Mixin allows us to encapsulate a load of CSS then add in to any class
+that needs the properties. So we avoid duplication or using lots of variables.
+@mixin soft-border {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.box {
+    @include soft-border();
+}
+
+.modern-box {
+    @include soft-border();
+    //More Properties
+}
+
+
+-Passing Arguments to a Mixin:
+You've probably noticed that the include statement has brackets, we can actually pass parameters to it.
+So we can make slight variations to the mixing, maybe passing the border size.
+
+@mixin soft-border($border-radius) {
+    border: 1px solid #ccc;
+    border-radius: $border-radius;
+    padding: 10px;
+}
+
+.box {
+    @include soft-border(5px);
+}
+
+.modern-box {
+    @include soft-border(10px);
+    //More Properties
+}
+
+
+Take Home:
+There is a lot more to SASS, this is only a brief introduction. The Take home from this is
+-Benefits of SCSS & Pre processing CSS
+-Variables
+-Imports
+-Mixin's
