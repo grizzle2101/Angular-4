@@ -1,41 +1,21 @@
-/* Task 1 - Create theme.scss */
-/* Task 4 - Write some CSS: 
+/*Task 1 - Import Angular Material SASS*/
+@import " ../../../node_modules/@angular/material/theming";
 
--Traditional CSS Example:
-h1{ color: blue}
-h2{ color: blue} 
-*/
-/* -Import from Another SCSS File
-@import 'another.scss';
-*/
+/*Task 2 - Include Core Styles*/
+@include mat-core();
 
-/*- SCSS Example:
-h1, h2 {color: blue}
+/*Task 3 - Define Custom Colors:*/
+$app-primary: mat-palette($mat-blue, 600);
+$app-accent: mat-palette($mat-yellow, 700);
+$app-warn: mat-palette($mat-red);
 
-/*-Declare Variables: 
-$color : green;
 
-h1 {
-    color: $color;
-    //Other Properties for H1
-   }
+/*Task 4 - Define a Theme:*/
+/*$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);*/
 
-h2 {
-    color: $color;
-   }
-*/
+/*Task 7 - Switch to Dark Theme:*/
+$app-theme: mat-dark-theme($app-primary, $app-accent, $app-warn);
 
-@mixin soft-border($border-radius) {
-    border: 1px solid #ccc;
-    border-radius: $border-radius;
-    padding: 10px;
-}
 
-.box {
-    @include soft-border(5px);
-}
-
-.modern-box {
-    @include soft-border(10px);
-    //More Properties
-}
+/*Task 5 - Use Theme:*/
+@include angular-material-theme($app-theme);

@@ -1047,3 +1047,101 @@ There is a lot more to SASS, this is only a brief introduction. The Take home fr
 -Variables
 -Imports
 -Mixin's
+
+
+---Tutorial 22 - Creating a Custom Theme---
+Okay so lets get started building our own Angular Material Theme.
+
+-Task 1 - Import Angular Material SASS:
+So the first step is to import the default Angular Material theme.
+There is a good chance this location will change over time, so make sure to look in
+Angular > Material directory.
+
+@import "~angular/material/_theming";
+
+
+-Task 2 - Include Core Styles:
+The Angular Material Core Styles are what give us that modern look and feel, for inputs,
+dropdowns & buttons. They are all defined inside a mixin called Core Styles.
+
+@include mat-core();
+
+Note:
+If we look for mat-core in the _theming.scss file, we can see it also imports more mixins
+that are neccessary for it to function, including Typography, effects, overlays etc.
+This will just import the additional styles, and their CSS values we can work with.
+@mixin mat-core($typography-config: null) {
+  @include angular-material-typography($typography-config);
+  @include mat-ripple();
+  @include cdk-a11y();
+  @include cdk-overlay();
+  @include cdk-text-field();
+
+
+Task 3 - Define Custom Colors:
+-create variable $app-primary & assign to mat-palette function in _themeing.
+-Colors as Variables
+  Notice we use mat-blue, that is because mat-blue is a complex object with lots of
+  CSS done for us out of the box.
+-In a previous lecture, we got color values from Angular Material site.
+$app-primary: mat-palette($mat-blue, 600);
+$app-accent: mat-palette($mat-yellow, 700);
+$app-warn: mat-palette($mat-red);
+
+
+Note:
+If we look at _theming for mat-palette we can see how it works.
+Creates a map of hues to colors for a theme. This is used to define a theme palette
+in terms of the Material Design hues.
+@function mat-palette($base-palette, $default: 500, $lighter: 100, $darker: 700) {
+  $result: map_merge($base-palette, (
+
+Optional Parameters:
+After looking at the function it has Default, Lighter & Darker. This refers to
+the different shades eg Active or clicked element.
+
+
+Task 4 - Define a Theme:
+-declare a theme variable, point to mat-light-theme function & pass our colors.
+$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
+
+Note:
+mat-light-theme is a function, which takes in colors & returns a theme.
+Creates a container object for a light theme to be given to individual component theme mixins.
+@function mat-light-theme($primary, $accent, $warn: mat-palette($mat-red)) {
+  @return (
+
+
+Task 5 - Use Theme:
+Now we have generated a Mixin with our custom theme, time to use it.
+@include angular-material-theme($app-theme);
+
+
+Task 6 - Create basic HTML:
+Now lets create some buttons to see the theme in action.
+Notice when we use primary & accent, we know where those colors come from now : )
+<button color="primary" mat-raised-button>Button 1</button>
+<button color="accent" mat-raised-button>Button 2</button>
+
+
+Task 7 - Switch to Dark Theme:
+Lets check out the Dark theme!
+-Switch theme.scss to use dark theme.
+
+$app-theme: mat-dark-theme($app-primary, $app-accent, $app-warn);
+
+-Apply Background to application.
+  Index.html is where the application is bootstraped, if we add a background to the body
+  here, this means the entire application will have our new dark theme!
+
+<body class="mat-app-background">
+  <app-root></app-root>
+</body>
+
+
+Take Home:
+Import Angular Material & Core Styles to create a custom theme.
+Core is essentially a load of Mixins(classes) or API we can use to customize our site.
+Declare a Theme & pass the colors as parameters.
+Include this newly created Mixin(theme) to the theme.scss then it is useable anywhere
+in the application!
