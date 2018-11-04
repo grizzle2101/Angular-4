@@ -1145,3 +1145,47 @@ Core is essentially a load of Mixins(classes) or API we can use to customize our
 Declare a Theme & pass the colors as parameters.
 Include this newly created Mixin(theme) to the theme.scss then it is useable anywhere
 in the application!
+
+
+---Tutorial 23 - Using Angular Material Typography---
+Lets check out the Angular Typography.
+
+Task 1 - Add some HTML:
+<h1>Heading</h1>
+<p>
+    Contrary to popular belief
+</p>
+
+We can see here the generated page uses Times New Roman font,
+what if we want to change the size, font of weight?
+
+Check out the Angular Material Website for documentation.
+https://material.angular.io/guide/typography
+
+
+Task 2 - Import Font:
+Angular Material Typography uses the Roboto font.
+-Add  this Global Style.css
+@import "https://fonts.googleapis.com/css?family=Roboto:300,400,500";
+
+
+Task 3 - Apply Anguar Typography:
+We can apply the CSS classes outlines in the documentation, like mat-headline & body.
+This gives us the Angular look & feel of Roboto font.
+
+<h1 class="mat-headline">Heading</h1>
+<p class="mat-body-1">
+    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+</p>
+
+
+Task 4 - Appying Style Globally:
+Adding this onto each HTML element is going to get very tedious, this is why we do 
+it Globally.
+Just like in the previous lecture how we applied the Dark theme globally, we can add
+typography in the body container which houses the application.
+
+<body class="mat-app-background mat-typography">
+  <app-root></app-root>
+</body>
+</html>
