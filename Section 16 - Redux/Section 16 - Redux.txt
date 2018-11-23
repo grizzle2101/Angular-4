@@ -1,0 +1,8 @@
+---Section 16 - Redux---
+---Tutorial 1 - Introduction---
+In this section we're going to learn...
+-What is Redux
+-When to Use it & why?
+-How to add redux to an existing app
+-Redux DevTools
+-Best practices for large enterprise apps
