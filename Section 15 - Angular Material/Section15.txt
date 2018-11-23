@@ -1189,3 +1189,51 @@ typography in the body container which houses the application.
   <app-root></app-root>
 </body>
 </html>
+
+
+---Tutorial 24 - Customizing Typography:---
+So now that we know how to use Angular Typography, this section will be all about
+customizing it.
+
+Task 1 - Get a Suitable Font:
+Take a look at Google Font, select it then click the arrow. This will send us to a page
+with CSS import link.
+https://fonts.google.com/specimen/Open+Sans
+
+
+Task 2 - Apply Open Sans Font:
+Remove the Roboto Font import & replave with Open Sans.
+@import "https://fonts.googleapis.com/css?family=Open+Sans";
+
+
+Task 3 - Create Custom Typography:
+So creating our own typography is very similar to how it worked for creating a custom
+theme.
+
+Create a Variable, that points to a function.
+We pass an array of fonts, the additional options are incase the browser does not support
+our Open Sans, then Helvettica for macs & sans for windows.
+
+$app-typography: mat-typography-config(
+    $font-family: '"Open Sans", "Helvetica Neue", "sans-serif"'
+);
+
+For more info on mat-typography-config,
+we need to look at the _themeing.scss, which we look at it we can see it has
+several parameters for font family, display levels, headlines & titles.
+This is how we further customize the HTML, by adding values in the config.
+
+
+Task 4 - Use Typography:
+Just like for themes, we use the build in Include, then pass our typography object.
+@include angular-material-typography($app-typography);
+
+
+Task 5 - Customize Font:
+So to customize this, we can just pass more parameters like adjusting headlines
+to be bigger & bolder like so.
+    $headline: mat-typography-level(35px, 32px, 700)
+
+
+So as we can see its very easy to customize our typography. We just create a typography
+object then include it in the angular-material-typography mixin.

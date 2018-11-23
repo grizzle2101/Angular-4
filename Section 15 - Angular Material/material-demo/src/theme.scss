@@ -1,21 +1,30 @@
-/*Task 1 - Import Angular Material SASS*/
+/*Import Angular Material SASS*/
 @import " ../../../node_modules/@angular/material/theming";
 
-/*Task 2 - Include Core Styles*/
+/*Include Core Styles*/
 @include mat-core();
 
-/*Task 3 - Define Custom Colors:*/
+/*---Define Custom Theme:---*/
 $app-primary: mat-palette($mat-blue, 600);
 $app-accent: mat-palette($mat-yellow, 700);
 $app-warn: mat-palette($mat-red);
 
 
-/*Task 4 - Define a Theme:*/
+/*Define a Theme:*/
 /*$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);*/
 
-/*Task 7 - Switch to Dark Theme:*/
+/*Switch to Dark Theme:*/
 $app-theme: mat-dark-theme($app-primary, $app-accent, $app-warn);
 
-
-/*Task 5 - Use Theme:*/
+/*Use Theme:*/
 @include angular-material-theme($app-theme);
+
+/*Task 3 - Create Custom Typography:*/
+$app-typography: mat-typography-config(
+    $font-family: '"Open Sans", "Helvetica Neue", "sans-serif"',
+    /*Task 4 - Customize Typography:*/
+    $headline: mat-typography-level(35px, 32px, 700)
+);
+
+/* Task 4 - Use Typography*/
+@include angular-material-typography($app-typography);
