@@ -6,3 +6,71 @@ In this section we're going to learn...
 -How to add redux to an existing app
 -Redux DevTools
 -Best practices for large enterprise apps
+
+
+---Tutorial 2 - Redux---
+So what is Redux?
+Redux is a library that helps you manage the state of your application.
+
+What is it used for?
+It is used for Medium to Large sized Single Pages Applications with large & complex data flows.
+It can add significant overhead, which is why we only use it in large applications. 
+
+In the real world we might have several unrelated components & views that access the same
+data. Because they are unrelated we are duplicating the data across each view/component.
+Think of something like facebook, you might have a Bell Notification, messanger app
+& the newsfeed. All of which need to pass data & keep each other in sync.
+
+So to keep these unrelated components in sync, we have to do some extra work. Most often
+people write events, but this can quicly spiral out of control into event spaghetti.
+This can be a nightmare to track events in code, and leads to an unpredictable data flow and
+difficult to manage states of the application.
+This also makes developing new features hard, as we don't know the impact our change will
+have on the overall state.
+
+History:
+Facebook has this problem back in 2014, which is why they created the Flux archtecture,
+and Redux is a simpified & lightweight implmentation of flux, and provides a clean
+& elegant solution to this problem.
+
+
+Benefits:
+So as well as helping us to manage state in a more predictable way, it has more benefits.
+Lets recap some of those benefits.
+-Predictable Application state
+
+-Decoupled Architecutre:
+    Decouples application from presentation framework like Angular,
+    so you can implment a big chunk of your application & its presentation logic,
+    which also allows us to choose any presentation framework like Angular or even React.
+    Much like the repository pattern decoupling us from a specific ORM.
+
+-Testability:
+    We Implment Redux by utilizing simple functional programming, where we take
+    a state, perform an action & return a new state.
+    This is very easy to test, and means we don't have to work with complex
+    Mocks or Stubs. We can implment TDD, as we write the redux first, before implmenting
+    production code in Angular or Redux.
+
+-Great Tooling:
+    Redux Developer tools extension for Chrome or Firefox makes it very easy to debug
+    the application state in such a way you have never seen before.
+
+-Undo/Redo:
+    Redux makes it incredibly easy to implment features like Undo & Redo.
+
+Cons:
+Just like all design patterns, we're going to write more code &  have more moving parts
+in your application. So only use redux if you're going to a medium/large sized application
+with complex views & data flows.
+
+
+When to Use Redux:
+Every scenario will of course be different, but in general we have some guidelines.
+
+-Independent copies of the same data, in multiple places.
+-Multiple Views that need to work with the same data & be in sync.
+-Data can be updated by multiple Actors, eg multiple users, background actions or
+ background tasks on the server.
+
+ In the next section we're going to go over the various building blocks of Redux.
