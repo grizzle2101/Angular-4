@@ -74,3 +74,61 @@ Every scenario will of course be different, but in general we have some guidelin
  background tasks on the server.
 
  In the next section we're going to go over the various building blocks of Redux.
+
+
+---Tutorial 3 - Building Blocks of Redux---
+In Redux we have 3 pieces
+-Store
+-Actions
+-Reducers
+
+-Stores:-
+The Store is a single JavaScript Objects that contains the state of the application.
+Think of it like a local client-side database.
+
+In practice it looks like a simple object with all the data we need for our views.
+Different parts of the application use different parts of the Store, depending
+on their functionality. Similar to a singleton, only 1 store object exists
+to serve the various components.
+{
+    messages: [...],
+    newMessages: 5,
+    chatSoundsEnabled: true
+}
+
+-Actions:-
+Actions are plain JavaScript objects that represent something that has happend.
+If you have some background in CQRS style, you should know the difference between commands
+and events.
+Commands or Actions represent something that should happen like Posting a message.
+Events indicated something that HAS happend, like a message was posted.
+Actions in Redux are symantically like events, here is an example.
+
+When a user reads a message, we can represent this with an action like this.
+{type: 'MARK_AS_READ'}
+
+Another example is if a user posts a message, we can raise an event of type POST_MESSAGE
+then attach additional properties as needed.
+These are just simple objects that represent the data being transferred.
+Note "TYPE" is a convention we should follow.
+{type: 'POST_MESSAGE', body:'...' }
+
+
+Reducer:
+A function that specifies how the state changes in response to an action.
+We can think of this like an Action Handler or EventHandler, that determines
+how the state is changed.
+Note a Reducer does not modify the state, it ONLY returns a new state.
+
+Not Allowed:
+Nowhere in the application are we going to directly modify the state,
+this is responsability of the store.
+State.messages.push(...)
+
+
+Take Home:
+Stores are like a local database of the current application state. 
+Actions are really events, used to pass data or state.
+Reducers are Event Handlers that return a new state to the Store.
+These are the building blocks of Redux, which we will go into more detail in the coming
+lectures.
