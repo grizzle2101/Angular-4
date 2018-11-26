@@ -1,14 +1,16 @@
-//Task 3 - Getting Started with Redux
-//Create Store, we we go through the tutorial we will add more properties to the AppState.
-export interface IAppState {
+import {INCREMENT} from './actions'
 
+export interface IAppState {
+    counter: number;
 }
 
+//Exportable Initial State
+export const INITIAL_STATE: IAppState = {
+    counter: 0}
 
-//Our First Reducer, we will break this down into smaller more maintainable reducers as time goes on.
-//Every reducer takes in State & Action
-export function rootReducer(state, action)
-{
-    //For now lets just return state.
+export function rootReducer(state: IAppState, action): IAppState{
+    switch(action.type) {
+        case INCREMENT: return {counter: state.counter + 1};
+    }
     return state;
 }

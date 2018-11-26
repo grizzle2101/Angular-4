@@ -276,3 +276,115 @@ export class AppModule {
 Check localhost & console to make sure there are no errors.
 Should definitly expect more errors in the coming sections, as both redux & Angular
 have changed since the time of this recording.
+
+
+---Tutorial 6 - Working with Actions---
+So lets get started by creating a really simple component, that increments
+and displays the number.
+
+
+Task 1 - Create Button:
+<p>Counter: {{counter}}</p>
+<button (click)="increment()">Increment</button>
+
+
+Task 2 - Add Logic in Component:
+Now the logic for this would be veru simple, on click incrment counter.
+However in the Redux architecture, we don't mutate variables, as it is impure!
+We have to follow the redux architecture to implment this properly.
+
+export class AppComponent {
+  title = 'app works!';
+  counter = 0;
+  
+  increment() {
+    this.counter++;
+  }
+}
+
+Task 3 - Implment Function the Redux Way:
+So remember the Redux way, we dispatch an action to the store, the store knows
+the rootReducer, the rootReducer will look at the action type, then return the
+correct state to the store.
+
+-Setup NgRedux:
+So the first step in this process is importing NgRedux, creating the constructor
+to access NgRedux, and provide the Store we implmented.
+
+-Pass Action to State:
+So now we have access to Store, we can pass the Action Object
+{type: 'INCREMENT'}
+
+export class AppComponent {
+  constructor(private ngRedux: NgRedux<IAppState>){}
+  
+  increment() {
+    this.ngRedux.dispatch({type: 'INCREMENT'});
+  }
+}
+
+
+Task 4 - Adapt Reducer:
+So we said reducers check the Action Type, then return the correct state.
+To accomodate this, we just need to add a Case switch for 'INCREMENT'.
+
+-Add Types to State & Return type for better clarity.
+-Add Swtich & Case for INCREMENT action type.
+-Use a Pure Function, remember we don't modify our state, we return a new one.
+
+export function rootReducer(state: IAppState, action): IAppState{
+    switch(action.type) {
+        case 'INCREMENT': return {counter: state.counter + 1};
+    }
+    return state;
+}
+
+-Add Variables as needed, right now we need a Counter in our state.
+export interface IAppState {
+    counter: number;
+}
+
+Bug Fix:
+So because we added a value to the AppState, when we pass our initial value in App.AppModule
+we also have the pass the value here.
+
+  constructor(ngRedux: NgRedux<IAppState>){
+    ngRedux.configureStore(rootReducer, {counter: 0});
+  }
+
+
+Recap:
+So lets go over what we did so far.
+-Inject NgRedux in the contstuctor
+-Instead of modifying the state directly, we called NgRedux.dispatch and passed an Action.
+
+-Then we adapted our Reducer to Implment the 'INCREMENT' action.
+-We also added the COUNTER value to our State, we can pass it between Action & reducer.
+-Finally in App.Module we set the initial state of the Counter property.
+
+
+Task 5 - Improvements:
+So now that we understand what is done so far, lets improve on it.
+
+-Magic Strings:-
+This ActionType 'INCRMENT' we have this is 2 places, surely we can use a constant?
+This will centralize our code & catch typo errors.
+
+export const INCREMENT = 'INCREMENT';
+We can then use this in Store.ts & app.component.
+
+
+-Initial State:-
+So every time we add a property to the IAppState, we also have to add the inital state
+in app.module.
+
+In the Store.ts, we can centralize this initial state & use it in App.Module.
+export const INITIAL_STATE: IAppState = {
+    counter: 0}
+
+
+Note:
+So Now we are dispatching an Action to Store, Store is selecting a reducer which returns
+the right state to support our action type.
+But what gives our counter is not working? That is because we have not done anything
+with this new state, that is for our next lecture.
