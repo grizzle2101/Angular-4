@@ -132,3 +132,82 @@ Actions are really events, used to pass data or state.
 Reducers are Event Handlers that return a new state to the Store.
 These are the building blocks of Redux, which we will go into more detail in the coming
 lectures.
+
+
+---Tutorial 4 - Pure Functions---
+So what are pure functions? In a nutshell pure functions given the same input, give the same output
+and there are no side effects.
+-Same Input, Same output
+-No Side Effects
+
+Impure Functions:
+So there are a few types of Impure arguements, lets go through examples of each.
+
+Version 1 - Mutating Arguments:
+--------------------------------
+Lets take a function like this, we incremnt the given number. This is an example of an IMPURE function,
+as it will ALWAYS give us a different result.
+
+functions increment(input) {
+    input.count ++;
+}
+
+Version 2 - Making Backend Calls
+--------------------------------
+So in this example we take the input & pass to the backend via a service, this modifies the state
+of our application this is a clear side effect, and so is impure.
+
+function incremtn(input){
+    service.AddMessage(input)
+}
+
+Version 3 - Using an Impure Function
+--------------------------------
+This time we set counter to Math.Random, the problem with this is clear. Given the same input,
+we cannot get the same output. So if we use Random or DateTime.Now, these are IMPURE!
+
+function incremtn(input){
+    input.cunter = Math.Random()
+}
+
+
+Pure Functions:
+So taken the previous examples, lets take a look on how to refactor them into pure functions.
+
+We by returning the count as input + 1, we are no longer modifying our own arguments, so its pure!
+function increment(input) {
+    return{count: input.count + 1}
+}
+
+
+Redux Pure Functions:
+So in Redux, our reducers should be pure functions like the above example.
+A reducer will have the current state and a action, then based on the action type
+they return a new state.
+
+So often a reducer will have a switch block for each action type, then have a pure function
+to return the new state.
+
+function reducer(state, action){
+    switch(action.type){
+        case 'INCREMENT':
+            return{count: input.count + 1};
+    }
+}
+
+
+This design may seem a bit weird, especially if you are new to functional programming.
+Why do we not mutate or modify the state? why return a new one each time.
+This method has some key benefits...
+-testability (no mocks or spies)
+    We don't need any of the complex mocks or spies, just input a value and assert the output!
+-easy undo/redo
+    This pattern allows for us to easily save the previous state and undo it, handy to have!
+
+-Time Travel Debugging
+    In the earlier lecture we mentioned some really cool debugging tools, trust me
+    being able to travel back across the various states is very cool!
+
+Just remember these are advanced features, just make sure your application warrants this!
+So if it has data shared in many views, or has a complex data flow & syncing thats 
+when these benefits really come into play!
