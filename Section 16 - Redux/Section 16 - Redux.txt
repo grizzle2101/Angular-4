@@ -542,3 +542,94 @@ So many times we have mentioned to not mutate our source state. How can we enure
 Unit Tests. We can have a unit test to make sure the Source State is not changed,
 and another test that the state returned has the right values.
 Another way is to use immutable objects, which is the topic of the next section.
+
+
+---Tutorial 9 - Using Immutable Objects---
+So carrying on from the previous lecture, how can we prevent accidental mutations
+in our Reducer functions...
+Lets get going by installing immutable
+
+-npm install immutable --save
+
+Task 1 - Convert Initial State to Immutable type:
+So in the AppModule, we pass the initial state. We want to convert this to type Immuteable.
+
+export class AppModule { 
+  constructor(ngRedux: NgRedux<IAppState>){
+    ngRedux.configureStore(rootReducer, INITIAL_STATE);
+  }
+}
+
+
+-import {fromJS, Map} from 'immutable';
+-Use fromJS to cast type as Immutable
+-Instead of a NgRedux of type IAppState, we use Map<string, any>
+Map takes a key value pair, our properties are strings, and the values can be anything.
+
+export class AppModule { 
+  constructor(ngRedux: NgRedux<Map<string, any>>){
+    ngRedux.configureStore(rootReducer, fromJS(INITIAL_STATE));
+  }
+}
+
+Note:
+We have fromJS & Map functions for converting out objects to IMMUTABLE, However
+Map does not work with complex nested objects, where fromJS does.
+So fromJS is the better option in my opinion.
+
+
+
+ Task 2 - Refactor RootReducer for Immuteable Type:
+-Change Incoming State & Return Type to Immuteable
+-We cannot use tassign anymore, as we are working with immuteable objects now.
+-By the end of this section, we will know the pros & cons of both immuteable objects &
+tassign.
+-Note we are now using state.get & set, this is how we work with the properties in
+immuteable objects.
+
+export function rootReducer(state: Map<string, any>, action):  Map<string, any>{
+    switch(action.type) {
+        case INCREMENT: 
+            return state.set('counter', state.get('counter') + 1);
+    }
+    return state;
+}
+
+Task 3 - Refactor App Component for Immuteable Objects:
+So now the component doesn't work anymore, this is because our state is immuteable,
+and we are not working with immutable objects here.
+
+-constructor Inject NgRedux<Map<string, any>> this is our immuteable version.
+-Selecing properties with @select('counter') no longer works, we need to use
+the get & set properties.
+
+-As of the time of recording, the only way to work with immuteable objects & select from
+ng2-redux is through arrow functions.
+
+
+export class AppComponent {
+  title = 'app works!';
+  @select(s => s.get('counter')) count;
+
+  constructor(private ngRedux: NgRedux<Map<string, any>>){}
+
+
+Drawbacks:
+So with immuteable object we can some things, and lose some others.
+
+-Verbose Code:
+ngRedux: NgRedux<Map<string, any>>
+Having to use this makes our code cryptic, where we just had IAppState we now have this mess.
+State gives a better desciption of what the object is & does.
+
+-IAppState Parameters now useless:
+The whole point of creating IAppState, is so we can carefully control what data
+is passed. Now with immuteable objects we can just set new properties no problem.
+
+            case INCREMENT:
+                state.set('newProperty', true)
+                return state.set('counter', state.get('counter') + 1);
+
+-Personel Prefference:
+If you would rather have the data immuteable, aka not changeable go with that.
+But tassign is a cleaner way to combine state & provide type safety.

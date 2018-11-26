@@ -1,22 +1,18 @@
 import {tassign} from 'tassign';
 import {INCREMENT} from './actions'
+import {Map} from 'immutable';
 
 export interface IAppState {
     counter: number;}
 
-//Exportable Initial State
 export const INITIAL_STATE: IAppState = {
     counter: 0}
 
-export function rootReducer(state: IAppState, action): IAppState{
-    switch(action.type) {
-        case INCREMENT: 
-        //return {counter: state.counter + 1};
-        //Method 1  - Object Assign:
-        //return Object.assign({}, state, {counter: state.counter + 1});
-        
-        //Method 2 - Tassign:
-        return tassign(state, {counter: state.counter + 1})
+    //Task 2 - Refactor RootReducer for Immuteable Type:
+    export function rootReducer(state: Map<string, any>, action):  Map<string, any>{
+        switch(action.type) {
+            case INCREMENT:
+                return state.set('counter', state.get('counter') + 1);
+        }
+        return state;
     }
-    return state;
-}
