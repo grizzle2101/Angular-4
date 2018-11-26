@@ -388,3 +388,101 @@ So Now we are dispatching an Action to Store, Store is selecting a reducer which
 the right state to support our action type.
 But what gives our counter is not working? That is because we have not done anything
 with this new state, that is for our next lecture.
+
+
+---Tutorial 7 - The Select Pattern:---
+So now lets get going with reading the state.
+
+
+Task 1 - Checkout NgRedux:
+So if we look at NgRedux, we can subscribe to it, so its of type Observeable.
+Lets log the state and see what happens.
+
+  constructor(private ngRedux: NgRedux<IAppState>){
+    ngRedux.subscribe(() => {
+      console.log(ngRedux.getState());
+    });
+  }
+
+Result:
+After each click on Increment, we can see the State Object has counter & increments.
+So this is exactly the behavior we expect.
+
+
+Task 2 - Pass the State to View:
+So now we know the state works, we have 2 ways to display this in our view.
+We can store the value like so, and it works. However there are a few problems.
+-LifeCycle hooks, we have to manage OnDesstory, else get memory leaks.
+-Code Bloat, selecting items from the State.
+
+  constructor(private ngRedux: NgRedux<IAppState>){
+    ngRedux.subscribe(() => {
+      var store = ngRedux.getState();
+      this.counter = store.counter;
+    });
+  }
+
+
+Task 3 - Use Select Module: (Aka Simple String select)
+So with the problems raised from Task 2, the select Module should make our life easier.
+So Select is a decorator or annotation, that selects a value from the state, and assigns it.
+Expect this also handles the unsubscribe, and with much less bloat.
+-import Select from Ng2-redux
+-apply @select() annotation
+
+export class AppComponent {
+  title = 'app works!';
+  @select('counter') count;
+
+
+
+Task 4 - Working with Complex Objects:
+Okay so that works fine with a simple object type, what about complex/nested types.
+
+-Begin by adding Complex Object to state.
+export interface IAppState {
+    counter: number;
+    messaging?: { //Messaging is Optional to avoid breaking everyting else.
+        newMessages: number;
+    }
+}
+
+//Exportable Initial State
+export const INITIAL_STATE: IAppState = {
+    counter: 0,
+    messaging: {
+        newMessages: 0
+    }
+}
+
+
+Task 5 - Access a Complex Object:
+Instead of a string we use am Array to provide a path to the target property.
+So we have the messaging Object & new message inside.
+
+-Select with Array
+  @select(['messaging', 'newMessages']) newMessages;
+
+-Select with Lambda Expression:
+We can use an arrow function, IAppState properties & voila newMessages.
+  @select((s: IAppState) => s.messaging.newMessages) myMessages;
+
+
+
+Take Home:
+In the previous lecture we passed an Action using ngRedux.dispatch, passing an initial state
+& an ActionType. The Store recieves this and passed to reduced, which in turn
+has a case switch for the ActionType INCREMENT, and returns a new incremented state.
+
+In this section we are looking at ways to get the data from the State into the view.
+We can subscribe to the ngRedux observeable, but that leads to bloat.
+A better way is to use Select from ngRedux. This lets us apply annotations for
+
+-Simple String Select:
+@select('simpleStateProperty eg counter')
+
+-Select w Array to Path:
+@select(['complexObject', 'myProperty'])
+
+-Select w Lambda:
+@select((s: IAppStore) => s.complexObject.myProperty)

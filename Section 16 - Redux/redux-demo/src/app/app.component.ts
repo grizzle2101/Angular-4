@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-//Import Redux Type
-import {NgRedux} from 'ng2-redux';
+import {NgRedux, select} from 'ng2-redux';
 import { IAppState } from './store';
-//Extract Action Magic Strings
 import {INCREMENT} from './actions'
 
 @Component({
@@ -12,7 +10,10 @@ import {INCREMENT} from './actions'
 })
 export class AppComponent {
   title = 'app works!';
-  counter = 0;
+  @select('counter') count;
+  //Task 5 - Access a Complex Object:
+  //@select(['messaging', 'newMessages']) newMessages;
+  //@select((s: IAppState) => s.messaging.newMessages) myMessages;
 
   //Add Redux
   constructor(private ngRedux: NgRedux<IAppState>){}
