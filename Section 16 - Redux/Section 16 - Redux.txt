@@ -211,3 +211,68 @@ This method has some key benefits...
 Just remember these are advanced features, just make sure your application warrants this!
 So if it has data shared in many views, or has a complex data flow & syncing thats 
 when these benefits really come into play!
+
+
+---Tutorial 5 - Installing Redux---
+So lets get going with Installing Redux in our application.
+There are many implmentations of Redux but the 2 most common are
+-ngrx/store
+-ng2-redux
+
+The difference being ngrx is the official version, but was just rewritten so is 
+not entirely compatible with other libraries. This is why we are going with ng2.
+
+Task 1 - Setup Project:
+-npm install angular-cli -g
+-mkdir redux-demo
+-cd redux-demo
+-ng init
+
+-Make sure the version of Angular in package.json is like so.
+    "@angular/common": "^2.3.1",
+
+
+Task 2 - Install Redux:
+-npm install redux ng2-redux --save
+-ng serve to make sure this all works!
+
+
+Task 3 Getting Started with Redux:
+-Create a file store.ts
+-Create our first Store called App State, we will add more properties to this store
+as time goes on.
+
+export interface IAppState {
+
+}
+
+-Create our first reducer
+Remember every reducer takes in a State & Action, then contains case switch statements
+for each action type, then returns the correct state. For now though, return state.
+
+export function rootReducer(state, action)
+{
+    return state;
+}
+
+Task 4 - Setup & Imports:
+So now that we have the basics in place, lets get Redux setup.
+
+-Import Redux, and our implmentation of State & Reducers.
+import {NgRedux, NgReduxModule} from 'ng2-redux';
+import {IAppState, rootReducer} from './store'
+
+
+-Bootstrap AppModule
+Using the constructor we can take in an NgRedux object with the AppState we created.
+Then call .configureStore & pass the reducer and a empty object as a place holder for
+the initial store.
+
+export class AppModule { 
+  constructor(ngRedux: NgRedux<IAppState>){
+    ngRedux.configureStore(rootReducer, {});
+  }
+
+Check localhost & console to make sure there are no errors.
+Should definitly expect more errors in the coming sections, as both redux & Angular
+have changed since the time of this recording.
