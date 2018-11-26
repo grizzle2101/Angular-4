@@ -11,11 +11,7 @@ import {INCREMENT} from './actions'
 export class AppComponent {
   title = 'app works!';
   @select('counter') count;
-  //Task 5 - Access a Complex Object:
-  //@select(['messaging', 'newMessages']) newMessages;
-  //@select((s: IAppState) => s.messaging.newMessages) myMessages;
 
-  //Add Redux
   constructor(private ngRedux: NgRedux<IAppState>){}
 
   increment() {

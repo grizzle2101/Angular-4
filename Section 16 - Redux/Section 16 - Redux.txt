@@ -486,3 +486,59 @@ A better way is to use Select from ngRedux. This lets us apply annotations for
 
 -Select w Lambda:
 @select((s: IAppStore) => s.complexObject.myProperty)
+
+
+---Tutorial 8 - Avoiding Object Mutations---
+So in this section we're going to go over a few ways for avoiding object mutations.
+
+Given the Reducer we have now, if we want to work with lots of properties, this
+can quickly bloat our code, if we had something like AutoMapper for C#,
+it can figure out properties & bind them accordingly.
+
+export function rootReducer(state: IAppState, action): IAppState{
+    switch(action.type) {
+        case INCREMENT: return {counter: state.counter + 1};
+    }
+    return state;
+
+
+Method 1  - Object Assign:
+So the first method for doing this is Object.assign. This will combine multiple objects.
+Object.assign takes 3 parameters, the object to be returned, source object
+& finally the object we want to combine.
+As long as the names in the state object & reducer state match, it will be mutated
+and returned as a single new object.
+
+    switch(action.type) {
+        case INCREMENT: 
+        return Object.assign({}, state, {counter: state.counter + 1});
+    }
+
+Note:
+Object.assign copies the source State, so we do not mutate it.
+
+The Problem:
+A problem with this design is that is allows us to deviate from our Store Structure.
+So even though State does not have a message property, object.assign will allow this.
+ state, {counter: state.counter + 1, message: {newMessage: 1}});
+
+
+ Method 2 - Tassign:
+ So someone has actually created a typesafe version of Object.assign, this is a better
+ way of mutating our state objects.
+ -npm install tassign --save
+-import & use tassign
+
+Now if we attempt to add properties to state that dont exist in IAppState, we
+get intellisense warnings, very nice! Typesafety for the win.
+We also have the added bonus of only 2 parameters, why create an empty object? surely
+that is not neccessary.
+
+ return tassign(state, {counter: state.counter + 1, message: {}})
+
+
+Never Mutate Source State Object:
+So many times we have mentioned to not mutate our source state. How can we enure this?
+Unit Tests. We can have a unit test to make sure the Source State is not changed,
+and another test that the state returned has the right values.
+Another way is to use immutable objects, which is the topic of the next section.
