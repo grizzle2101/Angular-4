@@ -633,3 +633,40 @@ is passed. Now with immuteable objects we can just set new properties no problem
 -Personel Prefference:
 If you would rather have the data immuteable, aka not changeable go with that.
 But tassign is a cleaner way to combine state & provide type safety.
+
+
+---Tutorial 10 - Excercise---
+So time to use what we learned, we have been given a Todo list application, we need
+to add redux to it.
+
+
+Task 1 - Correctly Install Redux: - Works
+-npm install ng2-redux
+-add imports to Modules & components, dependency inection for redux.
+
+
+Task 2 - Setup Basics: - Works
+-Create IAppState, rootReducer & initial state
+-Using Tassign or Immuteable Objects (Tassign) 
+
+
+Task 3 - Add Items: - Works
+Get Add Item working.
+-State is just a list of items, we dispatch & pass todo item, return new state with added item.
+-Get State back & display.
+
+
+Task 4 - Remove Items:
+Once we have addition working, the process is simple.
+-Create an Action ngredux.dispatch REMOVE_ITEM
+-Create a Reducer return tassign(state, {todos: state.todos.filter(item => item.id !== action.todo.id)})
+-Test & make sure it works
+-Rinse & repeat for DeleteAll.
+
+
+Notes:
+The approach I took was to refactor the existing ToDo Service, this looked like the path
+of least resistance.
+However after reviewing Mosh's solution, he implments redux in the components directly,
+not sure if redux in the service layer is a thing? But hey it works, and I understand
+the point of redux.
