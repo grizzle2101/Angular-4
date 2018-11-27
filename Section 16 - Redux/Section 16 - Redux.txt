@@ -716,3 +716,83 @@ There are some really cool featues of this tool:
 -Chart - An Object Model of our application state, has a play bar we can use to see
 how the state evolved.
 -Save State as Json - Can save the state & pass to colleague.
+
+
+---Tutorial 12 - Calling APIs---
+So far in this section, we haven't really talked about what happens on the server.
+After doing some research you might come across Action Creators for persisting the state
+on a server, but this is something we are not going to cover.
+
+Action Creators are a bit of an anti pattern, so instead we're going to show real
+backend persistence.
+
+APIs Non Redux:
+So in the earlier tutorial we would create a service that takes in HTTP service, then
+we have CRUD API calls that return data which we subscribe to. Something like...
+
+Non Redux Way:
+ngOnInit(){
+    this.service.getTodos().subscribe(todos => {
+        this.todos = todos.json();
+    })
+}
+
+Redux Way:
+ngOnInit(){
+    //Loading State
+    this.ngRedux.dispatch({type: 'FETCH_TODOS_REQUEST'});
+
+    //Get Data & Dispatch Action to Update State.
+    this.service.getTodos().subscribe(todos => {
+        this.ngRedux.dispatch({type: 'FETCH_TODOS_SUCCESS'}, todos.json);
+    }),
+    //Error Handling
+    err => {
+        this.ngRedux.dispatch({type: 'FETCH_TODOS_ERROR'});
+    }
+}
+
+Example Reducer:
+        case "FETCH_TODOS_REQUEST":
+            return tassign(state, {isFetching: true});
+
+        case "FETCH_TODOS_SUCCESS":
+            return tassign(state, {todos: state.todos.concat(todos.json)});
+
+        //Is Error, or Enum of Possible Errors.
+        case "FETCH_TODOS_ERROR":
+            return tassign(state, {isError: true});
+
+
+So the this example of Redux is perfectly fine, as long as the data is only in use
+in that component. What if the data is shared in serveral places?
+Very similar to my solution for Mosh excercise, we can put the Action calls into
+the service.
+
+Redux in a Service:
+Note we should change the name from getTodos to loadTodos, because we not getting anything.
+We are making the API call and dispatching the action, the state will update itself.
+
+loadTodos(){
+    this.http.get(this.url).subscribe(todos => {
+        this.ngRedux.dispatch({type: 'FETCH_TODOS_SUCCESS'}, todos.json);
+    }, err => {});
+}
+
+
+Usage:
+Now we just call the Initialization of out component, we call the service
+let it do all the heavy lifting.
+
+ngOnInit() {
+    this.service.loadTodos();
+}
+
+
+Take Home:
+We use Redux to maintain the CLIENT STATE. So in general the API stuff works the same way,
+but we don't manage the data internally, we pass it to the Action & let it update state.
+Just make sure pay attention for optimisic v pessimistic updating, eg make the API
+request before updating the state.
+Action Creator pattern is an anti pattern that brings extra bloat to our code, for 
+not that much gain.
