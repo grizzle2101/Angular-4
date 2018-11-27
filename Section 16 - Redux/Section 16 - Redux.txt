@@ -670,3 +670,49 @@ of least resistance.
 However after reviewing Mosh's solution, he implments redux in the components directly,
 not sure if redux in the service layer is a thing? But hey it works, and I understand
 the point of redux.
+
+
+
+---Tutorial 11 - Redux DevTools---
+Head over the the chrome store & download Redux DevtTools
+https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en
+
+
+Task 1 - Import DevTools:
+Add this into app.module
+import {NgRedux, NgReduxModule, DevToolsExtension} from 'ng2-redux';
+
+
+Task 2 - Pass to Configure Store:
+So Configure store has a few extra parameters we haven't used yet.
+-Argument 3 - MiddleWare of Extension Point eg Logging.
+-Argument 4 - Array of Enhancers eg DevTools
+  constructor( 
+    ngRedux: NgRedux<IAppState>,
+    devTools: DevToolsExtension){
+    ngRedux.configureStore(rootReducer, INITIAL_STATE, [], [devTools.enhancer()]);
+  }
+
+
+Task 3 - Enable in DevMode:
+So this process is going to be quite expensive, we only want to run this when needed.
+
+-Import DevMode
+import { NgModule, isDevMode } from '@angular/core';
+
+-Check isDevMode:
+var enhancers = isDevMode() ? [devTools.enhancer()] : [];
+ngRedux.configureStore(rootReducer, INITIAL_STATE, [], enhancers);
+
+
+Result:
+So once we perform a few state changes, then click on DevTools we can see some really
+advanced tools. For a start we can see the data in our current application state,
+scroll through a list of performed actions & undo them.
+
+There are some really cool featues of this tool:
+-View Current State & Data
+-Time Travel through the various actions & states.
+-Chart - An Object Model of our application state, has a play bar we can use to see
+how the state evolved.
+-Save State as Json - Can save the state & pass to colleague.
