@@ -796,3 +796,98 @@ Just make sure pay attention for optimisic v pessimistic updating, eg make the A
 request before updating the state.
 Action Creator pattern is an anti pattern that brings extra bloat to our code, for 
 not that much gain.
+
+
+---Tutorial 13 - Refactoring Fat Case Statements---
+So if we take a look at the root reducer we can see the case blocks are getting quite
+bulky, we should be able to see all the cases in a single page.
+So lets extract these case functions and tidy this up.
+
+Task 1 - Extract Case to Internal Methods:
+function addTodo(state, action){
+  var newTodo = { id: state.todos.length + 1, title: action.title };
+  return tassign(state, {
+    todos: state.todos.concat(newTodo),
+    lastUpdate: new Date()
+  });
+}
+
+function toggleTodo(state, action) {
+  var todo = state.todos.find(t => t.id === action.id);
+  var index = state.todos.indexOf(todo);
+
+  return tassign(state, {
+    todos: [
+      ...state.todos.slice(0, index),
+
+      tassign(todo, { isCompleted: !todo.isCompleted }),
+      ...state.todos.slice(index + 1),
+    ],
+    lastUpdate: new Date()
+  });
+}
+
+function removeTodo(state, action) {
+  return tassign(state, {
+    todos: state.todos.filter(t => t.id !== action.id),
+    lastUpdate: new Date()
+  });
+}
+
+function clearTodos(state, action) {
+  return tassign(state, {
+    todos: [],
+    lastUpdate: new Date()
+  });
+}
+
+
+Result:
+Now look at our root reducers, so much cleaner!
+
+export function rootReducer(state: IAppState, action): IAppState {
+  switch (action.type) {
+    case ADD_TODO: return addTodo(state, action);
+    case TOGGLE_TODO: return toggleTodo(state, action);
+    case REMOVE_TODO: return removeTodo(state, action);
+    case CLEAR_TODOS: return clearTodos(state, action);
+  }
+  return state; 
+}
+
+
+Task 2 - Extract to Class:
+The reducer looks nice and all, but all the repetition passing state & action, what
+if we took that in through a class constructor, would only do it once then...
+
+
+Simple class with a constructor, declare state & action private so they can be used
+in class functions.
+-Add method, remove state & action, and use this.state & this.action.
+class TodoActions {
+  constructor(private state, private action){}
+
+  addTodo(){
+    var newTodo = { id: this.state.todos.length + 1, title: this.action.title };
+    return tassign(this.state, {
+      todos: this.state.todos.concat(newTodo),
+      lastUpdate: new Date()
+    });
+  }
+
+Usage:
+Just create the Actions Object, pass the state & action once and voila much 
+cleaner case statements.
+
+export function rootReducer(state: IAppState, action): IAppState {
+  var actions = new TodoActions(state, action);
+  actions.addTodo();
+
+  switch (action.type) {
+    case ADD_TODO: return actions.addTodo();
+    case TOGGLE_TODO: return actions.toggleTodo();
+    case REMOVE_TODO: return actions.removeTodo();
+    case CLEAR_TODOS: return actions.clearTodos();
+  }
+  return state; 
+}
