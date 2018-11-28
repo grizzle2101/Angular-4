@@ -891,3 +891,177 @@ export function rootReducer(state: IAppState, action): IAppState {
   }
   return state; 
 }
+
+
+---Tutorial 14 - Dealing with Complex Domains---
+So as our application grows, its likely our rootReducer & swtich/case blocks will too.
+This is often a sign that you need to refactor to smaller more manageable sections.
+
+So in Store.ts we have the State object, the initial state & a reducer. For each module we create
+we want to replicate this setup.
+In our current rootReducer we have a mismatch of cases, 4 are for todo and 2 are for messageing, 
+so lets break these out.
+
+
+Task 1 - Extract State, Initial State & refactor:
+In the Tasking folder
+-Create Actions.ts
+-Create Store.ts
+-Copy over State & Initital State
+-Rename/Refactor to ITasking.
+-Remove newMessages property, dont need it.
+
+export interface ITaskingState {
+  todos: any[];
+  lastUpdate: Date; 
+}
+
+//Initial State
+export const TASKING_INITIAL_STATE: ITaskingState = { 
+  todos: [],
+  lastUpdate: null
+}
+
+
+Task 2 - Export Actions:
+The constants used as Actions names can be extracted in actions.ts under the tasking module.
+export const ADD_TODO = 'ADD_TODO'; 
+export const TOGGLE_TODO = 'TOGGLE_TODO'; 
+export const REMOVE_TODO = 'REMOVE_TODO'; 
+export const CLEAR_TODOS = 'CLEAR_TODOS'; 
+
+
+Task 3 - Export Reducer & Helper Functions:
+Can just copy & paste over the helper functions, no refactoring needed here.
+
+function addTodo(state, action) {
+    var newTodo = { id: state.todos.length + 1, title: action.title };
+  
+    return tassign(state, {
+      todos: state.todos.concat(newTodo),
+      lastUpdate: new Date()
+    });
+  }
+  
+  function toggleTodo(state, action) {
+    var todo = state.todos.find(t => t.id === action.id);
+  
+    // Now, we need to find the position of this item in the array. 
+    var index = state.todos.indexOf(todo);
+  
+    return tassign(state, {
+      todos: [
+        ...state.todos.slice(0, index),
+        tassign(todo, { isCompleted: !todo.isCompleted }),
+        ...state.todos.slice(index + 1),
+      ],
+      lastUpdate: new Date()
+    });
+  }
+  
+  function removeTodo(state, action) {
+    return tassign(state, {
+      todos: state.todos.filter(t => t.id !== action.id),
+      lastUpdate: new Date()
+    });
+  }
+  
+  function clearTodos(state, action) {
+    return tassign(state, {
+      todos: [],
+      lastUpdate: new Date()
+    });
+  }
+
+New Reducer Function:
+-Only Actions to do with Tasking has been kept.
+-rename to taskingReducer
+-Refactor to use new Tasking State & voila.
+export function taskingReducer(state: ITaskingState, action): ITaskingState {
+    switch (action.type) {
+      case ADD_TODO: return addTodo(state, action);
+      case TOGGLE_TODO: return toggleTodo(state, action);
+      case REMOVE_TODO: return removeTodo(state, action);
+      case CLEAR_TODOS: return clearTodos(state, action);
+    }
+    return state; 
+  }
+
+
+Task 4 - Fix Broken Imports:
+Because we have moved the Actions around, we need to fix the import statements for
+the various components.
+
+
+Task 5 - Clean up Original store.ts:
+So now we've extracted what we can from store, we need to integrate ITasking & IAppState.
+We can remove the properties todos & last updated, because we've extracted these to
+ITasking, then just put ITaskingState & TASKING_INITIAL_STATE & we're golden.
+
+export interface IAppState {
+  tasking: ITaskingState;
+  newMessages: number;
+}
+
+//Initial State
+export const INITIAL_STATE: IAppState = { 
+  tasking: TASKING_INITIAL_STATE,
+  newMessages: 0
+}
+
+
+Task 6 - Do the Same refactoring for Messaging:
+-Create Store & Actions
+-Extract States & Initial State
+-Extract Actions
+-Extract Reducer & Helper Methods
+-Integrate IMessaging with IAppState
+
+
+Task 7 - Combine Reducers:
+Now the real benefits come into play, rather than a huge single complex state & reducers, we have an
+object made up of many logical sections.
+export interface IAppState {
+  tasking: ITaskingState;
+  messaging: IMessagingState;
+}
+
+//Initial State
+export const INITIAL_STATE: IAppState = { 
+  tasking: TASKING_INITIAL_STATE,
+  messaging: MESSAGING_INITIAL_STATE
+}
+
+//New Reducer
+export const rootReducer = combineReducers({
+  tasking: taskingReducer,
+  messaging: messagingReducer
+});
+
+
+Task 8 - Fixing Selects:
+Because our object structure is slightly different now, we need to change the imports
+& how we access them in the select.
+-Make sure to do this for Components in Messaing, Dashboard & todo list.
+
+import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO } from '../actions'; 
+import { IAppState } from '../../store'; 
+
+@Component({
+  selector: 'app-todo-list',
+  templateUrl: './todo-list.component.html',
+  styleUrls: ['./todo-list.component.css']
+})
+export class TodoListComponent {
+  @select((s: ITaskingState) => s.todos) todos; 
+
+
+Take Home:
+So when applications & states get out of control, we can refactor states & reducers into logical sections
+under the modules as needed.
+The Steps are...
+-Create Store & Actions
+-Extract States & Initial State
+-Extract Actions
+-Extract Reducer & Helper Methods
+-Integrate State with main AppState.
