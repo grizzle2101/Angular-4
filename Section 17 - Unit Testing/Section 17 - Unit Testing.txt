@@ -138,3 +138,92 @@ key processes work, because they are fragile & slow.
 -Unit Tests
 -Integration Tests
 -End to End Tests
+
+
+---Tutorial 4 - Unit Testing Fundamentals---
+Tests are first class citizens! This means we apply all the same principles we apply in everday
+development.
+Clean Coding practices like
+-Small functions
+-Proper Naming
+-Single Responsability
+
+We have includes a new project testing-demo, each section corresponds to a tutorial,
+and will get increasingly difficult.
+So to get this started use the following commands:
+-npm install
+-ng test
+Builds the application & runs the built in test runner karma.
+
+
+Our First Function:
+In Computer.ts we have our first class to be tested.
+
+export function compute(number) {
+  if (number < 0)
+    return 0; 
+
+  return number + 1;
+}
+
+
+Task 1 - Create Test File:
+Create a file in the 01 - fundamentals folder where computer.ts is located.
+Make sure to follow the specific naming convention.
+-compute.spec.ts
+The Karma test runner looks for files with that extensions, and runs them accordingly.
+
+
+
+Task 2 - Write a Test:
+The test framework packaged with angular is Jasmine, this provides some nice methods
+for Setting up and doing the AAA, Arrange, Act & Assert statements needed.
+There are some language specifics that are new like
+-describe() - A test Suit
+-it() - Spec(A Test Case)
+
+Describe takes 2 parameters, the name of the Item under test eg 'compute' function.
+and a Pointer to a function for the test itself. eg the test code.
+It() is a test case, so somethine like IsGreaterThanX, IsLessThanY, make sure
+the name for the test is clear and explains its intention.
+describe('compute', () => {
+    it('test name', () => {
+        
+    })
+})
+
+
+Note:
+Ran into a few problems with the testing-demo folder provided, needed to update the
+package.json
+
+  "devDependencies": {
+    "@ngtools/webpack": "1.3.0",
+
+
+
+Task 3 - Define the Tests:
+So after looking at compute function we can see 2 possible outcomes, a negative number
+and a positive number. So these are the first 2 cases we should write.
+
+describe('compute', () => {
+    it('Should return 0 if input is negative.', () => {
+        const result = compute(-1);
+        expect(result).toBe(0);
+    })
+
+    //Test Case 2:
+    it('Should increment 1 if input is whole number.', () => {
+        const result = compute(1);
+        expect(result).toBe(2);
+    })
+})
+
+
+
+Important Notes:
+We use the Jasmine API to write the statements including how we assert things.
+expect(result).toBe(0);
+
+Expect has many more built in methods like IsLessThan, Is, Greater than etc, that we will
+be using the upcoming tutorials.
