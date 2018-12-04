@@ -68,3 +68,73 @@ say automated testing is useless so why bother.
 Be pragmatic! If you are working on a budget, maybe tests are not the best use of your
 time. However if you're working on a mission critical piece of functionality,
 probabaly nice to have a few tests to cover your back!
+
+
+---Tutotial 3 - Types of Tests---
+So at a high level, there are 3 types of tests.
+-Unit Tests
+-Integration Tests
+-End to End Tests
+
+
+-Unit Tests:-
+Tests a Component in Isolation, without any external resouces eg file system,
+database, API Endpoints.
+In Angular specifically that means testing a component, without its template or any
+other resources.
+So if our component uses a Service or Router, we're going to give it a fake instance
+or Mock, do we test the component in isolation.
+
+-Easiest to write
+-Super Fast
+-Don't give much confidence on entire application health
+
+Example:
+So we have a vote button that increments each time it is called.
+The component has a single property & a single method.
+export class VoteComponent {
+    totalVotes: number;
+
+    upVote() {
+        this.totalVotes++;
+    }
+}
+
+Template:
+{{totalVotes}}
+<button (click)="upVote()"> Up </button>
+
+
+Testing in Isolation:
+So to this test VoteComponent, we forget about the component altogther and just
+check that upVote will increment the number correctly.
+If there are wiring issues between the component & template, we don't catch those until
+runtime, this is where Integration tests come into play.
+
+
+-Integration Tests:-
+Test a component with External resources eg FileSystem, database or API Endpoints.
+Again this is the generic definition, in the Angular world this means we test
+a component along with its template.
+So taking the above example, we need to compile the application & write some setup
+code to manage modules, dependency injection & so on. Again we get more confidence in
+the application, but we still don't have the big picture of a full process, which is
+where End to End tests come in.
+
+
+-End to End Tests:-
+End to End tests the entire application as a whole.
+The entire end to end test might look something like we navigate to the application, login, click onto a particular page, fill out a form
+then verify the results.
+-More Confidence
+-Very Slow
+-Very Brittle
+ A simple HTML change can break this application.
+
+
+In Summary:
+So we should focus our time on Unit & Integration tests, and use E2E tests to verify
+key processes work, because they are fragile & slow.
+-Unit Tests
+-Integration Tests
+-End to End Tests
