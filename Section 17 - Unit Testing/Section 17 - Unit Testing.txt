@@ -8,3 +8,63 @@ What we'll cover in this section:
 -How to write tests
 -Code Coverage 
 -Practical Excercises
+
+
+---Tutorial 2 - What is Automated Testing:---
+Automated testing is the practice or writing code, to test our code, and writing
+them in an automated fashion.
+
+To effectively demonstrate this, lets create a scenario. We have a function that checks
+for X or Y, then gives you the different result.
+
+function Calculate(input) {
+    if(x) retrn...;
+    else if (y) return ...;
+}
+
+Manual Tests:
+Using traditional manual tests, we have to build & deploy the applicaion then manually
+fill out the form that uses this calculation.
+This takes far too much time, and has to be repeated to catch regression bugs, and as
+our application grows this quickly becomes unmangeable.
+
+Automated Test:
+We could write 2 test cases for the X & Y scenarios then voila, we don't have
+all the headaches of deploying & manually testing, we can do it all from within out IDE.
+
+//Test Case 1
+var result = Calculate(x):
+assert.That(result, expected)
+
+//Test Case 2
+var result = Calculate(y):
+
+assert.That(result, expected)
+
+The Opinionated Developer:
+Why is it our Job to write tests? Why should we be writing Production code and
+the Test code? Because mr joe blog, the cost of manual testing.
+
+-To Document the Application:
+As an application grows and shrinks, as does the team. The developers that built
+these featues are long gone, and so too is any documentation on how it should work.
+Do we just give up on these features? We need to maintain business value.
+
+-Ballooning Regression:
+As the application grows, so too does the effort & combinations required to test, this
+can lead to a balooning workload for everyone in the team.
+So to reduce the burden on manual testing & document the functionality it is nice to have
+a suite of automated tests.
+
+-Catch Bugs BEFORE Releasing:
+Fairly self explanitory, lets catch bugs before building & deploying code.
+The code you wrote works on your local, you go home for a beer but get a call from
+the boss saying you broke some important functionality? Wouldn't it be nice
+to have automated that...
+
+
+Every scenario is different, some say a developer has to write tests for everything, some
+say automated testing is useless so why bother.
+Be pragmatic! If you are working on a budget, maybe tests are not the best use of your
+time. However if you're working on a mission critical piece of functionality,
+probabaly nice to have a few tests to cover your back!
