@@ -1,0 +1,10 @@
+---Tutorial 1 - Introduction---
+So in this section we're going to learn how to write automated tests for our Angular 2
+apps. So if you're a beginer or expert, its helpful to go over this section.
+
+What we'll cover in this section:
+-Introduction to Automated testing
+-Different Types of tests
+-How to write tests
+-Code Coverage 
+-Practical Excercises
