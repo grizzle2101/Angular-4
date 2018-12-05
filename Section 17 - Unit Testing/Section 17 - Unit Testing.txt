@@ -270,3 +270,66 @@ describe('getCurrencies', () => {
         expect(result).toContain('EUR');
     })
 })
+
+
+
+---Tutorial 6 - Setup & TearDown---
+Okay from this point on we're going to be testing Angular components, so it will follow a certain
+pattern/convention on how we work.
+Take a look at section 3 voteComponent, we have a component which has  Upvote & Downvote methods, 
+and modifies a internal value of voteCount. This is called the state change pattern.
+
+
+Task 1 - Create Tests:
+So testing the Upvote & Downvote functions are quite easy, but we have some duplicate code.
+We should be be duplicating the Component creation, but we also have to make sure the value is setup
+to avoid tests interfereing with each other...
+
+describe('VoteComponent', () => {
+  it('Should increment totalVotes when UpVoted', () => {
+    //Arrange
+    let component = new VoteComponent();
+
+    //Act
+    var result = component.upVote();
+    
+    //Assert
+    expect(result).toBe(1);
+
+  });
+
+  it('Should decrement totalVotes when DownVoted', () => {
+    //Arrange
+    let component = new VoteComponent();
+
+    //Act
+    var result = component.downVote();
+    
+    //Assert
+    expect(result).toBe(-1);
+
+  });
+});
+
+
+Solution:
+In C# & NUnit we had Setup to make sure to object creation is managed properly, and with Jasmine
+we have the BeforeEach function.
+
+
+Task 2 - Setup & Teardown:
+So to solve this problem, we use beforeEach, this will create VoteComponent before each test.
+We can then remove the Arrange part of each test, and the value of totalVotes is reset after
+each test, so the tests don't interfere with each other.
+
+
+describe('VoteComponent', () => {
+  let component: VoteComponent;
+
+  //Setup
+  beforeEach(() => {
+    component = new VoteComponent();
+  });
+
+  afterEach(() => {
+  });
