@@ -88,7 +88,7 @@ describe('TodosComponent', () => {
 
 
     //Scenario 2 - If User Cancel, should not Delete.
-    it('Should NOT call the server to delete a todo item if user cancels', () => {
+    xit('Should NOT call the server to delete a todo item if user cancels', () => {
       //Arrange
       let todo = 1;
       spyOn(window, 'confirm').and.returnValue(false);

@@ -671,3 +671,44 @@ And they were fairly easy to unit test, however there are some limitations.
 For both of these problems, it is because they require an Angular environment, where
 Angular will compile template or routes, manage devDependencies etc, this is very
 difficult to mock. We will cover more of this in the integration testing section.
+
+
+---Tutorial 13 - Code Coverage--
+So far to run these tests we've been using ng test. There is an additional parameter
+that produces the test coverage.
+
+Task 1:
+Run code Coverage command
+ng test --code-coverage
+
+
+Task 2 - Open Page in Browser:
+Open the index.html file inside the newly generated coverage folder
+coverage\index.html
+
+Result:
+See we can see all the Coverage Data, Statements, Branches, Functions etc.
+Some nice visual charts and whatnot to display our test data.
+
+
+Task 3 - Disable Tests:
+Another useful thing to know is how to disable tests.
+Putting an x infront of a Describe suit or each IT for individual test, we can stop
+them from executing.
+
+Test Suite:
+xdescribe('TodosComponent',
+
+Test Scenario:
+xit('Should NOT call the server'
+
+Result:
+if we reload the index.html we can see the test coverage to way down.
+And if we click into the todos service, we can see parts of the code that are no longer
+covered. So there are some really nice features out of the box with Karma.
+
+
+Ideal Code Coverage?
+100% ideally, but again it really depends on the situation. If you have the
+time and budget for it, sure do it! but if you have constraints then only focus
+on the core functionality!
