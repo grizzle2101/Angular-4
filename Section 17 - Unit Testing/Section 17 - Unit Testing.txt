@@ -654,3 +654,20 @@ Take Home:
 To work with Confirmation boxes, we intercept window component, confirm and return true
 or false.
 spyOn(window, 'confirm').and.returnValue(false);
+
+
+---Tutorial 12 - Limitations of Unit Tests---
+So in the section we looked at various patterns you're likely to come across, lets
+do a quick recap.
+-State Changes
+-Forms
+-Events(Ouput properties)
+-Services
+
+And they were fairly easy to unit test, however there are some limitations.
+-Routers 
+-Template Bindings - We cannot ensure wiring between template & component.
+
+For both of these problems, it is because they require an Angular environment, where
+Angular will compile template or routes, manage devDependencies etc, this is very
+difficult to mock. We will cover more of this in the integration testing section.
