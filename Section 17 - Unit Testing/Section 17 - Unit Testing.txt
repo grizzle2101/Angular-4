@@ -510,3 +510,87 @@ spyOn(service, 'getTodos').and.callFake(() => {
         {id: 3, title: 'Three'},
       ]]);
     });
+
+
+---Tutorial 10 - Interaction Testing---
+In the last lecture we focused on the NgOnInit method, now lets focus on the Add
+& Delete methods.
+
+
+Add Method:
+So the Add method is responsible for creating a ToDo item, calling the service & sending
+new ToDo item, then in the event that completed updating the DOM list or display an error.
+There are 3 test scenarios:
+-ToDo is sent to Service
+-After Add, the DOM is Updated.
+-Failing the Add, an Error is returned.
+
+  add() { 
+    var newTodo = { title: '... ' };
+    this.service.add(newTodo).subscribe(
+      t => this.todos.push(t),
+      err => this.message = err);
+  }
+
+
+Scenario 1 - Verify it makes Server Call:
+So far scnenario 1 we just need to ensure that when we use add(), it calls the
+add method in our service.
+For the Mock we return empty, as we don't care about returning data.
+
+  it('Should Sent Correct ToDo item to Server', () => {
+    //Arrange
+    let spy = spyOn(service, 'add').and.callFake(t => {
+      return Observable.empty();
+    });
+
+    //Act
+    component.add();
+
+    //Assert
+    expect(spy).toHaveBeenCalled();
+  });
+
+
+Scenario 2 - Verify it adds the Item returned from server, into DOM:
+-Setup Mock to Return Array of 1 value.
+-Verify a single item has been added to the ToDo list.
+
+    it('Should Add Item returned from Server into the Todo List.', () => {
+      //Arrange
+      let todo = {id: 1};
+      let spy = spyOn(service, 'add').and.returnValue(Observable.from([todo]));
+
+      //Act
+      component.add();
+  
+      //Assert
+      
+      expect(component.todos.length).toBe(1);
+    });
+
+
+Note:
+Previously we did use CallFake, but if only return an Array, we can remove the function
+in favour of returnValue, much cleaner!
+
+      let spy = spyOn(service, 'add').and.callFake(t => {
+        return Observable.from([todo]);
+      });
+
+
+
+Scenario 3 - Verify on Failure, we put that error in the Message property:
+-So rather than return an Observeable Array, we return an Observeable error.
+-We then verify the message in our component is the same Error.
+     it('Should update the message property on failure from the service.', () => {
+      //Arrange
+      let error = 'error from the server';
+      let spy = spyOn(service, 'add').and.returnValue(Observable.throw(error));
+
+      //Act
+      component.add();
+  
+      //Assert
+      expect(component.message).toBe(error);
+    });
