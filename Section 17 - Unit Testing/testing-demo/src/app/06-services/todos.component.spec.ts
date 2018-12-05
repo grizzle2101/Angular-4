@@ -12,12 +12,10 @@ describe('TodosComponent', () => {
 
   beforeEach(() => {
     service = new TodoService(null);
-
-    //Passing Mock
     component = new TodosComponent(service);
   });
 
-  //Test Case 1 - NgOnInit
+
   it('Should set Todos to items returned from Server', () => {
     //Arrange
     let todos = [1, 2, 3];
@@ -32,12 +30,7 @@ describe('TodosComponent', () => {
     expect(component.todos).toBe(todos);
   });
 
-  //Task 1 - Implment Add Tests:
-  //-ToDo is sent to Service
-  //-After Add, the DOM is Updated.
-  //-Failing the Add, an Error is returned.
 
-  //Scenario 1 - Verify it makes Server Call
   it('Should Sent Correct ToDo item to Server', () => {
     //Arrange
     let spy = spyOn(service, 'add').and.callFake(t => {
@@ -48,12 +41,10 @@ describe('TodosComponent', () => {
     component.add();
 
     //Assert
-    //We just need to ensure the Spy was called the Act part is done.
     expect(spy).toHaveBeenCalled();
   });
 
 
-    //Scenario 2 - Verify it adds the Item returned from server, into DOM.
     it('Should Add Item returned from Server into the Todo List.', () => {
       //Arrange
       let todo = {id: 1};
@@ -66,7 +57,7 @@ describe('TodosComponent', () => {
       expect(component.todos.length).toBe(1);
     });
 
-     //Scenario 3 - Verify on Failure, we put that error in the Message property.
+
      it('Should update the message property on failure from the service.', () => {
       //Arrange
       let error = 'error from the server';
@@ -79,4 +70,34 @@ describe('TodosComponent', () => {
       expect(component.message).toBe(error);
     });
 
+
+    //Delete Tests:
+    //Scenario 1 - Should call Delete if User confirms
+    it('Should call the server to delete a todo item if user confirms', () => {
+      //Arrange
+      let todo = 1;
+      spyOn(window, 'confirm').and.returnValue(true);
+      let spy = spyOn(service, 'delete').and.returnValue(Observable.empty());
+
+      //Act
+      component.delete(todo)
+
+      //Assert
+      expect(spy).toHaveBeenCalledWith(todo);
+    });
+
+
+    //Scenario 2 - If User Cancel, should not Delete.
+    it('Should NOT call the server to delete a todo item if user cancels', () => {
+      //Arrange
+      let todo = 1;
+      spyOn(window, 'confirm').and.returnValue(false);
+      let spy = spyOn(service, 'delete').and.returnValue(Observable.empty);
+
+      //Act
+      component.delete(todo)
+
+      //Assert
+      expect(spy).not.toHaveBeenCalled();
+    });
 });

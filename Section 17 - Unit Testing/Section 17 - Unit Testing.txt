@@ -594,3 +594,63 @@ Scenario 3 - Verify on Failure, we put that error in the Message property:
       //Assert
       expect(component.message).toBe(error);
     });
+
+
+
+---Tutorial 11 - Working with Confirmation Boxes:---
+So finally we get to look at the last method in ToDos component, the delete function.
+-Verify a Confirmation Box is raised.
+-Verify Delete calls the delete method in our service.
+
+  delete(id) {
+    if (confirm('Are you sure?'))
+      this.service.delete(id).subscribe();
+  } 
+
+
+Scenario 1 - Should Call Delete if user confirms:
+This scenario requires a little more mocking, because we don't want to open
+a window dialog, so we need to intercept this.
+-Intercept window confirm
+-Intercept Service
+-Act, component.delete(todo)
+-Assert same todo item was passed to mock using toHaveBeenCalledWith
+
+      it('Should call the server to delete a todo item if user confirms', () => {
+      //Arrange
+      let todo = 1;
+      spyOn(window, 'confirm').and.returnValue(true);
+      let spy = spyOn(service, 'delete').and.returnValue(Observable.empty);
+
+      //Act
+      component.delete(todo)
+
+      //Assert
+      expect(spy).toHaveBeenCalledWith(todo);
+    });
+
+
+Scenario 2 - If User Cancel, should not Delete:
+We can copy the setup from scenaro 1, however we need to change the window spy to 
+return false.
+-spyOn(window, 'confirm').and.returnValue(false);
+-Assert expect(spy).not.toHaveBeenCalled();
+
+    it('Should NOT call the server to delete a todo item if user cancels', () => {
+      //Arrange
+      let todo = 1;
+      spyOn(window, 'confirm').and.returnValue(false);
+      let spy = spyOn(service, 'delete').and.returnValue(Observable.empty);
+
+      //Act
+      component.delete(todo)
+
+      //Assert
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+
+Take Home:
+To work with Confirmation boxes, we intercept window component, confirm and return true
+or false.
+spyOn(window, 'confirm').and.returnValue(false);
