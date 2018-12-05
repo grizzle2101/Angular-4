@@ -227,3 +227,46 @@ expect(result).toBe(0);
 
 Expect has many more built in methods like IsLessThan, Is, Greater than etc, that we will
 be using the upcoming tutorials.
+
+
+---Tutorial 5 - Working with Strings & Arrays---
+So this section is quite self explanitory, how to validate or Assert strings & arrays.
+
+
+Test 1 - Strings:
+In Example one we have a component that Greets, by taking the name as input then adds the name to the
+greeting.
+
+describe('greet', () => {
+    it('Input is displayed in Message', () => {
+        //Arrange
+
+        //Act
+        const result = greet('Ben');
+
+        //Assert
+        expect(result).toContain('Ben');
+    })
+})
+
+Note:
+Make sure to make these tests as robust as possible, by checking only for the existence of 'Ben'.
+We don't want the test to fail if somone adds a comma or exclamation mark, its not important.
+
+Test 2 - Arrays:
+So in thie example we have a component which returns a list of currencies. Again we don't want to get
+caught up in the ordering, incase we decide to do it alpabetically one day.
+
+describe('getCurrencies', () => {
+    it('Validate currencies are returned', () => {
+        //Arrange
+
+        //Act
+        const result = getCurrencies();
+
+        //Assert
+        expect(result).toContain('USD');
+        expect(result).toContain('AUD');
+        expect(result).toContain('EUR');
+    })
+})
