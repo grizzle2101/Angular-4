@@ -429,3 +429,84 @@ to check the total votes are 1 and voila.
     expect(totalVotes).toBe(1);
   });
 });
+
+
+---Tutorial 9 - Working with Spies---
+Okay so in this section we're going to look at a component that uses a service to make
+calls to the backend. Lets take a look at folder 06 - services and get cracking.
+
+Taking a look at the code:
+So in the ToDo service we have a few methods, NgOnInit to initalize the list, and Add & Delete for
+maniuplating that list data. For this section though we're to focus on NgOnInit.
+
+import { TodoService } from './todo.service'
+
+export class TodosComponent { 
+  todos: any[] = [];
+  message; 
+
+  constructor(private service: TodoService) {}
+
+  ngOnInit() { 
+    this.service.getTodos().subscribe(t => this.todos = t);
+  }
+
+
+  Working with NgOnInit:
+  So we can see that NgOnInit is a service that gets the items then populated the todos array.
+  We cannot use the service, as then we are reliant on the backend, which makes this an Integration
+  test.
+  We need to create a mock implmentation of this service, and make sure we populate the Todos accordingly.
+
+
+Test Code:
+-Initialize TodoService
+-Initialize Component & Pass Service
+-SpyOn is a jasmine function that allows the overriding of methods. This is how we will create
+our Mock service.
+-Our HTTP service returns an observeable, so our mock should follow the same signature. Return an
+array as Observeable.
+-Create an Array to give Mock Service
+-Act, trigger the NgOnInit method.
+-Assert the contents of our MockServide & Component todos are the same, this means the component
+works at passing data to our todo list.
+
+
+  describe('TodosComponent', () => {
+  let component: TodosComponent;
+  let service: TodoService;
+
+  beforeEach(() => {
+    service = new TodoService(null);
+    component = new TodosComponent(service);
+  });
+
+  //Test Case 1:
+  it('Should set Todos to items returned from Server', () => {
+    //Arrange
+    let todos = [1, 2, 3];
+    spyOn(service, 'getTodos').and.callFake(() => {
+      return Observable.from([todos]);
+    });
+
+    //Act
+    component.ngOnInit();
+
+    //Assert
+    expect(component.todos).toBe(todos);
+  });
+});
+
+
+Note:
+We could return the list of Todos exactly like the real service does, but we shouldn't.
+It pollutes our test code and doesn't provide any value. So work with simple values, we only
+care that they get set in NgOnInit.
+
+spyOn(service, 'getTodos').and.callFake(() => {
+      return Observable.from([[
+        {id: 1, title: 'One'},
+        {id: 2, title: 'Two'},
+        {id: 3, title: 'Three'},
+      ]]);
+    });
