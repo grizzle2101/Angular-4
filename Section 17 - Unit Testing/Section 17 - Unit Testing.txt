@@ -333,3 +333,71 @@ describe('VoteComponent', () => {
 
   afterEach(() => {
   });
+
+
+
+---Tutorial 7 - Working with Forms---
+So in this section we're going to work with a very common pattern, Form Builders.
+If we open section 4 we can see it creates a form group, with 2 form objects, which angular uses
+to render the template form, so what exactly do we need to test?
+
+Test 1 - We have Form Control objects 'Name' & 'Email'.
+Test 2 - The Validators do what we think they do.
+
+Task 1 - Create the Setup:
+So just like before we create the beforeEach & instansiate TodoFormComponent. However this
+Form component has a dependency on FormBuilder, so we have to provide this in our setup.
+
+import { TodoFormComponent } from './todo-form.component'; 
+import { FormBuilder } from '@angular/forms';
+
+describe('TodoFormComponent', () => {
+  var component: TodoFormComponent; 
+
+  beforeEach(() => {
+    component = new TodoFormComponent(new FormBuilder());
+  });
+
+
+
+
+-Task 2 - Write Tests:
+Test Case 1 - Should create 2 form control objecs Name & Email:
+-So in this scenario we are not Acting, we just want to know on creation of the component,
+do we have 2 form control objects, name & email.
+-We have to check the form contains name or email, we can do this with ToBeTruthy or toBe(true).
+
+  it('Should create 2 form control objects', () => {
+
+    //Assert
+    expect(component.form.contains('name')).toBeTruthy(); //Expect Name in Form
+    expect(component.form.contains('email')).toBe(true); //Expect Email in Form
+  });
+
+
+Test Case 2 - Checking the Validators:
+So that we have the from control objects, we need to maniuplate them to make sure the Validators
+work as designed.
+-component.form.get('name') gets us the form control object.
+-setValue sets the value, just like we would do in the UI.
+-verify the form is invalid as a result of our action.
+
+  it('Should make the form control name Required', () => {
+
+    //Arrange
+    //Get Form Control Object
+    let control = component.form.get('name');
+
+    //Act
+    control.setValue('');
+
+    //Assert
+    expect(control.valid).toBeFalsy();
+  });
+});
+
+
+Take Home:
+-Use (component.form.contains('name')) to make sure form control objects exist.
+-To Test a validator get the form control object, set the value to someting invalid then assert
+ expect(control.valid).toBeFalsy();
