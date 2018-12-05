@@ -401,3 +401,31 @@ Take Home:
 -Use (component.form.contains('name')) to make sure form control objects exist.
 -To Test a validator get the form control object, set the value to someting invalid then assert
  expect(control.valid).toBeFalsy();
+
+
+
+ ---Turorial 8 - Working with Event Emittes---
+In this section we're going to look at testing events are raised, and passes the correct data.
+So in folder 5 - Event Emitter we have another voting component, except this one has an event emitter.
+Once the user clicks vote, the vote event is raised and the total votes is passed.
+
+
+Test Case 1 - Event is Raised & Passes Data:
+So testing an Event requires a bit more setup, we need to subscribe to the VoteChanged event, and get
+the totalVotes from it.
+Now when we Act by triggering UpVote, we subsribe & get the data required. To Assert we just need
+to check the total votes are 1 and voila.
+
+  it('Should Raise VoteChanged event when UpVote is triggered', () => {
+    //Arrange
+    //Subscribe to Event & Get Votes
+    let totalVotes = null;
+    component.voteChanged.subscribe(tv => totalVotes = tv);
+
+    //Act
+    component.upVote();
+
+    //Assert
+    expect(totalVotes).toBe(1);
+  });
+});
