@@ -1,0 +1,12 @@
+---Section 18 - Integration Testing---
+---Tutorial 1 - Introduction:---
+In the last section we learned how to unit test your Angular Components in isolation.
+Unit tests are great for testing the logic of our components, but they have limitations
+they cannot test the integration of a component with its template.
+That is where Integration tests come into play.
+
+In this section:
+-Testing Templates
+-Testing Navigation
+-Testing Directives
+-Dealing with Asynchronous operations.
