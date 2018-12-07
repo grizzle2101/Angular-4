@@ -10,3 +10,73 @@ In this section:
 -Testing Navigation
 -Testing Directives
 -Dealing with Asynchronous operations.
+
+
+
+---Tutorial 2 - The Setup Code---
+So download the attached zip of the project to be tested & lets take a look at the setup.
+As always to a npm install then ng build & test.
+
+
+Note:
+Had to remove the NavBarComponent as it is not included in solution for some reason.
+
+
+Setting up Integration Test:
+So for the component under test we normally new up the component in the beforeEach section.
+Integration tests are a bit different, we need to let Angular create these components.
+
+Task 1 - Setup TestBed:
+So because we don't just create TypeScript Objects, instead we need angular compiled Objects
+our setup is a little different.
+Just like using NgModule, we have to setup the declarations.
+
+import {TestBed, ComponentFixture} from '@angular/core/testing';
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [VoterComponent]
+    });
+
+
+
+Task 2 - Use TestBed:
+So we now have access to the TestBed, we need to create a component & pass VoterComponent.
+This is a wrapper on VoterComponent that gives us access to the compile time properties.
+So the template and everything else, for real integration tests.
+
+    TestBed.createComponent(VoterComponent);
+
+
+Task 3 - Setup Component & Fixture:
+Now that we have the TestBed setup, we can use them in our tests.
+
+//Declare Variables
+describe('VoterComponent', () => {
+  let component: VoterComponent;
+  let fixture: ComponentFixture<VoterComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [VoterComponent]
+    });
+    //Set Values:
+    fixture = TestBed.createComponent(VoterComponent);
+    component = fixture.componentInstance;
+  });
+
+
+Additional Fixtures Elements:
+So now that we have access to the Fixture, we can begin to see some of the cool features.
+
+fixture.nativeElement - Returns Root DOM element for component eg the compiled HTML.
+fixture.debugElement - Allows us to Debug the Native DOM.
+
+
+Take Home:
+ComponentFixture is a wrapper on a component, through this we can access the component
+instance, the nativeElement(compiled HTML DOM) and debug it.
+We can also do the change tracking manually(seeing objects added & removed), and even
+get the injected dependencies in the component.
+This will come very useful for writing integration tests. In the next section we'll look
+at how to auto generate this test code.
