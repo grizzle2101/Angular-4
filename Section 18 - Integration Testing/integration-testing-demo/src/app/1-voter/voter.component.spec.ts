@@ -38,4 +38,13 @@ describe('VoterComponent', () => {
 
     expect(de.classes['highlighted']).toBeTruthy();
   });
+
+  //Test 3 - Event Binding, UpVote Button Increments:
+  it('Should increment VoteCount if clicked', () => {
+    let button = fixture.debugElement.query(By.css('.glyphicon-menu-up'));
+
+    button.triggerEventHandler('click', null); 
+
+    expect(component.totalVotes).toBe(1);
+  });
 });
