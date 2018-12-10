@@ -143,3 +143,71 @@ So we can keep the complex setup, or simplify if needs be.
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+
+
+
+---Tutorial 4 - Testing Property and Class Bindings---
+So to get started writing our first intregration test, lets take a look at 1 - voter.
+If we take a look at the voter component we will get a better idea of the things we 
+should test.
+-Class Bindings
+-Property Bindings
+-Style Bindings
+-Event Bindings
+
+Test 1 - Total Votes is Rendered Properly
+Test 2 - If Upvoted, want to see the Style being applied
+Test 3 - If I Upvote, should see the upvote method being called.
+
+
+Test 1 - Total Votes is rendered properly:
+So through the component, we can access the vote count & manipulate it.
+To verify the value, we need to access the fixture & access to the root DOM element.
+-Set otherVotes & myVote
+-Query the fixture.debugElement for the Rendered Vote-Count CSS class.
+-Because this is a Debug element(A wrapper on Native HTML/JavaScript) we need to 
+ Access the HTML attribute to get the value.
+-Expect the count to be 21.
+
+  it('Should render total votes', () => {
+    component.othersVote = 20;
+    component.myVote = 1;
+
+    let de = fixture.debugElement.query(By.css('.vote-count'))
+    let el: HTMLElement = de.nativeElement;
+
+    expect(el.innerText).toContain(21);
+  });
+});
+
+Note:
+We can use By.css or By.Directive if you have custom directives.
+ fixture.debugElement.query(By.Directive(VoterComponent))
+
+
+
+Test is Broken:
+So we ran the test and appeared to get no value for VoteCount, what gives?
+In the production envioronment Angular applies its change detection alghorithm, but
+in this test mode it does not, so we have to manually turn that on.
+
+fixture.detectChanges();
+
+
+Test 2 - Pressing Vote Highlights Button:
+So for the second test we just have to set myVote to 1, detect detectChanges
+then ensure the highlighted style is applied.
+-Check the rendered CSS class that should be applied eg .glyphicon-menu-up
+-Access the debugElement for HTML properties for 'highlighted' and verify its true.
+
+  it('Should Highlight the UpVote button if upvoted.', () => {
+    component.myVote = 1;
+    fixture.detectChanges();
+
+    let de = fixture.debugElement.query(By.css('.glyphicon-menu-up'));
+
+    expect(de.classes['highlighted']).toBeTruthy();
+  });
+
+Thats a wrap for the introduction to interaction tests, in the next tutorial we will
+go over test 3, verifying when clicked it triggers the correct method.
