@@ -80,3 +80,66 @@ We can also do the change tracking manually(seeing objects added & removed), and
 get the injected dependencies in the component.
 This will come very useful for writing integration tests. In the next section we'll look
 at how to auto generate this test code.
+
+
+---Tutorial 3 - Generating the Setup Code:---
+Okay so now that we know what the setup code looks like, we can use Angular to generate
+this for us.
+
+Task 1 - Generate Boiler Plate Code:
+ng generate component greeter
+
+
+Result:
+So we can see the auto generated code looks very similar to our code, but with a few
+differences.
+-2 beforeEach blocks
+-Compile Components gets the HTML template, this file system read can take a while
+which is why it is done Asynchronously, see async keyword & imports.
+
+describe('GreeterComponent', () => {
+  let component: GreeterComponent;
+  let fixture: ComponentFixture<GreeterComponent>;
+
+  //Configure Testing Mdoule
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ GreeterComponent ]
+    })
+    .compileComponents(); //Compile Command gets the Components,
+  }));
+
+  //Create Component
+  beforeEach(() => {
+    fixture = TestBed.createComponent(GreeterComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+
+Async Wrapper:
+Async is a angular utility for running functions Asynchronously, create a function
+and point it to a code block to run and it does all the heavy lifting.
+
+
+Note:
+Compile components is not neccessary is most applications as Webpack does this for us.
+Webpack is the default builder for Angular, and will bundle the components natively,
+so if you're using Webpack, its already done for us.
+
+
+
+Task 2 - Combine beforeEach:
+So because we using webpack, we can Combine both before blocks into one & now our
+code looks very like the original...
+So we can keep the complex setup, or simplify if needs be.
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [ GreeterComponent ]
+    });
+
+    fixture = TestBed.createComponent(GreeterComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
