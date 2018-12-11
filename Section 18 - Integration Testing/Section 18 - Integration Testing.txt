@@ -555,3 +555,77 @@ Writing these sorts of tests is very useful to stop a critical bug from being re
 Imagine a breaking a save feature because you removed or put a typo in one of the routes.
 All of this can be ran in a matter of seconds, so hopefully is shows you the value
 of automated testing.
+
+
+---Tutorial 10 - Dealing with Route Params---
+So lets take a look at the ngOnInit method in our UserDetailsComponent.
+In this example, we check the Params then if its 0 we redirect to the not found page.
+Although this example is massivly simplified, its a good example on how to work
+with the ActviatedRoute class.
+
+  ngOnInit() {
+    this.route.params.subscribe(p => {
+      if (p['id'] === 0)
+        this.router.navigate(['not-found']);
+    });
+  }
+
+
+Test 2 - Should navigate to page not found if user == 0:
+Similar to first test we are using the ActivatedRouteStub to mock the router, and
+get verify the Routing. In this scenario however we are passing an invalid route
+parameter to verify our component works
+-Create Router & Spy like before.
+-Get the Current Activated Route, and set the route params to be 0.
+-Expect the 
+
+  it('Should redirect User to the page not found, when an invalid user id is passed', () => {
+    //Arrange
+    let router = TestBed.get(Router);
+    let spy = spyOn(router, 'navigate');
+
+    //Act
+    let route: ActivatedRouteStub = TestBed.get(ActivatedRoute);
+
+The problem we have now is route params Observable only has methods for retrieving data.
+We need to somehow set the value of params to something invalid.
+
+
+Task 2 - Set Params Value:
+Setting Observable Value Trick:
+So in order to set the route params, we need to check out this technique.
+-Add Subject to ActivatedRouteStub
+-Create a method push, to allow adding of values into our Observable.
+-Create Getter for subject, return subject as Observable.
+
+class ActivatedRouteStub {
+  private subject = new Subject();
+  params: Observable<any> = Observable.empty();
+
+  push(value) {
+    this.subject.next(value);
+  }
+
+  get params() {
+    return this.subject.asObservable();
+  }
+}
+
+
+Back to the Test:
+Now that we can push values into our Observable, the Mock Router can return the invalid id
+we need to test this logic.
+-route.push({id: 0})
+-expect the spy toHaveBeenCalledWith not-found & voila the logic is tested.
+  it('Should redirect User to the page not found, when an invalid user id is passed', () => {
+    //Arrange
+    let router = TestBed.get(Router);
+    let spy = spyOn(router, 'navigate');
+
+    //Act
+    let route: ActivatedRouteStub = TestBed.get(ActivatedRoute);
+    route.push({id: 0});
+
+    //Assert
+    expect(spy).toHaveBeenCalledWith(['not-found']);
+  });
