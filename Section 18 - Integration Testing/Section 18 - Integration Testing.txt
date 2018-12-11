@@ -404,3 +404,90 @@ spy, then assert that the component.todos are initialized with ngOnInit and they
 
     expect(component.todos).toBe(todoList);
   });
+
+
+---Tutorial 8 - Providing Stubs---
+So now to increase the difficulty a bit, we've going to test a component that uses a 
+router for navigation.
+
+The Code:
+There are 2 ways to test this...
+-An Interaction test to see the navigate method is called with the right data.
+We also need another test to ensure the route is valid.
+
+  save() { 
+    this.router.navigate(['users']);
+  }
+
+
+Alternative Test:
+Some developers will write an integration test to check the URL and make sure
+the route is correct. This uses the actual Angular Route object, and so we are not
+testing our code anymore but testing the Angular Framework itself.
+And in general we do not test 3rd party libraries or language constructs.
+
+
+Getting Started:
+Before we write any code, if we run the tests we can see the error 'No provider for 
+router'. So lets get started with sorting out the dependencies.
+
+Option 1 - Use Real Router:
+Again we could use a real router dependency, but as mentioned it can lead to many headaches.
+
+
+Option 2 - Use a Fake Router:
+A common strategy when using real dependencies becomes tricky is to create a stub,
+or fake implementation.
+
+Task 1 - Create a RouterStub:
+If we look at the component under test, we can see the methods it needs from
+the Router class, we can create dummy versions of this that do nothing.
+
+class RouterStub {
+  navigate(params) {
+
+  }
+}
+
+
+Task 2 - Replace Depency with Stub:
+      providers: [
+        {provide: Router, useClass: RouterStub},
+
+
+
+Task 3 - Activated Route Stub:
+So if we take a look at the UserDetailsComponent we can see how it uses Activated Route
+then we know what exactly we need to mock out.
+-this.route.params subscribe - is a Generic Observable
+-So we just mock this property as params, and voila we have a stub.
+
+class ActivatedRouteStub {
+  params: Observable<any>;
+}
+
+Now just like before, we need to tell Angular to replace the real ActivatedRoute with
+our stub/dummy version.
+
+      providers: [
+        {provide: Router, useClass: RouterStub},
+        {provide: ActivatedRoute, useClass: ActivatedRouteStub}
+      ]
+
+
+Test Fail:
+So the test is failing saying our data is undefined, that is because we habe not set
+the value in our stub.
+
+class ActivatedRouteStub {
+  params: Observable<any> = Observable.empty();
+}
+
+Take Home:
+Testing the UserDetailsComponent requires some more overhead because it works
+with routing. We have to create Stubs or dummy implementations of its dependencies
+eg Router & ActivatedRoute.
+Once we mock the methods required for UserDetailsComponent we use Angular providers
+provide & useClass, to inject our stubs instead of the normal dependencies.
+
+Now that we have the complex dependencies sorted out we can begin to write test.
