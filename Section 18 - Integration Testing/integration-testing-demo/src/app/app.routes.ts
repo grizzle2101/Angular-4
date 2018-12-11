@@ -3,6 +3,7 @@ import { TodosComponent } from './2-todos/todos.component';
 import { UsersComponent } from './users/users.component'; 
 import { UserDetailsComponent } from './3-user-details/user-details.component';
 
+//Routes
 export const routes = [
   { path: 'users/:id', component: UserDetailsComponent },
   { path: 'users', component: UsersComponent },

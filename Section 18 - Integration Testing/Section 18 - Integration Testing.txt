@@ -491,3 +491,67 @@ Once we mock the methods required for UserDetailsComponent we use Angular provid
 provide & useClass, to inject our stubs instead of the normal dependencies.
 
 Now that we have the complex dependencies sorted out we can begin to write test.
+
+
+
+---Tutorial 9 - Testing the Navigation---
+So now that everything is setup, lets get the navigation.
+
+
+
+Task 1 - Write a Test to Ensure we are reriected onSave:
+-Get Router object from TestBed.
+-Spy on the Navigate method in the Router Object(the Stub)
+-Act, trigger Save.
+-Assert that the spy was called, and with the 'users' route param.
+
+  it('Should redirect User to the Users page after saving', () => {
+    //Arrange
+    let router = TestBed.get(Router);
+    let spy = spyOn(router, 'navigate');
+
+    //Act
+    component.save();
+
+    //Assert
+    expect(spy).toHaveBeenCalledWith(['users']); //Users Page
+  });
+
+How to Ensure our test Works:
+Its important to make sure we're testing the right thing, so comment out
+this.router.navigate and fingers crossed the test fails.
+This is how we know we're testing the right thing.
+
+
+
+Task 2 - Write a Test to make sure the Route Exists:
+So to test the route is valid, we have to take a look at app.routes.ts to see the
+array of valid routes.
+
+export const routes = [
+  { path: 'users/:id', component: UserDetailsComponent },
+  { path: 'users', component: UsersComponent },
+  { path: 'todos', component: TodosComponent },
+  { path: '', component: HomeComponent },
+];
+
+We can write a set of simple unit tests to make certain routes are valid.
+A good practice is to have a app.routes.spec.ts to contain a test for every
+route we plan on implmenting.
+Make sure to organize them alphabetically so its easy to check for certain routes.
+
+describe('routes', () => {
+    it('should contain a route for /users', () => {
+        expect(routes).toContain({path: 'users', component: UsersComponent})
+    });
+})
+
+Again to make sure we're testing the right thing, comment out the users route
+and make sure it fails.
+
+
+Take Home:
+Writing these sorts of tests is very useful to stop a critical bug from being released.
+Imagine a breaking a save feature because you removed or put a typo in one of the routes.
+All of this can be ran in a matter of seconds, so hopefully is shows you the value
+of automated testing.
