@@ -7,6 +7,7 @@ import { TodosComponent } from './todos.component';
 //Add Imports
 import {TodoService} from './todo.service';
 import {HttpModule} from '@angular/http';
+import { Observable } from 'rxjs';
 
 
 describe('TodosComponent', () => {
@@ -27,10 +28,22 @@ describe('TodosComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TodosComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    //fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+
+  //Integration Test 1 - ngOnInit populated the component properly.
+  it('Should load todos from the server', () => {
+    let todoList = [1, 2, 3];
+    let service = TestBed.get(TodoService);
+
+    spyOn(service, 'getTodos').and.returnValue(Observable.from([todoList]));
+    fixture.detectChanges();
+
+    expect(component.todos).toBe(todoList);
   });
 });

@@ -15,6 +15,7 @@ import { UsersComponent } from './users/users.component';
 //import { NavComponent } from './nav/nav.component';
 import { HighlightDirective } from './highlight.directive';
 import { GreeterComponent } from './greeter/greeter.component'; 
+import { TodoService } from './2-todos/todo.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { GreeterComponent } from './greeter/greeter.component';
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [TodoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

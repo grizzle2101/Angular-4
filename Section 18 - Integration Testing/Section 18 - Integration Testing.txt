@@ -300,4 +300,107 @@ So for use to configure Dependency injection, we need to add TodoService into pr
     .compileComponents();
   }));
 
+
+
+
+---Tutorial 7 - Getting the Dependencies---
+So to back to TodosComponent and take a look at ngOnInit, we can see a few problems.
+We wrote a unit test to make sure the Todos gets populated, but ngOnInit is an Angular
+lifecycle hook, so we need to test the integration.
+
+
+So to test this we need to a reference to our depedency the TodoService, and use a spy
+to change the implementation of todos method.
+
+
+
+Adding a Dependency:
+Option 1 - Module Level:
+So in order for access to access dependencies for testing purposes, we can add
+the service to the providers array in app.module.
+This App.Module will create a singleton of the service, to be shared with all
+of the component that requires it.
+
+
+  providers: [TodoService],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+Usage:
+Now to use the dependency we use TestBed.get method, but this only works with
+dependencies listed in the App.module
+
+  it('Should load todos from the server', () => {
+    let service = TestBed.get(TodoService);
+  });
+
+ 
+
+Option 2 - Comopnent Level:
+Another approach is to add the dependency into the Component metadata directly.
+This means every component has its own instance to work with, however if we have multiple
+instance of VoterComponent this is going to get out of control.
+
+@Component({
+  providers: [TodoService],
+  selector: 'app-voter',
+  templateUrl: './voter.component.html',
+  styleUrls: ['./voter.component.css']
+})
+export class VoterComponent {
+  @Input() othersVote = 0;
+  @Input() myVote = 0;
+
+
+Usage:
+Now to access the dependencies in the component, we use the fixture.
+ fixture.debugElement.injector.get(TodoService);
+
+Note:
+If you have multiple instances of this compoonent, you will also have multiple service
+dependencies, so you really need a strong reason to do things this way.
+In General the Module level is the best approach, just remember you're dealing with a
+singleton.
+
+
+
+The Test:
+Now that we know how to get a reference to the service we can write the test.
+-Get service from TestBed @ module level.
+-SpyOn service, to mock the service.
+-expect the value to be initalized to 3 onInit.
+
+  it('Should load todos from the server', () => {
+    let service = TestBed.get(TodoService);
+
+    spyOn(service, 'getTodos').and.returnValue(Observable.from([1, 2, 3]));
+    
+    expect(component.todos.length).toBe(3);
+  });
   
+
+Problem:
+The test fails because of out beforeEach setup blocks. We run fixture.detectChanges
+which sets the service before we get a change to pass our mock.
+Remove detectChanges from the Setup & move to the test itself.
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(TodosComponent);
+    component = fixture.componentInstance;
+    //fixture.detectChanges();
+  });
+
+Final Cleanup:
+To make the test more clear, we can declare an array of values that we pass to the service
+spy, then assert that the component.todos are initialized with ngOnInit and they match!
+
+  it('Should load todos from the server', () => {
+    let todoList = [1, 2, 3];
+    let service = TestBed.get(TodoService);
+
+    spyOn(service, 'getTodos').and.returnValue(Observable.from([todoList]));
+    fixture.detectChanges();
+
+    expect(component.todos).toBe(todoList);
+  });
