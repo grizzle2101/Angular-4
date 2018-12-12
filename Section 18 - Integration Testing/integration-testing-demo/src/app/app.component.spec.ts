@@ -1,11 +1,12 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { RouterOutlet, RouterLinkWithHref } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NavComponent } from './nav/nav.component';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -15,7 +16,7 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes([])],
-      declarations: [ AppComponent ]
+      declarations: [ AppComponent, NavComponent ]
     })
     .compileComponents();
   }));
@@ -32,15 +33,5 @@ describe('AppComponent', () => {
     let de = fixture.debugElement.query(By.directive(RouterOutlet));
 
     expect(de).not.toBeNull();
-  });
-
-  //Task 3 - Test 2, Ensure todos Link exist
-  //Verify we have the correct links in app.module.
-  it('Should have a link for Todos', () => {
-    let de = fixture.debugElement.queryAll(By.directive(RouterLinkWithHref));
-
-    let index = de.findIndex(de => de.properties['href'] == '/todos');
-
-    expect(index).toBeGreaterThan(-1);
   });
 });

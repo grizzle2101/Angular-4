@@ -716,3 +716,57 @@ Then we ensure this has value & exists. We can also query all links on a page
 using RouterLinkWithHref, this will return a link of all links on the page.
 We then check the for properties HREF and the todos link, and voila we know out Outlet
 works, and has the Todo link.
+
+
+
+---Tutorial 12 - Shallow Component Tests---
+So what if we want to add bootstrap navigation into our application, things would
+get very complex and so we would have to move navigation into its own component.
+In this section we're going to extract Navigation to its own module, and refactor the tests.
+
+
+Task 1 - Generate Navigation Component:
+ng g c nav
+
+
+Task 2 - Move Nav to newly created file:
+-Copy the Navigation into the new file.
+<nav>
+  <a routerLink="todos"></a>
+</nav>
+
+-Use the New Component in our app.module.ts
+<app-nav></app-nav>
+<router-outlet></router-outlet>
+
+Problem:
+So now that we've moved the Navigation out from our app.module, what happens?
+app-nav is not a known element is what our test is returning. This is because in 
+our testing module, we have not added the nav component into our declarations.
+
+We have a couple solutions to this problem, first would be just adding Nav component
+into our declarations. But the better option is moving the test our altogther,
+this test should be in the NavBarComponent module.
+
+
+Task 3 - Move Nav Test into own Module:
+  it('Should have a link for Todos', () => {
+    let de = fixture.debugElement.queryAll(By.directive(RouterLinkWithHref));
+
+    let index = de.findIndex(de => de.properties['href'] == '/todos');
+
+    expect(index).toBeGreaterThan(-1);
+  });
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule.withRoutes([])],
+      declarations: [ NavComponent ]
+    })
+    .compileComponents();
+  }));
+  
+Problem:
+We're getting errors not being able to find the activeLink 'todos'. This is because
+we forgot to setup the RouterTestingModule, make sure in the imports to return an empty
+array and voila, we have extracted the navigation tests.
