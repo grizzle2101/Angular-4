@@ -629,3 +629,90 @@ we need to test this logic.
     //Assert
     expect(spy).toHaveBeenCalledWith(['not-found']);
   });
+
+
+
+---Tutorial 11 - Testing RouterOutlet Components---
+So if we remeber the RouterOutlet it is the point from which a single page applications
+is injected. So in the app.component.html we have the following code:
+
+<nav>
+  <a routerLink="todos"></a>
+</nav>
+<router-outlet></router-outlet>
+
+
+Tests:
+We want to write 2 tests for this page.
+1 - Verify the RouterOutlet Element Exists.
+2 - Verify the Route in RouterLink is valid.
+
+
+What is the value of this Test?
+Say if we accidentally remove to break the RouterOutlet, we don't have to run the
+application to find out the site is entirely broken. We can catch this before release.
+
+
+Task 1 - Create Test 1, Should have a Router Outlet:
+Get a reference to RouterOutlet, then assert that this element is NOT Null.
+We should know already how to do this using the fixture.debugElement we can
+get it by CSS or by directive.
+
+  it('Should have a route Outlet', () => {
+    let de = fixture.debugElement.query(By.directive(RouterOutlet));
+
+    expect(de).not.toBeNull();
+  })
+
+
+Problem:
+We are getting an error 'route-outlet' is not a known element. If we look at app.module
+we import RouterModule and give it our routes, we need to something similar for our
+test setup.
+
+ imports: [
+    RouterModule.forRoot(routes),
+
+
+Task 2 - Setup Test Routing:
+Rather than providing the real RouterModule, Angular has a testing router which is
+decoupled from the browser, this allows us to test in isolation.
+-Import RouterTestingModule
+-Use RouterTestingModule in imports, withRoutes and an empty array of routes for now.
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule.withRoutes([])],
+      declarations: [ AppComponent ]
+    })
+    .compileComponents();
+  }));
+
+Now that we have Routing imported into our test, the test passes! To verify this like
+always, add some typos into the RouterOutlet and make sure the test catches this.
+
+
+
+Task 3 - Test 2, Ensure todos Link exists:
+Note this can be used for testing ANY component that uses the RouterLink directive.
+-queryAll RouterLinkWithHref - get ALL router links.
+-query this object for routes with href & todos.
+-Our links should look like <a hred="/todos">
+-expect there to be at least 1 link in the page.
+
+  it('Should have a link for Todos', () => {
+    let de = fixture.debugElement.queryAll(By.directive(RouterLinkWithHref));
+
+    let index = de.findIndex(de => de.properties['href'] == '/todos');
+
+    expect(index).toBeGreaterThan(-1);
+  });
+
+
+Take Home:
+Testing RouterOutlet ensure the startup and Routing of our SPA are working correctly.
+To do this we query the fixture.debugElement(rendered HTML) for the directive RouterOutlet.
+Then we ensure this has value & exists. We can also query all links on a page
+using RouterLinkWithHref, this will return a link of all links on the page.
+We then check the for properties HREF and the todos link, and voila we know out Outlet
+works, and has the Todo link.
