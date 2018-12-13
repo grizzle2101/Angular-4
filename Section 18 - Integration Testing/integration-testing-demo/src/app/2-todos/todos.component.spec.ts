@@ -1,5 +1,5 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
@@ -35,15 +35,16 @@ describe('TodosComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
+  //Task 2 - Modify Tests:
   //Integration Test 1 - ngOnInit populated the component properly.
-  it('Should load todos from the server', () => {
+  it('Should load todos from the server', fakeAsync(() => {
     let todoList = [1, 2, 3];
     let service = TestBed.get(TodoService);
 
-    spyOn(service, 'getTodos').and.returnValue(Observable.from([todoList]));
+    spyOn(service, 'getTodosPromise').and.returnValue(Promise.resolve(todoList));
     fixture.detectChanges();
 
+    tick();
     expect(component.todos).toBe(todoList);
-  });
+  }));
 });

@@ -840,3 +840,97 @@ Take Home:
 To test attribute directives, we create a component with the template needed to test
 the given scenarios. We then get the rendered HTML through our debug element, and make
 sure the various style attributes were applied.
+
+
+---Tutorial 14 - Dealing with Asynchronous Operations---
+Now lets take a look at a component that uses Asynchronous operations.
+
+
+In the Todos component we have the ngOnInit which returns Observeable, but what if
+instead it returned a promise?
+
+  ngOnInit() { 
+    this.service.getTodos().subscribe(t => this.todos = t);
+  }
+
+
+Task 1 - Rework ngOnInit to use Promise:
+  ngOnInit() { 
+    //this.service.getTodos().subscribe(t => this.todos = t);
+    this.service.getTodosPromise().then(t => this.todos = t);
+  }
+
+
+Task 2 - Modify Test:
+So the previous Todo Component test has to modified to work with a Promise Rather
+than an Observeable.
+-spyOn getTodosPromise instead of getTodos
+-Rather than retruning Observable, return Promise of todoList.
+
+  it('Should load todos from the server', () => {
+    let todoList = [1, 2, 3];
+    let service = TestBed.get(TodoService);
+
+    spyOn(service, 'getTodosPromise').and.returnValue(Promise.resolve([todoList]));
+    fixture.detectChanges();
+
+    expect(component.todos).toBe(todoList);
+  });
+
+
+Result:
+We've broken a test... the value for the array is now an empty array.
+The problem can be understood if we log in the test & the component.
+
+Test:
+    expect(component.todos).toBe(todoList);
+    console.log("EXPECT WAS CALLED")
+  });
+
+  Component:
+    ngOnInit() { 
+    this.service.getTodosPromise().then(t => {
+      console.log("THEN WAS CALLED");
+      this.todos = t;
+    });
+  }
+-EXPECT WAS CALLED happens first, then THEN WAS CALLED.
+-The Expect is making an assertion before the todos are populated eg, before the promise
+values are populated.
+
+
+Why is this Happening?
+This is down to how the JavaScript engine works, we have executed a job from the
+test to evaluate everything inside the test. When it goes to the Promise Object, it
+assumes the Promise is async and may take a while, so it continues to execute.
+This is why at the time of the test, the value is null.
+That is the difference between Observables & Promises.
+
+
+Solution:
+Use the built in Angular Async function. 
+-Wrap Test in Async blocks.
+  it('Should load todos from the server', async(() => {
+
+
+-Use WhenStable() to make sure Asynchronous actions have completed.
+    fixture.whenStable().then(() => {
+      expect(component.todos).toBe(todoList);
+    });
+
+
+Another option to make sure out test executes in a linear way is to use fakeAsync
+and tick. This way we don't have to use fixture.whenStable.
+-Wrap function is fakeAsync
+-Use tick() to simulate the passage of time, which should let our todos populate.
+
+  it('Should load todos from the server', fakeAsync(() => {
+    let todoList = [1, 2, 3];
+    let service = TestBed.get(TodoService);
+
+    spyOn(service, 'getTodosPromise').and.returnValue(Promise.resolve(todoList));
+    fixture.detectChanges();
+
+    tick();
+    expect(component.todos).toBe(todoList);
+  }));
