@@ -770,3 +770,73 @@ Problem:
 We're getting errors not being able to find the activeLink 'todos'. This is because
 we forgot to setup the RouterTestingModule, make sure in the imports to return an empty
 array and voila, we have extracted the navigation tests.
+
+
+
+---Tutorial 13 - Testing Attribute Directives---
+Okay now lets see how to test attribute directives. Take a look at the highlight
+directive, wherever we apply this attribute, the element will be highlighted.
+
+Top Tip:
+So to test attribute directives like this highlight directive, create a host component
+in our spec file, to test the various scenarios.
+This is essentially 2 test cases:
+-When a colour is provided, should be used.
+-If no colour is prodivded, default yellow should be selected.
+
+    <p highlight="cyan">First</p>
+    <p highlight>Second</p>
+  `
+
+-Like before setup the TestBed with the HostComponent(test template) and the directive
+we wish to use.
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ DirectiveHostComponent, HighlightDirective ]
+    })
+    .compileComponents();
+  }));
+
+
+Task 1 - Create Test Cases:
+
+Test 1 - Should use Color provided as Input.
+-Get All Paragraphs, pick first.
+-Expect the color to be same as input property eg Cyan.
+  it('Should highlight the first element with Cyan', () => {
+    let de = fixture.debugElement.queryAll(By.css('p'))[0]; 
+    
+    expect(de.nativeElement.style.backgroundColor).toBe('cyan');
+  });
+
+
+Test 2 - Should use default color if none provided:
+-Same as above test, expect we're working the the 2nd paragraph.
+-Expect the colour to be the default yellow.
+
+  it('Should highlight the second element with default color yelow', () => {
+    let de = fixture.debugElement.queryAll(By.css('p'))[1]; //Get All Paragraphs, pick first.
+    
+    expect(de.nativeElement.style.backgroundColor).toBe('yellow');
+  });
+
+
+Improvement:
+So currently we're expecting yellow, what if we choose to change the default?
+We need a way to make this test less brittle.
+We can access the directive using debugElement injecor, then accessing the default color.
+
+  it('Should highlight the second element with default color', () => {
+    let de = fixture.debugElement.queryAll(By.css('p'))[1]; //Get All Paragraphs, pick first.
+    let directive = de.injector.get(HighlightDirective);
+
+    expect(de.nativeElement.style.backgroundColor).toBe(directive.defaultColor);
+  });
+});
+
+
+Take Home:
+To test attribute directives, we create a component with the template needed to test
+the given scenarios. We then get the rendered HTML through our debug element, and make
+sure the various style attributes were applied.

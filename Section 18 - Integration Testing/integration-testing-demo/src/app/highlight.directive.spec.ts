@@ -27,4 +27,22 @@ describe('HighlightDirective', () => {
     fixture = TestBed.createComponent(DirectiveHostComponent);
     fixture.detectChanges(); 
   });
+
+
+  //Test 1 - Should use Color provided as Input.
+  it('Should highlight the first element with Cyan', () => {
+    let de = fixture.debugElement.queryAll(By.css('p'))[0]; //Get All Paragraphs, pick first.
+    
+    expect(de.nativeElement.style.backgroundColor).toBe('cyan');
+  });
+
+
+
+  //Test 2 - Should use default color if none provided.
+  it('Should highlight the second element with default color', () => {
+    let de = fixture.debugElement.queryAll(By.css('p'))[1]; //Get All Paragraphs, pick first.
+    let directive = de.injector.get(HighlightDirective);
+
+    expect(de.nativeElement.style.backgroundColor).toBe(directive.defaultColor);
+  });
 });
