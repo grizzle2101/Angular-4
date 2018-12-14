@@ -1,0 +1,13 @@
+---Section 19 - Project Setup---
+---Tutorial 1 - Introduction---
+So in the next few sections we're going to build a ecommerce store for buying and selling
+organic products using Angular, Firebase & BootStrap 4.
+The site is going to be fully featured with:
+-Product Selection
+-Tabs of categories eg bread, juices etc.
+-Shopping Cart(order management, billing & shipping form)
+-Login with Authentication & Authorization(JWT)
+-Admin Interface for product management
+    -CRUD for products
+    -DataTable w Search, Sorting & Pagination
+    -Upload product & images
