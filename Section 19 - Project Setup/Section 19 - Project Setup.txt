@@ -11,3 +11,16 @@ The site is going to be fully featured with:
     -CRUD for products
     -DataTable w Search, Sorting & Pagination
     -Upload product & images
+
+
+
+---Tutorial 2 - Source Code---
+Lets take a look at the project source code in github.
+https://github.com/mosh-hamedani/organic-shop
+
+Note:
+The project was setup with Moshs firebase account which has since been deleted.
+We need to change the environment.ts to match our Firebase account.
+-Upgraded Angular version to Angular/CLI
+-Changed config to match my firebase
+-Probabaly is some database migrations to run to get the neccessary setup.
