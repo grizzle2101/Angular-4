@@ -131,3 +131,19 @@ body {padding-top: 100px;}
 
 -Change from Dark Theme to Light Theme.
 <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+
+
+
+---Tutorial 6 - Extracting NavBar Component:---
+Currently we have all code in the app.component.hthml, we should really extract this
+to its own component.
+
+Task 1 - Extract NavBar:
+-Generate the NavBar component
+ng g c bs-navbar
+
+-Copy the NavBar part into its own template
+-use the selector bs-NavBar in app.component.html
+
+
+
