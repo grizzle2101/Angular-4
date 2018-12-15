@@ -38,14 +38,76 @@ Setup the basic project to reinforce some of the earlier learning concepts.
 -deploy application to Firebase
 
 
+---Tutorial 4 - Creating a New Project---
+
+Task 1 - Create Project:
+-ng new oshop
+ng serve - make sure it runs.
 
 
-Notes:
--Adding BootStrap:
-npm i --save bootstrap
-add bootstrap to style.css
+Task 2 - Setup Firebase:
+Login to Firebase, create new project oshop
+https://console.firebase.google.com/
 
-Finish this tomorrow,
--Clean up Navigation, only whats needed.
--Routing
-etc etc
+
+-On the Website click Add Firebase to your web app
+Gives us the following Code.
+<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBFZMLt3-XkOtFIBs0uSnBMpuqmfwQtg6Y",
+    authDomain: "oshop-73f57.firebaseapp.com",
+    databaseURL: "https://oshop-73f57.firebaseio.com",
+    projectId: "oshop-73f57",
+    storageBucket: "oshop-73f57.appspot.com",
+    messagingSenderId: "148438516618"
+  };
+  firebase.initializeApp(config);
+</script>
+
+
+-Add Credentials to environment.ts
+We just need to create a config object called firebase and add the config here.
+-Do the same for environment.prod.ts
+export const environment = {
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyBFZMLt3-XkOtFIBs0uSnBMpuqmfwQtg6Y",
+    authDomain: "oshop-73f57.firebaseapp.com",
+    databaseURL: "https://oshop-73f57.firebaseio.com",
+    projectId: "oshop-73f57",
+    storageBucket: "oshop-73f57.appspot.com",
+    messagingSenderId: "148438516618"
+  }
+};
+
+
+Task 3 - Installing Node Packages:
+-Install firebase and angularfire2
+npm i --save firebase@4.2.0 angularfire2@4.0.0-rc.1
+
+
+Task 4 - Setup App.module:
+-Add the various Modules into the Imports section in app.module.
+-import environment so we can use the firebase configuration object.
+
+import {environment} from './../environments/environment';
+import {AngularFireModule} from 'angularfire2';
+import {AngularFireDatabaseModule} from 'angularfire2/database';
+import {AngularFireAuthModule} from 'angularfire2/auth';
+
+
+  imports: [
+    BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
+  ],
+
+
+Note:
+Had a few issues with the compatability between RXJS and the firebase module we imported.
+So i downgraded RXJS in packagage.json, did a NPM Install then added
+(window as any).global = window; into polyfil.ts, application is now running.
+Should be much easier when we work with the newsest versions.
