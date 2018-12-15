@@ -24,3 +24,28 @@ We need to change the environment.ts to match our Firebase account.
 -Upgraded Angular version to Angular/CLI
 -Changed config to match my firebase
 -Probabaly is some database migrations to run to get the neccessary setup.
+
+
+---Tutorial 3 - Challenge---
+Setup the basic project to reinforce some of the earlier learning concepts.
+
+-Create new Application
+-Add BootStrap to application
+-Create a Navigation Bar with 2 links, Shopping Cart & Username dropdown
+-Shopping cart brings us to the shoping cart page.
+-Username is a dropdown with my orders, manage orders, manage products & log out
+    -hint lookup ng-BootStrap 3rd party library for building
+-deploy application to Firebase
+
+
+
+
+Notes:
+-Adding BootStrap:
+npm i --save bootstrap
+add bootstrap to style.css
+
+Finish this tomorrow,
+-Clean up Navigation, only whats needed.
+-Routing
+etc etc
