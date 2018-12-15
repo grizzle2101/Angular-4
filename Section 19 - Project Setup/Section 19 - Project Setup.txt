@@ -111,3 +111,23 @@ Had a few issues with the compatability between RXJS and the firebase module we 
 So i downgraded RXJS in packagage.json, did a NPM Install then added
 (window as any).global = window; into polyfil.ts, application is now running.
 Should be much easier when we work with the newsest versions.
+
+
+---Tutorial 5 - Installing BootStrap 4---
+
+Task 1 - Install BootStrap:
+npm i --save bootstrap
+
+Task 2 - Import Styles:
+@import '~bootstrap/dist/css/bootstrap.css';
+
+Task 3 - Add BootStrap NavBar:
+Lets get started by adding a nice boostrap template.
+-View the Source & copy into app.component.html
+https://getbootstrap.com/docs/4.1/examples/starter-template/
+
+-Fix the Body styling with some padding in style.css
+body {padding-top: 100px;}
+
+-Change from Dark Theme to Light Theme.
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
