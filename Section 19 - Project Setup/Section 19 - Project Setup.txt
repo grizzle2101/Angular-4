@@ -147,3 +147,71 @@ ng g c bs-navbar
 
 
 
+
+
+
+
+---Tutorial 7 - Defining the Routes---
+
+
+Task 1 - Generate Components:
+So we need to generate the various pages that are going to make up the application.
+Public Area:
+-home
+-products
+-shopping-cart
+-check-out
+-order-success
+-my-orders
+-login
+
+Admin Interface:
+-admin/admin-products
+-admin/admin-orders
+
+
+Task 2 - Register Routes:
+-Import RouterModule
+import {RouterModule} from '@angular/router';
+
+-Create the various routes
+-In a later section we will extract these to their own file.
+    RouterModule.forRoot([
+      {path:'', component: HomeComponent},
+      {path:'products', component: ProductsComponent},
+      {path:'shopping-cart', component: ShoppingCartComponent},
+      {path:'check-out', component: CheckOutComponent},
+      {path:'order-success', component: OrderSuccessComponent},
+      {path:'login', component: LoginComponent},
+      {path:'admin/products', component: AdminProductsComponent},
+      {path:'admin/orders', component: AdminOrdersComponent}
+  ])
+
+
+Task 3 - Create Router Outlet:
+-Before we can add routes, we need a router outlet.
+
+<main role="main" class="container">
+  <router-outlet></router-outlet>
+</main><!-- /.container -->
+
+
+Task 4 - Rework NavBar with some links:
+So lets make sure the navigation is working by adding some links.
+
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/shopping-cart">Shopping Cart</a>
+      </li>
+      <li class=
+
+
+Note:
+Versioning Fix, to deal with the many compatability issues with RXJS, Angular & Firebase, I downgraded
+to the exact version Mosh is using at the time of recording, before running this project run
+
+npm install @angular/cli@1.2.4 -g
+
