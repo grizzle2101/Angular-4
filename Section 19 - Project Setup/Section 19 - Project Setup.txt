@@ -267,3 +267,28 @@ the dropdown menu.
 
 Result:
 We have a working dropdown menu!
+
+
+---Tutorial 9 - Cleaning up the NavBar:---
+So finally we're going to personalize the Menu to the application.
+
+Task 1 - Rework Menu:
+-Username placeholder - To be generated from Login Details & JWT.
+-MyOrders
+-Admin links
+  -Manage Products
+  -Manage Orders
+-Log Out
+-Remove Search form
+-Rename NavBar
+
+      <li ngbDropdown  class="nav-item dropdown">
+        <a ngbDropdownToggle class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Username</a>
+        <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
+          <a class="dropdown-item" routerLink="my/orders">My Orders</a>
+          <a class="dropdown-item" routerLink="admin/orders">Manage Orders</a>
+          <a class="dropdown-item" routerLink="admin/products">Manage Products</a>
+          <a class="dropdown-item">Log Out</a>
+        </div>
+      </li>
+    </ul>
