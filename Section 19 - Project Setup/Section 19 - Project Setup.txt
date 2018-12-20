@@ -292,3 +292,45 @@ Task 1 - Rework Menu:
         </div>
       </li>
     </ul>
+
+
+---Tutorial 10 - Fixing a Few Minor Issues:---
+So lets just fix the remaining issues we can see with the application so far.
+
+Problem 1:
+Earlier on we added a Route to the Dropdown of #, this causes a few problems if we 
+navigate to a page, then look for options in the dropdown, we are automatically
+routed to #. Not a great user experience.
+
+Solution:
+Remove This.
+ <a ngbDropdownToggle class="nav-link dropdown-toggle" href="#"
+
+
+Problem 2:
+So when we click on the Dropdown, id actually like to be clickable.
+
+Solutions:
+Add some CSS.
+.dropdown-toggle {
+    cursor: pointer;
+}
+
+
+Problem 3:
+Our Store name should redirect to root.
+
+Solution:
+Just at a routerlink to the website root. We also don't need the Home link now as we
+have this link,=.
+ <a class="navbar-brand" routerLink="/">OShop</a>
+
+
+ Problem 4:
+ We don't have a route to my/orders
+
+Solution:
+Add the correct route.
+ {path:'my/orders', component: MyOrdersComponent}
+
+We're finally finished with the seutp, lets go deploy this to firebase.
