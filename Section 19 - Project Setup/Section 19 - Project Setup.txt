@@ -215,3 +215,55 @@ to the exact version Mosh is using at the time of recording, before running this
 
 npm install @angular/cli@1.2.4 -g
 
+
+
+---Tutorial 8 - Adding a Dropdown Menu---
+
+Task 1 - Rework HTML:
+So lets begin by cleaning up the HTML.
+-Remove links to example.com
+
+
+
+Note:
+If we add the class show to the bootstrap menu we can trigger the dropdown.
+<li class="nav-item dropdown show">
+<div class="dropdown-menu show" aria-labelledby="dropdown01">
+
+So we want to dynamically add the class 'show' into our boostrap class, then this
+will allow the dropdown menu to work.
+However Bootstrap by default uses JQuery to make these animations works, and the whole
+reason we use Angular is to simplify DOM control, so we need another solution.
+There are 2 ways to go about this, either we create a custom directive to do this
+action for us, or we use an existing libraru like ngbootstrap.
+
+
+Task 2 - Install ngbootstrap:
+So Angular has its own library for working with bootstrap. May require some messing,
+as the versions of Bootstrap and ng-boostrap are quite far behind.
+-npm install --save @ng-bootstrap/ng-bootstrap
+Used a earlier version, builds w Warnings.
+-npm install --save @ng-bootstrap/ng-bootstrap@2.0.0
+-Add ngbootstrap into app.module.
+
+  imports: [
+    BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    NgbModule.forRoot(),
+
+
+Task 3 - Use NgbModule:
+So now that we have it installed, we can use the directives to dynamically serve
+the dropdown menu.
+-ngbDropdown - Container for the Menu
+-ngbDropdownToggle - The Link the toggles the Menu.
+-ngbDropdownMenu - the Menu Items
+      <li ngbDropdown  class="nav-item dropdown">
+        <a ngbDropdownToggle class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+        <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
+
+
+Result:
+We have a working dropdown menu!
