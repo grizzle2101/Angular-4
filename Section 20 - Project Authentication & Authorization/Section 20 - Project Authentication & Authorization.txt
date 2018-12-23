@@ -1,0 +1,48 @@
+---Section 20 - Project: Authentication & Authorization---
+---Tutorial 1 - Introduction:---
+In this section we're going to implment the login page, using Google OAuth.
+We then need to store this information & show/hide the various routes/pages.
+
+
+---Tutorial 2 - Implementing Google Login:---
+
+
+Task 1 - Setup Authentication on Firebase:
+So we have the Authentication Tab which has a section for Authentication providers,
+Email password & Google.
+-Enable Google Authentication
+
+
+Task 2 - Add Login Link:
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/login">Login</a>
+        </li>
+
+
+Task 3 - Setup Login Page:
+-Add Button
+<button
+  (click)="login()"
+  class="btn btn-primary">
+  Login with Google
+</button>
+
+
+-Add OnClick Event:
+At the time of recording firebase AngularFire has limited support for Authentication,
+so in some cases we're going to work directly with firebase objects.
+-Import all Firebase objects(will rework later)
+-Take in AngularFireAuth via constructor
+-Finally use Auth.signInWithRedirect and pass the Google provider.(will refactor this
+design later, we should using dependency injection here.)
+
+import * as firebase from 'firebase';
+  constructor(private afAuth: AngularFireAuth) {}
+
+  login()
+  {
+    this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+  }
+
+Note:
+firebase.auth contains many more providers we will support futher down the line.
