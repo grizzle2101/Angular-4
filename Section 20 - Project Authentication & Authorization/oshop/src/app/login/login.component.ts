@@ -14,8 +14,6 @@ export class LoginComponent {
 
   login()
   {
-    console.log("Login");
-    //Will Redirect to OAuth provider:
     this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
   }
 

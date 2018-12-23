@@ -46,3 +46,35 @@ import * as firebase from 'firebase';
 
 Note:
 firebase.auth contains many more providers we will support futher down the line.
+
+
+
+---Tutorial 3 - Implementing the Logout:---
+So now that Login is working, we need to get a Logout.
+
+
+
+Task 1 - Rework HTML:
+-Add OnClick Event to Logout.
+            <a class="dropdown-item" (click)="logout()">Log Out</a>
+
+
+
+Task 2 - Implment Logout in Component:
+
+  logout() {
+    this.afAuth.auth.signOut();
+  }
+
+
+Problem:
+Although the method works, we get no response to know if it actually worked or not.
+ 
+
+Solution:
+We have the AuthState Observeable in AFAuth, we can subscrbe to this and display the 
+current state to make sure we've logged out successfully.
+
+  constructor(private afAuth: AngularFireAuth) { 
+    afAuth.authState.subscribe( x => console.log("Status: ", x));
+  }
