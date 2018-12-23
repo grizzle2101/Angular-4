@@ -50,14 +50,11 @@ firebase.auth contains many more providers we will support futher down the line.
 
 
 ---Tutorial 3 - Implementing the Logout:---
-So now that Login is working, we need to get a Logout.
-
-
+So now that Login is working, we need to Logout.
 
 Task 1 - Rework HTML:
 -Add OnClick Event to Logout.
-            <a class="dropdown-item" (click)="logout()">Log Out</a>
-
+      <a class="dropdown-item" (click)="logout()">Log Out</a>
 
 
 Task 2 - Implment Logout in Component:
@@ -78,3 +75,37 @@ current state to make sure we've logged out successfully.
   constructor(private afAuth: AngularFireAuth) { 
     afAuth.authState.subscribe( x => console.log("Status: ", x));
   }
+
+
+
+---Tutorial 4 - Displaying the Current User:---
+So now that we have data coming back from the firebase OAuth service, we can show/hide
+and display the users details.
+
+
+Task 1 - Add User Variable:
+So we know from the last lecture we can subscrbe to the authState and get the user.
+Lets assign that to a variable.
+
+  user: firebase.User;
+
+  constructor(private afAuth: AngularFireAuth) { 
+    afAuth.authState.subscribe( user => this.user = user);
+  }
+
+
+Task 2 - Hide/Show Elements:
+Now what we have acces the User details, we can show/hide elements.
+-Show Login if we have not already logged in.
+-Only show dropdown menu if logged in.
+-Finally if logged in, use the displayName
+
+        <li *ngIf="!user" class="nav-item">
+          <a class="nav-link" routerLink="/login">Login</a>
+        </li>
+        <li ngbDropdown *ngIf="user" class="nav-item dropdown">
+          <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{user.displayName}}
+          </a>
+
+
