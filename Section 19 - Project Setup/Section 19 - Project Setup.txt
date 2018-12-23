@@ -334,3 +334,42 @@ Add the correct route.
  {path:'my/orders', component: MyOrdersComponent}
 
 We're finally finished with the seutp, lets go deploy this to firebase.
+
+
+
+---Tutorial 11 - Deployment:---
+Okay so now that we got all that mess sorted, lets start deploying to firebase.
+
+
+Task 1 - Install Firebase Tools;
+firebase --version
+npm install firebase-tools -g
+
+
+Task 2 - Follow Firebase Wizard:
+-firebase login
+-firbase init
+-select hosting
+-SPA no
+
+
+Task 3 - Setup Firebase config:
+We need to make sure the public folder matches the output folder angular cli will generate.
+{
+  "hosting": {
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
+
+
+Task 4 - Build & Deploy:
+-ng build --prod
+-firebase deploy
+
+Had to match the exact folder with the compiled application.
+    "public": "dist/oshop",
