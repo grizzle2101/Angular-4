@@ -109,3 +109,35 @@ Now what we have acces the User details, we can show/hide elements.
           </a>
 
 
+
+---Tutorial 5 - Using the Asnc Pipe:---
+So there is a problem with the current implmention of AuthService. We should ALWAYS
+unsubscribe from an Observable.
+We have 2 methods for going about this, we can implment onDestroy then unsubscribe.
+OR the better option to use the Async Pipe.
+
+
+Task 1 - Rework Component:
+Set User to Observable, to use the Aysnc pipe we need to make the user$ an observable.
+  user$: Observable<firebase.User>
+
+  constructor(private afAuth: AngularFireAuth) { 
+    this.user$ = afAuth.authState;
+  }
+
+Task 2 - Use Async Pipe:
+Now that user$ is an Observable, we can set a template variable as the async value.
+-If there is no value, we set it to anonymousUser which renders the Login tab.
+
+         <!--Only Render Login if Anonymous User-->
+        <ng-template #anonymousUser>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/login">Login</a>
+            </li>
+        </ng-template>
+
+        <!--Get User Data Async-->
+        <li ngbDropdown *ngIf="user$ | async as user; else anonymousUser" class="nav-item dropdown">
+          <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{user.displayName}}
+          </a>
