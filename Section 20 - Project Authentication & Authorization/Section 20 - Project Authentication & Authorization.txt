@@ -202,3 +202,61 @@ friendly class like a DTO.
 
 Last Step:
 Finally now we've extracted the service, clean up all the unneccessary imports in NavBar & Login.
+
+
+
+---Tutorial 7 - Protecting Routes:---
+So we have a mix of pages, that require protection. Some should be viewable annoymously,
+where as others need to be logged in as users, others as Admin.
+
+
+Task 1 - Generate AuthGuard:
+-Generate Service:
+ng g s auth-guard
+
+-Add Service into Providers:
+  providers: [
+    AuthService,
+    AuthGuard
+  ],
+
+
+Task 2 - Implment AuthGuard:
+-Get Authentication State
+-Get Router
+-Implement canActivate
+-If we have User allow access, else redirect.
+
+export class AuthGuard {
+  constructor(private auth: AuthService, private router: Router) {}
+
+  canActivate() {
+    return this.auth.user$.subscribe(user => {
+      if(user) return true;
+
+      this.router.navigate(['/login']);
+      return false;
+    });
+  }
+}
+
+
+Task 3 - Add AuthGuard to Route:
+Now that we have the AuthGuard setup, we can add this to the various routes.
+-Protect a route with property canActivate: [AuthGuard]
+
+    RouterModule.forRoot([
+      {path:'', component: HomeComponent},
+      {path:'my/orders', component: MyOrdersComponent, canActivate: [AuthGuard]},
+      {path:'products', component: ProductsComponent},
+      {path:'shopping-cart', component: ShoppingCartComponent},
+      {path:'check-out', component: CheckOutComponent, canActivate: [AuthGuard]},
+      {path:'order-success', component: OrderSuccessComponent, canActivate: [AuthGuard]},
+      {path:'login', component: LoginComponent},
+      {path:'admin/products', component: AdminProductsComponent, canActivate: [AuthGuard]},
+      {path:'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuard]},
+  ])
+
+
+In the next section we'll look at redirecting after a successful login. Later we will also
+look at checking for various roles eg User & Admin.
