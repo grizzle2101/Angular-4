@@ -141,3 +141,64 @@ Now that user$ is an Observable, we can set a template variable as the async val
           <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{user.displayName}}
           </a>
+
+
+---Tutorial 6 - Extracting a Service:---
+So by now you've noticed the coupling in our NavBar Authentication, we should seperate the Authentication
+into its own service. We would do this for 2 main reasons
+-Testability
+-Seperation of Concerns
+
+
+The components themselves should not be responsible for Login & Logout, this should be a call to an
+external service, that hides the implmentation from our components. Today we're using,
+tomorrow we could be using soemthing else, lets encapsulate Authentication so we only have one place
+to change this.
+
+
+Task 1 - Generate a New Service:
+ng g s auth
+
+
+
+Task 2 - Add Reference in Providers:
+Don't forget dependency injection.
+  providers: [
+    AuthService
+  ],
+
+
+
+Task 3 - Extract Service:
+So we need to extract Login & Logout, then use this AuthService class in our components.
+
+export class AuthService {
+  constructor(private afAuth: AngularFireAuth) { }
+
+  login() {
+    this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+  }
+
+  logout() {
+    console.log("Logging Out...");
+    this.afAuth.auth.signOut();
+  }
+}
+
+Task 4 - Expose AuthState Observeable:
+So in the NavBar constructor we use the AuthState to show/hide elements. We need to expose an Observeable
+in our AuthService, so this functionality still works.
+Variables used in Templates should be public. AOT compilation requires it.
+
+  constructor(public afAuth: AngularFireAuth) {
+        this.user$ = afAuth.authState;
+  }
+
+Note:
+By Using Observable<firebase.user> we are leaking the implmentation detail to the outside world.
+A seasoned programmer would say this is a bad practive, and we should be wrapping this to a public
+friendly class like a DTO.
+
+
+Last Step:
+Finally now we've extracted the service, clean up all the unneccessary imports in NavBar & Login.

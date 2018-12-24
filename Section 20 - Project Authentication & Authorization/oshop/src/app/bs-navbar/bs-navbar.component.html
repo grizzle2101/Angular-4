@@ -18,7 +18,7 @@
         </ng-template>
 
         <!--Get User Data Async-->
-        <li ngbDropdown *ngIf="user$ | async as user; else anonymousUser" class="nav-item dropdown">
+        <li ngbDropdown *ngIf="authService.user$ | async as user; else anonymousUser" class="nav-item dropdown">
           <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{user.displayName}}
           </a>
