@@ -260,3 +260,92 @@ Now that we have the AuthGuard setup, we can add this to the various routes.
 
 In the next section we'll look at redirecting after a successful login. Later we will also
 look at checking for various roles eg User & Admin.
+
+
+---Tutorial 8 - Redirect the Users after login:---
+Okay now that we have the RouteGuard working, we need to fix a couple things.
+
+Scenario 1 - On Login:
+If we've logged in, we should not get directed back to Homepage.
+
+Scenario 2 - Page needs Authorization:
+When we go to page that requires Authorization we are redirected to Login, but we 
+never get redirect back to the original page.
+
+TaskList:
+So to summarize this section we need to:
+-Add ReturnURL when forced to Login.
+-Save this Return URL in localStorage.
+-Navigate to Return URL once Authenticated.
+
+BugFix:
+There was a problem from the previous section, with my lack of understanding on RXJS &
+Observables, I was working with the User Observable, when AuthGuard needs a Boolean
+to grant access to pages, so pages wouldn't Authenticate correctly.
+
+ canActivate() {
+    return this.auth.user$.pipe(map(user => {
+      if(user) { return true };
+      this.router.navigate(['/login']);
+      console.log("No User, Redirecting");
+      return false;
+    }));
+  }
+
+
+Task 1 - Add Return URL:
+We need to add a Return URL to Router Navigate.
+ if(user) { return true };
+      this.router.navigate(['/login']);
+      return false;
+
+Result:
+So now we can see the Additional Query Params in our URL.
+http://localhost:4200/login?returnUrl=%2Fcheck-out
+
+
+
+Task 2 - Save Return URL:
+Before sending the User to Google, lets save the returnURl using the
+ActivatedRoute snapshot details.
+-queryParamMap.get('returnUrl')
+-localStorage.setItem('returnUrl', returnUrl);
+
+  login() {
+    let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+    localStorage.setItem('returnUrl', returnUrl);
+    this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+  }
+
+Task 3 - Check User Authetnication @ AppComponent:
+So now that we have the setup, on initialization of the project, we need to check
+if we have a User, then if we do check the returnURL.
+
+  constructor(private auth: AuthService, router: Router) {
+    auth.user$.subscribe(user => {
+      if(user) {
+        let returnUrl = localStorage.getItem('returnUrl');
+        console.log('Getting Value from Storage: ', returnUrl);
+        router.navigateByUrl(returnUrl);
+      }
+    })
+  }
+
+
+Note:
+This approach seems to be a bit messy because at the time of recording Google did not
+send the ReturnURL back when you Authenticated, but this is no longer the case.
+And the Firebase Authentication Promise object does not work, should be able to add
+.THEN to the the Firebase Authentication, and redirect there. No need to store or 
+add anything into app component.
+
+this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+
+
+BugFix:
+Could not navigate to any other page expcept returnURL, need to remove from storage,
+and add this check to app component.
+if(user && returnUrl != null) {
+        router.navigateByUrl(returnUrl);
+        localStorage.clear();
+      }
