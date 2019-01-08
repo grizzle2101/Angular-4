@@ -349,3 +349,62 @@ if(user && returnUrl != null) {
         router.navigateByUrl(returnUrl);
         localStorage.clear();
       }
+
+
+---Tutorial 9 - Storing Users in Database:---
+Okay so we've implmented Authentication, now lets implment Authorization. By that I mean checking
+a users permissions like Admin or User.
+Firebase does not provide Authorization, it only stores them as Authenticated users, for this
+we need to store a role in the database.
+
+
+Task 1 - Create Firebase Service:
+For better seperation of concerns, everything to do with Firebase should be encapsulated in a service.
+-ng g s user
+-register Service as provider
+
+
+Task 2 - Implement Save:
+In the newly generated Service, inject the AngularFireDatabase and implement Save.
+Firebase makes it really easy to update data using db object.
+
+export class UserService {
+  //Inject Angular Database
+  constructor(private db: AngularFireDatabase) { }
+
+  //Mosh Way
+  Save(user: firebase.User) {
+    this.db.object('/users' + user.uid).update({
+      name: user.displayName,
+      email: user.email
+    });
+  }
+
+
+Task 3 - Use Service:
+So in the AppComponent where we check if the User is valid, we can call userService.save().
+
+constructor(private auth: AuthService, router: Router, private userService: UserService) {
+    auth.user$.subscribe(user => {
+      let returnUrl = localStorage.getItem('returnUrl');
+      console.log('Getting Value from Storage: ', returnUrl);
+
+      if(user && returnUrl != null) {
+        //Saving User
+        userService.Save(user);
+        
+        router.navigateByUrl(returnUrl);
+        localStorage.clear();
+      }
+    })
+
+
+Note:
+This implmentation is a bit off, we are going to Save the User into the Database each time they login.
+This is because we don't not have a registration mechanism at the moment, it is all done through google.
+We may later implment a registation page, which would be a better place for this.
+
+If is also possible they update their details on the OAuth provider, and this way we are sure
+to get the most up to date value each time.
+
+Few small errors with my databse, make sure to disable security.
