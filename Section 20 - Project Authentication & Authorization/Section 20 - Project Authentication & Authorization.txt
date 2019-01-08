@@ -408,3 +408,55 @@ If is also possible they update their details on the OAuth provider, and this wa
 to get the most up to date value each time.
 
 Few small errors with my databse, make sure to disable security.
+
+
+
+---Tutorial 10 - Defining the Roles:---
+So now that we have users, we want to give them 1 or more roles.
+There are several different approaches to this problem, we will go over the pros and cons for each.
+
+
+Method 1 - IsAdmin Property:
+We could add another column in our Users table like 'isAdmin'.
+
+Problem:
+This does not scale well, as we have more roles like 'isStoreManager' we have to keep updating the
+database. Managing all this will not be simple.
+
+
+Method 2 - Create a Roles Node/Table:
+We could create another node/table to store the various roles for a given user.
+This approach is much more scaleable, for each role we create a new table/node
+and then we're ready to go.
+
+roles
+    -Admins
+        -UniqueId1 : true
+    -StoreManagers
+        --UniqueId1 : true
+
+
+Method 3 - Operations:
+In some complex domains we might have checks for isAdmin & isStoreManager, but this might not scale
+when we have lots of opertions we want to resstrict. In that case it could be better to store
+this as operations, then the Action & users authorized to run that action.
+operations
+    -Create-Products
+        -UniqueId1 : true
+
+
+Which is Best?
+In software engineering there is no BEST solution, as each of these has trade offs. The more flexible
+we make it the less time we spend delivering value to the customer.
+For the purpose of this application, we only need an AdminRole, so appracoh 1 the isAdmin property
+is best for us.
+
+
+Task 1 - Add IsAdmin Property in Firebase:
+Add Value to existing user (me)
+isAdmin : true
+
+
+Note:
+In the future we would write a script to seed the database with the initial User & Admins.
+For now lets do it manually and move on to the next section protecting admin routes.
