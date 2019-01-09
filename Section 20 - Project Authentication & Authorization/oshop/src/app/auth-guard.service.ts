@@ -10,9 +10,7 @@ import { map } from "rxjs/operators";
 export class AuthGuard implements CanActivate {
   constructor(private auth: AuthService, private router: Router) {}
 
-  //Task 1 - Add Return URL:
   canActivate(route, state: RouterStateSnapshot) {
-    //Bug Fix - Map Result to Boolean, hence why Redirect/AuthGuard was not working.
     return this.auth.user$.pipe(map(user => {
       if(user) { return true };
 

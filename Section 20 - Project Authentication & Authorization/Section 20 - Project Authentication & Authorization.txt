@@ -460,3 +460,63 @@ isAdmin : true
 Note:
 In the future we would write a script to seed the database with the initial User & Admins.
 For now lets do it manually and move on to the next section protecting admin routes.
+
+
+
+---Tutorial 11 - Protecting the Admin Routes:---
+So just like the previous AuthGuard, we need to create an AdminGuard to make sure only Admins
+can access the Management pages.
+
+
+Task 1 - Create AdminGuard:
+-ng g s admin-auth-guard
+-register as provider
+
+
+Task 2 - Add GetUser Method in Service:
+Now that we get the User from the AuthService, we want to pass that user to read our custom tables.
+Note some changes since the tutorial, FirebaseObjectObservable is now AngularFireObject.
+-Return DBObject of Users
+  getUser(uid: string): AngularFireObject<AppUser> {
+    return this.db.object('/users/' + uid);
+  }
+
+Task 3 - Create Custom Models:
+Now that we're getting the Users, we should create an Interface to differenciate our data from
+the generic Firebase User we've been using.
+-Create Domain Model Interface
+
+export interface AppUser {
+    name: string;
+    email: string;
+    isAdmin: boolean;
+}
+
+
+Task 4 - Implment CanActivate:
+Now that we have the User Data being returned as AppUser, we can subscribe & check this data.
+-Check IsAdmin & map result to Boolean true/false to allow access.
+
+  canActivate() {
+    return this.auth.user$.pipe(switchMap(user => this.userService.getUser(user.uid).valueChanges()
+     .pipe(map(appUser => {
+       if(appUser.isAdmin == true)
+       {
+        console.log("SUCCESSS")
+        return true;
+       }
+      }))));
+  }
+
+Note:
+RXJS has changes massivly since recording, so code looks very difference but functions the same.
+SwitchMap is used to Map to an inner Observable, so we only have the AdminCheck.
+
+Task 5 - Add AuthGuard to Management Routes:
+And now we just add the new AdminAuthGuard into the array of CanActivate & voila.
+   {path:'admin/products', component: AdminProductsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+   {path:'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+
+
+Test:
+Make sure to toggle isAdmin to true/false & access the proected pages.
