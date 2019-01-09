@@ -11,16 +11,15 @@ import { AngularFireObject } from 'angularfire2/database';
 @Injectable({
   providedIn: 'root'
 })
-//Task 1 - Create AdminAuthGuard
 export class AdminAuthGuard implements CanActivate {
 
   constructor(private auth: AuthService, private userService : UserService) { }
 
-  //Task 4 - Implment CanActivate
+  //Task 2 - Refactor canActivate:
   canActivate() {
-    return this.auth.user$.pipe(switchMap(user => this.userService.getUser(user.uid).valueChanges()
-     .pipe(map(appUser => {
-       if(appUser.isAdmin == true){ return true;}
-      }))));
+    return this.auth.appUser$ 
+    .pipe(map(appUser => {
+      return appUser.isAdmin;
+      }));
   }
 }

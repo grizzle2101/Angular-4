@@ -520,3 +520,57 @@ And now we just add the new AdminAuthGuard into the array of CanActivate & voila
 
 Test:
 Make sure to toggle isAdmin to true/false & access the proected pages.
+
+
+
+---Tutorial 12 - Showing or Hiding the Admin Links:---
+So now that we have the Admin AuthGuard working, we should show/hide the Links
+to Mange Products & Manage Orders.
+
+
+Task 1 - Expose AppUser Properties:
+So we need to expose the isAdmin property to the template so we can hide/show things.
+The problem is this property only exists in the backend of our application, so we need
+to do some refactoring.
+-Map User Observable to value Observable<AppUser>
+-Extract SwitchMap from AdminAuthGuard.
+
+  get appUser$(): Observable<AppUser> {
+    return this.user$.pipe(switchMap(user => this.userService.getUser(user.uid).valueChanges()));
+  }
+
+
+Task 2 - Refactor AdminAuthGuard:
+Now that we have extracted the SwitchMap into AuthGuard, our CanActivate method can be
+much cleaner!
+We now should be able to access the isAdmin from our Template, to show & hide things.
+
+  canActivate() {
+    return this.auth.appUser$ 
+    .pipe(map(appUser => {
+      return appUser.isAdmin;
+      }));
+  }
+
+
+Task 3 - Refactor Template with AppUser Data:
+Now that the AdminGuard works with our changes, we can add the neccessary changes into
+our Template & Component.
+-Declare AppUserVariable
+-In constructor initialize value from Observable
+-In Template use AppUser to Dynamically show/hide the various elements.
+
+export class BsNavbarComponent {
+  public appUser: AppUser;
+  
+  constructor(private authService: AuthService) {
+    authService.appUser$.subscribe(x => {this.appUser = x});
+   }
+
+-Replace existing bindings to use AppUser from Component.
+
+
+Note:
+Because we only have a single instance of the NavBar, our approach of using Observeables
+in the NavBar constructor is okay, we are not worried about memory leaks from multiple
+components with the same data.
