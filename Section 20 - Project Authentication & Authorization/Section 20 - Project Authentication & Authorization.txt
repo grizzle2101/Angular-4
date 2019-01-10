@@ -574,3 +574,29 @@ Note:
 Because we only have a single instance of the NavBar, our approach of using Observeables
 in the NavBar constructor is okay, we are not worried about memory leaks from multiple
 components with the same data.
+
+
+---Tutorial 13 - Fixing Bug:---
+Some there seems to be a few issues with Logging out. Cannot find UID error in console.
+
+
+Task 1 - Check UID:
+  get appUser$(): Observable<AppUser> {
+    return this.user$.pipe(switchMap(user => {
+      if(user) {
+        return this.userService.getUser(user.uid).valueChanges()
+      }
+      return EMPTY;
+    }));
+  }
+
+
+Task 2 - Appearing as if Logged In:
+After logging out, still getting the Conor logged in and navigation, even though the AuthGuard blocks.
+Even though we are logged out, the component is still cachinc the appUser & rendering its details.
+Hacky fix for now, just set the value to null on Logout.
+
+  logout() {
+    this.authService.logout();
+    this.appUser = null;
+  }

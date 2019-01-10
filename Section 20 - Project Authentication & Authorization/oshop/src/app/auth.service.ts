@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
-import { Observable } from 'rxjs';
+import { Observable, EMPTY } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { AppUser } from './models/app-user';
 import { map, switchMap } from 'rxjs/operators';
@@ -32,8 +32,16 @@ export class AuthService {
     this.afAuth.auth.signOut();
   }
 
-  //Task 1 - Expose AppUser Properties:
+  //BugFix
   get appUser$(): Observable<AppUser> {
-    return this.user$.pipe(switchMap(user => this.userService.getUser(user.uid).valueChanges()));
+    return this.user$.pipe(switchMap(user => {
+      if(user) {
+        //IF we have user Return UserObservable.
+        console.log("USER:", user);
+        return this.userService.getUser(user.uid).valueChanges()
+      }
+      console.log("EMPTY")
+      return EMPTY;
+    }));
   }
 }

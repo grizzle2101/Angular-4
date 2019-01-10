@@ -16,9 +16,7 @@
               <a class="nav-link" routerLink="/login">Login</a>
             </li>
         </ng-template>
-
-        <!--Get User Data Async-->
-        <!--Refactor to Use Async-->
+        
         <li ngbDropdown *ngIf="appUser; else anonymousUser" class="nav-item dropdown">
           <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{appUser.name}}

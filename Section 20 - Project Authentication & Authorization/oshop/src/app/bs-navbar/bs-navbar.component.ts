@@ -8,7 +8,6 @@ import { AppUser } from '../models/app-user';
   styleUrls: ['./bs-navbar.component.css']
 })
 export class BsNavbarComponent {
-  //Refactor to use Async directly in Template.
   public appUser: AppUser;
   
   constructor(private authService: AuthService) {
@@ -17,5 +16,6 @@ export class BsNavbarComponent {
 
   logout() {
     this.authService.logout();
+    this.appUser = null;
   }
 }
