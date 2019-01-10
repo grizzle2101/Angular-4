@@ -218,3 +218,33 @@ We now just use the service & pass our form object & voila.
 
 Result:
 We can now save products in the Database.
+
+
+
+---Tutorial 5 - Implmenting Validation:---
+So we want to add a mix of generic & custom validation to our form, lets start
+by making all fields required.
+
+
+Task 1 - Add Required Validation to Input:
+Lets do this ssing the Template Driven method, eg HTML 5 validation.
+Lets start by adding a Template variable to store ngModel.
+ 
+ <input #title="ngModel" name="title" id="title" type="text" class="form-control" required>
+
+-Add Required
+-add Template variable for form control object.
+-Add Alert box with validation error.
+-Hide Alert box until form control object in use.
+
+    <div class="alert alert-danger" *ngIf="title.touched && title.invalid">
+      Title is Required!
+    </div>
+
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input #title="ngModel" ngModel name="title" id="title" type="text" class="form-control" required>
+    </div>
+
+
+In the next lecture we're going to add some more complex validation.

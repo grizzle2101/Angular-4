@@ -17,7 +17,6 @@ export class ProductFormComponent implements OnInit {
 
   ngOnInit() {}
 
-  //Task 4 - Implment Save:
   save(product) {
     console.log("Product: ", product);
     this.productService.createProduct(product);
