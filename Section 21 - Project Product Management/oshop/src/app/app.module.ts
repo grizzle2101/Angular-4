@@ -25,6 +25,7 @@ import { AdminAuthGuard } from './admin-auth-guard.service';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { CategoryService } from './category.service';
 import {FormsModule} from '@angular/forms';
+import {CustomFormsModule} from 'ng2-validation';
 import { ProductService } from './product.service';
 
 @NgModule({
@@ -45,6 +46,7 @@ import { ProductService } from './product.service';
   imports: [
     BrowserModule,
     FormsModule,
+    CustomFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,

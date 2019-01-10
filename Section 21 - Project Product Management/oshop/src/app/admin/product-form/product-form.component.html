@@ -1,5 +1,4 @@
 <form #f="ngForm" (ngSubmit)="save(f.value)"> 
-  <!--Task 1 - Add Required Validation to Input:-->
     <div class="alert alert-danger" *ngIf="title.touched && title.invalid">
       Title is Required!
     </div>
@@ -9,15 +8,18 @@
       <input #title="ngModel" ngModel name="title" id="title" type="text" class="form-control" required>
     </div>
 
+    <!--Task 3 - Extend Alert Box:-->
     <div class="alert alert-danger" *ngIf="price.touched && price.invalid">
-        Price is Required!
+      <div *ngIf="price.errors.required">Price is Required!</div>
+      <div *ngIf="price.errors.min">Price should be 0 or Higher!</div>
     </div>
     
+    <!--Task 2 - Add Custom Validations:-->
     <div class="form-group">
       <label for="price">Price</label>
       <div class="input-group-prepend">
         <span class="input-group-text">$</span>
-        <input #price="ngModel" ngModel name="price" id="price" type="number" class="form-control" required>
+        <input #price="ngModel" ngModel name="price" id="price" type="number" class="form-control" required [min]="0">
       </div>
     </div>
 
@@ -33,13 +35,15 @@
       </select>
     </div>
 
+    <!--Task 4 - Implment URL Validation:-->
     <div class="alert alert-danger" *ngIf="imageUrl.touched && imageUrl.invalid">
-        Image URL is Required!
+        <div *ngIf="imageUrl.errors.required"> Image URL is Required!</div>
+        <div *ngIf="imageUrl.errors.url">That Image URL is NOT valid!</div>  
     </div>
 
     <div class="form-group">
         <label for="imageUrl">Image URL</label>
-        <input #imageUrl="ngModel" ngModel name="imageUrl" id="imageUrl" type="text" class="form-control" required>
+        <input #imageUrl="ngModel" ngModel name="imageUrl" id="imageUrl" type="text" class="form-control" required url>
     </div>
 
     <button class="btn btn-primary">Save</button>

@@ -248,3 +248,54 @@ Lets start by adding a Template variable to store ngModel.
 
 
 In the next lecture we're going to add some more complex validation.
+
+
+
+---Tutorial 6 - Adding Custom Validation:---
+So we have 2 custom validations we want to make, the first being price is a positive
+whole number, and the 2nd being that the ImageURl format is valid.
+As mentioned before at the time of recording angular does not support url validation, so
+we're going to use a another library called ng2-validation
+
+Task 1 - Install ng2-validation:
+-npm i ng2-validation --save
+-add in AppModule
+import {CustomFormsModule} from 'ng2-validation';
+
+-Add in Imports
+  imports: [
+    BrowserModule,
+    FormsModule,
+    CustomFormsModule,
+
+
+
+
+We can now use the MIN method with property binding, and set it to 0.
+id="price" type="number" class="form-control" required [min]="0"
+
+
+Task 3 - Extend Alert Box:
+Now that we have multiple errors, we need to extend the alert box.
+
+    <div class="alert alert-danger" *ngIf="price.touched && price.invalid">
+      <div *ngIf="price.errors.required">Price is Required!</div>
+      <div *ngIf="price.errors.min">Price should be 0 or Higher!</div>
+    </div>
+
+
+Task 4 - Implment URL Validation:
+Finally we get to use the NG2-Validtion directives and see what it can do.
+-url Directive for validating URLs
+
+id="imageUrl" type="text" class="form-control" required url>
+
+-Again Extend the Alert Box:
+    <div class="alert alert-danger" *ngIf="imageUrl.touched && imageUrl.invalid">
+        <div *ngIf="imageUrl.errors.required"> Image URL is Required!</div>
+        <div *ngIf="imageUrl.errors.url">That Image URL is NOT valid!</div>  
+    </div>
+
+
+So in summary we didn't really have to create the Custom Validators for scratch,
+instead used built in directives from ng2-validtion to validate urls, pretty cool!
