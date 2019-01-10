@@ -169,3 +169,52 @@ in our service.
   getCategories(): AngularFireList<any> {
     return this.db.list('/categories', x => x.orderByChild('name'));
   }
+
+
+---Tutorial 4 - Saving Product to Database:---
+So now the Form is complete lets get working on saving to the database. Lets assume for
+now that the data is correct, we'll work on validation later.
+
+
+Task 1 - Create Form/FormControl Objects
+We have to create a form control object for each input element.
+-add ngModel & name to create form control object.
+
+ <input ngModel name="title" id="title" type="text" class="form-control">
+-Do this for each of the inputs in our form.
+-Add ngSubmit to Form, bind to save method in Component.
+-add a Template variable f for the form data.
+
+<form #f="ngform" (ngSubmit)="save(f.value)">
+
+Task 2 - Import Forms Module:
+Now that we're using ngModel, we need to import the FormsModule.
+  imports: [
+    BrowserModule,
+    FormsModule,
+
+Task 3 - Create ProductService:
+-ng g s product
+-register as provider
+-Implement CreateProduct
+-use push to add items to the products node
+
+export class ProductService {
+  constructor(private db: AngularFireDatabase) { }
+
+  createProduct(product) {
+    this.db.list('/products').push(product);
+  }
+}
+
+
+Task 4 - Implment Save:
+We now just use the service & pass our form object & voila.
+  save(product) {
+    console.log("Product: ", product);
+    this.productService.createProduct(product);
+  }
+
+
+Result:
+We can now save products in the Database.

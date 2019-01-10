@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/category.service';
+import { ProductService } from 'src/app/product.service';
 
 @Component({
   selector: 'app-product-form',
@@ -9,11 +10,16 @@ import { CategoryService } from 'src/app/category.service';
 export class ProductFormComponent implements OnInit {
   categories$;
 
-  //Task 3 - Use Category Service:
-  constructor(categoryService: CategoryService) {
+  constructor(categoryService: CategoryService, private productService: ProductService) {
     this.categories$ = categoryService.getCategories().valueChanges();
     console.log("Data: ", this.categories$);
    }
 
   ngOnInit() {}
+
+  //Task 4 - Implment Save:
+  save(product) {
+    console.log("Product: ", product);
+    this.productService.createProduct(product);
+  }
 }
