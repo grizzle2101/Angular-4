@@ -1,0 +1,22 @@
+---Section 21 - Project: Product Management---
+---Tutorial 1 - Introduction:---
+In this section we're going to build out the Proudct Managment Page, for doing CRUD
+operations on the Product catalog, as well as searching, sorting, pagination & limit
+results(part of Angular 4 DataTable)
+
+
+Assignment 1 - Product Table:
+The Structure of the Table should be as follows.
+NO  -   Title   -   Price   -   Edit
+1       Orange      $2          Edit
+
+
+Assignment 2 - Edit Page:
+On clicking Edit on a particular item, the user is directed to a page with
+the detailed product information.
+-Title
+-Price
+-Category
+-Image URL
+-Save & Delete Buttons
+-Preview Card for the Item Details & Image.
