@@ -22,6 +22,7 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
 import { UserService } from './user.service';
 import { AdminAuthGuard } from './admin-auth-guard.service';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AdminAuthGuard } from './admin-auth-guard.service';
     MyOrdersComponent,
     LoginComponent,
     AdminProductsComponent,
-    AdminOrdersComponent
+    AdminOrdersComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,9 @@ import { AdminAuthGuard } from './admin-auth-guard.service';
       {path:'order-success', component: OrderSuccessComponent, canActivate: [AuthGuard]},
       {path:'login', component: LoginComponent},
       {path:'admin/products', component: AdminProductsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
-      {path:'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+      //Task 3 - Create Route for New Page:
+      {path:'admin/products/new', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+      {path:'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuard, AdminAuthGuard]}
   ])
   ],
   providers: [

@@ -20,3 +20,59 @@ the detailed product information.
 -Image URL
 -Save & Delete Buttons
 -Preview Card for the Item Details & Image.
+
+
+---Tutorial 2 - Building a BootStrap Form:---
+
+Task 1 - Create Admin Product Form:
+ng g c admin/product-form
+
+
+Task 2 - Create Link to Product Form:
+<a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
+
+Task 3 - Create Route for New Page:
+ {path:'admin/products/new', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+
+
+Test:
+Make sure the Navigation to this page works as designed.
+
+
+Task 4 - Create BootStrap Form:
+Create the Basic BootStrap form with the Various Data Title, Price, Category & ImageUrl.
+
+  <div class="form-group">
+    <label for="category">Category</label>
+    <select id="category"class="form-control">
+      <option value=""></option>
+    </select>
+  </div>
+
+  <div class="form-group">
+      <label for="imageUrl">Image URL</label>
+      <input id="imageUrl" type="text" class="form-control">
+  </div>
+
+  <button class="btn btn-primary">Save</button>
+</form>
+
+
+Task 5 - Prefix Price:
+With BootStrap forms its possible to add a Prefix so we know we're always dealing with
+dollars.
+
+    <div class="form-group">
+      <label for="price">Price</label>
+      <div class="input-group-prepend">
+        <span class="input-group-text">$</span>
+        <input id="price" type="number" class="form-control">
+      </div>
+    </div>
+
+Note:
+BootStrap has changed since recording, had to improvise.
+
+Result:
+We now have a basic bootstrap form for adding new products, and the navigation setup
+for admins to access it.
