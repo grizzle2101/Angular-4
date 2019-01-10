@@ -76,3 +76,96 @@ BootStrap has changed since recording, had to improvise.
 Result:
 We now have a basic bootstrap form for adding new products, and the navigation setup
 for admins to access it.
+
+
+
+---Tutorial 3 - Populating Categories DropDown List:---
+So now that we have the form setup, we need to populate the Categories dropdown.
+We have 2 ways to go about this, the first being adding a node in Firebase, populate
+and read.
+Another solution is to create a page for admins to add/remove categories. Again this
+depends on the needs of the customer, but in this case the list of Categories is fairly
+stable and unlikely to change, so adding a page might be overkill, lets still with Firebase.
+
+Top Tip:
+Focus on what is mandatory for your first version, remeber your job is to bring value
+to the customer.
+
+
+Task 1 - Populate Categories in Firebase:
+Foreach category we want a identifer and a name. But to make this Search Engine
+friendly, we want to use the category name.
+-In Firebase create categories node like so
+-The first value being the URL & lookup, the innervalue being what is displayed.
+
+-categories
+    -bread
+        -Bread
+
+-Do the same setup for fruits, dairy, vegetables & seasonings
+
+
+Note:
+With this approach, we can easily add new features like featured, by adding this property
+to a node, we can display trending ones on our homepage.
+
+
+
+Task 2 - Create a Service:
+Anytime we want to work with the backend, we want to create a service.
+-ng g s category
+-register as provider in AppModule
+-Create getCategories
+
+export class CategoryService {
+
+  constructor(private db: AngularFireDatabase) { }
+
+  getCategories() {
+    return this.db.list('/categories');
+  }
+}
+
+
+Task 3 - Use Category Service:
+In out ProductFormComponent we can use the Category service & expose the Observeable
+to our template.
+
+export class ProductFormComponent implements OnInit {
+  categories$;
+
+  constructor(categoryService: CategoryService) {
+    this.categories$ = categoryService.getCategories();
+   }
+
+  ngOnInit() {}
+}
+
+
+Task 4 - Unwrap Observeable in Template:
+Using the Async Operator we can unwrap Observeable and display the categories data.
+
+  <div class="form-group">
+    <label for="category">Category</label>
+    <select id="category"class="form-control">
+      <option value=""></option>
+      <option *ngFor="let c of categories$ | async" [value]="c.name">{{c.name}}</option>
+    </select>
+  </div>
+
+Note:
+To use Async pipe, must use valuesChanges in either the Service or Component, its
+implmentation has changed a lot since.
+
+Result:
+We should now have the Categories being displayed in the Product Page.
+
+
+Task 5 - Order Alpabetically:
+The Categories data is not being returned alphabetically, so we need to order the data
+in our service.
+-pass second parameter to db.list to order by.
+-for a complete list of orderings, see the AngularFire documentation.
+  getCategories(): AngularFireList<any> {
+    return this.db.list('/categories', x => x.orderByChild('name'));
+  }
