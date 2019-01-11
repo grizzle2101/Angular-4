@@ -19,8 +19,7 @@ export class ProductFormComponent implements OnInit {
    }
 
   ngOnInit() {}
-
-  //Task 4 - Redirect On Save:
+  
   save(product) {
     console.log("Product: ", product);
     this.productService.createProduct(product);

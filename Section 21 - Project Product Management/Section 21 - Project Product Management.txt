@@ -358,3 +358,55 @@ So now that we can create the Object, we need to redirect once the deed is done.
   }
 
 In this next section we'll continue on from here and build on the Product List page.
+
+
+
+---Tutorial 8 - Rendering the List of Products:---
+Now that we can create products, we want a page for an Admin to Add/Edit or remove
+products from the website.
+
+
+Task 1 - Add GetProducts to ProductService:
+Simply get the DB list & return.
+
+  getProducts() {
+    return this.db.list('/products');
+  }
+
+
+Task 2 - Add Service to Component:
+export class AdminProductsComponent implements OnInit {
+  products$;
+
+  constructor(private productService: ProductService) { 
+    this.products$ = this.productService.getProducts().valueChanges();
+  }
+
+
+Task 3 - Create Table & render Products:
+For the most part this is self explanitory, just rendering the details in table.
+The edit link however is a bit difference, we need to dynamically create a route using
+the items key in Firebase.
+We use property binding to bind the routerLink to the link + the key of the item.
+-<a [routerLink]="['/admin/products/', p.$key]">Edit</a>
+
+<table class="table">
+  <thead>
+      <tr>
+        <th>Title</th>
+        <th>Price</th>
+        <th></th>
+      </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of products$ | async">
+      <td>{{p.title}}</td>
+      <td>{{p.price}}</td>
+      <td>
+        <a [routerLink]="['/admin/products/', p.$key]">Edit</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+In the next section we'll look at rendering this Edit page.

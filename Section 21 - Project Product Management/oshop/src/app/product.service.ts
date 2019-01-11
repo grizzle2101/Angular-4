@@ -10,4 +10,9 @@ export class ProductService {
   createProduct(product) {
     return this.db.list('/products').push(product);
   }
+
+  //Task 1 - Add GetProducts to ProductService:
+  getProducts() {
+    return this.db.list('/products');
+  }
 }
