@@ -299,3 +299,62 @@ id="imageUrl" type="text" class="form-control" required url>
 
 So in summary we didn't really have to create the Custom Validators for scratch,
 instead used built in directives from ng2-validtion to validate urls, pretty cool!
+
+
+---Tutorial 7 - Adding a BootStrap Card:---
+In this section we're going to break up the New Product form and add a bootstrap card
+to preview the products before submitting.
+
+
+Task 1 - Divide Product Page:
+With BootStrap everything is divided into a grid totalling 12 columns, this is why MD 6
+is half the page.
+We can put all the form markup in one half, then our bootstrap card in the other half.
+
+<div class="row">
+  <div class="col-md-6">
+  </div>
+
+
+Task 2 - Add BootStrap Card:
+So if we checkout https://getbootstrap.com/docs/4.0/components/card/
+We can steal the markup here for rendering a nice card.
+
+  <div class="col-md-6">
+      <div class="card">
+          <img class="card-img-top" src="..." alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+  </div>
+
+
+Task 3 - Inject Template Variables:
+So now we can inject the ngModel template variables we declared earlier.
+-Apply USD currency using currency:'USD':true
+-true meaning display $
+
+  <div class="col-md-6">
+      <div class="card">
+          <img class="card-img-top" [src]="imageUrl.value">
+          <div class="card-body">
+            <h5 class="card-title">{{title.value}}</h5>
+            <p class="card-text">{{price.value | currency:'USD':true}}</p>
+          </div>
+        </div>
+  </div>
+
+
+Task 4 - Redirect On Save:
+So now that we can create the Object, we need to redirect once the deed is done.
+-router.navigate
+  save(product) {
+    console.log("Product: ", product);
+    this.productService.createProduct(product);
+    this.router.navigate(['admin/products']);
+  }
+
+In this next section we'll continue on from here and build on the Product List page.
