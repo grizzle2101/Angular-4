@@ -6,12 +6,12 @@ import { ProductService } from 'src/app/product.service';
   templateUrl: './admin-products.component.html',
   styleUrls: ['./admin-products.component.css']
 })
-//Task 2 - Add Service to Component:
+
 export class AdminProductsComponent implements OnInit {
   products$;
 
   constructor(private productService: ProductService) { 
-    this.products$ = this.productService.getProducts().valueChanges();
+    this.products$ = this.productService.getProducts();
   }
 
   ngOnInit() {

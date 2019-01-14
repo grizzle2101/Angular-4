@@ -59,8 +59,10 @@ import { ProductService } from './product.service';
       {path:'check-out', component: CheckOutComponent, canActivate: [AuthGuard]},
       {path:'order-success', component: OrderSuccessComponent, canActivate: [AuthGuard]},
       {path:'login', component: LoginComponent},
-      {path:'admin/products', component: AdminProductsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+      //Task 1 - Add a Route:
       {path:'admin/products/new', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+      {path:'admin/products/:id', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+      {path:'admin/products', component: AdminProductsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
       {path:'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuard, AdminAuthGuard]}
   ])
   ],

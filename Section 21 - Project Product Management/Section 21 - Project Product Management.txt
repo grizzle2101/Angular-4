@@ -410,3 +410,92 @@ We use property binding to bind the routerLink to the link + the key of the item
 </table>
 
 In the next section we'll look at rendering this Edit page.
+
+
+---Tutorial 9 - Editing a Product:---
+Okay so now the next thing to work on is that edit button.
+
+Blocking Problem:
+Firebase does not expose the $KEY property anymore. Need to figure out a way to access
+in the product list.
+
+Fix:
+Had to write a method to track object, map key & payload and rework template
+to use new values.
+
+  getProducts() {
+    return this.db.list('/products').snapshotChanges().pipe(
+      map(products => products.map(p => ({key: p.key, data: p.payload.toJSON()}))));
+  }
+
+Task 1 - Add a Route:
+-Remember to get from MOST specific to least, so we don't always trigger products.
+{path:'admin/products/new', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+{path:'admin/products/:id', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+{path:'admin/products', component: AdminProductsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+    
+Make sure we're sending the correct UniqueID so the product key.
+<a [routerLink]="['/admin/products/', p.key]">Edit</a>
+
+
+Task 2 - Get Single Product:
+  getProduct(key) {
+    return this.db.list('/products/' + key);
+  }
+
+
+Task 3 - Read Route Parameter & Load Product:
+
+    let id = this.route.snapshot.paramMap.get('id');
+    if(id) {
+      this.productService.getProduct(id).valueChanges()
+      .pipe(take(1)).subscribe(x => this.product = x[0]);
+    };
+   }
+Note:
+So now that we have the Proudct being loaded, we need a way to unsubscribe.
+
+Method 1 - OnDestroy:
+One way to make sure we unsubscribe is by implmenting OnDestroy, then makeing
+sure to terminate the connection.
+
+Method 2 - Take Operator:
+In RXJS we have a TAKE operation, which allows us to take the value, and let RXJS
+handle the termination. If we only need a value once, use take operator to make subscring
+and unsubscribing easier.
+
+Single Result Problem:
+Using Product/ID we somehow lose the properties we need to bind to.
+So no title price etc which are vital...
+
+Fix:
+ this.productService.getProduct(id).valueChanges().pipe(take(1)).subscribe(x => this.product = x[0]);
+
+Task 4 - Add Proudct to Template:
+Now we need to preload our product data into the form, we do this by using property binding.
+We bind ngModel to product.title and we leave the validation as is, as it uses the #title
+template variable.
+-do this for each input field in the form.
+
+          <div class="alert alert-danger" *ngIf="title.touched && title.invalid">
+            Title is Required!
+          </div>
+          
+          <!--Task 4 - Bind Data to Template:-->
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input #title="ngModel" [(ngModel)]="product.title" name="title" id="title" type="text" class="form-control" required>
+          </div>
+
+
+Task 5 - ImageUrl Fix:
+So if we click onto edit, we can see an error failure @ localhost:4200/null.
+This is because before we can get the data from Firebase, Angular is attempting
+to render the imageUrl which is of course not valid.
+A quick fix is to add a ngIf onto the img src.
+
+      <div class="card">
+          <img class="card-img-top" [src]="imageUrl.value" *ngIf="product.imageUrl">
+
+
+In the next section we'll look at updating any existing product we edit.

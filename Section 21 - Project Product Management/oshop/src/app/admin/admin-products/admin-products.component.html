@@ -2,7 +2,6 @@
     <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
 </p>
 
-<!--Task 3 - Create Table & render Products-->
 <table class="table">
   <thead>
       <tr>
@@ -13,10 +12,11 @@
   </thead>
   <tbody>
     <tr *ngFor="let p of products$ | async">
-      <td>{{p.title}}</td>
-      <td>{{p.price}}</td>
+      <td>{{p.data.title}}</td>
+      <td>{{p.data.price}}</td>
+      <td>{{p.key}}</td>
       <td>
-        <a [routerLink]="['/admin/products/', p.$key]">Edit</a>
+        <a [routerLink]="['/admin/products/', p.key]">Edit</a>
       </td>
     </tr>
   </tbody>
