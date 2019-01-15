@@ -13,6 +13,7 @@ import { Product } from 'src/app/Product';
 export class ProductFormComponent implements OnInit {
   categories$;
   product = {};
+  id;
 
   constructor(
     private router: Router,
@@ -21,10 +22,9 @@ export class ProductFormComponent implements OnInit {
     private route: ActivatedRoute) {
     this.categories$ = categoryService.getCategories().valueChanges();
 
-    //Task 3 - Read Route Parameter & Load Product
-    let id = this.route.snapshot.paramMap.get('id');
-    if(id) {
-      this.productService.getProduct(id).valueChanges()
+    this.id = this.route.snapshot.paramMap.get('id');
+    if(this.id) {
+      this.productService.getProduct(this.id).valueChanges()
       .pipe(take(1)).subscribe(x => this.product = x[0]);
     };
    }
@@ -32,8 +32,9 @@ export class ProductFormComponent implements OnInit {
   ngOnInit() {}
   
   save(product: Product) {
-    console.log("Product: ", product);
-    this.productService.createProduct(product);
+    //Task 2 - Check ID & Update:
+    if(this.id) this.productService.update(this.id, product);
+    else this.productService.createProduct(product);
     this.router.navigate(['admin/products']);
   }
 }

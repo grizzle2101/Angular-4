@@ -499,3 +499,31 @@ A quick fix is to add a ngIf onto the img src.
 
 
 In the next section we'll look at updating any existing product we edit.
+
+
+---Tutorial 10 - Update Product:---
+So now that we have the edit details up, you've realized that clicking save makes a duplicate.
+We need to implment another method to update, rather than create a whole new entry.
+
+
+Task 1 - Create Update Method:
+We need the Key & product to update an existing product.
+
+  update(productID, product) {
+    return this.db.object('/products/' + productID).update(product);
+  }
+
+
+Task 2 - Check ID & Update:
+So we need a way to differenciate between new products & edited ones, lucky we have the ID from the
+route, can check that before updating.
+
+  save(product: Product) {
+    if(this.id) this.productService.update(this.id, product);
+    else this.productService.createProduct(product);
+    this.router.navigate(['admin/products']);
+  }
+
+
+  Result:
+  We can now Edit & create new products.

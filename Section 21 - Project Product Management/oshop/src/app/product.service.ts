@@ -15,13 +15,18 @@ export class ProductService {
     return this.db.list('/products').push(product);
   }
 
-  //Fix - Map Key & Payload
+  //Task 1 - Create Update Method:
+  update(productID, product) {
+    console.log('Updating:', productID)
+    console.log('P', product);
+    return this.db.object('/products/' + productID).update(product);
+  }
+
   getProducts() {
     return this.db.list('/products').snapshotChanges().pipe(
       map(products => products.map(p => ({key: p.key, data: p.payload.toJSON()}))));
   }
 
-  //Task 2 - Get Single Product:
   getProduct(key): AngularFireList<Product> {
     console.log('Fetching: ', key);
     return this.db.list('/products', x => x.orderByKey().equalTo(key));
