@@ -15,11 +15,17 @@ export class ProductService {
     return this.db.list('/products').push(product);
   }
 
-  //Task 1 - Create Update Method:
   update(productID, product) {
     console.log('Updating:', productID)
     console.log('P', product);
     return this.db.object('/products/' + productID).update(product);
+  }
+
+  //Task 2 - Implement Remove:
+  remove(key) {
+    if(confirm('Sure you want to Delete Product?')) {
+      this.db.list('/products/' + key).remove().then(_ => console.log('Deleted...', key));
+    }
   }
 
   getProducts() {

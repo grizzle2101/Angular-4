@@ -32,9 +32,17 @@ export class ProductFormComponent implements OnInit {
   ngOnInit() {}
   
   save(product: Product) {
-    //Task 2 - Check ID & Update:
     if(this.id) this.productService.update(this.id, product);
     else this.productService.createProduct(product);
     this.router.navigate(['admin/products']);
+  }
+
+  //Task 3 - Implement Delete:
+  delete() {
+    if(confirm('Sure you want to Delete this Product?')) {
+      this.productService.remove(this.id);
+      this.router.navigate(['admin/products']);
+    }
+
   }
 }

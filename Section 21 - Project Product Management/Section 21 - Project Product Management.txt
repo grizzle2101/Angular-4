@@ -527,3 +527,39 @@ route, can check that before updating.
 
   Result:
   We can now Edit & create new products.
+
+
+
+---Tutorial 11 - Update Product:---
+
+
+Task 1 - Create Button:
+Create the Delete button, then bind to method in component.
+-Note Change button type, so it does not trigger form submit.
+          <button class="btn btn-primary">Save</button>
+          <button type="button" (click)="delete()" class="btn btn-danger">Delete</button>
+
+
+Task 2 - Implement Remove Method:
+-Use product/key to find the node, then simply use Remove.
+  remove(key) {
+    if(confirm('Sure you want to Delete Product?')) {
+      this.db.list('/products/' + key).remove().then(_ => console.log('Deleted...', key));
+    }
+
+
+Task 3 - Implment Delete:
+-Prompt User with Popup.
+-remove w ID from RouteParams
+-navigate to Products
+
+  delete() {
+    if(!confirm('Sure you want to Delete this Product?')) return;
+    this.productService.remove(this.id);
+    this.router.navigate(['admin/products']);
+  }
+
+
+Note:
+Problem with the last attempt was putting the delete button inside the form, it triggered
+the form to submit so it looked like nothing was getting removed. All G now.

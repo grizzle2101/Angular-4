@@ -45,14 +45,15 @@
               <label for="imageUrl">Image URL</label>
               <input #imageUrl="ngModel" [(ngModel)]="product.imageUrl" name="imageUrl" id="imageUrl" type="text" class="form-control" required url>
           </div>
-      
+          <!--Task 1 - Create Delete Button:-->
           <button class="btn btn-primary">Save</button>
+          <button type="button" (click)="delete()" class="btn btn-danger">Delete</button>
       </form>
+
   </div>
 
   <div class="col-md-6">
       <div class="card">
-          <!--Task 5 - Fix ImageUrl-->
           <img class="card-img-top" [src]="imageUrl.value" *ngIf="product.imageUrl">
           <div class="card-body">
             <h5 class="card-title">{{title.value}}</h5>
