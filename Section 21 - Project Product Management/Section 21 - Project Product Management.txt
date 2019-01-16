@@ -668,3 +668,59 @@ Note:
 For a complete List of input properties & demo files, checkout github.
 https://github.com/ggmod/angular-2-data-table/blob/master/src/components/table.component.ts
 In the next section we're going to work on customizing the Data Table.
+
+
+---Tutorial 15 - Configuring Data Table:---
+This is going to take a different direction as the DataTable Mosh is using does is deprecated, using
+Angular Material tutorial instead.
+
+
+Task 1 - Install Material:
+-npm install --save hammerjs
+-npm install --save @angular/material @angular/animations @angular/cdk
+Steps Listed Here.
+https://appdividend.com/2018/11/07/angular-material-table-tutorial-example/
+
+Task 2 - Setup MaterialModule:
+Rather than polute our App.Module with all the Angular Material Shite, we can encapsulate it all
+in material.module.ts
+-Inject material.module.ts into app.module.ts
+
+Task 3 - Pagination:
+Updating Material.module.ts
+MatPaginatorModule
+
+-Add to Imports in Material.Module
+-Add MatPaginatorModule into component:
+  We need to Instansiate the Paginator & pass to datasource.paginator:
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  this.dataSource.paginator = this.paginator;
+
+-Add MatPaginatorModule into Template
+  <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+
+
+Task 4 - Adding Sorting:
+-Add to Imports in Material.Module
+-Add MatSort into component
+  @ViewChild(MatPaMatSortginator) sort: MatSort;
+  this.dataSource.sort = this.sort
+-Add MatSort into Template
+  mat-sort-header
+
+
+Task 5 - Adapt to use Products:
+-Replace Periodic Element with Product Json.
+-Refactor Table bindings to work with Product data.
+-Replace Product Data with Product Service:
+ Problem here, I figured out, had to assign the DataSource in the Constructor Subscribe method.
+ Moved all DataSource crap into the NgOnInit.
+
+-Refactor Filter:
+Search query was not being used, append dataSource = filteredList now the dataSource products Changes like
+it should.
+
+
+Result:
+Things we're done very different to Mosh, but the same results are achieved.
+We have a Products List with Searching, Sorting, Pagingation & result limiting.
