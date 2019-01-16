@@ -24,9 +24,7 @@ export class ProductService {
   }
 
   remove(key) {
-    if(confirm('Sure you want to Delete Product?')) {
       this.db.list('/products/' + key).remove().then(_ => console.log('Deleted...', key));
-    }
   }
 
   getProducts() {

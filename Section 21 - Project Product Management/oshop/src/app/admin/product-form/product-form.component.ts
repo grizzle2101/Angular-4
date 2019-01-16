@@ -42,6 +42,5 @@ export class ProductFormComponent implements OnInit {
       this.productService.remove(this.id);
       this.router.navigate(['admin/products']);
     }
-
   }
 }

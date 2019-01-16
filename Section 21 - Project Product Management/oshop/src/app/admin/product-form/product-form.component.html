@@ -53,7 +53,7 @@
   </div>
 
   <div class="col-md-6">
-      <div class="card">
+      <div *ngIf="product.title" class="card">
           <img class="card-img-top" [src]="imageUrl.value" *ngIf="product.imageUrl">
           <div class="card-body">
             <h5 class="card-title">{{title.value}}</h5>

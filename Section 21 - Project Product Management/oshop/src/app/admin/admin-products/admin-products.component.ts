@@ -22,7 +22,7 @@ export class AdminProductsComponent implements OnDestroy {
   filteredList: any[] = [];
   subscription: Subscription;
   dataSource;
-  displayedColumns: string[] = ['key', 'title', 'price', 'link'];
+  displayedColumns: string[] = ['title', 'price', 'link'];
 
   constructor(private productService: ProductService) {}
 

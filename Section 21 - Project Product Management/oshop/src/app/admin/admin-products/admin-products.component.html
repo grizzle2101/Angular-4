@@ -11,13 +11,8 @@ type="text" class="form-control" placeholder="search">
 
 <div>
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-    <ng-container matColumnDef="key">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> key. </th>
-      <td mat-cell *matCellDef="let element"> {{element.key}} </td>
-    </ng-container>
-  
     <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Title. </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Name. </th>
       <td mat-cell *matCellDef="let element"> {{element.product.title}} </td>
     </ng-container>
   
@@ -27,7 +22,7 @@ type="text" class="form-control" placeholder="search">
     </ng-container>
   
     <ng-container matColumnDef="link">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Links. </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Edit Product. </th>
       <td mat-cell *matCellDef="let element"> <a [routerLink]="['/admin/products/', element.key]">Edit</a> </td>
     </ng-container>
   

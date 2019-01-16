@@ -724,3 +724,28 @@ it should.
 Result:
 Things we're done very different to Mosh, but the same results are achieved.
 We have a Products List with Searching, Sorting, Pagingation & result limiting.
+
+
+---Tutorial 19 - Cleaning Up Product Form:---
+So lets do some final touches on the Product form before finshing up this section.
+
+Item List:
+-Preview Card Should only appear if there is Data.
+-Confirmation PopUp should be one click.
+
+
+Task 1 - Hide Preview Card:
+<div *ngIf="product.title" class="card">
+
+Task 2 - Confirmation Popup:
+Remove confirm from Service.
+  remove(key) {
+      this.db.list('/products/' + key).remove().then(_ => console.log('Deleted...', key));
+  }
+
+Task 3 - Last Minute Cleanup:
+Remove all unneccessary HTML.
+
+
+Finally we are done with this section, we now Create, Delete, Edit as well as manage our product catalog.
+In the next section we will start work on the Non-admin section of the site.
