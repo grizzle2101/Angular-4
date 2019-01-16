@@ -531,8 +531,6 @@ route, can check that before updating.
 
 
 ---Tutorial 11 - Update Product:---
-
-
 Task 1 - Create Button:
 Create the Delete button, then bind to method in component.
 -Note Change button type, so it does not trigger form submit.
@@ -563,3 +561,49 @@ Task 3 - Implment Delete:
 Note:
 Problem with the last attempt was putting the delete button inside the form, it triggered
 the form to submit so it looked like nothing was getting removed. All G now.
+
+
+
+---Tutorial 12 - Searching for a Product:---
+So now that we have worked out CRUD operations for the product list, lets work on implementing Search.
+
+Task 1 - Add SearchBox:
+<input
+#query
+(keyup)="filter(query.value)"
+type="text" class="form-control" placeholder="search">
+
+Note Client V Server Side Filtering:
+Where are 2 types of Filtering, client side & server side. For this application, we are dealing with a
+small amount of products, so filtering on the client should be suitable.
+
+Note Unsubscribing:
+There are several methods for unsubscribing, in this scenario we want to synchronize the data across
+any windows, so we will only subscrine when the component itself is terminate using ngOnDestroy.
+
+Task 2 - Rework Admin Prodcts:
+-Change Products from Observeable to Array.
+-Populate ProductList in the constructor
+-Refactor Template to use Product Array Data.
+
+export class AdminProductsComponent implements OnDestroy {
+  products: any[];
+  filteredList:  any[] = [];
+  subscription: Subscription;
+
+  constructor(private productService: ProductService) {
+    this.productService.getProducts().subscribe(products => this.filteredList = this.products = products);
+  }
+
+
+Task 3 - Implment Filter Method:
+If we have a QueryString filter Products & Assign or Set to Full productlist.
+This works very well as if we empty the bar, it resets to the full list.
+
+ filter(query: string) {
+   this.filteredList = (query) ?
+   this.products.filter(p => p.data.title.toLowerCase().includes(query.toLowerCase())) : 
+   this.products;
+  }
+
+Now we have a working search box, the next sections will be for clean up & refactoring.

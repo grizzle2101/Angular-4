@@ -1,4 +1,3 @@
-import { ninvoke } from "q";
 
 export interface Product {
   key: string;
