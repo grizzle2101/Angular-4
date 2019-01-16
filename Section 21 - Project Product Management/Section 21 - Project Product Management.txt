@@ -643,3 +643,28 @@ Task 2 - Light Refactoring:
         return product;
       })));
   }
+
+
+---Tutorial 14 - Adding a Data Table:---
+So we did a good job implmenting our Search box, but there are some 3rd party libraries that can do
+much more, like Searching, Ordering, Limit items per page & paginated data.
+
+
+Optional Task - Import JSON:
+Rather than creating the amount of products needed, we can use a feature in Firebase & import moshes.
+
+
+Task 1 - Install Angular Data Table:
+-npm i angular-4-data-table
+-import in App.Module
+
+
+Task 2 - Add Data Table:
+We use the data-table directive & voila we can 
+<data-table>
+</data-table>
+
+Note:
+For a complete List of input properties & demo files, checkout github.
+https://github.com/ggmod/angular-2-data-table/blob/master/src/components/table.component.ts
+In the next section we're going to work on customizing the Data Table.
