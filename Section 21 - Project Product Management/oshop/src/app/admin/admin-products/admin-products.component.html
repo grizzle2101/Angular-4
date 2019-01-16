@@ -2,7 +2,6 @@
     <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
 </p>
 
-<!--Task 1 - Add SearchBox:-->
 <input
 #query
 (keyup)="filter(query.value)"
@@ -18,8 +17,8 @@ type="text" class="form-control" placeholder="search">
   </thead>
   <tbody>
     <tr *ngFor="let p of filteredList">
-      <td>{{p.data.title}}</td>
-      <td>{{p.data.price}}</td>
+      <td>{{p.product.title}}</td>
+      <td>{{p.product.price}}</td>
       <td>
         <a [routerLink]="['/admin/products/', p.key]">Edit</a>
       </td>

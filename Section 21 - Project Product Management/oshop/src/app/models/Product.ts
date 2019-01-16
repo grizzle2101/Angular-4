@@ -1,6 +1,10 @@
+//Task 1 - Create Interfaces:
+export class ProductNode {
+  key: string;
+  product: Product;
+}
 
 export interface Product {
-  key: string;
   title: string;
   price: number;
   category: string;

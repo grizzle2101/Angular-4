@@ -607,3 +607,39 @@ This works very well as if we empty the bar, it resets to the full list.
   }
 
 Now we have a working search box, the next sections will be for clean up & refactoring.
+
+
+---Tutorial 13 - Extracting an Interface:---
+So just like in the Authentication section we made an AppUser object to define an Application user,
+we should create a Product model to desdine the shape & properties.
+Because Firebae does not expose the keys anymore I had to create a more complex object, Product node
+contains the key and Product which we return from getAllProducts.
+
+
+Task 1 - Create Interfaces:
+export class ProductNode {
+  key: string;
+  product: Product;
+}
+
+export interface Product {
+  title: string;
+  price: number;
+  category: string;
+  imageURL: string;
+}
+
+
+Task 2 - Light Refactoring:
+-Rework ProductService to return new Object type.
+-Change how the properites are accessed in the component & templates.
+
+  getAllProducts() {
+    return this.db.list('/products').snapshotChanges().pipe(
+      map(products => products.map(function(res) {
+        var product = new ProductNode();
+        product.key = res.key;
+        product.product = res.payload.toJSON() as Product;
+        return product;
+      })));
+  }

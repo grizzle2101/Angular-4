@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from 'src/app/product.service';
 import { Subscription } from 'rxjs';
+import { Product, ProductNode } from 'src/app/models/Product';
 
 @Component({
   selector: 'app-admin-products',
@@ -9,17 +10,18 @@ import { Subscription } from 'rxjs';
 })
 
 export class AdminProductsComponent implements OnDestroy {
-  products: any[];
-  filteredList:  any[] = [];
+  products: ProductNode[];
+  filteredList:  ProductNode[] = [];
   subscription: Subscription;
 
   constructor(private productService: ProductService) {
-    this.productService.getProducts().subscribe(products => this.filteredList = this.products = products);
+    this.subscription =  this.productService.getAllProducts().subscribe(products => this.filteredList = this.products = products);
+    this.productService.getAllProducts().subscribe(products => console.log(products));
   }
 
  filter(query: string) {
    this.filteredList = (query) ?
-   this.products.filter(p => p.data.title.toLowerCase().includes(query.toLowerCase())) : 
+   this.products.filter(p => p.product.title.toLowerCase().includes(query.toLowerCase())) : 
    this.products;
   }
 
