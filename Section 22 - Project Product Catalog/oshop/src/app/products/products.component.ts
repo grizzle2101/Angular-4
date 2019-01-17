@@ -3,6 +3,7 @@ import { ProductService } from '../product.service';
 import { CategoryService } from '../category.service';
 import { ActivatedRoute } from '@angular/router';
 import { Product, ProductNode } from '../models/Product';
+import { switchMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-products',
@@ -17,18 +18,20 @@ export class ProductsComponent {
   categories$;
   category: string;
 
-  constructor(route: ActivatedRoute, productService: ProductService, categoryService: CategoryService) { 
-    this.categories$ = categoryService.getAllCategories();
-
-
-    productService.getAllProducts().subscribe(x => this.products = x);
-
-    route.queryParamMap.subscribe(params => {
+  constructor(private route: ActivatedRoute, private productService: ProductService, private categoryService: CategoryService) {
+    
+    //Task 2 - Rework Observeavles into Switch Block:
+    this.productService.getAllProducts()
+    .pipe(switchMap(products => {
+      this.products = products;
+      return route.queryParamMap;
+    }))
+    .subscribe(params => {
       this.category = params.get('category');
-
-      //Filter Products
-      this.filteredProducts = (this.category) ? 
-      this.products.filter(p => p.product.category === this.category) : this.products;
-    })
+      this.filteredProducts = (this.category) ?
+      this.products.filter(p => p.product.category === this.category) :
+      this.products;
+    });
+    this.categories$ = categoryService.getAllCategories();
   }
 }

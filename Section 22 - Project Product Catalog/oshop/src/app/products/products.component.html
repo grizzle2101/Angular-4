@@ -1,8 +1,13 @@
-<!--Task 1 - Add Router Links Categories Markup:-->
 <div class="row">
   <div class="col-3">
-    Categories:
     <div class="list-group">
+      <!--Task 3 - Add All Categories Link:-->
+      <a
+      class="list-group-item list-group-item-action"
+      [class.active]="!category"
+      routerLink="/">
+      All Categories
+      </a>
       <a 
       *ngFor="let c of categories$ | async;"
       routerLink="/"

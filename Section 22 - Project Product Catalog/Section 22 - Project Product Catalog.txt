@@ -166,3 +166,64 @@ category.
 Result:
 We have some perfectly functioning production filtering. This works like a dream, we have a small
 bug of the products not populating until a category is clicked, will deal with this in next section.
+
+
+
+---Tutorial 5 - Dealing with Multiple Asyncronous Operations:---
+There is problem with the number of Asyncronous operations in our ProductComponent, we have the
+queryParamMap and ProductService, and we don't know which one is going to complete first.
+
+Because these Asyncronous actions are ongoing, at the time, we don't have a value to filter, so we
+have an empty list. We need a way to make sure they all execute in sequence.
+
+
+Task 1 - Combine Observeables:
+So if we put everything inside a single Subscribe, we make sure this happens in sequence.
+
+  constructor(route: ActivatedRoute, productService: ProductService, categoryService: CategoryService) {
+    this.categories$ = categoryService.getAllCategories();
+
+    productService.getAllProducts().subscribe(x => {
+      this.products = x;
+
+      //Get Query Param
+      route.queryParamMap.subscribe(params => {
+        this.category = params.get('category');
+
+        //Filter Products
+        this.filteredProducts = (this.category) ?
+          this.products.filter(p => p.product.category === this.category) : this.products;
+      });
+
+
+
+Task 2 - Rework Observeavles into Switch Block:
+This is a mess of nested Observeable, a nice way to clean this up would be with SwitchMap.
+
+  constructor(route: ActivatedRoute, productService: ProductService, categoryService: CategoryService) {
+    productService.getAllProducts()
+    .pipe(switchMap(products => {
+      products = products;
+      return route.queryParamMap;
+    }))
+    .subscribe(params => {
+      this.category = params.get('category');
+      this.filteredProducts = (this.category) ?
+      this.products.filter(p => p.product.category === this.category) :
+      this.products;
+    });
+    this.categories$ = categoryService.getAllCategories();
+  }
+
+
+Task 3 - Add All Categories Link:
+lets add a nice link to reset to an all products view.
+-routerLink to /
+-active class highlighting if none is selected
+
+      <a
+      class="list-group-item list-group-item-action"
+      [class.active]="!category"
+      routerLink="/">
+      All Categories
+      </a>
