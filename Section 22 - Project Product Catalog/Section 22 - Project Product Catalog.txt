@@ -98,3 +98,71 @@ grid layout.
   </div>
   <div class="col">
     <div class="row">
+
+
+
+--Tutorial 4 - Filtering Products by Category:---
+So now we want to add filtering by category, this can be done easily enough.
+
+Note:
+Had to rework Category Service to return key & data.
+
+Task 1 - Add Router Links Categories Markup:
+To make the Categoris clickable we have to change the list to divs and anchors.
+We also added routerLink and bound query params to the category key, which we will use in the filtering.
+-class active means highlight, we highlt if the category is clicked
+
+<div class="row">
+  <div class="col-3">
+    Categories:
+    <div class="list-group">
+      <a 
+      *ngFor="let c of categories$ | async;"
+      routerLink="/"
+      [queryParams]="{category: c.key}"
+      class="list-group-item list-group-item-action"
+      [class.active]="category === c.key"
+      >
+        {{c.category.name}}
+      </a>
+    </div>
+  </div>
+
+
+Result:
+We now have the key inserted into the URL.
+http://localhost:4200/?category=vegetables
+
+
+
+Task 2 - Get RouterParams:
+We need to get the value from the queryParamMap and store for use in filtering.
+Note that we cannot use snapshot, these route values are dynamic so we need to subscribe to the
+observeables.
+
+export class ProductsComponent {
+  products$;
+  categories$;
+  category: string;
+
+  constructor(route: ActivatedRoute, productService: ProductService, categoryService: CategoryService) { 
+    this.products$ = productService.getAllProducts();
+    this.categories$ = categoryService.getAllCategories();
+
+    //We Subscribe becase value is dynamic:
+    route.queryParamMap.subscribe(params => {
+      this.category = params.get('category');
+    })
+
+
+Task 3 - Implement Filtering:
+So just like the Product search bar we created, we filter products that are equal to the selected
+category.
+      this.filteredProducts = (this.category) ? 
+      this.products.filter(p => p.product.category === this.category) : this.products;
+    })
+
+
+Result:
+We have some perfectly functioning production filtering. This works like a dream, we have a small
+bug of the products not populating until a category is clicked, will deal with this in next section.

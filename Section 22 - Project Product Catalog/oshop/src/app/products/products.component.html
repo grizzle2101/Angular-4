@@ -1,16 +1,22 @@
-<!--Task 2 - Add Categories Markup-->
+<!--Task 1 - Add Router Links Categories Markup:-->
 <div class="row">
   <div class="col-3">
     Categories:
-    <ul class="list-group">
-      <li *ngFor="let c of categories$ | async;" class="list-group-item">
-        {{c.name}}
-      </li>
-    </ul>
+    <div class="list-group">
+      <a 
+      *ngFor="let c of categories$ | async;"
+      routerLink="/"
+      [queryParams]="{category: c.key}"
+      class="list-group-item list-group-item-action"
+      [class.active]="category === c.key"
+      >
+        {{c.category.name}}
+      </a>
+    </div>
   </div>
   <div class="col">
     <div class="row">
-      <ng-container *ngFor="let p of products$ | async; let i = index">
+      <ng-container *ngFor="let p of filteredProducts; let i = index">
         <div class="col">
           <div class="card" style="width: 15rem;">
             <img class="card-img-top" src="{{p.product.imageUrl}}">
