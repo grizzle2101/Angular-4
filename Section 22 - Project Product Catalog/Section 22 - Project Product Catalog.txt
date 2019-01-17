@@ -1,0 +1,5 @@
+---Section 22 - Project: Product Catalog:---
+---Tutorial 1 - Introduction:---
+In this section we're going to take the application to the next level, building out the homepage
+with categories & products for users to purchase.
+We're going to using the Angular Cart Component to display the products like Amazon or Ebay.
