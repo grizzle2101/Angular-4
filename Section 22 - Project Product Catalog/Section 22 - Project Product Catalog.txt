@@ -278,3 +278,74 @@ Result:
 The Categories section has beex extracted into its own component, now the main Product page & component
 are much cleaner, and there is better seperation of concerns and testability.
 In the next section we'll continue refactoring the Product Card.
+
+
+
+---Tutorial 7 - Refactoring - Extracting ProductCardComponent:---
+
+
+Task 1 - Create ProductCardComponent:
+Now because the card is used in several places, we want to place this in the root directory.
+-ng g c product-card
+
+
+Task 2 - Extract Product Card:
+<div class="card" style="width: 15rem;">
+    <img class="card-img-top" src="{{p.product.imageUrl}}">
+    <div class="card-body">
+      <h5 class="card-title">{{p.product.title}}</h5>
+      <p class="card-text">{{p.product.price | currency:'USD':true}}</p>
+      <a href="#" class="btn btn-primary">Add to Cart</a>
+    </div>
+  </div>
+
+
+Task 3 - Extract Product Card Logic:
+In order to render the card, we need to take the product object in as a input property.
+
+-Create Input property
+Consumers of the Card should pass a product.
+export class ProductCardComponent implements OnInit {
+  @Input('product') product: Product;
+
+-Modify Card Template
+We now use the Input property in our Data Display.
+<h5 class="card-title">{{product.title}}</h5>
+<p class="card-text">{{product.price | currency:'USD':true}}</p>
+
+
+-Modify Usage:
+So where the product card are being used, need to make sure we're passing the right product object.
+We need a product node, where as for the card we only need to product details itself.
+<product-card [product]="p.product"></product-card>
+
+
+Task 4 - Refactor Preview Card:
+We can also rework the Product Card being used in the Admin interface.
+  <div class="col-md-6">
+    <product-card *ngIf="product.title" [product]="product"></product-card>
+  </div>
+
+
+Task 5 - Rework Card:
+So after looking at how the preview card is used, we can see some additions we should
+add to the Card Component.
+-Only render Card if it has title.
+-Only rednder image if its valid.
+-Use containers to dictate size of card. eg col v col 6. we can remove hard coded style from card.
+style="width: 15rem;"
+-Add to Cart should be optional.
+
+<div *ngIf="product.title" class="card">
+    <img *ngIf="product.imageUrl" class="card-img-top" src="{{product.imageUrl}}" alt="{{product.title}}">
+    <div class="card-body">
+      <h5 class="card-title">{{product.title}}</h5>
+      <p class="card-text">{{product.price | currency:'USD':true}}</p>
+      <a *ngIf="showActions" href="#" class="btn btn-primary">Add to Cart</a>
+    </div>
+  </div>
+
+
+Result:
+So now our Card Component has been reworked for both usages, in a single Preview card and when
+used to display the product list.

@@ -6,10 +6,8 @@ import { CategoryService } from 'src/app/category.service';
   templateUrl: './product-filter.component.html',
   styleUrls: ['./product-filter.component.css']
 })
-//Task 3 - Extract Categories Logic:
 export class ProductFilterComponent {
   categories$;
-  //Task 4 - Fix Category Highlighting:
   @Input('category') category;
 
   constructor(categoryService: CategoryService) {

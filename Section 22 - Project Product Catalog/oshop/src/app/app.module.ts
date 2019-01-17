@@ -29,6 +29,7 @@ import {CustomFormsModule} from 'ng2-validation';
 import { ProductService } from './product.service';
 import {MaterialModule} from './material/material.module';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ProductFilterComponent } from './products/product-filter/product-filter
     AdminProductsComponent,
     AdminOrdersComponent,
     ProductFormComponent,
-    ProductFilterComponent
+    ProductFilterComponent,
+    ProductCardComponent
   ],
   imports: [
     BrowserModule,
