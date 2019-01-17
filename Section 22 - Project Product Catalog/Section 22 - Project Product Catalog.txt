@@ -60,3 +60,41 @@ So the Product List is working, but its one item per row, we want at least 2.
     <div *ngIf="(i + 1) % 2 == 0" class="w-100"></div>
   </ng-container>
 </div>
+
+
+
+---Tutorial 3 - Displaying the Categories:---
+So now we want to get the Categories listed on the right side, fairly easy.
+
+Task 1 - Setup Category Service:
+Just like we did for product service, we want to create a categories Observeable & in the constructor
+populate from the CategoriesService.
+
+export class ProductsComponent {
+  products$;
+  categories$;
+
+  constructor(productService: ProductService, categoryService: CategoryService) { 
+    this.products$ = productService.getAllProducts();
+    this.categories$ = categoryService.getCategories().valueChanges();
+  }
+}
+
+
+
+Task 2 - Add Categories Markup:
+Remember in BootStrap layouts 12 is the full screen.
+If we put the entire page into a grid of 2 rows one being 3 and the other being 9 we should have a nice
+grid layout.
+
+<div class="row">
+  <div class="col-3">
+    Categories:
+    <ul class="list-group">
+      <li *ngFor="let c of categories$ | async;" class="list-group-item">
+        {{c.name}}
+      </li>
+    </ul>
+  </div>
+  <div class="col">
+    <div class="row">

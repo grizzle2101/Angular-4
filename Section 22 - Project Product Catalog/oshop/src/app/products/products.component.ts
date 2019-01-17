@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
+import { CategoryService } from '../category.service';
 
 @Component({
   selector: 'app-products',
@@ -7,11 +8,13 @@ import { ProductService } from '../product.service';
   styleUrls: ['./products.component.css']
 })
 
-//Task 1 - Setup Products Component:
+//Task 1 - Setup Category Service:
 export class ProductsComponent {
   products$;
+  categories$;
 
-  constructor(productService: ProductService) { 
+  constructor(productService: ProductService, categoryService: CategoryService) { 
     this.products$ = productService.getAllProducts();
+    this.categories$ = categoryService.getCategories().valueChanges();
   }
 }
