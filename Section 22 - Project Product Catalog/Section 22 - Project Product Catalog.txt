@@ -3,3 +3,60 @@
 In this section we're going to take the application to the next level, building out the homepage
 with categories & products for users to purchase.
 We're going to using the Angular Cart Component to display the products like Amazon or Ebay.
+
+
+
+---Tutorial 2 - Displaying All the Products:---
+So in this section we're going to get all the products and display them in the Angular Cart.
+This shouldn't be too hard, as we already have the ProductService up and running, we just need
+to add the products into the Angular Cart & voila.
+
+
+Task 1 - Setup Products Component:
+Create Product Observeable & Populate from ProductService.
+
+export class ProductsComponent {
+  products$;
+
+  constructor(productService: ProductService) { 
+    this.products$ = productService.getAllProducts();
+  }
+}
+
+
+Task 2 - Add BootStrap Card & Add Produt Data:
+<div
+  *ngFor="let p of products$ | async"
+  class="card" style="width: 15rem;">
+  <img class="card-img-top" src="{{p.product.imageUrl}}">
+  <div class="card-body">
+    <h5 class="card-title">{{p.product.title}}</h5>
+    <p class="card-text">{{p.product.price | currency:'USD':true}}</p>
+    <a href="#" class="btn btn-primary">Add to Cart</a>
+  </div>
+</div>
+
+
+Task 3 - Redirect Home to ProductComponent:
+{path:'', component: ProductsComponent},
+
+
+Task 4 - Place Card Inside Grid:
+So the Product List is working, but its one item per row, we want at least 2.
+-Place Container & extend loop to get index.
+-Use Index to dynamically render line breaks.
+-every 2nd item, use line break
+
+<div class="row">
+  <ng-container *ngFor="let p of products$ | async; let i = index">
+    <div class="card" style="width: 15rem;">
+      <img class="card-img-top" src="{{p.product.imageUrl}}">
+      <div class="card-body">
+        <h5 class="card-title">{{p.product.title}}</h5>
+        <p class="card-text">{{p.product.price | currency:'USD':true}}</p>
+        <a href="#" class="btn btn-primary">Add to Cart</a>
+      </div>
+    </div>
+    <div *ngIf="(i + 1) % 2 == 0" class="w-100"></div>
+  </ng-container>
+</div>

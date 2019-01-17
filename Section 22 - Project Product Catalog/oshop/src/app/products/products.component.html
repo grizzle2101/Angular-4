@@ -1,0 +1,17 @@
+<!--Task 4 - Place Card Inside Grid:-->
+<div class="row">
+  <ng-container *ngFor="let p of products$ | async; let i = index">
+    <div class="col">
+      <!--Task 2 - Add BootStrap Card & Add Produt Data:-->
+      <div class="card" style="width: 15rem;">
+        <img class="card-img-top" src="{{p.product.imageUrl}}">
+        <div class="card-body">
+          <h5 class="card-title">{{p.product.title}}</h5>
+          <p class="card-text">{{p.product.price | currency:'USD':true}}</p>
+          <a href="#" class="btn btn-primary">Add to Cart</a>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="(i + 1) % 2 === 0" class="w-100"></div>
+  </ng-container>
+</div>
