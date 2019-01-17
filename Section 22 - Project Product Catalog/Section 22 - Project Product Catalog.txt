@@ -227,3 +227,54 @@ lets add a nice link to reset to an all products view.
       routerLink="/">
       All Categories
       </a>
+
+
+---Tutorial 6 - Refactoring - Extract ProductFilterComponent:---
+Our products page is working, but we can clean it up hugely!
+Our template has gotten out of control, and tried to do too much, we can create 2 seperate components
+out of this.
+
+Task 1 - Create ProductFilterComponent:
+We want to encapsulate the Categories into a new component.
+-ng g c products/product-filter
+
+
+Task 2 - Extract Categories Markup:
+<div class="list-group">
+  <a class="list-group-item list-group-item-action" [class.active]="!category" routerLink="/">
+    All Categories
+  </a>
+  <a *ngFor="let c of categories$ | async;" routerLink="/" [queryParams]="{category: c.key}" class="list-group-item list-group-item-action"
+    [class.active]="category === c.key">
+    {{c.category.name}}
+  </a>
+</div>
+
+-Replace the missing Markup with the selector <product-filter>
+
+Task 3 - Extract Categories Logic:
+Now we need all the neccessary logic and data to render the categories.
+
+export class ProductFilterComponent {
+  categories$;
+
+  constructor(categoryService: CategoryService) {
+    this.categories$ = categoryService.getAllCategories();
+   }
+}
+
+
+Task 4 - Fix Category Highlighting:
+If we take an input property into the ProductFilter, we can pass the data from ProductComponent
+to the ProductFilter to highlight the correct category.
+
+  @Input('category') category;
+
+Usage:
+  <product-filter [category]="category"></product-filter>
+
+
+Result:
+The Categories section has beex extracted into its own component, now the main Product page & component
+are much cleaner, and there is better seperation of concerns and testability.
+In the next section we'll continue refactoring the Product Card.
