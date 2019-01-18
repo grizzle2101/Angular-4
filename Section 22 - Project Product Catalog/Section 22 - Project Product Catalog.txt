@@ -283,7 +283,6 @@ In the next section we'll continue refactoring the Product Card.
 
 ---Tutorial 7 - Refactoring - Extracting ProductCardComponent:---
 
-
 Task 1 - Create ProductCardComponent:
 Now because the card is used in several places, we want to place this in the root directory.
 -ng g c product-card
@@ -349,3 +348,29 @@ style="width: 15rem;"
 Result:
 So now our Card Component has been reworked for both usages, in a single Preview card and when
 used to display the product list.
+
+
+
+---Tutorial 8 - Improving the Product Card:---
+So we're going to do some style touches to make the Product card look awesome.
+
+
+Task 1 - Add Footer:
+By creating a footer we create a nice area for the Add to Cart button.
+
+    <!--Add Card Footer:-->
+    <div class="card-footer">
+      <a *ngIf="showActions" href="#" class="btn btn-primary btn-block">Add to Cart</a>
+    </div>
+  </div>
+
+
+Task 2 - Add CSS Styling:
+We need to make sure the card have enough of margin, and the button inside has no padding.
+.card {
+    margin-bottom: 30px;
+}
+
+.card-footer {
+    padding: 0;
+}
