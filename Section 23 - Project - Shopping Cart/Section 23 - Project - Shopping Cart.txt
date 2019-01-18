@@ -1,0 +1,7 @@
+---Section 23 - Project - Shopping Cart:---
+---Tutorial 1 - Introduction:---
+In this section we're going to focus on building the shopping cart functionality. We want to be
+able to select products, see them get added to the shopping cart.
+We can then click into our shopping cart, edit our orders and also see the calcualtions to get
+the total price, all this happens in real time and even if you open a new tab we need to see
+the data persisted. Lets get going!
