@@ -68,3 +68,69 @@ Make sure to have READ & Write for shopping cart, or globally as I currently.
 
 Result:
 Now when clicking AddToCart we have a brand new shopping cart node in Firebase.
+
+
+---Tutorial 3 - Refactoring - Moving Responsability to the Service:---
+There is a problem with our Product Card component, it is taking on too many responsabilities.
+From data access to setting local storage, this should all be extracted out.
+
+
+
+Task 1 - Extract Cart Logic from Card:
+Lets move this out from the Card Component and into the CartService.
+
+let cardId = localStorage.getItem('cartID');
+    if(!cardId) {
+      this.cartService.create().then(result => {
+        localStorage.setItem('cartID', result.key);
+
+        //Add Product to Cart:
+      });
+    }
+    else {
+      //Add Product to Cart
+    }
+
+
+Task 2 - Refactor using Async:
+Rather than using .then, have having all this code happen inside, we can make it look linear
+with the Async & await methods.
+
+  addToCart(product: Product) {
+    let cardId = localStorage.getItem('cartID');
+    if(!cardId) {
+      this.cartService.create().then(result => {
+        localStorage.setItem('cartID', result.key);
+
+        //Add Product to Cart:
+      });
+
+Becomes:
+    if(!cartID) {
+      let result = await this.create();
+      localStorage.setItem('cartID', result.key);
+      return this.getCart(result.key);
+    }
+
+
+End Result:
+We Internally manage the shopping carts, and in the next section we can carry on with Adding
+products into the cart we retrieve internally.
+
+  private async getOrCreateCart() {
+    let cartID = localStorage.getItem('cartID');
+    if(!cartID) {
+      let result = await this.create();
+      localStorage.setItem('cartID', result.key);
+      return this.getCart(result.key);
+    }
+    return this.getCart(cartID);
+  }
+
+
+Usage:
+Now in the Card, we just add to service, and let the service worry about the implementation.
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
+  }
+}

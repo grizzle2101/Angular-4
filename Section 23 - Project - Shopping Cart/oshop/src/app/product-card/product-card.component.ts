@@ -13,19 +13,7 @@ export class ProductCardComponent {
 
   constructor(private cartService: ShoppingCartService) {}
 
-
-  //Task 1 - Refactor Card:
   addToCart(product: Product) {
-    let cardId = localStorage.getItem('cartID');
-    if(!cardId) {
-      this.cartService.create().then(result => {
-        localStorage.setItem('cartID', result.key);
-
-        //Add Product to Cart:
-      });
-    }
-    else {
-      //Add Product to Cart
-    }
+    this.cartService.addToCart(product);
   }
 }
