@@ -5,3 +5,66 @@ able to select products, see them get added to the shopping cart.
 We can then click into our shopping cart, edit our orders and also see the calcualtions to get
 the total price, all this happens in real time and even if you open a new tab we need to see
 the data persisted. Lets get going!
+
+
+---Tutorial 2 - Creating a Shopping Cart:---
+In order to get started the first thing we need to look at it is creating a new shopping cart
+the first time a user selects Add to Cart. This process should be available to anyone that
+uses the application, do they not need to be logged in.
+
+
+Features:
+-Do NOT need to be logged in.
+-Adding to Cart creates a Shopping Cart node in firebase.
+-This Shopping cart node should have DateCreated & the Products selected by the user.
+-We want to persist this shopping cart without a logged in User, storing Shopping Cart ID
+in local storage.
+
+
+
+Task 1 - Add to Cart:
+So in the current implementation we have anchor tags to redirect a user, we don't want that.
+
+ <div class="card-footer">
+      <button *ngIf="showActions"
+      (click)="addToCart(product)"
+      class="btn btn-primary btn-block">Add to Cart</button>
+    </div>
+
+
+  addToCart(product: Product) {
+    let cardId = localStorage.getItem('cartID');
+    if(!cardId) {
+      this.cartService.create().then(result => {
+        localStorage.setItem('cartID', result.key);
+
+        //Add Product to Cart:
+      });
+    }
+
+
+Task 2 - Create Shopping Cart Service:
+Now before we can proceed we need to create the Shopping Cart service.
+-ng g s shopping-cart
+-add in providers section app.module
+-Create Service Logic
+
+export class ShoppingCartService {
+
+  constructor(private db: AngularFireDatabase) { }
+
+  create() {
+    return this.db.list('/shopping-carts').push({
+      dateCreate: new Date().getTime()
+    });
+  }
+}
+
+
+Task 3 - Configure Firebase Permissions:
+We get an exception when trying to create the shopping-card node, access denied.
+Make sure to have READ & Write for shopping cart, or globally as I currently.
+
+
+Result:
+Now when clicking AddToCart we have a brand new shopping cart node in Firebase.

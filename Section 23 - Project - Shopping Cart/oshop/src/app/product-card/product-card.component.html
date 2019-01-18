@@ -1,0 +1,13 @@
+<div *ngIf="product.title" class="card">
+    <img *ngIf="product.imageUrl" class="card-img-top" src="{{product.imageUrl}}" alt="{{product.title}}">
+    <div class="card-body">
+      <h5 class="card-title">{{product.title}}</h5>
+      <p class="card-text">{{product.price | currency:'USD':true}}</p>
+    </div>
+    <!--Task 1 - Add to Cart:-->
+    <div class="card-footer">
+      <button *ngIf="showActions"
+      (click)="addToCart(product)"
+      class="btn btn-primary btn-block">Add to Cart</button>
+    </div>
+  </div>
