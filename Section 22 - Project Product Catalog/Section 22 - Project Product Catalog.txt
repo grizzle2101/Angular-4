@@ -400,3 +400,9 @@ inside a sticky top div.
 .sticky-top {
     top: 80px;
 }
+
+
+---Tutorial 10 - Wrap Up:---
+So by the end of this section we have implmented the Product Catalog, refactored the Product & Category
+services, extracted the ProductCard and ProductFilter so they can reused elsewhere in the application.
+In the next section we'll look at adding these products to a shopping cart and checking out!
