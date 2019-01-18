@@ -5,7 +5,6 @@
         Title is Required!
       </div>
 
-      <!--Task 4 - Add Product to Template:-->
       <div class="form-group">
         <label for="title">Title</label>
         <input #title="ngModel" [(ngModel)]="product.title" name="title" id="title" type="text" class="form-control"
@@ -56,7 +55,6 @@
   </div>
 
   <div class="col-md-6">
-    <!--Task 4 - Refactor Preview Card:-->
     <div class="col-md-6">
       <product-card [product]="product" [show-actions]="false"></product-card>
     </div>
