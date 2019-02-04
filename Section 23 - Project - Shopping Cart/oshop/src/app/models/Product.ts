@@ -1,4 +1,3 @@
-//Task 1 - Create Interfaces:
 export class ProductNode {
   key: string;
   product: Product;
@@ -9,4 +8,9 @@ export interface Product {
   price: number;
   category: string;
   imageURL: string;
+}
+
+export class ShoppingCartItem {
+  product: Product;
+  quantity: number;
 }

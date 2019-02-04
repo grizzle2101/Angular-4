@@ -8,12 +8,13 @@ import { ShoppingCartService } from '../shopping-cart.service';
   styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent {
-  @Input('product') product: Product[] = [];
+  @Input('product') productNode: ProductNode;
   @Input('show-actions') showActions: boolean = true;
 
   constructor(private cartService: ShoppingCartService) {}
 
-  addToCart(product: Product) {
+  addToCart(product: ProductNode) {
+    console.log('Adding to cart...')
     this.cartService.addToCart(product);
   }
 }
