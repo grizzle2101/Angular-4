@@ -17,9 +17,12 @@ export class ShoppingCartService {
     });
   }
 
-  //Task 1 - Refactor Cart Service:
-  //-Return CartID instead of Cart Object.
-  //-Check CartID first, better design.
+  //Task 1 - Refactor:
+  //-Extract GetCartItems to own method.
+  getCartItems(cartId: string) {
+    return this.db.list('/shopping-carts/' + cartId + '/items/') as AngularFireList<ShoppingCartItem>;
+  }
+
   private async getOrCreateCart() {
     let cartID = localStorage.getItem('cartID');
     if(cartID) return cartID;
@@ -29,32 +32,35 @@ export class ShoppingCartService {
     return result.key;
   }
 
-  //Task 2 - Implment AddToCart:
   async addToCart(product: ProductNode) {
+    console.log('PRODUCT:', product.product.title)
     let cartId = await this.getOrCreateCart();
-    let cartItems = this.db.list('/shopping-carts/' + cartId + '/items/') as AngularFireList<ShoppingCartItem>;
+    let cartItems = await this.getCartItems(cartId);
 
-    cartItems.update(product.key, {product: product.product, quantity: 1});
+    this.getQuantity(cartId, product).then(x => {
+      console.log('USING VALUE', this.quantity);
+      cartItems.update(product.key, {product: product.product, quantity: (this.quantity || 0) + 1});
+    });
   }
 
 
 
+  //Note:
+  //Cleanest Approach so far, problem narrowed down to existing value uses BEFORE checking DB.
+  //Even when using Await & THEN, still not using the right value.
 
   //Additional Methods for Adding Existing Item, need to be able to Get & Updat
-  async getQuantity(cartId: number, key: string) {
-    let quantity;
-    this.db.list('/shopping-carts/' + cartId + '/items/' + key).valueChanges()
-    .subscribe(x => {
-     console.log('Quantity:', x[1]);
+  async getQuantity(cartId: number, product: ProductNode) {
+    //Get Items[]
+    let list = this.db.list('/shopping-carts/' + cartId + '/items/', item => item.orderByKey().equalTo(product.key)) as AngularFireList<ShoppingCartItem>
+    
+    //Get Quantity from the Item:
+    list.valueChanges()
+    .subscribe(items => {
+      items.forEach(item => {
+        console.log('DB VALUE:', item.quantity);
+        this.quantity = item.quantity;
+      });
     });
-  }
-
-
-  private async itemExists(cartId, key) {
-    let item = this.db.list('/shopping-carts/' + cartId + '/items/');
-    item.stateChanges().subscribe(i => {
-      if(i.key == key) return true;
-    });
-    return false;
   }
 }

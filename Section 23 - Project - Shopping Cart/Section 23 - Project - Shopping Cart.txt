@@ -195,3 +195,28 @@ Sounds simple, but for some reason is not. In the next lecure Mosh will be refac
     });
     return false;
   }
+
+
+
+---Tutorial 5 - Refactor AddToCart:---
+So in this section we're just gonna do a some nice refactoring to make things a lot more readable.
+
+Task 1 - Extract getCartItems:
+we make several calls to DB LIST CART ID KEY,
+we can extract this so AddToCart does not care about the implementation of finding a cart.
+
+
+Task 2 - Simplify IF ELSE:
+Why do 2 seperate calls IF then update ELSE then set.
+We can use update in both cases, but make it smarter.
+
+  cartItems.update(product.key, {product: product.product, quantity: (this.quantity || 0) + 1});
+   
+
+
+Task 3 - Test: 
+Delete your cart, make sure it all works from scratch again.
+
+Note:
+Still some issues with the order in which it gets the quantity from DB and uses in the update statement.
+Even though places inside an Await and a then method.
