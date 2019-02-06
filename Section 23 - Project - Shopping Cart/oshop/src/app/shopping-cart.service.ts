@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { ProductNode, ShoppingCartItem } from './models/Product';
 import { map, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +17,13 @@ export class ShoppingCartService {
       dateCreated: new Date().getTime()
     });
   }
-
-  //Task 1 - Refactor:
-  //-Extract GetCartItems to own method.
-  getCartItems(cartId: string) {
+  
+  async getCartItems() {
+    let cartId = await this.getOrCreateCart();
     return this.db.list('/shopping-carts/' + cartId + '/items/') as AngularFireList<ShoppingCartItem>;
   }
 
-  private async getOrCreateCart() {
+  private async getOrCreateCart(): Promise<string> {
     let cartID = localStorage.getItem('cartID');
     if(cartID) return cartID;
 
@@ -35,7 +35,7 @@ export class ShoppingCartService {
   async addToCart(product: ProductNode) {
     console.log('PRODUCT:', product.product.title)
     let cartId = await this.getOrCreateCart();
-    let cartItems = await this.getCartItems(cartId);
+    let cartItems = await this.getCartItems();
 
     this.getQuantity(cartId, product).then(x => {
       console.log('USING VALUE', this.quantity);
@@ -43,14 +43,7 @@ export class ShoppingCartService {
     });
   }
 
-
-
-  //Note:
-  //Cleanest Approach so far, problem narrowed down to existing value uses BEFORE checking DB.
-  //Even when using Await & THEN, still not using the right value.
-
-  //Additional Methods for Adding Existing Item, need to be able to Get & Updat
-  async getQuantity(cartId: number, product: ProductNode) {
+  async getQuantity(cartId: string, product: ProductNode) {
     //Get Items[]
     let list = this.db.list('/shopping-carts/' + cartId + '/items/', item => item.orderByKey().equalTo(product.key)) as AngularFireList<ShoppingCartItem>
     

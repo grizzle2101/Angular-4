@@ -1,13 +1,14 @@
-<!--Reworked to Use ProductNode-->
 <div *ngIf="productNode.product.title" class="card">
     <img *ngIf="productNode.product.imageUrl" class="card-img-top" src="{{productNode.product.imageUrl}}" alt="{{productNode.product.title}}">
     <div class="card-body">
       <h5 class="card-title">{{productNode.product.title}}</h5>
       <p class="card-text">{{productNode.product.price | currency:'USD':true}}</p>
     </div>
-    <div class="card-footer">
-      <button *ngIf="showActions"
+    <!--Task 2 - Add Quantity to Product Card:-->
+    <div *ngIf="showActions" class="card-footer">
+      <button 
       (click)="addToCart(productNode)"
       class="btn btn-primary btn-block">Add to Cart</button>
+      <div>{{getQuantity()}}</div>
     </div>
   </div>

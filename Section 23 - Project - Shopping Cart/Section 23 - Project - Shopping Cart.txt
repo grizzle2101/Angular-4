@@ -220,3 +220,89 @@ Delete your cart, make sure it all works from scratch again.
 Note:
 Still some issues with the order in which it gets the quantity from DB and uses in the update statement.
 Even though places inside an Await and a then method.
+
+
+
+---Tutorial 6 - Displaying the Quantity:---
+In this section we're going to work on displaying the quantity on a product card. On load we should retrive the shopping cart
+and pass the cart as in input property of the card. We can then render & update the quantity on the card itself, much cooler!
+
+
+Task 1 - Add Input to ProductCardComponent:
+-Add ShoppingCart Input property to the ProductCardComponent.
+
+export class ProductCardComponent {
+  @Input('product') productNode: ProductNode;
+  @Input('show-actions') showActions: boolean = true;
+  @Input('shopping-cart') shoppingCart: ShoppingCart;
+
+
+
+Task 2 - Add Quantity to Product Card:
+-We want to hide the entire footer unless the user specifies.
+-We don't want to add the logic for retrieving quantity in the template, as it makes it hard to unit test & messy.
+
+    <div *ngIf="showActions" class="card-footer">
+      <button 
+      (click)="addToCart(productNode)"
+      class="btn btn-primary btn-block">Add to Cart</button>
+      <div>{{getQuantity()}}</div>
+    </div>
+
+
+
+Task 3 - Pass ShoppingCart:
+-GET CARTITEMS:-
+-Before we can pass the Cart, we need to expose a method from the service to get a Cart.
+-The Service should be smart enough to figure out its own CartID, does not need input from consumer.
+
+  async getCartItems() {
+    let cartId = await this.getOrCreateCart();
+    return this.db.list('/shopping-carts/' + cartId) as AngularFireList<ShoppingCartItem>;
+  }
+
+-INJECT CART SERVICE:-
+-Use in ProductsComponent:
+-Add into the Component:
+  constructor(private route: ActivatedRoute, private productService: ProductService, private shoppingCartService: ShoppingCartService) {
+
+
+-PRODUCT COMPONENT, PASS TO CARD:--
+-We need to await the result of the service, but the constructor cannot be ASYNC. A workaround however is using ngOnInit.
+-We need to handle subscription, pass the values to this.cartItems, then implment onDestroy to unsubscribe.
+
+  async ngOnInit() {
+    this.subscription =  (await this.shoppingCartService.getCartItems()).valueChanges().subscribe(items => {
+      console.log('FETCHED CARTIEMS:', items);
+      this.cartItems = items;
+    });
+  }
+
+  //-UnSubscribe
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+-PASS FROM TEMPLATE:
+-Pass the Cart to ProductCardComponent:
+Now we pass the value from the ProductComponent, into the product card.
+    <product-card [product]="p" [shopping-cart]="cart"></product-card>
+
+
+
+Task 4 - Calculate Quantity in Component:
+-NullCheck, ensure value is 0 as firebase may take a while.
+-Retrive ProductNode from ShoppingCart
+-If exists return else 0.
+
+  getQuantity() {
+    if(!this.shoppingCart) return 0;
+    
+    let item = this.shoppingCart.items[this.productNode.key];
+    return item ? item.quantity: 0;
+  }
+
+
+Task 5 - Test:
+Delete your shopping cart and try again....
+All good!
