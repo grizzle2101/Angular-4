@@ -33,15 +33,29 @@ export class ShoppingCartService {
   }
 
   async addToCart(product: ProductNode) {
-    console.log('PRODUCT:', product.product.title)
+    console.log('ADDING PRODUCT:', product.product.title);
+    this.updateItemQuantity(product, 1);
+  }
+
+  //Task 3 - Implment RemoveFromCart in service:
+  async removeFromCart(product: ProductNode) {
+    console.log('REMOVING PRODUCT:', product.product.title);
+    this.updateItemQuantity(product, -1);
+  }
+
+    //Task 4 - Refactor - Extract Common Logic:
+  async updateItemQuantity(product: ProductNode, change: number) {
     let cartId = await this.getOrCreateCart();
     let cartItems = await this.getCartItems();
 
     this.getQuantity(cartId, product).then(x => {
       console.log('USING VALUE', this.quantity);
-      cartItems.update(product.key, {product: product.product, quantity: (this.quantity || 0) + 1});
+      cartItems.update(product.key, {product: product.product, quantity: (this.quantity || 0) + change});
     });
   }
+  
+
+
 
   async getQuantity(cartId: string, product: ProductNode) {
     //Get Items[]

@@ -8,7 +8,6 @@ import { elementAt } from 'rxjs/operators';
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.css']
 })
-//Task 1 - Add Input to ProductCardComponent:
 export class ProductCardComponent {
   @Input('product') productNode: ProductNode;
   @Input('show-actions') showActions: boolean = true;
@@ -16,12 +15,16 @@ export class ProductCardComponent {
 
   constructor(private cartService: ShoppingCartService) {}
 
-  addToCart(product: ProductNode) {
+  addToCart() {
     console.log('Adding to cart...')
-    this.cartService.addToCart(product);
+    this.cartService.addToCart(this.productNode);
   }
 
-  //Task 3 - Calculate Quantity in Component:
+  removeFromCart(){
+    console.log('Removing from cart...')
+    this.cartService.removeFromCart(this.productNode);
+  }
+
   getQuantity() {
     //Incase Data is not Loaded.
     if(!this.shoppingCartItems) return 0;

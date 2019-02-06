@@ -337,3 +337,74 @@ Task 1 - CleanUp Card:
         </div>
       </ng-template>
     </div>
+
+
+
+---Tutorial 8 - Implementing the Change Quantity Button:---
+Now in this section we will implment the logic behind adding & subtracting items from the cart.
+
+
+Task 1 - Handle Add Product:
+-Update Template
+          <div class="col-2">
+              <button (click)="addToCart()" class="btn btn-secondary btn-block">+</button>
+          </div>
+
+-Remove Product Parameter, why pass a product object, when we already have access to one.
+  addToCart() {
+    console.log('Adding to cart...')
+    this.cartService.addToCart(this.productNode);
+  }
+
+
+Task 2 - Implement Remove Product:
+-Add Method call in template
+          <div class="col-2">
+            <button (click)="removeFromCart()" class="btn btn-secondary btn-block">-</button>
+          </div>
+
+-Add Method in Component
+
+  removeFromCart(){
+    console.log('Removing from cart...')
+    this.cartService.removeFromCart(this.productNode);
+  }
+
+
+Task 3 - Implement RemoveFromCart in Service:
+  async removeFromCart(product: ProductNode) {
+    let cartId = await this.getOrCreateCart();
+    let cartItems = await this.getCartItems();
+
+    this.getQuantity(cartId, product).then(x => {
+      console.log('USING VALUE', this.quantity);
+      cartItems.update(product.key, {product: product.product, quantity: (this.quantity || 0) - 1});
+    });
+    
+
+Task 4 - Refactor - Extract Common Logic:
+So it works, but we have duplicated the same logic for adding & removing. It would make sense to extract this into a private method.
+-Extract Duplicate code to new method.
+  async updateItemQuantity(product: ProductNode, change: number) {
+    let cartId = await this.getOrCreateCart();
+    let cartItems = await this.getCartItems();
+
+    this.getQuantity(cartId, product).then(x => {
+      console.log('USING VALUE', this.quantity);
+      cartItems.update(product.key, {product: product.product, quantity: (this.quantity || 0) + change});
+    });
+  }
+
+-Usage
+  async removeFromCart(product: ProductNode) {
+    console.log('REMOVING PRODUCT:', product.product.title);
+    this.updateItemQuantity(product, -1);
+  }
+
+Task 5 - Minor Styling Issue:
+Again I think this is an issue with bootstrap, but items in the footer are not clickable.
+-We want to make all items in the footer clickable.
+
+.card-footer button {
+    cursor: pointer;
+}
