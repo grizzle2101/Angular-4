@@ -306,3 +306,34 @@ Task 4 - Calculate Quantity in Component:
 Task 5 - Test:
 Delete your shopping cart and try again....
 All good!
+
+
+
+---Tutorial 7 - Improving the Card Footer:---
+In this section we're going to clean up the Product Card, add some nice buttons to increase/decrease the products in our cart.
+
+
+Task 1 - CleanUp Card:
+-Display Template UpdateQuantity if Quantity = 0.
+-Add Button Toggle in Template
+-Fix Styling issues
+  -no-gutter - removes bootstrap margins.
+  -Text Align Center
+
+<div *ngIf="showActions" class="card-footer">
+      <button *ngIf="getQuantity() === 0; else updateQuantity"
+      (click)="addToCart(productNode)"
+      class="btn btn-secondary btn-block">Add to Cart</button>
+      <ng-template #updateQuantity>
+        <div class="row no-gutters">
+          <div class="col-2">
+            <button class="btn btn-secondary btn-block">-</button>
+          </div>
+          <div class="col text-center">{{getQuantity()}}
+          </div>
+          <div class="col-2">
+              <button class="btn btn-secondary btn-block">+</button>
+            </div>
+        </div>
+      </ng-template>
+    </div>
