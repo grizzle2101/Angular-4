@@ -10,7 +10,7 @@ export interface Product {
   imageURL: string;
 }
 
-export class ShoppingCartItem {
+export interface ShoppingCartItem {
   product: Product;
   quantity: number;
 }

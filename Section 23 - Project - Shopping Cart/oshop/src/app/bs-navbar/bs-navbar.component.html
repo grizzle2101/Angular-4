@@ -7,10 +7,13 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/shopping-cart">Shopping Cart</a>
+          <!--Task 2 - Render count-->
+          <a class="nav-link"
+           routerLink="/shopping-cart">
+            Shopping Cart
+            <span class="badge badge-warning badge-pill">{{shoppingCartItemCount}}</span>
+          </a>
         </li>
-
-         <!--Only Render Login if Anonymous User-->
         <ng-template #anonymousUser>
             <li class="nav-item">
               <a class="nav-link" routerLink="/login">Login</a>

@@ -408,3 +408,38 @@ Again I think this is an issue with bootstrap, but items in the footer are not c
 .card-footer button {
     cursor: pointer;
 }
+
+
+---Tutorial 9 - Displaying ShoppingCartItems in NavBar:---
+So in this section we want to add a NavBar item for Shopping cart and the count of items.
+
+
+Task 1 - Rework NarBar:
+-Subscribe to the cart, add the item.quantity field to a local variable the template can use.
+-Set the value to 0 on start of the subscription.
+-Don't need to Unsubscribe, as only 1 navbar exists.
+
+
+  async ngOnInit() {
+    this.authService.appUser$.subscribe(x => {this.appUser = x});
+
+    let cart = await this.shoppingCartService.getCartItems();
+    cart.valueChanges().subscribe(cart => {
+      this.shoppingCartItemCount = 0; //Every Time Values are changed, will update.
+      cart.forEach(item => this.shoppingCartItemCount += item.quantity);
+    });
+  }
+
+
+Task 2 - Render Count:
+-Add the span class badge pill from bootstrap to display the Shopping Cart icon.
+-Insert the value from the COMPONENT
+ <a class="nav-link"
+           routerLink="/shopping-cart">
+            Shopping Cart
+            <span class="badge badge-warning badge-pill">{{shoppingCartItemCount}}</span>
+          </a>
+
+
+Task 3 - Test:
+Add some Items, remove some make sure the count adds up and we didn't break anything.

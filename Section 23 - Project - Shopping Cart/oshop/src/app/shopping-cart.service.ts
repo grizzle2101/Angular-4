@@ -37,14 +37,12 @@ export class ShoppingCartService {
     this.updateItemQuantity(product, 1);
   }
 
-  //Task 3 - Implment RemoveFromCart in service:
   async removeFromCart(product: ProductNode) {
     console.log('REMOVING PRODUCT:', product.product.title);
     this.updateItemQuantity(product, -1);
   }
 
-    //Task 4 - Refactor - Extract Common Logic:
-  async updateItemQuantity(product: ProductNode, change: number) {
+  private async updateItemQuantity(product: ProductNode, change: number) {
     let cartId = await this.getOrCreateCart();
     let cartItems = await this.getCartItems();
 
@@ -57,7 +55,7 @@ export class ShoppingCartService {
 
 
 
-  async getQuantity(cartId: string, product: ProductNode) {
+  private async getQuantity(cartId: string, product: ProductNode) {
     //Get Items[]
     let list = this.db.list('/shopping-carts/' + cartId + '/items/', item => item.orderByKey().equalTo(product.key)) as AngularFireList<ShoppingCartItem>
     
