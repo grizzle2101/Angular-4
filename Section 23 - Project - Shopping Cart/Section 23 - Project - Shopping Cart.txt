@@ -579,3 +579,20 @@ Task 4 - Update Component to Pass Data:
 Note:
 Again the new Angular does not expose the nested products inside items so did it slighly differently.
 
+
+---Tutorial 12 - Design Issue:---
+So going with Moshes implmentation there are a few design issues we need to work out.
+
+Issues:
+-Iteraring using key in template is messy.
+-Need Key Value Map for future lookups of data
+
+Because of the Implementation Mosh has done, need a little refactoring of the Constructor of Shopping-Cart.ts.
+-Define KeyValueMap for lookup
+constructor(public items: {key: string}: shoppingCartItem)
+
+-Declare Seperate value,Iterate & set Items for use in Template
+items: ShoppingCartItem[];
+
+
+Lucky for me I didn't use that method to render data so no changes needed.
