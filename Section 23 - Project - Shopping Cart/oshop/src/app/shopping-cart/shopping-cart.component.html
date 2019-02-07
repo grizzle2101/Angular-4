@@ -1,3 +1,24 @@
-<p>
-  shopping-cart works!
-</p>
+<!--Task 2 - Add Basic Markup-->
+<h1>Shopping Cart:</h1>
+<ng-container *ngIf="shoppingCartItemCount">
+  <p>
+    You have {{shoppingCartItemCount}} Item in your Shopping Cart.
+  </p>
+  <!--Task 3 - Add Advanced Markup-->
+  <table class="table">
+    <thead>
+      <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+          <th>{{product.productNode.product.title}}</th>
+          <th>{{product.productNode.quantity}}</th>
+          <th></th>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>

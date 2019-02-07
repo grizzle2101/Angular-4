@@ -502,3 +502,80 @@ Although I made some progress integrating Moshes changes, was some difficultly M
 -The Shopping Cart worked, but the products inside were undefined.
 -Async Pipe does not work with AngularFireList.
 So for the reasons listed have noted his improvements, but kept my code as is.
+
+
+---Tutorial 11 - Building a Simple Shopping Cart Page:---
+So now we're ready to finally build the Shopping Cart Page. Again we're gonna do it in a step by step fashion. Lets start with displaying the data.
+
+
+Task 1 - Setup ShoppingCartComponent:
+-Would be nice to have Extracted this logic into the Service & ShoppingCart but alas no.
+
+export class ShoppingCartComponent implements OnInit {
+  shoppingCartItemCount: number
+
+  constructor(private shoppingCartService: ShoppingCartService) { }
+
+  async ngOnInit() {
+    let cart = await this.shoppingCartService.getCartItems();
+    cart.valueChanges().subscribe(cart => {
+      this.shoppingCartItemCount = 0;
+      cart.forEach(item => {
+        this.shoppingCartItemCount += item.quantity
+      });
+    });
+  }
+}
+
+
+
+
+Task 2 - Add Basic Markup:
+-Lets get the basics up & running and see what this looks like.
+
+<h1>Shopping Cart:</h1>
+<ng-container *ngIf="shoppingCartItemCount">
+  <p>
+    You have {{shoppingCartItemCount}} Item in your Shopping Cart.
+  </p>
+</ng-container>
+
+
+Task 3 - Add some more Advanced Markup:
+  <table class="table">
+    <thead>
+      <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+          <th>{{product.productNode.product.title}}</th>
+          <th>{{product.productNode.quantity}}</th>
+          <th></th>
+      </tr>
+    </tbody>
+  </table>
+
+
+Task 4 - Update Component to Pass Data:
+-Setting Products from Service
+
+    let productList = await this.shoppingCartService.getProductsInCart();
+    productList.subscribe(x => this.products = x);
+
+-Mapping to Key & Payload to use in rendering Cart.
+
+  async getProductsInCart() {
+    let cartId = await this.getOrCreateCart();
+    let cart =  this.db.list('/shopping-carts/' + cartId + '/items/');
+    return cart.snapshotChanges().pipe(map(x => x.map(function(res){
+      return {key: res.key, productNode: res.payload.toJSON()}
+    })));
+  }
+
+Note:
+Again the new Angular does not expose the nested products inside items so did it slighly differently.
+

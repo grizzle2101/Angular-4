@@ -32,6 +32,25 @@ export class ShoppingCartService {
     .pipe(map(items => items.map(item => new ShoppingCart(item.items))));
   }
 
+
+  //Step 1 - Get Keys
+  async getKeys() {
+    let cartId = await this.getOrCreateCart();
+    let cart =  this.db.list('/shopping-carts/' + cartId + '/items/');
+    return cart.snapshotChanges().pipe(map(x => x.map(function(res){
+      return res.key
+    })));
+  }
+
+  async getProductsInCart() {
+    let cartId = await this.getOrCreateCart();
+    let cart =  this.db.list('/shopping-carts/' + cartId + '/items/');
+    return cart.snapshotChanges().pipe(map(x => x.map(function(res){
+      return {key: res.key, productNode: res.payload.toJSON()}
+    })));
+  }
+
+
   private async getOrCreateCart(): Promise<string> {
     let cartID = localStorage.getItem('cartID');
     if(cartID) return cartID;
