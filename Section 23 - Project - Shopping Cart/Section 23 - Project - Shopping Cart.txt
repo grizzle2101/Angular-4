@@ -443,3 +443,62 @@ Task 2 - Render Count:
 
 Task 3 - Test:
 Add some Items, remove some make sure the count adds up and we didn't break anything.
+
+
+
+---Tutorial 10 - Refactoring: Creating a Rich Model:---
+So with the Current implmentation of ProductCount, anywhere we want to get the total quantity, we have to duplicate this code.
+Would be better to add this into a service, so it can be used in many places.
+
+    let cart = await this.shoppingCartService.getCartItems();
+    cart.valueChanges().subscribe(cart => {
+      this.shoppingCartItemCount = 0;
+      cart.forEach(item => {
+        this.shoppingCartItemCount += item.quantity
+      });
+
+Information Expert Principal:
+The Object that has the information about performing a task, should be responsible for performing that task.
+
+
+Task 1 - Create Shopping Cart Object:
+So in accordance with the Information expert principal, the Shopping cart would be the best person to calculate the totalQuantity.
+
+export class ShoppingCart {
+  items: ShoppingCartItem[];
+
+  get totalItemsCount() {
+    let count = 0;
+    for(let productId in this.items) count += this.items[productId].quantity;
+    return count;
+  }
+
+
+Task 2 - Refactor Component & Template:
+-Expose the Cart Observeable in Component
+  cart$: Observable<ShoppingCart>;
+
+-Set Observable to value returned from Service.
+this.cart$ = await this.shoppingCartService.getCart();
+
+-Use Value in Template:
+            <span class="badge badge-warning badge-pill" *ngIf="cart$ | async as cart">
+              {{cart$.totalItemsCount}}
+            </span>
+
+
+
+Task 3 - Rework Service to Use Interface:
+    async getCartItemsMapped() {
+      let cartId = await this.getOrCreateCart();
+      let weh =  this.db.list('/shopping-carts/' + cartId + '/items/') as AngularFireList<ShoppingCart>
+      return weh.valueChanges()
+      .pipe(map(items => items.map(item => new ShoppingCart(item.items))));
+    }
+
+
+Note:
+Although I made some progress integrating Moshes changes, was some difficultly Mapping the Service to return a ShoppingCart object with the correct data inside.
+-The Shopping Cart worked, but the products inside were undefined.
+-Async Pipe does not work with AngularFireList.
+So for the reasons listed have noted his improvements, but kept my code as is.

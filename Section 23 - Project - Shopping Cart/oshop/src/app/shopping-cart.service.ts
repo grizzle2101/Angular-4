@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { ProductNode, ShoppingCartItem } from './models/Product';
+import { ProductNode, ShoppingCartItem, ShoppingCart } from './models/Product';
 import { map, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -21,6 +21,15 @@ export class ShoppingCartService {
   async getCartItems() {
     let cartId = await this.getOrCreateCart();
     return this.db.list('/shopping-carts/' + cartId + '/items/') as AngularFireList<ShoppingCartItem>;
+  }
+
+  
+  //Try Map this to Shopping Cart.
+  async getCartItemsMapped() {
+    let cartId = await this.getOrCreateCart();
+    let weh =  this.db.list('/shopping-carts/' + cartId + '/items/') as AngularFireList<ShoppingCart>
+    return weh.valueChanges()
+    .pipe(map(items => items.map(item => new ShoppingCart(item.items))));
   }
 
   private async getOrCreateCart(): Promise<string> {

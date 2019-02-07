@@ -14,3 +14,14 @@ export interface ShoppingCartItem {
   product: Product;
   quantity: number;
 }
+
+
+export class ShoppingCart {
+  constructor(public items: ShoppingCartItem[]){}
+  
+  get totalItemsCount() {
+    let count = 0;
+    this.items.forEach(item => {count += item.quantity});
+    return count;
+  }
+}
