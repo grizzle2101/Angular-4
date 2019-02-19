@@ -596,3 +596,84 @@ items: ShoppingCartItem[];
 
 
 Lucky for me I didn't use that method to render data so no changes needed.
+
+
+----Tutorial 13 - Displaying the TotalPrice:---
+So in order for us to get the TotalPrice calclated, we need to refactor some existing code.
+If we flatten the nested Product Objects in our cart, it will be much easier to calclate total price, as quantity & price will be available to us on the same node.
+
+Refactoring:
+Task 1 - Rework Product Component & Card to use Flat ShoppingCartItem
+-Create a Dummy Object in firebase with the required design.
+Shopping-Cart Node
+-DateCreated
+-Items
+	-ItemKey(ProductKEY)
+		-ImageUrl
+		-Price
+		-Quantity
+		-Title
+
+-Task 2 - Create DTO Object with same data.
+export class ProductItem {
+  title: string;
+  price: number;
+  imageUrl: string;
+  quantity: number;
+}
+
+-Task 3 - Refactor Service:
+Where we get objects from the cart service eg getCartItems we need to return ProductItems.
+
+
+-Task 4 - Refactor Components & Templates:
+So where we previously passed an Array of ShoppingCart Items to the product card, and the Nav Bar we need to use the new ProductItem class instead.
+This new object has the neccessary data for calculating totals eg quantity & price in the same object.
+Also make sure the templates have the correct new fields that correspond to ProductItem.
+-NavBar
+-Shopping Cart
+-Product Card
+
+
+
+Task 5 - Flesh Out ShoppingCart:
+
+-Component:
+In the NgOnit we need to iterate over the items to get a TotalCount and calculate the TotalPrice.
+Moshes approach is nice, he creates a Cart Object and they internally manage totalPrice & quantity.
+But becuase firebase has changed its internal implmentation, we cannot get do the exact same.
+
+      cart.forEach(item => {
+        this.shoppingCartItemCount += item.quantity;
+        
+        //Refactor move into CartItem:
+        this.totalPrice += (item.quantity * item.price);
+      });
+    });
+
+    let productList = await this.shoppingCartService.getCartItems();
+    productList.valueChanges().subscribe(x => this.products = x);
+
+
+-Markup:
+Decided to go with Embedding the calculation here, as this is where we are iterating over it.
+<tbody>
+      <tr *ngFor="let product of products">
+          <th>{{product.title}}</th>
+          <th>{{product.quantity}}</th>
+          <th>{{(product.price * product.quantity) | currency:'USD'}}</th>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th></th>
+        <th>Total:</th>
+        <th>{{totalPrice | currency:'USD'}}</th>
+      </tr>
+    </tfoot>
+
+
+
+Note:
+In General it is good to leave calculations out of templates as we want them to be as lean as possible.
+Also for testability, it is much easier to test if they exist inside the component, rather than write integration tests and all the additional work.

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingCartService } from '../shopping-cart.service';
+import { ProductItem } from '../models/Product';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -8,11 +9,11 @@ import { ShoppingCartService } from '../shopping-cart.service';
 })
 export class ShoppingCartComponent implements OnInit {
   shoppingCartItemCount: number;
-  keys;
-  products;
+  products: ProductItem[];
+  itemPrice: number =0;
+  totalPrice: number = 0;
 
 
-  //Task 1 - Setup Shopping Cart Data:
   constructor(private shoppingCartService: ShoppingCartService) { }
 
   async ngOnInit() {
@@ -20,13 +21,14 @@ export class ShoppingCartComponent implements OnInit {
     cart.valueChanges().subscribe(cart => {
       this.shoppingCartItemCount = 0;
       cart.forEach(item => {
-        this.shoppingCartItemCount += item.quantity
+        this.shoppingCartItemCount += item.quantity;
+        
+        //Refactor move into CartItem:
+        this.totalPrice += (item.quantity * item.price);
       });
     });
 
-
-    //Task 4 - Update Component to Pass Data:
-    let productList = await this.shoppingCartService.getProductsInCart();
-    productList.subscribe(x => this.products = x);
+    let productList = await this.shoppingCartService.getCartItems();
+    productList.valueChanges().subscribe(x => this.products = x);
   }
 }

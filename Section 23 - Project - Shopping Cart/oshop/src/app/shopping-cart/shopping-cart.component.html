@@ -1,24 +1,29 @@
-<!--Task 2 - Add Basic Markup-->
 <h1>Shopping Cart:</h1>
 <ng-container *ngIf="shoppingCartItemCount">
   <p>
     You have {{shoppingCartItemCount}} Item in your Shopping Cart.
   </p>
-  <!--Task 3 - Add Advanced Markup-->
   <table class="table">
     <thead>
       <tr>
           <th>Product</th>
           <th>Quantity</th>
-          <th></th>
+          <th>Price</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let product of products">
-          <th>{{product.productNode.product.title}}</th>
-          <th>{{product.productNode.quantity}}</th>
-          <th></th>
+          <th>{{product.title}}</th>
+          <th>{{product.quantity}}</th>
+          <th>{{(product.price * product.quantity) | currency:'USD'}}</th>
       </tr>
     </tbody>
+    <tfoot>
+      <tr>
+        <th></th>
+        <th>Total:</th>
+        <th>{{totalPrice | currency:'USD'}}</th>
+      </tr>
+    </tfoot>
   </table>
 </ng-container>

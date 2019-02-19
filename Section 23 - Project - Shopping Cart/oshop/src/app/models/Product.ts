@@ -7,11 +7,18 @@ export interface Product {
   title: string;
   price: number;
   category: string;
-  imageURL: string;
+  imageUrl: string;
 }
 
 export class ShoppingCartItem {
   product: Product;
+  quantity: number;
+}
+
+export class ProductItem {
+  title: string;
+  price: number;
+  imageUrl: string;
   quantity: number;
 }
 

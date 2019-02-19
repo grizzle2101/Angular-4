@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { ProductNode, ShoppingCartItem } from '../models/Product';
+import { ProductNode, ShoppingCartItem, ProductItem } from '../models/Product';
 import { ShoppingCartService } from '../shopping-cart.service';
-import { elementAt } from 'rxjs/operators';
 
 @Component({
   selector: 'product-card',
@@ -11,7 +10,7 @@ import { elementAt } from 'rxjs/operators';
 export class ProductCardComponent {
   @Input('product') productNode: ProductNode;
   @Input('show-actions') showActions: boolean = true;
-  @Input('shopping-cart') shoppingCartItems: ShoppingCartItem[];
+  @Input('shopping-cart') shoppingCartItems: ProductItem[];
 
   constructor(private cartService: ShoppingCartService) {}
 
@@ -25,12 +24,13 @@ export class ProductCardComponent {
     this.cartService.removeFromCart(this.productNode);
   }
 
+  //Filter Shopping Cart Items for Quantity.
   getQuantity() {
     //Incase Data is not Loaded.
     if(!this.shoppingCartItems) return 0;
 
     //Filter by Product Node to get ONE
-    let item = this.shoppingCartItems.find(cartProduct => cartProduct.product.title == this.productNode.product.title);
+    let item = this.shoppingCartItems.find(cartProduct => cartProduct.title == this.productNode.product.title);
     return item ? item.quantity : 0;
   }
 }

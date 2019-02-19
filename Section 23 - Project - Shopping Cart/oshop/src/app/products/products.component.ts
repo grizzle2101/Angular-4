@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from '../product.service';
 import { ActivatedRoute } from '@angular/router';
-import { ProductNode, ShoppingCartItem } from '../models/Product';
-import { switchMap, subscribeOn } from 'rxjs/operators';
+import { ProductNode, ProductItem } from '../models/Product';
+import { switchMap } from 'rxjs/operators';
 import { ShoppingCartService } from '../shopping-cart.service';
 import { Subscription } from 'rxjs';
 
@@ -17,7 +17,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   products: ProductNode[] = [];
   filteredProducts: ProductNode[] = [];
   category: string;
-  cartItems: ShoppingCartItem[];
+  cartItems: ProductItem[];
   subscription: Subscription;
 
   constructor(private route: ActivatedRoute, private productService: ProductService, private shoppingCartService: ShoppingCartService) {
@@ -34,6 +34,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     });
   }
 
+  //Only Usage of Shopping Cart.
   async ngOnInit() {
     this.subscription =  (await this.shoppingCartService.getCartItems()).valueChanges().subscribe(items => {
       this.cartItems = items;
