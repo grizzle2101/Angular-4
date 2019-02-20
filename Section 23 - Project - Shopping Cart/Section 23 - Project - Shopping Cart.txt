@@ -677,3 +677,116 @@ Decided to go with Embedding the calculation here, as this is where we are itera
 Note:
 In General it is good to leave calculations out of templates as we want them to be as lean as possible.
 Also for testability, it is much easier to test if they exist inside the component, rather than write integration tests and all the additional work.
+
+
+
+
+---Tutorial 14 - Refactoring: Extracting Product Quantity Component:---
+So in this section we want to refactor the + - methods for working with the shopping cart, so it can be reused in Shopping Cart & Products page.
+
+
+Task 1 - Centralize Shopping Cart Methods in Shopping Cart Object:
+So in conjunction with the Information Expert Principal, we should delegate responsabilities to the object with the most knoweldge.
+By creating a Shopping Cart Object we can pass this cart around, and let the template interact to find Quantity & Price etc.
+
+export class ShoppingCart {
+  constructor(public items: ProductItem[]) { }
+
+  getTotalItemsCount() {
+    let count = 0;
+    this.items.forEach(item => { count += item.quantity; });
+    return count;
+  }
+
+  getQuantity(product: ProductNode) {
+      let item = this.items.find(cartItem => cartItem.title === product.product.title);
+      return item ? item.quantity : 0;
+  }
+
+  getTotalPrice() {
+      let sum = 0;
+      this.items.forEach(cartItem => {
+          sum += (cartItem.price * cartItem.quantity);
+        });
+        return sum;
+  }
+}
+
+Task 2 - Refactor Product Component to use new Cart Object:
+-Remove ShoppingCartItems array in Favour of Shopping Cart.
+  async ngOnInit() {
+    this.subscription =  (await this.shoppingCartService.getCartItems()).valueChanges().subscribe(items => {
+      this.cart = new ShoppingCart(items);
+    });
+  }
+
+-Rework Template
+      <ng-container *ngFor="let p of filteredProducts; let i = index">
+        <div class="col-6">
+          <product-card [product]="p" [cart]="cart"></product-card>
+        </div>
+        <div *ngIf="(i + 1) % 2 === 0" class="w-100"></div>
+      </ng-container>
+
+
+Task 3 - Create Product-Quantity Component:
+-Extract Cart Methods
+
+export class ProductQuantityComponent {
+  @Input('product') product: ProductNode;
+  @Input('cart') cart: ShoppingCart;
+
+  constructor(private cartService: ShoppingCartService) {}
+
+  addToCart() {
+    console.log('Adding to cart...')
+    this.cartService.addToCart(this.product);
+  }
+
+  removeFromCart(){
+    console.log('Removing from cart...')
+    this.cartService.removeFromCart(this.product);
+  }
+}
+-Extract Quantity Footer into new template.
+<div class="row no-gutters">
+  <div class="col-2">
+    <button (click)="removeFromCart()" class="btn btn-secondary btn-block">-</button>
+  </div>
+  <div class="col text-center">{{cart.getQuantity(product)}} in Cart.
+  </div>
+  <div class="col-2">
+    <button (click)="addToCart()" class="btn btn-secondary btn-block">+</button>
+  </div>
+</div>
+
+
+Task 4 - Refactor Product-Card to Use Cart Object
+-Remove unnecessary methods in product card.
+-Udpate Template
+Because the Product Card has input propertier for cart & product, we can pass them directly to the product quantity component.
+    <ng-template #updateQuantity>
+      <product-quantity [product]="product" [cart]="cart"></product-quantity>
+    </ng-template>
+
+
+Task 5 - Manipulate Quantity InLine:
+So rather than using the service to get quantity again, why don't we change the quantity on click, and pass a ProductItem not a Product.
+This gets rid of loads of redundant code in our Service & concurrency issues with changing quantity.
+
+    item.quantity = this.cart.getQuantity(this.product) + 1;
+
+    this.cartService.addToCart(this.product.key, item);
+
+In Summary:
+Moshes design is slightly different to mine to had to do a couple design tweaks.
+In my service the GetQuantity had to be updated, if the product had none to just make it 0.
+ShoppingCart implmentation differs as we don't have the key values Mosh uses, works just as well though.
+Could prob try look at refactoring the getQuantity in the service, and maybe how I go about switching from ProductNode to ShoppingCartItem,
+like append quantity on AddingToCart, that way we don't repet it in the service, and fix the concurrency issue.
+
+
+Additional Refactor:
+-Service Cleanup, use quantity from UI, no need to do in service. - Done
+-Nav Bar - Done
+-Shopping Cart Component

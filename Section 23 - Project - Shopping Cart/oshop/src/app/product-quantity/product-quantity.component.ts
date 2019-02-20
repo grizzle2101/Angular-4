@@ -1,16 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { ProductNode, ProductItem } from '../models/Product';
-import { ShoppingCartService } from '../shopping-cart.service';
 import { ShoppingCart } from '../models/ShoppingCart';
+import { ShoppingCartService } from '../shopping-cart.service';
 
 @Component({
-  selector: 'product-card',
-  templateUrl: './product-card.component.html',
-  styleUrls: ['./product-card.component.css']
+  selector: 'product-quantity',
+  templateUrl: './product-quantity.component.html',
+  styleUrls: ['./product-quantity.component.css']
 })
-export class ProductCardComponent {
+export class ProductQuantityComponent {
   @Input('product') product: ProductNode;
-  @Input('show-actions') showActions: boolean = true;
   @Input('cart') cart: ShoppingCart;
   item: ProductItem = new ProductItem();
 
@@ -21,6 +20,15 @@ export class ProductCardComponent {
     this.item.imageUrl = this.product.product.imageUrl;
     this.item.price = this.product.product.price;
     this.item.quantity = this.cart.getQuantity(this.product) + 1;
+
+    this.cartService.addToCart(this.product.key, this.item);
+  }
+
+  removeFromCart(){
+    this.item.title = this.product.product.title;
+    this.item.imageUrl = this.product.product.imageUrl;
+    this.item.price = this.product.product.price;
+    this.item.quantity = this.cart.getQuantity(this.product) - 1;
 
     this.cartService.addToCart(this.product.key, this.item);
   }

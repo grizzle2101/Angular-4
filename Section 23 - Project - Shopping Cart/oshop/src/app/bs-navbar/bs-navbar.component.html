@@ -10,7 +10,7 @@
           <a class="nav-link"
            routerLink="/shopping-cart">
             Shopping Cart
-            <span class="badge badge-warning badge-pill">{{shoppingCartItemCount}}</span>
+            <span *ngIf="cart" class="badge badge-warning badge-pill">{{cart.getTotalItemsCount()}}</span>
           </a>
         </li>
         <ng-template #anonymousUser>
