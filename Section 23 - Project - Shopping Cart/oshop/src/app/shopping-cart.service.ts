@@ -32,14 +32,14 @@ export class ShoppingCartService {
   }
 
   async addToCart(key: string, product: ProductItem) {
-    this.updateItemQuantity(key, product);
+    this.updateItem(key, product);
   }
 
   async removeFromCart(key: string, product: ProductItem) {
-    this.updateItemQuantity(key, product);
+    this.updateItem(key, product);
   }
 
-  private async updateItemQuantity(key: string, product: ProductItem) {
+  private async updateItem(key: string, product: ProductItem) {
     let cartItems = await this.getCartItems();
     cartItems.update(key, product);
   }

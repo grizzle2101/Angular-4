@@ -16,22 +16,16 @@ export class ProductQuantityComponent {
   constructor(private cartService: ShoppingCartService) {}
 
   addToCart() {
-    this.item.title = this.product.product.title;
-    this.item.imageUrl = this.product.product.imageUrl;
-    this.item.price = this.product.product.price;
-    this.item.quantity = this.cart.getQuantity(this.product) + 1;
+    Object.assign(this.item, this.product.product);
     this.item.key = this.product.key;
-
+    this.item.quantity = this.cart.getQuantity(this.product) + 1;
     this.cartService.addToCart(this.item.key, this.item);
   }
 
   removeFromCart(){
-    this.item.title = this.product.product.title;
-    this.item.imageUrl = this.product.product.imageUrl;
-    this.item.price = this.product.product.price;
-    this.item.quantity = this.cart.getQuantity(this.product) - 1;
+    Object.assign(this.item, this.product.product)
     this.item.key = this.product.key;
-
+    this.item.quantity = this.cart.getQuantity(this.product) - 1;
     this.cartService.addToCart(this.item.key, this.item);
   }
 }

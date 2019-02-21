@@ -860,3 +860,28 @@ So lets add this into ShoppingCart Component & voila, we can update the Quantity
 
 For Later:
 Would be nice to have the same component used in both places, but the difference in Moshs version of firebase and mine makes it difficult.
+
+
+---Tutorial 16 - Flattening Shopping Cart Items:---
+This is not really applicable for me as I already simplified the shopping cart.
+
+Task 1 - Create ProductItem DTO:
+-Quantity, Title, Price, etc all in a single object
+
+
+Task 2 - Update Service:
+So when we are going to save this object make sure to use the ProductItem dto.
+
+-Replace Nested Object with ProductItem DTO.
+-Update Naming
+
+
+Task 3 - Update ShoppingCart Template:
+Because we have changed the data structure, we need to update our template to match.
+
+Task 4 - Assign Objects:
+Now when adding products to the shopping cart, use object.assign to copy the releveant data into our DTO, like auto mapper in C#.
+
+To Do:
+Seems when using Object.Assign i get this additional property Categories, not the end of the world but would be nice if it was cleaner.
+Cleaner Code > Cleander DB at least for our application, not worried about performance.
