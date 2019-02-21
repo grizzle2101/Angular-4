@@ -790,3 +790,73 @@ Additional Refactor:
 -Service Cleanup, use quantity from UI, no need to do in service. - Done
 -Nav Bar - Done
 -Shopping Cart Component
+
+
+
+
+---Tutorial 15 - Discovering a Design Issue:---
+So in this section we're going to over a slight design issue with the Shopping Cart & Products Component.
+The crux of the issue being the different data types, in Products Component we iteratre over a set of ProductNodes, check the cart if this exists then update the quantity.
+However in the shopping cart, we don't have access to the ProductNode or the key attribute as a result.
+This makes is difficult to reuse the same Quantity Selector component.
+
+
+Task 1  - Add Key Property in Firebase:
+This solution is a bit redundant, but in our case is the easiest to implement.
+
+-Update ProductItem Model:
+So when we add an Item to the Cart, we want to see the KEY field.
+
+export class ProductItem {
+  title: string;
+  price: number;
+  imageUrl: string;
+  quantity: number;
+  key: string;
+}
+
+
+-Rework Product-Card & Product-Quantity:
+So now what we have the key propety, take it from ProductNode.key
+  addToCart() {
+    this.item.title = this.product.product.title;
+    this.item.imageUrl = this.product.product.imageUrl;
+    this.item.price = this.product.product.price;
+    this.item.quantity = this.cart.getQuantity(this.product) + 1;
+    this.item.key = this.product.key;
+
+    this.cartService.addToCart(this.item.key, this.item);
+  }
+
+-Now we can see the key attribute on our Shopping Cart Items.
+
+Task 2 - Create Component:
+-Create Cart-Quantity Component
+The Only difference here being we use ProductItems and not ProductNode. We then update the Quantity OnClick & pass to the service as normal.
+
+  @Input('cartItem') cartItem: ProductItem;
+  @Input('cart') cart: ShoppingCart;
+  item: ProductItem = new ProductItem();
+
+  constructor(private cartService: ShoppingCartService) { }
+
+  addToCart() {
+    this.item.title = this.cartItem.title;
+    this.item.imageUrl = this.cartItem.imageUrl;
+    this.item.price = this.cartItem.price;
+    this.item.quantity = this.cartItem.quantity += 1;
+    this.item.key = this.cartItem.key;
+
+    this.cartService.addToCart(this.item.key, this.item);
+  }
+
+
+Task 3 - Use Component:
+So lets add this into ShoppingCart Component & voila, we can update the Quantity in both the product card & shopping cart.
+-Add Product Quantity & pass cart.
+          <th><cart-quantity [cartItem]="product" [cart]="cart"></cart-quantity></th>
+          <th>{{cart.getItemPrice(product) | currency:'USD'}}</th>
+
+
+For Later:
+Would be nice to have the same component used in both places, but the difference in Moshs version of firebase and mine makes it difficult.

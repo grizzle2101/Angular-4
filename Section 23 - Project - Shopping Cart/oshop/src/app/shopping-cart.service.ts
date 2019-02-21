@@ -7,7 +7,6 @@ import { ProductNode, ProductItem } from './models/Product';
   providedIn: 'root'
 })
 export class ShoppingCartService {
-  quantity: number;
 
   constructor(private db: AngularFireDatabase) { }
 
@@ -33,19 +32,15 @@ export class ShoppingCartService {
   }
 
   async addToCart(key: string, product: ProductItem) {
-    console.log('ADDING PRODUCT:', product.title);
     this.updateItemQuantity(key, product);
   }
 
   async removeFromCart(key: string, product: ProductItem) {
-    console.log('REMOVING PRODUCT:', product.title);
     this.updateItemQuantity(key, product);
   }
 
   private async updateItemQuantity(key: string, product: ProductItem) {
     let cartItems = await this.getCartItems();
-    product.quantity = product.quantity;
-
     cartItems.update(key, product);
   }
 }

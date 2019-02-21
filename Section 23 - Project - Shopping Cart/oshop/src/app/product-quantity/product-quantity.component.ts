@@ -20,8 +20,9 @@ export class ProductQuantityComponent {
     this.item.imageUrl = this.product.product.imageUrl;
     this.item.price = this.product.product.price;
     this.item.quantity = this.cart.getQuantity(this.product) + 1;
+    this.item.key = this.product.key;
 
-    this.cartService.addToCart(this.product.key, this.item);
+    this.cartService.addToCart(this.item.key, this.item);
   }
 
   removeFromCart(){
@@ -29,7 +30,8 @@ export class ProductQuantityComponent {
     this.item.imageUrl = this.product.product.imageUrl;
     this.item.price = this.product.product.price;
     this.item.quantity = this.cart.getQuantity(this.product) - 1;
+    this.item.key = this.product.key;
 
-    this.cartService.addToCart(this.product.key, this.item);
+    this.cartService.addToCart(this.item.key, this.item);
   }
 }
