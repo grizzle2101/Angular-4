@@ -1,5 +1,5 @@
 <h1>Shopping Cart:</h1>
-<ng-container *ngIf="cart">
+<div class="row col-10" *ngIf="cart">
   <p>
     You have {{cart.getTotalItemsCount()}} Item in your Shopping Cart.
   </p>
@@ -7,26 +7,26 @@
     <thead>
       <tr>
           <th>Product</th>
-          <th>Quantity</th>
-          <th>Price</th>
+          <th class="text-center" style="width: 230px">Quantity</th>
+          <th class="text-right" style="width: 200px">Price</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let product of cart.items">
           <th>{{product.title}}</th>
           <th><cart-quantity [cartItem]="product" [cart]="cart"></cart-quantity></th>
-          <th>{{cart.getItemPrice(product) | currency:'USD'}}</th>
+          <th class="text-right">{{cart.getItemPrice(product) | currency:'USD'}}</th>
       </tr>
     </tbody>
     <tfoot>
       <tr>
         <th></th>
-        <th>Total:</th>
-        <th>{{cart.getTotalPrice() | currency:'USD'}}</th>
+        <th class="text-right">Total:</th>
+        <th class="text-right">{{cart.getTotalPrice() | currency:'USD'}}</th>
       </tr>
     </tfoot>
   </table>
   <button 
   (click)="clearCart()"
   class="btn btn-danger btn-sm">Clear Shopping Cart</button>
-</ng-container>
+</div>

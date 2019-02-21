@@ -975,3 +975,11 @@ So to avoid any messing about with 0 or negative items, add a check for 0 then r
   }
 
 No more empty products in our shopping cart!
+
+
+
+---Tutorial 20 - Improving the Layout:---
+So theres a few styling issues with the shopping cart, namely the quantity buttons are way to spread out and large.
+
+Task 1 - Add InLineStyle:
+Start Cleaning up the design with text-right and fixed sizes on the table & rows.
