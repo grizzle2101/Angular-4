@@ -17,7 +17,6 @@ export class ShoppingCartService {
     });
   }
 
-  //Task 2 - Remove Cart Item in service
   async clearCart() {
     let cart = await this.getCartItems();
     cart.remove();
@@ -26,6 +25,11 @@ export class ShoppingCartService {
   async getCartItems() {
     let cartId = await this.getOrCreateCartId();
     return this.db.list('/shopping-carts/' + cartId + '/items/') as AngularFireList<ProductItem>;
+  }
+
+  async getCartItem(key: string) {
+    let cartId = await this.getOrCreateCartId();
+    return this.db.list('/shopping-carts/' + cartId + '/items/' + key) as AngularFireList<ProductItem>;
   }
 
   async addToCart(key: string, product: ProductItem) {
@@ -47,8 +51,14 @@ export class ShoppingCartService {
   }
 
 
+  //Task 1 - Add Check for Quantity:
   private async updateItem(key: string, product: ProductItem) {
     let cartItems = await this.getCartItems();
-    cartItems.update(key, product);
+
+    if(product.quantity === 0) {
+      let cartItem = await this.getCartItem(product.key);
+      cartItem.remove();
+    }
+    else cartItems.update(key, product);
   }
 }

@@ -954,3 +954,24 @@ Task 2 - Remove Cart Item in service
   }
 
 Nice we can now clear the cart!
+
+
+
+---Tutorial 19 - Fixing a bug with Updating Quantity:---
+So by now you've realized the bug with Quantity, if we get to 0 it does not get removed from the cart.
+Lucily the fix is quite simple we just need to add a conditional statement in the service.
+
+
+Task 1 - Add Check for Quantity:
+So to avoid any messing about with 0 or negative items, add a check for 0 then remove the product node from items.
+  private async updateItem(key: string, product: ProductItem) {
+    let cartItems = await this.getCartItems();
+
+    if(product.quantity === 0) {
+      let cartItem = await this.getCartItem(product.key);
+      cartItem.remove();
+    }
+    else cartItems.update(key, product);
+  }
+
+No more empty products in our shopping cart!
