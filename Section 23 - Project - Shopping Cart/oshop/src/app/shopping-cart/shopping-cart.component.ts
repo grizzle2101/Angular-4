@@ -25,8 +25,11 @@ export class ShoppingCartComponent implements OnInit {
       this.cart = new ShoppingCart(cart);
     });
 
-
     let productList = await this.shoppingCartService.getCartItems();
     productList.valueChanges().subscribe(x => this.products = x);
+  }
+
+  clearCart() {
+    this.shoppingCartService.clearCart();
   }
 }

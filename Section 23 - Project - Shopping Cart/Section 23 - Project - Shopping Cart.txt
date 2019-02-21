@@ -920,3 +920,37 @@ So rather than creating an object, casting the values, THEN passing to the servi
 
 
 So although this has not fixed the additional category property, it has cleaned up the code and useless object initialization.
+
+
+
+---Tutorial 18 - Cleaning the Shopping Cart:---
+So in this tutorial we're going to add a button to remove all items in the shopping cart.
+
+
+Task 1 - Add Button:
+-Add a button and onclick event to clearCart()
+  </table>
+  <button 
+  (click)="clearCart()"
+  class="btn btn-danger btn-sm">Clear Shopping Cart</button>
+</ng-container>
+
+-Call the Service from the Shopping Cart Component.
+  clearCart() {
+    this.shoppingCartService.clearCart();
+  }
+
+
+Task 2 - Remove Cart Item in service
+-Simply get a reference to the cart using getCartItems, then use the .remove method and voila, cart cleared!
+  async clearCart() {
+    let cart = await this.getCartItems();
+    cart.remove();
+  }
+
+  async getCartItems() {
+    let cartId = await this.getOrCreateCartId();
+    return this.db.list('/shopping-carts/' + cartId + '/items/') as AngularFireList<ProductItem>;
+  }
+
+Nice we can now clear the cart!

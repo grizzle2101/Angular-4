@@ -16,7 +16,6 @@ export class ProductCardComponent {
   constructor(private cartService: ShoppingCartService) {}
 
   addToCart() {
-    //Task 2 - Add Properties Via spread opertator:
     this.cartService.addToCart(this.product.key, new ProductItem({
       ...this.product.product,
       key: this.product.key,
