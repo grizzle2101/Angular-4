@@ -12,14 +12,15 @@ export class ProductCardComponent {
   @Input('product') product: ProductNode;
   @Input('show-actions') showActions: boolean = true;
   @Input('cart') cart: ShoppingCart;
-  item: ProductItem = new ProductItem();
 
   constructor(private cartService: ShoppingCartService) {}
 
   addToCart() {
-    Object.assign(this.item, this.product.product)
-    this.item.key = this.product.key;
-    this.item.quantity = this.cart.getQuantity(this.product) + 1;
-    this.cartService.addToCart(this.item.key, this.item);
+    //Task 2 - Add Properties Via spread opertator:
+    this.cartService.addToCart(this.product.key, new ProductItem({
+      ...this.product.product,
+      key: this.product.key,
+      quantity: this.cart.getQuantity(this.product) + 1
+    }));
   }
 }

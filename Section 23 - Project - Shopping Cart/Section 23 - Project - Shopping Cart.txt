@@ -885,3 +885,38 @@ Now when adding products to the shopping cart, use object.assign to copy the rel
 To Do:
 Seems when using Object.Assign i get this additional property Categories, not the end of the world but would be nice if it was cleaner.
 Cleaner Code > Cleander DB at least for our application, not worried about performance.
+
+
+
+---Tutorial 17 - Better Object Initialization:---
+So in the last secttion we used Object.assign to copy over the items, that gave us the side affect of having additional elements like category which we don't want in the cart.
+Another way is to spread the object using the ... operator.
+
+
+Task 1 - Refactor Items to be initialized via constructor.
+-Now add a partial generic class and take the values in using object.assign.
+
+export class ProductItem {
+  title: string;
+  price: number;
+  imageUrl: string;
+  quantity: number;
+  key: string;
+
+  constructor(init?: Partial<ProductItem>){
+    Object.assign(this, init);
+  }
+
+
+Task 2 - Add Properties Via spread opertator
+So rather than creating an object, casting the values, THEN passing to the service, we can do it all in one go.
+  addToCart() {
+    this.cartService.addToCart(this.product.key, new ProductItem({
+      ...this.product.product,
+      key: this.product.key,
+      quantity: this.cart.getQuantity(this.product) + 1
+    }));
+  }
+
+
+So although this has not fixed the additional category property, it has cleaned up the code and useless object initialization.

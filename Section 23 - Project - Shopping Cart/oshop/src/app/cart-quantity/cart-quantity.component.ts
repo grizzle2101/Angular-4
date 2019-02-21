@@ -11,20 +11,21 @@ import { ShoppingCartService } from '../shopping-cart.service';
 export class CartQuantityComponent {
   @Input('cartItem') cartItem: ProductItem;
   @Input('cart') cart: ShoppingCart;
-  item: ProductItem = new ProductItem();
   
 
   constructor(private cartService: ShoppingCartService) { }
 
   addToCart() {
-    Object.assign(this.item, this.cartItem);
-    this.item.quantity = this.cartItem.quantity += 1;
-    this.cartService.addToCart(this.item.key, this.item);
+   this.cartService.addToCart(this.cartItem.key, new ProductItem({
+    ...this.cartItem,
+    quantity: this.cartItem.quantity += 1
+  }));
   }
 
   removeFromCart() {
-    Object.assign(this.item, this.cartItem);
-    this.item.quantity = this.cartItem.quantity -= 1;
-    this.cartService.addToCart(this.item.key, this.item);
+    this.cartService.addToCart(this.cartItem.key, new ProductItem({
+      ...this.cartItem,
+      quantity: this.cartItem.quantity -= 1
+    }));
   }
 }
