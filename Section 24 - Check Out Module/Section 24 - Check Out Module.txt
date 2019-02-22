@@ -39,3 +39,14 @@ btn-light is a nice grey box, styleing looks much better now!
 Test 3 - Test:
 Logout, add items into your cart then click checkout. The check-out page is protected so we should be redirected to the login page, then be returned on sucessful
 authentication.
+
+
+---Tutorial 3 - Building a Shipping Form:---
+In this section we're going to flesh out the Shipping Form.
+
+
+Task 1 - Add Form Markup:
+The process is very repetitive as we've already done this for products form. Copy & paste in the new markup.
+
+Task 2 - Add Component:
+Add the Shopping Cart Object & print to console to verify all is working correctly.
