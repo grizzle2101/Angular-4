@@ -34,6 +34,7 @@ import {ShoppingCartService} from './shopping-cart.service';
 import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
 import { CartQuantityComponent } from './cart-quantity/cart-quantity.component';
 import { EditProductCardComponent } from './edit-product-card/edit-product-card.component';
+import { OrderService } from './order.service';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { EditProductCardComponent } from './edit-product-card/edit-product-card.
     UserService,
     CategoryService,
     ProductService,
-    ShoppingCartService
+    ShoppingCartService,
+    OrderService
   ],
   bootstrap: [AppComponent]
 })

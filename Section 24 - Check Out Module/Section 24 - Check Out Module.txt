@@ -50,3 +50,65 @@ The process is very repetitive as we've already done this for products form. Cop
 
 Task 2 - Add Component:
 Add the Shopping Cart Object & print to console to verify all is working correctly.
+
+
+
+---Tutorial 4 - Saving the Order to Firebase:---
+
+
+
+Task 1 - Add Cart subscription:
+So before we can do anything we need to add the cart to our component.
+
+  async ngOnInit() {
+    let cart$ = await this.cartService.getCartItems();
+    this.subscription = cart$.valueChanges().subscribe(cart => this.cart = new ShoppingCart(cart));
+  }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
+  }
+  
+  placeOrder() {
+    console.log(this.shipping);
+
+Task 2 - Create Order Object
+So we're going to create an order Object like so, high level shipping details, then iterate through the cart items, extract a few details and save them under product.
+
+    let order = {
+      datePlace: new Date().getTime(),
+      shipping: this.shipping,
+      items: this.cart.items.map(i => {
+        return {
+          product: {
+            title: i.title,
+            imageUrl: i.imageUrl,
+            price: i.price
+          },
+          quantity: i.quantity,
+          totalPrice: (i.quantity * i.price)
+        }
+      })
+    }
+  } 
+
+
+
+Task 3 - Create Order Service:
+Just Add the order to the orders node and lets check out the result.
+
+export class OrderService {
+
+  constructor(private db: AngularFireDatabase) { }
+
+  storeOrder(order) {
+     return this.db.list('/orders').push(order);
+  }
+}
+
+
+Result:
+So we have a basic order being saved. We have items being stored as an array of numbers as the ID, then the various details.
+So the ShoppingCart and Orders have different ways of arranging the data but thats okay. The way we're using orders we don't need to access them, at this point
+the user has completed the transaction, the order is set.
+In the next section we will look at appending more user information onto the order.
