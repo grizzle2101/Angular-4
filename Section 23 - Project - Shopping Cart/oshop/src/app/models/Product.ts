@@ -20,6 +20,7 @@ export class ProductItem {
   price: number;
   imageUrl: string;
   quantity: number;
+  category: string;
   key: string;
 
   constructor(init?: Partial<ProductItem>){

@@ -13,13 +13,15 @@
     </thead>
     <tbody>
       <tr *ngFor="let product of cart.items">
-          <th>{{product.title}}</th>
-          <th><cart-quantity [cartItem]="product" [cart]="cart"></cart-quantity></th>
-          <th class="text-right">{{cart.getItemPrice(product) | currency:'USD'}}</th>
+          <td><div [style.backgroundImage]="'url(' + product.imageUrl + ')'" class="thumbnail"></div></td>
+          <td>{{product.title}}</td>
+          <td><cart-quantity [cartItem]="product" [cart]="cart"></cart-quantity></td>
+          <td class="text-right">{{cart.getItemPrice(product) | currency:'USD'}}</td>
       </tr>
     </tbody>
     <tfoot>
       <tr>
+        <th></th>
         <th></th>
         <th class="text-right">Total:</th>
         <th class="text-right">{{cart.getTotalPrice() | currency:'USD'}}</th>

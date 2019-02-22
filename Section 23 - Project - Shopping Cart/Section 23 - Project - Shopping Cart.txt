@@ -983,3 +983,28 @@ So theres a few styling issues with the shopping cart, namely the quantity butto
 
 Task 1 - Add InLineStyle:
 Start Cleaning up the design with text-right and fixed sizes on the table & rows.
+
+
+
+---Tutorial 21 - Adding a Thumbnail:---
+So now in this section we're going to add a thumbnail for the products in our cart then we can move on to refactoring everything.
+
+
+
+Task 1 - Add Markup:
+We tried using image src and css to round the boxes, but the aspect ration was way off. A better approach is to use a DIV then background style.
+then we can use background size cover & voila perfectly centered images.
+
+     <tr *ngFor="let product of cart.items">
+          <td><div [style.backgroundImage]="'url(' + product.imageUrl + ')'" class="thumbnail"></div></td>
+          <td>{{product.title}}</td>
+
+
+
+Task 2 - Add CSS:
+.thumbnail {
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    background-size: cover; 
+}
