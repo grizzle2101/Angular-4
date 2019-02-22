@@ -14,3 +14,28 @@ We also have an Admin & consumer version of the orders page. Admins can see ever
 users have the view tailored for them specifically.
 Orders - Normal users
 Manager Orders - Admin User
+
+
+
+---Tutorial 2 - Adding Check Out Button:---
+
+
+Task 1 - Add CheckOut Button:
+So remember we have 2 ways of navigating, we can either redirect in the component using the Router or in this case add a routerLink
+into the anchor & voila redirected.
+
+  <a *ngIf="cart.items.length" routerLink="/check-out" class="btn btn-primary">Checkout</a>
+
+
+Task 2 - Fix Styling:
+So the whole point of our application if for users to buy things, lets make the clear cart button a little less conspicious.
+btn-light is a nice grey box, styleing looks much better now!
+  <p>
+    You have {{cart.getTotalItemsCount()}} Item in your Shopping Cart.
+    <button *ngIf="cart.items.length" (click)="clearCart()" class="btn btn-light btn-sm">Clear Shopping Cart</button>
+  </p>
+
+
+Test 3 - Test:
+Logout, add items into your cart then click checkout. The check-out page is protected so we should be redirected to the login page, then be returned on sucessful
+authentication.
