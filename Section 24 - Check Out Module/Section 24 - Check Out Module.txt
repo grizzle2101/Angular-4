@@ -1,0 +1,16 @@
+---Section 24 - Check Out Module:---
+---Tutorial 1 - Introdution:---
+So in this section we're going to flesh out the checkout section of our application.
+
+Checkout Section:
+After Reviewing the shopping cart we can proceed to checkout.
+-Shipping Details
+-Order Summary Widget
+-Diverted to Order Success on completion of form.
+
+
+Orders:
+We also have an Admin & consumer version of the orders page. Admins can see every order whereas
+users have the view tailored for them specifically.
+Orders - Normal users
+Manager Orders - Admin User
