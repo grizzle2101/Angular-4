@@ -1008,3 +1008,45 @@ Task 2 - Add CSS:
     border-radius: 100%;
     background-size: cover; 
 }
+
+
+---Tutorial 22 - More Refactoring:---
+
+
+Task 1 - Unwrap Cart in Template:
+So there seems to be some redundant code, unwrapping the Observables & assigning in the component. Then we have to manually open & close
+the connections. Would be better to use the async pipe in our component.
+Note:This didn't seem to work, the new firebase does not seem to use Observables. So left as is.
+
+
+
+-Task 2 - Extrate Populate Products:
+So to any user looking at our code, they might get confused by all the implmentation detail in NgOnit.
+To make life easier we can extract this to privat methods, and give them simple names like populate products or applyFilter.
+
+  private populateProducts() {
+    this.productService.getAllProducts()
+    .pipe(switchMap(products => {
+      this.products = products;
+      return this.route.queryParamMap;
+    }))
+    .subscribe(params => {
+      this.category = params.get('category');
+      this.applyFilter();
+    });
+  }
+
+-Task 3 -Extract Filter to Private Method
+Again we don't need this complexity in our NgOnInit.
+  private applyFilter() {
+    this.filteredProducts = (this.category) ?
+    this.products.filter(p => p.product.category === this.category) :
+    this.products;
+  }
+
+
+Additional:
+So before moving on to the next section, we need to make sure everything else is fixed. So the Admin Interface for managing products
+and and the product cards, probably since all the changes we made to our ProductService and the Products.
+
+Problem turned out to be the usage of the ProductCard in the Admin Products VS the product page. Inconsistent data types to say the least.

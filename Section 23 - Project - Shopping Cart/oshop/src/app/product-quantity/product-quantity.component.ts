@@ -27,7 +27,7 @@ export class ProductQuantityComponent {
     this.cartService.addToCart(this.product.key, new ProductItem({
       ...this.product.product,
       key: this.product.key,
-      quantity: this.cart.getQuantity(this.product) + 1
+      quantity: this.cart.getQuantity(this.product) - 1
     }));
   }
 }
