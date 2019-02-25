@@ -235,3 +235,18 @@ We renamed storeOrder to placeOrder as it is more fitting. The service is not on
 Thus placeOrder is more appropriate.
 
 
+---Tutorial 9 - Transactions:---
+Look at the current implementation of placeOrder method in OrderService:
+
+async placeOrder(order) {
+
+let result = await this.db.list(‘/orders’).push(order);
+
+this.shoppingCartService.clearCart();
+
+return result; 
+}
+
+In this implementation, it is possible that the second line (for clearing the cart) fails for some unexpected reason while connecting with Firebase.
+A more reliable approach is to have a transaction. This will ensure that during placing an order, an order object is stored AND the corresponding shopping cart is cleared. Either both these operations succeed together or they both will fail.
+Using a transaction involves updating multiple nodes and that’s beyond the scope of this course. I’ve covered that in my course “Build Enterprise Applications with Angular”.
