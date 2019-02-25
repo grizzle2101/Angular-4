@@ -207,3 +207,31 @@ So we have 2 approaches, we could use .then and route, and just await the result
 Task 3 - Test:
 So lets test the route, and make sure the correct order key is used, we can later used this to build out an order summary.
 http://localhost:4200/order-success/-LZZKnzFstBgtzRpORCf
+
+
+
+
+---Tutorial 8 - Clearing the Shopping Cart:---
+So now lets get working on Clearing the cart.
+We want to clear the cart in such a way, that if we provide other routes to checking out(like quick checkout), we still clear the cart on completion.
+So rather than putting it directly in placeOrder, we can put into the service method storeOrder.
+
+
+Task 1 - Clear Cart:
+export class OrderService {
+
+  constructor(private db: AngularFireDatabase, private shoppingCart: ShoppingCartService) { }
+
+  async placeOrder(order) {
+     let result = await this.db.list('/orders').push(order);
+     this.shoppingCart.clearCart();
+     return result;
+  }
+}
+
+
+Note:
+We renamed storeOrder to placeOrder as it is more fitting. The service is not only responsible for storing data, but orchastrating with other service.
+Thus placeOrder is more appropriate.
+
+
