@@ -112,3 +112,27 @@ So we have a basic order being saved. We have items being stored as an array of 
 So the ShoppingCart and Orders have different ways of arranging the data but thats okay. The way we're using orders we don't need to access them, at this point
 the user has completed the transaction, the order is set.
 In the next section we will look at appending more user information onto the order.
+
+
+
+---Tutorial 5 - Associating Order with Current User:---
+So to make the orders more useful, It would be useful to have the Current User details, so lets do that.
+
+
+Task 1 - Retrieve UserID using User Service:
+So we have the UserSerive, and the method got getting the current user. Can store this and append to our order object.
+-Add UserService to Component
+-Store UserID
+-Pass to Order Object
+
+  placeOrder() {
+    console.log(this.shipping);
+    let order = {
+      userId: this.userId,
+      datePlace: new Date().getTime(),
+      shipping: this.shipping,
+      items: this.cart.items.map(i => {
+
+
+Task 2 - Test:
+Make sure to test the order creation & verify the userId is appended to the order object.
