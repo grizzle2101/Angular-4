@@ -136,3 +136,49 @@ So we have the UserSerive, and the method got getting the current user. Can stor
 
 Task 2 - Test:
 Make sure to test the order creation & verify the userId is appended to the order object.
+
+
+
+---Tutorial 6 - Refactoring: Extracting a Rich Model:---
+So our placeOrder method is getting very bulky, how can we go about simplfying this code? Lets create a Rich Model to handle this complexity internally.
+
+
+Task 1 - Order Object:
+So if we create an Order Model, we can push much of the logic there.
+-Compute DateTime in constructor
+-Let Order Object map the various properties.
+-set Items(NOT productItems, less detailed order item) in the product node with the basic items needed.
+
+export class Order {
+    datePlaced: number;
+    items: any[];
+
+    constructor(public userId: string, public shipping: any, shoppingCart: ShoppingCart){
+        this.datePlaced = new Date().getTime();
+
+        this.items = shoppingCart.items.map(i => {
+            return {
+              product: {
+                title: i.title,
+                imageUrl: i.imageUrl,
+                price: i.price
+              },
+              quantity: i.quantity,
+              totalPrice: (i.quantity * i.price)
+            }
+          })
+    }
+}
+
+Task 2 - Refactor Component:
+Now all that complex messy code has been extracted to our Rich Model.
+
+  placeOrder() {
+    console.log(this.shipping);
+    let order = new Order(this.userId, this.shipping, this.cart);
+    this.orderService.storeOrder(order);
+  }    
+
+
+Task 3 - Test:
+Place an order and make sure the same object structure is created.

@@ -4,6 +4,7 @@ import { ShoppingCart } from '../models/ShoppingCart';
 import { Subscription } from 'rxjs';
 import { OrderService } from '../order.service';
 import { AuthService } from '../auth.service';
+import { Order } from '../models/order';
 
 @Component({
   selector: 'app-check-out',
@@ -33,24 +34,11 @@ export class CheckOutComponent implements OnInit, OnDestroy {
     this.userSubscription.unsubscribe();
   }
   
+
+  //Task 2 - Refactor Component:
   placeOrder() {
     console.log(this.shipping);
-    let order = {
-      userId: this.userId,
-      datePlace: new Date().getTime(),
-      shipping: this.shipping,
-      items: this.cart.items.map(i => {
-        return {
-          product: {
-            title: i.title,
-            imageUrl: i.imageUrl,
-            price: i.price
-          },
-          quantity: i.quantity,
-          totalPrice: (i.quantity * i.price)
-        }
-      })
-    };
+    let order = new Order(this.userId, this.shipping, this.cart);
     this.orderService.storeOrder(order);
   }    
 }
