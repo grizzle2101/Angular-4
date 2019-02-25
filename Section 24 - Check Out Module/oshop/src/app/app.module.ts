@@ -71,7 +71,7 @@ import { OrderService } from './order.service';
       {path:'products', component: ProductsComponent},
       {path:'shopping-cart', component: ShoppingCartComponent},
       {path:'check-out', component: CheckOutComponent, canActivate: [AuthGuard]},
-      {path:'order-success', component: OrderSuccessComponent, canActivate: [AuthGuard]},
+      {path:'order-success/:id', component: OrderSuccessComponent, canActivate: [AuthGuard]},
       {path:'login', component: LoginComponent},
       {path:'admin/products/new', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard]},
       {path:'admin/products/:id', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard]},

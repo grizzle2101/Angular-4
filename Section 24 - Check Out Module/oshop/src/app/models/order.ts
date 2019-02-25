@@ -1,8 +1,5 @@
 import { ShoppingCart } from "./ShoppingCart";
-import { ProductItem } from "./Product";
 
-
-//Task 1 - Create Order Object
 export class Order {
     datePlaced: number;
     items: any[];

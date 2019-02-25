@@ -182,3 +182,28 @@ Now all that complex messy code has been extracted to our Rich Model.
 
 Task 3 - Test:
 Place an order and make sure the same object structure is created.
+
+
+
+---Tutorial 7 - Redirecting the User:---
+So now that we've settled on the DB model, lets work on redirect the user to Order Success on completion of the order form.
+ -Navigate to Order Success with the newly created object ID as a route parameter.
+
+Task 1 - Add ID Parameter to Route:
+      {path:'order-success/:id', component: OrderSuccessComponent, canActivate: [AuthGuard]},
+
+
+Task 2 - Redirect on Completion:
+So we have 2 approaches, we could use .then and route, and just await the result and pass the key into our router navigate.
+
+  async placeOrder() {
+    console.log(this.shipping);
+    let order = new Order(this.userId, this.shipping, this.cart);
+    let result = await this.orderService.storeOrder(order);
+    this.router.navigate(['order-success', result.key]);
+  }    
+
+
+Task 3 - Test:
+So lets test the route, and make sure the correct order key is used, we can later used this to build out an order summary.
+http://localhost:4200/order-success/-LZZKnzFstBgtzRpORCf
