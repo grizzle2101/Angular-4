@@ -250,3 +250,62 @@ return result;
 In this implementation, it is possible that the second line (for clearing the cart) fails for some unexpected reason while connecting with Firebase.
 A more reliable approach is to have a transaction. This will ensure that during placing an order, an order object is stored AND the corresponding shopping cart is cleared. Either both these operations succeed together or they both will fail.
 Using a transaction involves updating multiple nodes and that’s beyond the scope of this course. I’ve covered that in my course “Build Enterprise Applications with Angular”.
+
+
+--Tutorial 10 - Adding an Order Summary Widget:---
+So now that we've build the check out process, lets implment the Order Summary Widget.
+
+
+Task 1 - CleanUp Checkout Markup:
+-Break the Page into 2 sections, shipping form and order summary widget
+-Generate the shopping cart summary component
+-Use the shopping-cart-summary selector
+
+<h2>Shipping</h2>
+<div class="row">
+  <div class="col-6">
+    <form #f="ngForm">
+    </form>
+  </div>
+  <div class="col-6">
+    <shopping-cart-summary></shopping-cart-summary>
+  </div>
+</div>
+
+
+Task 2 - Flesh Out Order Summary Markup:
+Lets add a simple bootstrap card to contain the order summary details.
+
+
+Task 3 - Get Data:
+We have 2 methods for getting the shopping cart, we could use the cart service inside our new
+component, or we could pass it as an input property.
+To avoid multiple calls to firebase however, it is better for us to use input properties.
+
+export class ShoppingCartSummaryComponent implements OnInit {
+  @Input('cart') cart: ShoppingCart;
+
+
+
+Task 4 - Display Cart Data:
+<div *ngIf="cart" class="card">
+  <div class="card-body">
+    <h5 class="card-title">Order Summary</h5>
+    <p class="card-text">You have {{cart.getTotalItemsCount()}} items in your Shopping Cart.</p>
+    <ul class="list-group list-group-flush">
+      <li *ngFor="let item of cart.items" class="list-group-item">
+        {{item.quantity}} x {{item.title}}
+        <div class="float-right">{{cart.getItemPrice(item) | currency: 'USD': true}}
+        </div>
+      </li>
+      <li class="list-group-item font-weight-bold">
+        Total
+        <div class="float-right">
+            {{cart.getTotalPrice() | currency: 'USD': true}}
+          </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+Nice work we now have a nice order summary widget that is in sync across the application.
