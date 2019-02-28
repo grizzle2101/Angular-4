@@ -11,7 +11,6 @@ import { ShoppingCart } from '../models/ShoppingCart';
   templateUrl: './shipping-form.component.html',
   styleUrls: ['./shipping-form.component.css']
 })
-//Task 2 - Extract from Component:
 export class ShippingFormComponent implements OnInit, OnDestroy {
   @Input('cart') cart: ShoppingCart;
 

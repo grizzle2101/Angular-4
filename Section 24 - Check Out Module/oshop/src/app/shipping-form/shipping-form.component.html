@@ -29,5 +29,8 @@
         <div *ngIf="city.errors.required">City is required.</div>
       </div>
     </div>
-    <button (click)="placeOrder()" class="btn btn-primary">Place Order</button>
+    <button 
+    [disabled]="!f.valid"
+    (click)="placeOrder()" 
+    class="btn btn-primary">Place Order</button>
   </form>

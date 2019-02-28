@@ -408,3 +408,18 @@ Fix was to implment onInit & ondestory, and also redirect on logout to ensure th
     this.router.navigateByUrl('/');
     this.afAuth.auth.signOut();
   }
+
+  
+
+---Tutorial 13 - Fixing a Bug:---
+Small bug on the shipping form, we can submit the form even if its not complete...
+  
+Task 1 - Disable Submit:
+    <button 
+    [disabled]="!f.valid"
+    (click)="placeOrder()" 
+    class="btn btn-primary">Place Order</button>
+  </form>
+
+
+Thats it for this section, in the final section we'll look at the last improvements to the application.
