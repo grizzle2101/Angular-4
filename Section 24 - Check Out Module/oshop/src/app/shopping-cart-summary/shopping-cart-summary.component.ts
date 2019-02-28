@@ -7,7 +7,6 @@ import { ShoppingCart } from '../models/ShoppingCart';
   styleUrls: ['./shopping-cart-summary.component.css']
 })
 export class ShoppingCartSummaryComponent implements OnInit {
-  //Task 3 - Pass Cart Data:
   @Input('cart') cart: ShoppingCart;
 
   constructor() { }

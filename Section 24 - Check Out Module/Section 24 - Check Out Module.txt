@@ -309,3 +309,48 @@ Task 4 - Display Cart Data:
 </div>
 
 Nice work we now have a nice order summary widget that is in sync across the application.
+
+
+
+---Tutorial 11 - Refactor:---
+So one thing I don't like about the current implmentation is the different layers of abstraction. On the Shipping form we have lots of complex markup whereas on the right
+we only have a call to the order summary widget. Our approach should be consistent, so lets extract the shipping form into a component.
+
+
+Task 1 - Extract Shipping Form:
+-ng g c shipping-form
+-Use selector shipping-form
+-Extract Markup from CheckOut into Shipping Form
+
+
+Task 2 - Extract from Component:
+So we need to extract the various component logic including authenticatoin & the placeOrder logic.
+
+export class ShippingFormComponent implements OnInit, OnDestroy {
+  @Input('cart') cart: ShoppingCart;
+
+  shipping = {};
+  userId: string;
+  userSubscription: Subscription;
+
+  constructor(private orderService: OrderService, private authService: AuthService, private router: Router){}
+
+  ngOnInit() {
+    this.userSubscription = this.authService.user$.subscribe(user => this.userId = user.uid);
+  }
+
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
+  }
+
+  async placeOrder() {
+    console.log(this.shipping);
+    let order = new Order(this.userId, this.shipping, this.cart);
+    let result = await this.orderService.placeOrder(order);
+    this.router.navigate(['order-success', result.key]);
+  }   
+}
+
+
+Now the way Mosh does it is slighly different, rather than getting the data directly in our component, he passes an obseverable which we unwrap in the template.
+This does not work for us however as AngularFire returns the data as an AngularFireList, not directly an obseverable.
