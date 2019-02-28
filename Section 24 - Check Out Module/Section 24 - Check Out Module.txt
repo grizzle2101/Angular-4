@@ -354,3 +354,57 @@ export class ShippingFormComponent implements OnInit, OnDestroy {
 
 Now the way Mosh does it is slighly different, rather than getting the data directly in our component, he passes an obseverable which we unwrap in the template.
 This does not work for us however as AngularFire returns the data as an AngularFireList, not directly an obseverable.
+
+
+
+---Tutorial 12 - Displaying the Orders:---
+We have built the checkout process, now we should give the user the ability to view the finished orders.
+We have already covered the neccessary work to implement this, but to avoid repetition we will just copy & paste from the solution.
+
+
+Task 1 - Add Order Service methods
+For the Non-Admin interface, we need to filter by the UID.
+
+  getOrdersByUser(userId: string) {
+    return this.db.list('/orders', order => 
+      order.orderByChild('userId')
+      .equalTo(userId));
+  }
+
+
+
+Task 2 - Create Components & Markup:
+This one is slighly more complex as we have to ensure the subscription is terminated as on logout we lose the UID which is critical for this list.
+
+export class MyOrdersComponent implements OnInit, OnDestroy {
+  orders = [];
+  subscription: Subscription
+
+  constructor(
+    private authService: AuthService,
+    private orderService: OrderService) {
+
+    }
+
+    ngOnInit() {
+      this.subscription = this.authService.user$
+      .pipe(switchMap(u => 
+        this.orderService.getOrdersByUser(u.uid)
+        .valueChanges()))
+        .subscribe(orders => this.orders = orders);
+    }
+
+    ngOnDestroy() {
+      this.subscription.unsubscribe();
+    }
+  }
+
+Exta Task:
+It seems when selecting logout, we get errors finding UID becuase the state is cleared but the subscription has not be cancelled.
+Fix was to implment onInit & ondestory, and also redirect on logout to ensure the component is recycled.
+
+  logout() {
+    console.log("Logging Out...");
+    this.router.navigateByUrl('/');
+    this.afAuth.auth.signOut();
+  }
