@@ -1,0 +1,6 @@
+---Tutorial 25 - Modularization & Final Improvements:---
+---Tutorial 1 - Introduction:---
+In this final section we're going to clean up eveything and modularize it for extensability.
+Learning how to strcuture your application is extremely important for building enterprise applications, both in terms on the code & folder hierarchy.
+
+
