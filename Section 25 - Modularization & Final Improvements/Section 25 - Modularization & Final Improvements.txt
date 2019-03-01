@@ -35,3 +35,46 @@ So in the next few tutorials we plan on arranging the application to look someth
         /Services
         /Models
         {module}.module.ts
+
+
+
+---Tutorial 3 - Essential TypeScript Plugins:---
+So we want to make some big changes to the application structure without breaking the application. There are some great plugins to help us with this, Move TS in particular.
+
+Plugins:
+MoveTS - Updates imports when we move files/folders
+TypeScript Hero - Removes unused imports & organizes them alpabetically.
+
+
+Task 1 - Update TypeScipt Compiler:
+So in our imports we have these nasty imports ./../../Products. We can provide an alias for this path so our imports look more like shared/products.
+To do this we need to edit our tsconfig.json we add the base url for the project, then a set of paths.
+shared* is a pattern, which we redirect to app/shared/* + whatever resources the user requests.
+
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    //"baseUrl": "./src",
+    "paths": {
+      "shared/*" : [
+        "app/shared/*"
+      ]
+    },
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "module": "es2015",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
+    ]
+  }
+}
