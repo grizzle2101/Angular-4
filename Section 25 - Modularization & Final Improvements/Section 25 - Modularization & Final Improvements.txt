@@ -4,3 +4,34 @@ In this final section we're going to clean up eveything and modularize it for ex
 Learning how to strcuture your application is extremely important for building enterprise applications, both in terms on the code & folder hierarchy.
 
 
+---Tutorial 2 - Modules:---
+Modules are like Isles in a grocery story, if we want a tin of beans we know to go to the tinned food section. In Angular we have
+modules which are classes that contain metadata properties for classes & dependencies consume this module.
+
+@NgModule
+declarations[] - Define Components, Types 7 Directives
+providers[] - Register Services Dependency Injection
+imports[] - Dependencies of this module(building blocks from other modules)
+exports[] - Expose components to the outside
+
+export class AppModule(){}
+
+
+
+Task 1 - Adding a Module:
+So we're going to break the various sections of the application into logical modules. That would include areas of the application we can group togther like...
+-Admin Module
+-Shopping Module
+-Shared Module - Product Card (used in Shopping & Admin Module), Shopping Cart etc.
+
+-Membership Module - For all Authentication & future Authentication methods.
+
+
+Project Structure:
+So in the next few tutorials we plan on arranging the application to look something like this.
+/app
+    /{module}
+        /Components
+        /Services
+        /Models
+        {module}.module.ts
