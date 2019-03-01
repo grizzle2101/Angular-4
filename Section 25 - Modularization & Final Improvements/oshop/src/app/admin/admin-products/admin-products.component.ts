@@ -1,9 +1,9 @@
 import { Component, OnDestroy, ViewChild } from '@angular/core';
-import { ProductService } from 'src/app/product.service';
 import { Subscription } from 'rxjs';
-import { ProductNode, Product } from 'src/app/models/Product';
+import { ProductNode } from 'src/app/shared/models/Product';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
-import { DataSource } from '@angular/cdk/table';
+import { ProductService } from 'src/app/shared/services/product.service';
+
 
 export interface PeriodicElement {
   name: string;

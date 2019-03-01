@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
-import { AuthService } from './auth.service';
+import { AuthService } from './shared/services/auth.service';
 import { map, switchMap, switchMapTo, mapTo } from "rxjs/operators";
-import { UserService } from './user.service';
+import { UserService } from './shared/services/user.service';
 import { Observable, pipe } from 'rxjs';
-import { AppUser } from './models/app-user';
+import { AppUser } from './shared/models/app-user';
 import { AngularFireObject } from 'angularfire2/database';
 
 

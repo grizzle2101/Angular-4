@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { ProductNode, ProductItem } from './models/Product';
+import { ProductNode, ProductItem } from '../models/Product';
 
 
 @Injectable({

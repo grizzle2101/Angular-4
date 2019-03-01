@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { ProductNode, ProductItem } from '../models/Product';
-import { ShoppingCart } from '../models/ShoppingCart';
-import { ShoppingCartService } from '../shopping-cart.service';
+import { ProductNode, ProductItem } from '../../models/Product';
+import { ShoppingCart } from '../../models/ShoppingCart';
+import { ShoppingCartService } from '../../services/shopping-cart.service';
 
 @Component({
   selector: 'product-quantity',

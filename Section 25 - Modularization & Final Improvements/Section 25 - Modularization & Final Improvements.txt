@@ -78,3 +78,26 @@ shared* is a pattern, which we redirect to app/shared/* + whatever resources the
     ]
   }
 }
+
+
+
+---Tutorial 4 - Moving Files & Folders:---
+So now that we have the Alias setup & the plugins installed lets start moving some files & folders into modules.
+
+
+Task 1 - Move Models:
+app/shared
+
+
+Task 2 - Move Service:
+app/shared/services
+
+
+Task 3 - Move a Component:
+app/shared/components
+product-Card
+product quantity
+
+
+Result:
+So now that we've restructured the files & folders we can move onto creating modules. Because Angular still only knows off the app.module.
