@@ -98,6 +98,43 @@ app/shared/components
 product-Card
 product quantity
 
+Pause the video to move everything listed into the shared module folder.
 
 Result:
 So now that we've restructured the files & folders we can move onto creating modules. Because Angular still only knows off the app.module.
+
+
+---Tutorial 5 - Creating a Shared Module:---
+So that the files & folders are in place, we can remove all the shared components from app.module.
+
+Task 1 - Create Shared Module:
+-ng g m shared - Generated shared module class.
+
+
+Task 2 - Flesh Out Module:
+So just as we have in App.module, extract the componets into shared module.
+@NgModule({
+  declarations: [
+    ProductCardComponent
+  ],
+  exports: [
+    //Expose Components outside of Shared.
+    ProductCardComponent
+  ],
+  imports: [
+    CommonModule
+  ],
+  providers: [
+    AuthService
+  ]
+})
+
+
+Task 3 - Arrange Imports:
+Using our new plugins we can tidy up the imports.
+CTRL + ALT + o - Arranges Imports Alphabetically, components first then Services.
+
+
+Task 4 - Inject Shared Modules:
+-Clean up all the unused imports with CTL + ALT + o in app.module
+-Import Shared Module
