@@ -205,3 +205,67 @@ So now that we've extracted everything into admin module, we can reduce the bloa
     SharedModule,
     AdminModule,
     FormsModule,
+
+
+
+
+---Tutorial 7 - Creating the Shopping Module:---
+So again the receipe is the same, except we want to extract everything needed for shopping into its own module.
+
+
+Task 1 - Move the Following Components:
+CheckOut
+my orders
+order success
+order summary
+products
+shipping Form
+shopping Cart
+shopping cart summary
+
+In this case there are no services or models, so we only have the components section.
+
+
+Task 2 - Create Module:
+-ng g m shopping
+-Add the Components in the declarion section
+@NgModule({
+  declarations: [
+        ProductsComponent,
+        ShoppingCartComponent,
+        CheckOutComponent,
+        OrderSuccessComponent,
+        MyOrdersComponent,
+        ProductFilterComponent,
+        ShoppingCartSummaryComponent,
+        ShippingFormComponent
+
+
+Task 3 - Extract Routes:
+RouterModule.forChild([
+      {path:'my/orders', component: MyOrdersComponent, canActivate: [AuthGuard]},
+      {path:'products', component: ProductsComponent},
+      {path:'shopping-cart', component: ShoppingCartComponent},
+      {path:'check-out', component: CheckOutComponent, canActivate: [AuthGuard]},
+      {path:'order-success/:id', component: OrderSuccessComponent, canActivate: [AuthGuard]},
+    ])
+  ]
+
+Task 4 - Resolve Dependencies:
+Certain components have some dependencies like forms for shopping forms & shared module for CartQuantityComponent, so make sure to export this from shared
+and import in shopping module.
+
+  imports: [
+    CommonModule,
+    SharedModule,
+    FormsModule,
+
+
+Task 5 - Inject Feature Module(into App.module):
+  imports: [
+    BrowserModule,
+    SharedModule,
+    AdminModule,
+    ShoppingModule,
+
+

@@ -11,6 +11,7 @@ import { ProductService } from './services/product.service';
 import { ShoppingCartService } from './services/shopping-cart.service';
 import { UserService } from './services/user.service';
 import { EditProductCardComponent } from './components/edit-product-card/edit-product-card.component';
+import { CartQuantityComponent } from './components/cart-quantity/cart-quantity.component';
 
 
 @NgModule({
@@ -18,12 +19,14 @@ import { EditProductCardComponent } from './components/edit-product-card/edit-pr
     ProductCardComponent,
     ProductQuantityComponent,
     EditProductCardComponent,
+    CartQuantityComponent
   ],
   exports: [
     //Expose Components outside of Shared.
     ProductCardComponent,
     ProductQuantityComponent,
-    EditProductCardComponent
+    EditProductCardComponent,
+    CartQuantityComponent
   ],
   imports: [
     CommonModule
