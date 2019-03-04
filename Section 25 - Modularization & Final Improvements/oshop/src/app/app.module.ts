@@ -24,12 +24,9 @@ import { CoreModule } from './core/core.module';
     SharedModule,
     AdminModule,
     ShoppingModule,
-    //Task 3 - Inject Core Module
     CoreModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
-    NgbModule.forRoot(),
+ 
     RouterModule.forRoot([
       {path:'', component: ProductsComponent},
       {path:'login', component: LoginComponent}

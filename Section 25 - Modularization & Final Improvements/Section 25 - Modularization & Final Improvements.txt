@@ -327,3 +327,56 @@ So the best and cleanest course of action is to
   ])
 
 
+
+---Tutorial 9 - Importing & Exporting Modules:---
+So we can see across the modules that we still have some repetition, importing CommonModule & FormsModule.
+
+
+Task 1 - Update Shared Module:
+So we can import then export the modules we which to share accross the other modules.
+
+  exports: [
+    //Expose Components outside of Shared.
+    ProductCardComponent,
+    ProductQuantityComponent,
+    EditProductCardComponent,
+    CartQuantityComponent,
+    CommonModule,
+    FormsModule,
+    MaterialModule
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MaterialModule
+  ],
+
+
+Task 2 - Remove Duplicates:
+Now we can remove all the unceccessary repetitive code for import forms, material etc.
+And our code is looking much cleaner already.
+
+
+Task 3 - Exract More from App.module:
+We can clean up app.module even more if we take bootstrap & angular. Now our app.module is tiny!
+  exports: [
+    //Expose Components outside of Shared.
+    ProductCardComponent,
+    ProductQuantityComponent,
+    EditProductCardComponent,
+    CartQuantityComponent,
+    CommonModule,
+    FormsModule,
+    MaterialModule,
+    NgbModule.forRoot().ngModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MaterialModule,
+    NgbModule.forRoot(),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+  ],

@@ -18,10 +18,7 @@ import { AuthGuard } from '../shared/services/auth-guard.service';
   ],
   exports: [],
   imports: [
-    CommonModule,
-    FormsModule, //Used in Product Form
-    MaterialModule, //Used DataTable
-    SharedModule, //Needed for ProductCard
+    SharedModule,
     RouterModule.forChild([
       { path: 'admin/products/new', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard] },
       { path: 'admin/products/:id', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard] },

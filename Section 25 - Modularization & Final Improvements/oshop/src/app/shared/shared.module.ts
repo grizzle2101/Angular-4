@@ -12,6 +12,11 @@ import { ShoppingCartService } from './services/shopping-cart.service';
 import { UserService } from './services/user.service';
 import { EditProductCardComponent } from './components/edit-product-card/edit-product-card.component';
 import { CartQuantityComponent } from './components/cart-quantity/cart-quantity.component';
+import { FormsModule } from '@angular/forms';
+import { MaterialModule } from '../material/material.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 
 @NgModule({
@@ -26,10 +31,21 @@ import { CartQuantityComponent } from './components/cart-quantity/cart-quantity.
     ProductCardComponent,
     ProductQuantityComponent,
     EditProductCardComponent,
-    CartQuantityComponent
+    CartQuantityComponent,
+    CommonModule,
+    FormsModule,
+    MaterialModule,
+    NgbModule.forRoot().ngModule, //return module
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    MaterialModule,
+    NgbModule.forRoot(),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
   ],
   providers: [
     AuthService,

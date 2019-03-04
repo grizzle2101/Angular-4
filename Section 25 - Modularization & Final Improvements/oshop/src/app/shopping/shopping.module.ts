@@ -25,9 +25,7 @@ import { FormsModule } from '@angular/forms';
         ShippingFormComponent
   ],
   imports: [
-    CommonModule,
     SharedModule,
-    FormsModule,
     RouterModule.forChild([
       {path:'my/orders', component: MyOrdersComponent, canActivate: [AuthGuard]},
       {path:'products', component: ProductsComponent},
