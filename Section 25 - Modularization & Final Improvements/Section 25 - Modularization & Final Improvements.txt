@@ -138,3 +138,70 @@ CTRL + ALT + o - Arranges Imports Alphabetically, components first then Services
 Task 4 - Inject Shared Modules:
 -Clean up all the unused imports with CTL + ALT + o in app.module
 -Import Shared Module
+
+
+
+---Tutorial 6 - Creating the Admin Module:---
+So just like with the shared module, we need to move everything into
+
+
+Task 1 - Move Admin Files & Folders:
+Structure:
+app/admin
+        /components
+        /services
+
+Items to be moved:
+-admin folder
+-auth guard
+
+
+
+Task 2 - Create Admin Module:
+-ng g m admin
+
+@NgModule({
+  declarations: [
+    AdminProductsComponent,
+    AdminOrdersComponent,
+    ProductFormComponent
+  ],
+  exports: [],
+  imports: [
+    CommonModule,
+    FormsModule, //Used in Product Form
+    MaterialModule, //Used DataTable
+    SharedModule, //Needed for ProductCard
+
+    //For Child, declare routes for the Admin Module.
+    RouterModule.forChild([
+      { path: 'admin/products/new', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard] },
+      { path: 'admin/products/:id', component: ProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard] },
+      { path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGuard, AdminAuthGuard] },
+      { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuard, AdminAuthGuard] }
+    ])
+  ],
+  providers: [
+    AuthGuard,
+    AdminAuthGuard
+  ]
+})
+
+export class AdminModule { }
+
+
+Note:
+Each Dependency will become apparent as you build, but FormsModule is a requirement and we also need to expose the product card from shared.
+We do this by adding a reference in the export section of Shared and import the SharedModule.
+
+-Modules let us encapsulate routes for a given module.
+
+Task 3 - Import Admin Module & Cleanup:
+So now that we've extracted everything into admin module, we can reduce the bloat in app.module.
+
+  ],
+  imports: [
+    BrowserModule,
+    SharedModule,
+    AdminModule,
+    FormsModule,
