@@ -269,3 +269,61 @@ Task 5 - Inject Feature Module(into App.module):
     ShoppingModule,
 
 
+
+
+---Tutorial 8 - Creating the Core Module:---
+Finally the core module
+
+
+Task 1 - Extract Components:
+Like normal, move these components into core/components.
+Core:
+Navbar
+Home
+Login
+
+
+Task 2 - Create Module:
+-ng g m core
+-declare the components as listed.
+-Export NavBar so it can be used elsewhere in the application
+
+@NgModule({
+  declarations: [
+    BsNavbarComponent,
+    HomeComponent,
+    LoginComponent
+  ],
+  imports: [
+    CommonModule,
+    SharedModule,
+    NgbModule.forRoot(), //Needed for Dropdown
+    RouterModule.forChild([])
+  ],
+  exports: [
+    BsNavbarComponent //To Be Used all over application
+  ]
+})
+
+Note: Fix for bootstrap, nav bar dropdown wasn't working, turned out to be missing NgbModule
+
+
+
+Task 3 - Inject Core Module
+  imports: [
+    BrowserModule,
+    SharedModule,
+    AdminModule,
+    ShoppingModule,
+    CoreModule
+
+
+Task 4 - Routes:
+So we have a problem here, we can move the Routes into core but then we need to import shopping module, and we really don't want circular references.
+So the best and cleanest course of action is to 
+    RouterModule.forRoot([
+      {path:'', component: ProductsComponent},
+      {path:'login', component: LoginComponent}
+  ])
+
+

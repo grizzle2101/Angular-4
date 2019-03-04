@@ -28,7 +28,6 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     SharedModule,
     FormsModule,
-    //Task 3 - Add Routes:
     RouterModule.forChild([
       {path:'my/orders', component: MyOrdersComponent, canActivate: [AuthGuard]},
       {path:'products', component: ProductsComponent},
@@ -39,5 +38,4 @@ import { FormsModule } from '@angular/forms';
   ]
 })
 
-//Task 2 - Extract Shopping Module:
 export class ShoppingModule { }

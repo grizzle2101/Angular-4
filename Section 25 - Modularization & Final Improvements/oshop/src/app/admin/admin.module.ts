@@ -35,5 +35,4 @@ import { AuthGuard } from '../shared/services/auth-guard.service';
   ]
 })
 
-//Task 2 - Create Admin Module:
 export class AdminModule { }
