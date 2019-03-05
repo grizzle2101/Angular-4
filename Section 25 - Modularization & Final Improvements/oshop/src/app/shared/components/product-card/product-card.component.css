@@ -2,6 +2,11 @@
 .card {
     margin-bottom: 30px;
 }
+/*Standardize Image Size*/
+.card-img-top {
+    width: 395px;
+    height: 263px;
+}
 
 .card-footer {
     padding: 0;

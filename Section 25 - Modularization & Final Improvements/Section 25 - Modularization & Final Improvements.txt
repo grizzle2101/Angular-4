@@ -380,3 +380,28 @@ We can clean up app.module even more if we take bootstrap & angular. Now our app
     AngularFireDatabaseModule,
     AngularFireAuthModule,
   ],
+
+
+---Tutorial 10 - Adding icons:---
+So lets take a look at 
+
+
+Task 1 - Add Icons:
+  -npm install font-awesome --save
+  -Add to global style sheet
+  -add Markup
+
+//Leaf
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+  <a class="navbar-brand" routerLink="/">
+    <i class="fas fa-leaf"></i>
+  </a>
+
+  //Cart
+  <a class="nav-link" routerLink="/shopping-cart">
+          <i class="fas fa-shopping-cart"></i>
+          <span *ngIf="cart" class="badge badge-warning badge-pill">{{cart.getTotalItemsCount()}}</span>
+        </a>
+
+Note:
+Also finally fixed the CSS issue with differing image sizes, all the same across the board now.
