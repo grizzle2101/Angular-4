@@ -4,3 +4,11 @@
     border-radius: 100%;
     background-size: cover; 
 }
+
+.btn-primary {
+    background-color: green;
+}
+
+.container {
+    padding-top: 130px;
+}

@@ -9,16 +9,15 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     BsNavbarComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     SharedModule,
     RouterModule.forChild([])
   ],
   exports: [
-    BsNavbarComponent //To Be Used all over application
+    BsNavbarComponent
   ]
 })
 
-//Task 2 - Create Core Module
 export class CoreModule { }

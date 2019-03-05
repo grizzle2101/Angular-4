@@ -425,3 +425,51 @@ Put everytying inside a container div & voila we get the bootstrap automatic pad
 Task 2 - Login/User Dropdown:
 Its more conventional for us to make this all the way over to the right.
 
+
+
+
+---Tutorial 12 - Defining a Theme:---
+So lets start working on giving out application a theme.
+
+
+Task 1 - Add Global Styleing:
+So we want to change the colour to purple, we can simply do that in the style.css.
+.navbar-light .navbar-brand {
+    color: purple;
+}
+.list-group-item.active {
+    color: white;
+    background-color:purple;
+
+}
+
+
+Note that if we want to change the colour, we have to change it in so many places.
+A better way to do this is with SASS Sassy CSS, a preprocessor that lets us use object orinted like princciples and promote reuse.
+
+
+Task 2 -Create SCSS:
+-rename style.css to style.scss
+-update angular.json
+            "styles": [
+              "src/styles.scss"
+
+
+-Use some Sassy CSS to make our style more robust & maintainabble.
+
+$primary-color: green;
+
+body {padding-top: 100px;}
+
+.navbar-light .navbar-brand {
+    color: $primary-color;
+}
+
+.list-group-item.active {
+    background-color:$primary-color;
+}
+
+
+Note:
+Also as it was the last lecture in the Angular Beginner to Pro series, thought i'd make some last styleing changes.
+Will continue to deploy this V1, and maybe add support for other Autentication methods and features.

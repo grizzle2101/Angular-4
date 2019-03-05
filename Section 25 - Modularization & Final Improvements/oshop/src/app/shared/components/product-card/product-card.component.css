@@ -4,7 +4,7 @@
 }
 /*Standardize Image Size*/
 .card-img-top {
-    width: 395px;
+    width: 100%;
     height: 263px;
 }
 
@@ -14,4 +14,8 @@
 
 .card-footer button {
     cursor: pointer;
+}
+
+.btn {
+    background-color: green;
 }

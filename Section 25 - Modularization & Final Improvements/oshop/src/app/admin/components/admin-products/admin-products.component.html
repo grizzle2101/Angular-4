@@ -1,33 +1,36 @@
-<p>
-    <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
-</p>
+<div class="container">
+  <h1>Product Catalog</h1>
+  <p>
+      <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
+  </p>
 
-<p>
-<input
-#query
-(keyup)="filter(query.value)"
-type="text" class="form-control" placeholder="search">
-</p>
+  <p>
+  <input
+  #query
+  (keyup)="filter(query.value)"
+  type="text" class="form-control" placeholder="search">
+  </p>
 
-<div>
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-    <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Name. </th>
-      <td mat-cell *matCellDef="let element"> {{element.product.title}} </td>
-    </ng-container>
-  
-    <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Price. </th>
-      <td mat-cell *matCellDef="let element"> {{element.product.price | currency: 'USD': true}} </td>
-    </ng-container>
-  
-    <ng-container matColumnDef="link">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Edit Product. </th>
-      <td mat-cell *matCellDef="let element"> <a [routerLink]="['/admin/products/', element.key]">Edit</a> </td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+  <div>
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Name. </th>
+        <td mat-cell *matCellDef="let element"> {{element.product.title}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Price. </th>
+        <td mat-cell *matCellDef="let element"> {{element.product.price | currency: 'USD': true}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="link">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Edit Product. </th>
+        <td mat-cell *matCellDef="let element"> <a [routerLink]="['/admin/products/', element.key]">Edit</a> </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+  </div>
 </div>
