@@ -405,3 +405,23 @@ Task 1 - Add Icons:
 
 Note:
 Also finally fixed the CSS issue with differing image sizes, all the same across the board now.
+
+
+
+---Tutorial 11 - Aligning the NavBar Items:---
+So the NavBar items and our content area are not in line, this becomes very apparent when using a wide monitor. Lets fix this styleing issue.
+
+
+Task 1 - Fix Navbar & Content Area:
+Put everytying inside a container div & voila we get the bootstrap automatic padding/formatting.
+
+ <div class="container">
+    <a class="navbar-brand" routerLink="/">
+      <i class="fas fa-leaf"></i>
+    </a>
+
+
+
+Task 2 - Login/User Dropdown:
+Its more conventional for us to make this all the way over to the right.
+
