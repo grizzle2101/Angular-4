@@ -14,7 +14,7 @@ export class MyOrdersComponent implements OnInit, OnDestroy {
   subscription: Subscription
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private orderService: OrderService) {
 
     }

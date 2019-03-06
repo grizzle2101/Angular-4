@@ -473,3 +473,15 @@ body {padding-top: 100px;}
 Note:
 Also as it was the last lecture in the Angular Beginner to Pro series, thought i'd make some last styleing changes.
 Will continue to deploy this V1, and maybe add support for other Autentication methods and features.
+
+
+
+---Prepping for Deployment:---
+ng build --prod - compiles & minifies application for Deployment
+firebase deploy - pushes the dist/oshop code to the configured environments
+
+
+problems:
+Login
+Check out etc
+Seems the site is configured to be a single page application, by leaving the site for google authentication & trying links direcly like check-out makes it mad.
