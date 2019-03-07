@@ -485,3 +485,28 @@ problems:
 Login
 Check out etc
 Seems the site is configured to be a single page application, by leaving the site for google authentication & trying links direcly like check-out makes it mad.
+
+
+
+---Create Sign Up Page:---
+So in this section I want to able to Login into the site directly.
+
+Task 1 - Create Basic Form
+Task 2 - Create Basic Validation.
+
+
+
+TO DO
+---Validate User & Passwords:---
+Need to update the service to return a list of users, then check that list against the
+form control object.
+
+Password Validation:
+Need to take example from stackover flow, compare 2 elements in the account form group.
+
+---Create User in Firebase:---
+Pass on the form data to user service and create an entry in Authentication and users node.
+
+-Create User in Service
+-Make sure Authentication Module & User node are populated correctly.
+
